@@ -478,6 +478,137 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           ]
         }
       ]
+    },
+    grenoble: {
+      name: 'Grenoble',
+      description: 'Alpine hub for science, technology, and innovation',
+      emoji: '🇫🇷',
+      schools: [
+        { id: 'grenoble-univ', name: 'Université Grenoble Alpes', description: 'Leading research university in sciences and humanities', location: 'Grenoble', programs: ['Science', 'Humanities', 'Engineering'] },
+        { id: 'grenoble-inp', name: 'Grenoble INP', description: 'Engineering institute with multiple schools', location: 'Grenoble', programs: ['Engineering', 'Technology'] },
+        { id: 'gem', name: 'Grenoble Ecole de Management', description: 'Top business school with tech focus', location: 'Grenoble', programs: ['MBA', 'MSc', 'Business'] },
+        { id: 'ensimag', name: 'Ensimag', description: 'Engineering school specializing in IT and applied math', location: 'Grenoble', programs: ['Engineering', 'IT'] },
+        { id: 'sciencespo-grenoble', name: 'Sciences Po Grenoble', description: 'Political science and governance programs', location: 'Grenoble', programs: ['Politics', 'Governance'] }
+      ],
+      localInsights: [
+        {
+          title: "Transportation",
+          description: "Navigate Grenoble with ease",
+          tips: [
+            "TAG trams and buses (€30/month student pass) via TAG app",
+            "Métrovélo bike rentals through the Métrovélo app",
+            "FlixBus to Lyon, Paris, etc. (from €8) via FlixBus app from Grenoble station",
+            "SNCF trains to Lyon in 1.5 hours via SNCF Connect app"
+          ]
+        },
+        {
+          title: "Alpine Lifestyle & Culture",
+          description: "Embrace Grenoble’s tech and mountain vibe",
+          tips: [
+            "Visit Musée de Grenoble for €5 with student discount",
+            "Enjoy fondue at local restaurants like La Ferme à Dédé (€12-15)",
+            "Attend Festival de l’Innovation (October) for tech events",
+            "Hang out at Place Saint-André for €3-5 coffee spots"
+          ]
+        },
+        {
+          title: "Recreation & Sports",
+          description: "Enjoy sports and nature in the Alps",
+          tips: [
+            "Book badminton courts at Gymnase Hoche via Anybuddy",
+            "Parc Paul Mistral for informal cricket with expat groups—skiing is popular in winter",
+            "Relax at Parc Paul Mistral with green spaces and trails",
+            "Must-visit: Bastille fortress, reachable by cable car"
+          ]
+        }
+      ]
+    },
+    nantes: {
+      name: 'Nantes',
+      description: 'Vibrant Atlantic city with engineering and creative industries',
+      emoji: '🇫🇷',
+      schools: [
+        { id: 'nantes-univ', name: 'Université de Nantes', description: 'Comprehensive public university', location: 'Nantes', programs: ['Various'] },
+        { id: 'audencia', name: 'Audencia Business School', description: 'Top-tier business school with international focus', location: 'Nantes', programs: ['MBA', 'MSc', 'Business'] },
+        { id: 'centrale-nantes', name: 'École Centrale de Nantes', description: 'Elite engineering grande école', location: 'Nantes', programs: ['Engineering'] },
+        { id: 'polytech-nantes', name: 'Polytech Nantes', description: 'Engineering school under Université de Nantes', location: 'Nantes', programs: ['Engineering'] },
+        { id: 'oniris', name: 'Oniris', description: 'Engineering in food science and veterinary medicine', location: 'Nantes', programs: ['Engineering', 'Veterinary'] }
+      ],
+      localInsights: [
+        {
+          title: "Transportation",
+          description: "Get around Nantes efficiently",
+          tips: [
+            "TAN buses, trams, and ferries (€30/month student pass) via TAN app",
+            "Bicloo bikes through the Bicloo app",
+            "FlixBus to Paris, Bordeaux, etc. (from €10) via FlixBus app from Gare de Nantes",
+            "SNCF TGV to Paris in 2 hours via SNCF Connect app"
+          ]
+        },
+        {
+          title: "Creative Culture",
+          description: "Experience Nantes’ artistic and innovative scene",
+          tips: [
+            "Visit Les Machines de l’Île for unique mechanical art (€8 student ticket)",
+            "Enjoy crêpes at La Crêperie du Bouffay for €6-10",
+            "Attend Festival des 3 Continents (November) for global cinema",
+            "Hang out at Hangar à Bananes for €3-5 drinks and nightlife"
+          ]
+        },
+        {
+          title: "Recreation & Sports",
+          description: "Find spots for sports and relaxation",
+          tips: [
+            "Book badminton courts at Gymnase Mangin via Anybuddy",
+            "Parc de Procé for informal cricket with expat groups—football is common",
+            "Relax at Jardin des Plantes with botanical gardens",
+            "Must-visit: Château des Ducs de Bretagne, Île de Nantes"
+          ]
+        }
+      ]
+    },
+    larochelle: {
+      name: 'La Rochelle',
+      description: 'Coastal city with focus on sustainability and business',
+      emoji: '🇫🇷',
+      schools: [
+        { id: 'larochelle-univ', name: 'Université de La Rochelle', description: 'Public university with environmental focus', location: 'La Rochelle', programs: ['Science', 'Environment', 'Humanities'] },
+        { id: 'excelia', name: 'Excelia Business School', description: 'Business school with tourism and sustainability programs', location: 'La Rochelle', programs: ['Business', 'Tourism', 'MSc'] },
+        { id: 'eigsi', name: 'EIGSI La Rochelle', description: 'General engineering with maritime focus', location: 'La Rochelle', programs: ['Engineering'] },
+        { id: 'institut-ocean', name: 'Institut de l’Océan', description: 'Marine and environmental research programs', location: 'La Rochelle', programs: ['Marine Science', 'Environment'] }
+      ],
+      localInsights: [
+        {
+          title: "Transportation",
+          description: "Navigate La Rochelle with ease",
+          tips: [
+            "Yélo buses, bikes, and ferries (€25/month student pass) via Yélo app",
+            "Yélo bike rentals through the Yélo app—ideal for coastal paths",
+            "FlixBus to Bordeaux, Paris, etc. (from €10) via FlixBus app from Gare de La Rochelle",
+            "SNCF trains to Paris in 3 hours via SNCF Connect app"
+          ]
+        },
+        {
+          title: "Coastal Culture",
+          description: "Embrace La Rochelle’s maritime heritage",
+          tips: [
+            "Visit Aquarium La Rochelle (€12 with student discount)",
+            "Enjoy seafood at Les Flots near Vieux-Port for €10-15",
+            "Attend Francofolies music festival (July) for €10 student tickets",
+            "Hang out at Cours des Dames for €3-5 drinks with sea views"
+          ]
+        },
+        {
+          title: "Recreation & Sports",
+          description: "Enjoy sports and coastal relaxation",
+          tips: [
+            "Book badminton courts at Gymnase de Port-Neuf via Anybuddy",
+            "Plage des Minimes for informal cricket with expat groups—sailing is popular",
+            "Relax at Parc Charruyer with green spaces and streams",
+            "Must-visit: Vieux-Port, Tours de La Rochelle"
+          ]
+        }
+      ]
     }
   };
 
