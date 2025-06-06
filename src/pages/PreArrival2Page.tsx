@@ -241,7 +241,7 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
     }
   };
 
-  const categories = [
+  // const categories = [
     {
       id: 'food',
       title: "Food Preparation",
