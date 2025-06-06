@@ -224,53 +224,7 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
     }
   };
 
-   const categories = [
-    {
-      id: 'food',
-      title: "Food Preparation",
-      icon: Utensils,
-      color: "text-orange-600",
-      items: [
-        { text: "Research French cuisine and dietary options", city: "all" },
-        { text: "Learn about halal/vegetarian food availability", city: "all" },
-        { text: "Pack essential spices and specialty ingredients", city: "all" },
-        { text: "Understand French meal times and customs", city: "all" },
-        { text: "Find Asian grocery stores in Paris (13th arrondissement)", city: "Paris" },
-        { text: "Locate halal butchers in Lyon (7th arrondissement)", city: "Lyon" },
-        { text: "Research Mediterranean cuisine in Marseille", city: "Marseille" }
-      ]
-    },
-    {
-      id: 'clothing',
-      title: "Clothing & Weather",
-      icon: ShoppingBag,
-      color: "text-blue-600",
-      items: [
-        { text: "Pack weather-appropriate clothing for all seasons", city: "all" },
-        { text: "Bring formal attire for presentations/events", city: "all" },
-        { text: "Include comfortable walking shoes", city: "all" },
-        { text: "Pack thermal clothing for winter months", city: "all" },
-        { text: "Prepare for Parisian fashion standards", city: "Paris" },
-        { text: "Pack lighter clothing for Nice's Mediterranean climate", city: "Nice" },
-        { text: "Bring rain gear for frequent showers in Nantes", city: "Nantes" }
-      ]
-    },
-    {
-      id: 'cultural',
-      title: "Cultural Preparation",
-      icon: BookOpen,
-      color: "text-purple-600",
-      items: [
-        { text: "Learn basic French phrases and greetings", city: "all" },
-        { text: "Understand French social customs and etiquette", city: "all" },
-        { text: "Research local traditions and holidays", city: "all" },
-        { text: "Familiarize yourself with French educational system", city: "all" },
-        { text: "Learn about Parisian metro etiquette", city: "Paris" },
-        { text: "Understand Lyon's gastronomic culture", city: "Lyon" },
-        { text: "Research Strasbourg's German-French blend", city: "Strasbourg" }
-      ]
-    }
-  ];
+   
 
   const handleStepComplete = (stepId: string) => {
     if (!completedSteps.includes(stepId)) {
