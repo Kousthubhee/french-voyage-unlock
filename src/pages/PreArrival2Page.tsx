@@ -15,7 +15,7 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>('all');
 
-  const cities = ['all', 'Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Montpellier', 'Rouen', 'Reims', 'Lille', 'Bordeaux', 'Grenoble', 'La Rochelle'];
+  const cities = ['all', 'Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Montpellier', 'Rouen', 'Reims', 'Lille', 'Bordeaux', 'Grenoble'];
 
   const cityData = {
     'Paris': {
@@ -220,23 +220,6 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
         vibe: "Creative, student-friendly, maritime heritage.",
         traditions: "Les Machines de l'Île events, La Folle Journée (February)",
         tips: "Engage in art scene, use \"bonjour,\" explore local history"
-      }
-    },
-    'La Rochelle': {
-      food: {
-        available: "Seafood, French cuisine, very few Indian options.",
-        supermarkets: "Carrefour, Leclerc",
-        indianItems: "Limited; basic spices at hypermarkets, order online.",
-        mustBring: "Key spices, small cookware like a pressure cooker"
-      },
-      weather: {
-        climate: "Mild winters (5–12°C), warm summers (20–28°C), windy",
-        clothing: "Light jacket, windproof clothing; breathable fabrics for summer; umbrella for rain"
-      },
-      culture: {
-        vibe: "Coastal, relaxed, student-friendly.",
-        traditions: "Francofolies Festival (July), maritime events",
-        tips: "Learn basic French, respect beach culture, join local festivals"
       }
     }
   };
