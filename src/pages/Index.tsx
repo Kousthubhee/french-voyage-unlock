@@ -1,10 +1,9 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { Lock, CheckCircle, Circle, Book, MapPin, FileText, MessageCircle, Users, News, Link, Languages, Mic, Bell, User, Phone } from 'lucide-react';
+import { Lock, CheckCircle, Circle, Book, MapPin, FileText, MessageCircle, Users, Newspaper, Link, Languages, Mic, Bell, User, Phone } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface Unit {
@@ -228,7 +227,7 @@ const Index = () => {
               className="flex flex-col items-center p-4 h-auto"
               onClick={() => navigate('/news')}
             >
-              <News size={24} className="mb-2" />
+              <Newspaper size={24} className="mb-2" />
               <span className="text-xs">News</span>
             </Button>
             <Button
