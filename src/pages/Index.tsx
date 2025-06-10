@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
@@ -15,6 +14,7 @@ import { NotificationPage } from '@/components/NotificationPage';
 import { SchoolDetails } from '@/components/SchoolDetails';
 import { FrenchIntegrationPage } from '@/components/FrenchIntegrationPage';
 import { DocumentsPage } from '@/components/DocumentsPage';
+import { LoginPage } from '@/components/LoginPage';
 import { Header } from '@/components/Header';
 import { SchoolInsightsPage } from './SchoolInsightsPage';
 import { PreArrival1Page } from './PreArrival1Page';
@@ -22,7 +22,25 @@ import { PreArrival2Page } from './PreArrival2Page';
 import { PostArrivalPage } from './PostArrivalPage';
 import { FinanceTrackingPage } from './FinanceTrackingPage';
 
+interface UserProfile {
+  name: string;
+  email: string;
+  age: number;
+  nationality: string;
+  educationLevel: string;
+  hasWorkExperience: boolean;
+  hasGapYear: boolean;
+  gapYearDuration: number;
+  targetCity: string;
+  targetProgram: string;
+  hasHealthIssues: boolean;
+  isMarried: boolean;
+  hasChildren: boolean;
+}
+
 const Index = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [currentPage, setCurrentPage] = useState('checklist');
   const [selectedSchool, setSelectedSchool] = useState(null);
   const [userProgress, setUserProgress] = useState({
@@ -31,6 +49,11 @@ const Index = () => {
     unlockedModules: ['school', 'pre-arrival-1', 'pre-arrival-2'], // Only first 3 modules unlocked
     currentPage: 'checklist'
   });
+
+  const handleLogin = (profile: UserProfile) => {
+    setUserProfile(profile);
+    setIsLoggedIn(true);
+  };
 
   // Update current page when user progress changes
   const handleProgressUpdate = (newProgress: any) => {
@@ -111,6 +134,11 @@ const Index = () => {
     setCurrentPage(page);
   };
 
+  // Show login page if not logged in
+  if (!isLoggedIn) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
+
   const renderCurrentPage = () => {
     if (selectedSchool) {
       return (
@@ -148,6 +176,7 @@ const Index = () => {
               setCurrentPage('checklist');
             }}
             isCompleted={userProgress.completedModules.includes('pre-arrival-1')}
+            userProfile={userProfile}
           />
         );
       case 'pre-arrival-2':
