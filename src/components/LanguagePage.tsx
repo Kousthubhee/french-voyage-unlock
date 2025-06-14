@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Languages, Play, Volume2, BookOpen, Award, Star } from 'lucide-react';
+import { Languages, Play, Volume2, BookOpen, Award, Star, Check } from 'lucide-react';
 import { useFavorites } from '../hooks/useFavorites';
 import { FavoriteStar } from './FavoriteStar';
 
@@ -10,6 +10,9 @@ export const LanguagePage = () => {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [hideFrench, setHideFrench] = useState(false);
   const [hideEnglish, setHideEnglish] = useState(false);
+
+  // --- Track completed lessons in state
+  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
 
   // Persist phrase favorites
   const [favorites, toggleFavorite] = useFavorites("french-phrase-favs-v1");
@@ -103,6 +106,14 @@ export const LanguagePage = () => {
 
   // Find favorite phrases for "Favorites" section
   const favoriteSet = favorites;
+
+  // Helper for progress percentage
+  const completedCount = completedLessons.length;
+  const totalLessons = lessons.length;
+  const progressPercent = Math.round((completedCount / totalLessons) * 100);
+
+  // Check if selected lesson is completed
+  const isLessonCompleted = selectedLesson && completedLessons.includes(selectedLesson.id);
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -241,8 +252,22 @@ export const LanguagePage = () => {
               <p className="text-green-700 mb-4">
                 Great job! You've learned {selectedLesson.phrases.length} essential phrases.
               </p>
-              <Button className="bg-green-600 hover:bg-green-700">
-                Mark as Complete
+              <Button
+                className="bg-green-600 hover:bg-green-700"
+                disabled={isLessonCompleted}
+                onClick={() => {
+                  if (selectedLesson && !isLessonCompleted) {
+                    setCompletedLessons((prev) => [...prev, selectedLesson.id]);
+                  }
+                }}
+              >
+                {isLessonCompleted ? (
+                  <span className="flex items-center">
+                    <Check className="h-4 w-4 mr-2" /> Marked Complete
+                  </span>
+                ) : (
+                  "Mark as Complete"
+                )}
               </Button>
             </CardContent>
           </Card>
@@ -307,34 +332,16 @@ export const LanguagePage = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Lessons Completed</span>
-                    <span className="font-semibold">0 / {lessons.length}</span>
+                    <span className="font-semibold">{completedCount} / {totalLessons}</span>
                   </div>
                   <div className="bg-gray-200 rounded-full h-2">
-                    <div className="bg-indigo-600 h-2 rounded-full" style={{ width: '0%' }} />
+                    <div className="bg-indigo-600 h-2 rounded-full transition-all duration-300" style={{ width: `${progressPercent}%` }} />
                   </div>
                   <div className="text-sm text-gray-500">
-                    Complete lessons to track your progress
+                    {completedCount === 0
+                      ? "Complete lessons to track your progress"
+                      : `You've completed ${completedCount} lesson${completedCount > 1 ? 's' : ''}!`}
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-4">Quick Practice</h3>
-                <div className="space-y-2">
-                  <Button variant="outline" className="w-full justify-start">
-                    🗣️ Pronunciation Practice
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    📝 Writing Exercise
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    👂 Listening Comprehension
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    🎯 Quick Quiz
-                  </Button>
                 </div>
               </CardContent>
             </Card>
