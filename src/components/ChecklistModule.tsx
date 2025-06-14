@@ -89,7 +89,8 @@ export const ChecklistModule = ({
       'pre-arrival-2': 'pre-arrival-2',
       'post-arrival': 'post-arrival',
       'integration': 'integration',
-      'finance': 'finance-tracking'
+      'finance': 'finance-tracking',
+      'suggestions': 'suggestions', // <--- ADDED THIS LINE
     };
 
     if (pageMapping[module.id]) {
@@ -176,3 +177,4 @@ export const ChecklistModule = ({
     </div>
   );
 };
+
