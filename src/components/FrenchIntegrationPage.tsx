@@ -875,144 +875,146 @@ export const FrenchIntegrationPage = () => {
   const handleBack = () => setExpandedModuleKey(null);
 
   return (
-    <div className="max-w-5xl mx-auto">
-      {/* Page Title */}
-      <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
-        <div>
-          <h1 className="text-3xl font-bold flex items-center text-indigo-900 mb-2">
-            <Globe className="h-8 w-8 mr-3 text-indigo-600" />
-            French Cultural Integration
-          </h1>
-          <div className="text-gray-600 text-lg">Interactive and practical guide for thriving in France</div>
-        </div>
-        <div className="flex flex-row gap-2">
-          <Button variant="outline" onClick={() => setUsefulLinksOpen(true)}>
-            <LinkIcon className="h-5 w-5 mr-2" />
-            Useful Links & Contacts
-          </Button>
-          <Button variant="outline" onClick={() => setFeedbackOpen(true)}>
-            <MessageCircle className="h-5 w-5 mr-1" />
-            Feedback
-          </Button>
-        </div>
-      </div>
-
-      {/* Module grid, or expanded view */}
-      {!expandedModuleKey ? (
-        // GRID VIEW
-        <div className="grid gap-6 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 mb-12">
-          {modulesMeta.map((mod) => (
-            <FrenchIntegrationModuleCard
-              key={mod.key}
-              icon={mod.icon}
-              title={mod.title}
-              topicCount={mod.topicCount}
-              description={mod.description}
-              onClick={() => setExpandedModuleKey(mod.key)}
-            />
-          ))}
-        </div>
-      ) : (
-        // EXPANDED MODULE
-        <div className="mb-10 animate-fade-in">
-          <Button variant="ghost" size="sm" className="mb-3 flex items-center" onClick={handleBack}>
-            <span className="mr-2">
-              <span className="inline-block rotate-180"><ArrowRight className="h-4 w-4" /></span>
-            </span>
-            Back to Modules
-          </Button>
-          <Card className="mb-4">
-            <CardContent className="pt-8 pb-6 px-7">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-2xl text-gray-700">
-                  {modulesMeta.find(m => m.key === expandedModuleKey)?.icon}
-                </span>
-                <span className="font-bold text-xl text-gray-800">{modulesMeta.find(m => m.key === expandedModuleKey)?.title}</span>
-                <span className="ml-auto bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded-full border">
-                  {modulesMeta.find(m => m.key === expandedModuleKey)?.topicCount} topics
-                </span>
-              </div>
-              <div className="text-gray-600 mb-4">
-                {modulesMeta.find(m => m.key === expandedModuleKey)?.description}
-              </div>
-              <ol className="space-y-4 mt-7">
-                {(allTopics[expandedModuleKey] || []).map((topic, idx) => (
-                  <li key={topic.title} className="border-l-4 pl-4 border-gray-200">
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <span className="font-bold text-gray-700">{idx + 1}.</span>
-                      <span className="font-semibold text-gray-800">{topic.title}</span>
-                    </div>
-                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-2 text-gray-800 text-sm">
-                      {topic.content}
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-
-      {/* Useful Links Dialog */}
-      <Dialog open={usefulLinksOpen} onOpenChange={setUsefulLinksOpen}>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle>
-              <LinkIcon className="mr-2 h-6 w-6 text-indigo-600" />
+    <div className="min-h-screen w-full bg-gradient-to-br from-[#e3f0fe] to-[#f6faff] transition-colors">
+      <div className="max-w-5xl mx-auto px-2 md:px-7 py-6 md:py-9">
+        {/* Page Title */}
+        <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
+          <div>
+            <h1 className="text-3xl font-bold flex items-center text-indigo-900 mb-2">
+              <Globe className="h-8 w-8 mr-3 text-indigo-600" />
+              French Cultural Integration
+            </h1>
+            <div className="text-gray-600 text-lg">Interactive and practical guide for thriving in France</div>
+          </div>
+          <div className="flex flex-row gap-2">
+            <Button variant="outline" onClick={() => setUsefulLinksOpen(true)}>
+              <LinkIcon className="h-5 w-5 mr-2" />
               Useful Links & Contacts
-            </DialogTitle>
-          </DialogHeader>
-          <ul className="space-y-3 mt-4">
-            {usefulLinks.map(l =>
-              <li key={l.label}>
-                <a href={l.url} target="_blank" rel="noopener" className="text-blue-600 hover:underline flex items-center">
-                  <LinkIcon className="mr-2 h-4 w-4" />
-                  {l.label}
-                </a>
-              </li>
-            )}
-          </ul>
-        </DialogContent>
-      </Dialog>
+            </Button>
+            <Button variant="outline" onClick={() => setFeedbackOpen(true)}>
+              <MessageCircle className="h-5 w-5 mr-1" />
+              Feedback
+            </Button>
+          </div>
+        </div>
 
-      {/* Feedback Dialog */}
-      <Dialog open={feedbackOpen} onOpenChange={setFeedbackOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>
-              <MessageCircle className="mr-2 h-6 w-6 text-green-600" />
-              Suggest a Topic or Send Feedback
-            </DialogTitle>
-          </DialogHeader>
-          {!feedbackSent ? (
-            <div>
-              <div className="mb-3 text-gray-700">
-                Which French habit/culture surprised you most? What topic or resource would help you thrive? We value your input!
-              </div>
-              <Input
-                placeholder="Share your feedback or suggestions here"
-                value={feedbackText}
-                maxLength={200}
-                onChange={e => setFeedbackText(e.target.value)}
+        {/* Module grid, or expanded view */}
+        {!expandedModuleKey ? (
+          // GRID VIEW
+          <div className="grid gap-6 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 mb-12">
+            {modulesMeta.map((mod) => (
+              <FrenchIntegrationModuleCard
+                key={mod.key}
+                icon={mod.icon}
+                title={mod.title}
+                topicCount={mod.topicCount}
+                description={mod.description}
+                onClick={() => setExpandedModuleKey(mod.key)}
               />
-              <Button onClick={() => {
-                setFeedbackSent(true);
-                setFeedbackText("");
-                setTimeout(() => {
-                  setFeedbackOpen(false);
-                  setFeedbackSent(false);
-                }, 1800);
-              }} className="mt-4 w-full">
-                Submit Feedback
-              </Button>
-            </div>
-          ) : (
-            <div className="py-6 text-center text-green-600 font-medium">
-              Thank you for your feedback! 🌟
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+            ))}
+          </div>
+        ) : (
+          // EXPANDED MODULE
+          <div className="mb-10 animate-fade-in">
+            <Button variant="ghost" size="sm" className="mb-3 flex items-center" onClick={handleBack}>
+              <span className="mr-2">
+                <span className="inline-block rotate-180"><ArrowRight className="h-4 w-4" /></span>
+              </span>
+              Back to Modules
+            </Button>
+            <Card className="mb-4">
+              <CardContent className="pt-8 pb-6 px-7">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-2xl text-gray-700">
+                    {modulesMeta.find(m => m.key === expandedModuleKey)?.icon}
+                  </span>
+                  <span className="font-bold text-xl text-gray-800">{modulesMeta.find(m => m.key === expandedModuleKey)?.title}</span>
+                  <span className="ml-auto bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded-full border">
+                    {modulesMeta.find(m => m.key === expandedModuleKey)?.topicCount} topics
+                  </span>
+                </div>
+                <div className="text-gray-600 mb-4">
+                  {modulesMeta.find(m => m.key === expandedModuleKey)?.description}
+                </div>
+                <ol className="space-y-4 mt-7">
+                  {(allTopics[expandedModuleKey] || []).map((topic, idx) => (
+                    <li key={topic.title} className="border-l-4 pl-4 border-gray-200">
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <span className="font-bold text-gray-700">{idx + 1}.</span>
+                        <span className="font-semibold text-gray-800">{topic.title}</span>
+                      </div>
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-2 text-gray-800 text-sm">
+                        {topic.content}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Useful Links Dialog */}
+        <Dialog open={usefulLinksOpen} onOpenChange={setUsefulLinksOpen}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle>
+                <LinkIcon className="mr-2 h-6 w-6 text-indigo-600" />
+                Useful Links & Contacts
+              </DialogTitle>
+            </DialogHeader>
+            <ul className="space-y-3 mt-4">
+              {usefulLinks.map(l =>
+                <li key={l.label}>
+                  <a href={l.url} target="_blank" rel="noopener" className="text-blue-600 hover:underline flex items-center">
+                    <LinkIcon className="mr-2 h-4 w-4" />
+                    {l.label}
+                  </a>
+                </li>
+              )}
+            </ul>
+          </DialogContent>
+        </Dialog>
+
+        {/* Feedback Dialog */}
+        <Dialog open={feedbackOpen} onOpenChange={setFeedbackOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>
+                <MessageCircle className="mr-2 h-6 w-6 text-green-600" />
+                Suggest a Topic or Send Feedback
+              </DialogTitle>
+            </DialogHeader>
+            {!feedbackSent ? (
+              <div>
+                <div className="mb-3 text-gray-700">
+                  Which French habit/culture surprised you most? What topic or resource would help you thrive? We value your input!
+                </div>
+                <Input
+                  placeholder="Share your feedback or suggestions here"
+                  value={feedbackText}
+                  maxLength={200}
+                  onChange={e => setFeedbackText(e.target.value)}
+                />
+                <Button onClick={() => {
+                  setFeedbackSent(true);
+                  setFeedbackText("");
+                  setTimeout(() => {
+                    setFeedbackOpen(false);
+                    setFeedbackSent(false);
+                  }, 1800);
+                }} className="mt-4 w-full">
+                  Submit Feedback
+                </Button>
+              </div>
+            ) : (
+              <div className="py-6 text-center text-green-600 font-medium">
+                Thank you for your feedback! 🌟
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 };
