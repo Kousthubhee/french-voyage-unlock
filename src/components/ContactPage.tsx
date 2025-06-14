@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
+import { Link } from "react-router-dom";
 
 export const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -53,15 +54,11 @@ export const ContactPage = () => {
     {
       name: 'Kousthubhee Krishna',
       role: 'Co-Founder & Developer',
-      description:
-        '“I know how overwhelming it can be to move to France as a student. Every question is welcome—let’s make your journey smoother together!”',
       avatar: '👩‍🎓'
     },
     {
       name: 'Srivatsava',
       role: 'Co-Founder & Content Creator',
-      description:
-        '“No doubt is too small. If you need help, just ask—our team has your back!”',
       avatar: '👨‍💻'
     }
   ];
@@ -202,7 +199,6 @@ export const ContactPage = () => {
                     <div>
                       <div className="font-medium text-blue-900">{creator.name}</div>
                       <div className="text-sm text-blue-700">{creator.role}</div>
-                      <div className="text-xs text-blue-600 italic">{creator.description}</div>
                     </div>
                   </div>
                 ))}
@@ -217,9 +213,10 @@ export const ContactPage = () => {
                 For instant help,{" "}
                 <span
                   className="underline cursor-pointer text-blue-700"
-                  onClick={() => window.location.href = '/qa'}
                 >
-                  try our Ask Me Anything chatbot
+                  <Link to="/qa" className="underline text-blue-700">
+                    try our Ask Me Anything chatbot
+                  </Link>
                 </span>
                 {" "}or contact us any time!
               </p>
