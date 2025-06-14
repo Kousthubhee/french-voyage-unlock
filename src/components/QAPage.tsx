@@ -1,9 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { MessageSquare, Send, Bot, User, ImageUp, FileUp } from "lucide-react";
+import { MessageSquare, Send, Bot, User, ImageUp, FileUp, Mic } from "lucide-react";
 import { faqCategories } from "@/data/faqCategories";
 import { QAMessageItem } from "./QAMessageItem";
 import styles from "./QAPage.module.css";
@@ -159,6 +159,55 @@ export const QAPage = () => {
     }
   };
 
+  // --- Speech recognition state ---
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<any>(null);
+
+  // --- Voice typing handler functions ---
+  useEffect(() => {
+    // Cleanup: stop recognition if unmount
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.onend = null;
+        recognitionRef.current.onerror = null;
+        recognitionRef.current.onresult = null;
+        recognitionRef.current.stop?.();
+      }
+    };
+  }, []);
+
+  function handleVoiceInput() {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      toast({
+        title: "Speech not supported",
+        description: "Your browser does not support voice input.",
+      });
+      return;
+    }
+    if (isListening) {
+      recognitionRef.current && recognitionRef.current.stop();
+      setIsListening(false);
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = language === "fr" ? "fr-FR" : "en-US";
+    recognition.interimResults = false;
+    recognition.continuous = false;
+
+    recognition.onstart = () => setIsListening(true);
+    recognition.onend = () => setIsListening(false);
+    recognition.onerror = () => setIsListening(false);
+    recognition.onresult = (event: any) => {
+      const text = event.results?.[0]?.[0]?.transcript;
+      if (text) setNewMessage((prev) => (prev ? prev + " " : "") + text);
+      setIsListening(false);
+    };
+    recognitionRef.current = recognition;
+    recognition.start();
+  }
+
   return (
     <div>
       <div className="max-w-4xl mx-auto">
@@ -284,6 +333,20 @@ export const QAPage = () => {
                     >
                       <ImageUp className="h-5 w-5" />
                       File
+                    </Button>
+                    {/* Voice typing button */}
+                    <Button
+                      type="button"
+                      variant={isListening ? "secondary" : "outline"}
+                      onClick={handleVoiceInput}
+                      aria-label={isListening ? "Stop listening" : "Speak"}
+                      className={
+                        "shrink-0 px-2 py-2 " + (isListening ? "animate-pulse border-blue-500" : "")
+                      }
+                      disabled={isTyping}
+                    >
+                      <Mic className="h-5 w-5" />
+                      {isListening ? <span className="ml-1 text-xs">Listening…</span> : <span className="ml-1 text-xs">Speak</span>}
                     </Button>
                     <Input
                       value={newMessage}
