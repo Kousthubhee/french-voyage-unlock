@@ -32,6 +32,9 @@ export const ModuleCard = ({
   const canUnlock = module.keysRequired ? userKeys >= module.keysRequired : true;
   const canClick = isUnlocked || (module.keysRequired && canUnlock);
 
+  // Toned down banner background
+  const bannerBgClass = "bg-gradient-to-br from-blue-50 to-cyan-50";
+
   return (
     <Card
       className={`cursor-pointer transition-all duration-300 hover:scale-105 ${
@@ -42,11 +45,11 @@ export const ModuleCard = ({
       onClick={() => canClick && onModuleClick(module)}
     >
       <CardContent className="p-6">
-        <div className={`w-full h-32 bg-gradient-to-br ${module.color} rounded-lg mb-4 flex items-center justify-center relative overflow-hidden`}>
-          <div className="text-4xl">{module.icon}</div>
+        <div className={`w-full h-32 ${bannerBgClass} rounded-lg mb-4 flex items-center justify-center relative overflow-hidden`}>
+          <div className="text-4xl text-blue-500">{module.icon}</div>
 
           {!isUnlocked && module.keysRequired && (
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center">
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center">
               <Lock className="h-6 w-6 text-white mb-2" />
               <div className="flex items-center text-white text-sm">
                 <Key className="h-4 w-4 mr-1" />
@@ -56,7 +59,7 @@ export const ModuleCard = ({
           )}
 
           {!isUnlocked && !module.keysRequired && (
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
               <Lock className="h-8 w-8 text-white" />
             </div>
           )}
@@ -69,7 +72,7 @@ export const ModuleCard = ({
 
           {isUnlocked && !isCompleted && (
             <div className="absolute bottom-2 right-2">
-              <ArrowRight className="h-5 w-5 text-white" />
+              <ArrowRight className="h-5 w-5 text-cyan-700" />
             </div>
           )}
         </div>
