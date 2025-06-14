@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useRef, useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
@@ -92,6 +93,7 @@ export function ProfileEditDialog({ open, onOpenChange, profile, onSave }: Profi
             <Input
               id="edit-name"
               value={editingProfile.name}
+              placeholder="Enter your name"
               onChange={e => setEditingProfile({ ...editingProfile, name: e.target.value })}
             />
           </div>
@@ -100,6 +102,7 @@ export function ProfileEditDialog({ open, onOpenChange, profile, onSave }: Profi
             <Input
               id="edit-email"
               value={editingProfile.email}
+              placeholder="Enter your email"
               onChange={e => setEditingProfile({ ...editingProfile, email: e.target.value })}
             />
           </div>
@@ -108,6 +111,7 @@ export function ProfileEditDialog({ open, onOpenChange, profile, onSave }: Profi
             <Input
               id="edit-about"
               value={editingProfile.about}
+              placeholder="Enter something about yourself"
               onChange={e => setEditingProfile({ ...editingProfile, about: e.target.value })}
             />
           </div>
