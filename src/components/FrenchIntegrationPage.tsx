@@ -1,20 +1,7 @@
 
-import { Card, CardContent } from '@/components/ui/card';
-import { Globe } from 'lucide-react';
+import { Globe } from "lucide-react";
 import { GlossarySidebar } from "./FrenchGlossarySidebar";
-
-// Import all section components
-import { LanguageCommunicationSection } from "./french-integration/sections/LanguageCommunicationSection";
-import { CulturalEtiquetteSection } from "./french-integration/sections/CulturalEtiquetteSection";
-import { FoodGrocerySection } from "./french-integration/sections/FoodGrocerySection";
-import { FestivalsEventsSection } from "./french-integration/sections/FestivalsEventsSection";
-import { StudentLifeSection } from "./french-integration/sections/StudentLifeSection";
-import { BureaucracySection } from "./french-integration/sections/BureaucracySection";
-import { MentalHealthSection } from "./french-integration/sections/MentalHealthSection";
-import { CulturalComparisonSection } from "./french-integration/sections/CulturalComparisonSection";
-import { PracticalLivingSection } from "./french-integration/sections/PracticalLivingSection";
-import { SafetySection } from "./french-integration/sections/SafetySection";
-import { IndoFrenchSection } from "./french-integration/sections/IndoFrenchSection";
+import { FrenchIntegrationTabs } from "./french-integration/FrenchIntegrationTabs";
 
 export const FrenchIntegrationPage = () => {
   return (
@@ -28,21 +15,13 @@ export const FrenchIntegrationPage = () => {
               <Globe className="h-8 w-8 mr-3 text-indigo-600" />
               French Cultural Integration
             </h1>
-            <div className="text-gray-600 text-lg">Your practical guide for thriving in France - detailed edition</div>
+            <div className="text-gray-600 text-lg">
+              Your practical guide for thriving in France - detailed edition
+            </div>
           </div>
         </div>
-        {/* MAIN SECTIONS */}
-        <Card className="mb-8"><CardContent className="p-6"><LanguageCommunicationSection /></CardContent></Card>
-        <Card className="mb-8"><CardContent className="p-6"><CulturalEtiquetteSection /></CardContent></Card>
-        <Card className="mb-8"><CardContent className="p-6"><FoodGrocerySection /></CardContent></Card>
-        <Card className="mb-8"><CardContent className="p-6"><FestivalsEventsSection /></CardContent></Card>
-        <Card className="mb-8"><CardContent className="p-6"><StudentLifeSection /></CardContent></Card>
-        <Card className="mb-8"><CardContent className="p-6"><BureaucracySection /></CardContent></Card>
-        <Card className="mb-8"><CardContent className="p-6"><MentalHealthSection /></CardContent></Card>
-        <Card className="mb-8"><CardContent className="p-6"><CulturalComparisonSection /></CardContent></Card>
-        <Card className="mb-8"><CardContent className="p-6"><PracticalLivingSection /></CardContent></Card>
-        <Card className="mb-8"><CardContent className="p-6"><SafetySection /></CardContent></Card>
-        <Card className="mb-8"><CardContent className="p-6"><IndoFrenchSection /></CardContent></Card>
+        {/* TABBED MAIN SECTIONS */}
+        <FrenchIntegrationTabs />
       </div>
 
       {/* RIGHT COLUMN - SIDEBAR */}

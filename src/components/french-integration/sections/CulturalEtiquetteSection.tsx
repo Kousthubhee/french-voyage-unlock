@@ -11,9 +11,10 @@ export function CulturalEtiquetteSection() {
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="public-settings">
-        <AccordionTrigger>Do's and Don'ts in Public Settings</AccordionTrigger>
+        <AccordionTrigger>Do’s and Don’ts in Public Settings</AccordionTrigger>
         <AccordionContent>
-          <b>Métro:</b> Be quiet, offer seats, no food<br />
+          <b>Métro:</b> Be quiet, offer seats, no food
+          <br />
           <b>Markets:</b> Greet vendors, don’t haggle, carry cash
         </AccordionContent>
       </AccordionItem>
