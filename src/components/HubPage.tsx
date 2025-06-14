@@ -366,8 +366,9 @@ export const HubPage = () => {
     return result;
   }
 
-  function searchBlogs(blogs: typeof blogs): typeof blogs {
-    let result = blogs;
+  // Fix: Annotate function to return Blog[] type
+  function searchBlogs(blogsArr: Blog[]): Blog[] {
+    let result = blogsArr;
     if (searchTerm.trim()) {
       const term = searchTerm.trim().toLowerCase();
       result = result.filter(b =>

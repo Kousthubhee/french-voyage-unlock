@@ -96,16 +96,16 @@ export const QAPage = () => {
 
   // Simulate bot reply with typing animation
   // Make sure userMsg is a string & type is correct
-  const sendBotReply = (userMsg) => {
+  const sendBotReply = (userMsg: string) => {
     setIsTyping(true);
     setTimeout(() => {
       setMessages((prev) => [
         ...prev,
         {
           id: prev.length + 1,
-          type: "bot",
-          message: `(${language === "fr" ? "FR" : "EN"}) Thanks for your question about "${userMsg || file?.name || "your file"}". This is a simulated AI bot. If you would like help from a real person, click the button below!`,
-        },
+          type: "bot", // <-- Ensure this is strictly typed
+          message: `(${language === "fr" ? "FR" : "EN"}) Thanks for your question about "${userMsg || (file && file.name) || "your file"}". This is a simulated AI bot. If you would like help from a real person, click the button below!`,
+        } as MessageItem, // Enforce type if needed
       ]);
       setIsTyping(false);
     }, 1200);
@@ -114,8 +114,7 @@ export const QAPage = () => {
   const handleSendMessage = () => {
     if (!newMessage.trim() && !file) return;
     const messageText = newMessage.trim();
-
-    const userMessage = {
+    const userMessage: MessageItem = {
       id: messages.length + 1,
       type: "user",
       message: messageText + (file ? `\n[Attached: ${file.name}]` : ""),
@@ -123,10 +122,7 @@ export const QAPage = () => {
       fileName: file?.name,
     };
 
-    setMessages((prev) => [
-      ...prev,
-      userMessage,
-    ]);
+    setMessages((prev) => [...prev, userMessage]);
     setNewMessage("");
     setFile(null);
     setFilePreview(null);
