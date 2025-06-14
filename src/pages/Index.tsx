@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
@@ -9,35 +8,19 @@ import { Button } from '@/components/ui/button';
 import { useToast } from "@/hooks/use-toast";
 import { ProfilePage } from "@/components/ProfilePage";
 
-interface UserProfile {
-  name: string;
-  email: string;
-  age: number;
-  nationality: string;
-  educationLevel: string;
-  hasWorkExperience: boolean;
-  hasGapYear: boolean;
-  gapYearDuration: number;
-  targetCity: string;
-  targetProgram: string;
-  hasHealthIssues: boolean;
-  isMarried: boolean;
-  hasChildren: boolean;
-}
-
 const defaultProfile = {
-  name: "Student Name",
-  email: "student@example.com",
-  about: "Future student in France",
-  memberSince: "December 2024",
-  photo: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=facearea&w=256&h=256&facepad=3&q=80",
+  name: "",
+  email: "",
+  about: "",
+  memberSince: "",
+  photo: "",
   age: '',
   prevEducation: '',
   workExperience: '',
 };
 
 const Index = () => {
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [userProfile, setUserProfile] = useState(null);
   const [profile, setProfile] = useState(defaultProfile);
   const [currentPage, setCurrentPage] = useState('checklist');
   const [userProgress, setUserProgress, resetProgress] = useLocalStorageProgress();
@@ -112,7 +95,7 @@ const Index = () => {
           </main>
           <footer className="bg-white border-t border-gray-200 py-6 px-6 flex flex-col items-center gap-3 animate-fade-in">
             <div className="text-center text-gray-600">
-             🎓 © {new Date().getFullYear()} <span className="text-blue-600 font-semibold">  Kousthubhee Krishna K</span> & <span className="text-cyan-600 font-semibold">Srivatsava CK</span>
+              🎓 © {new Date().getFullYear()} <span className="text-blue-600 font-semibold">  Kousthubhee Krishna K</span> & <span className="text-cyan-600 font-semibold">Srivatsava CK</span>
             </div>
             <Button 
               variant="destructive"

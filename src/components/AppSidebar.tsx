@@ -37,7 +37,7 @@ export const AppSidebar = ({
   userName,
   userAvatarUrl,
 }: AppSidebarProps) => {
-  // Treat blank or missing name as Stranger
+  // Cleaned logic: "Hello, Stranger!" if no name, else Hello, [Name]!
   const cleanedName = typeof userName === "string" && userName.trim() !== "" ? userName : null;
   const avatarUrl = userAvatarUrl ?? "";
 
@@ -104,7 +104,6 @@ export const AppSidebar = ({
       
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="font-normal">Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => {
@@ -160,8 +159,7 @@ export const AppSidebar = ({
           </Button>
         </div>
       </SidebarFooter>
-
-      {/* Custom animation for active sidebar item */}
+      {/* ...keep existing custom animation styles */}
       <style>
         {`
           @keyframes sidebarActive {
