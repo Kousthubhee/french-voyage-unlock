@@ -7,6 +7,19 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/sonner';
 
+// TypeScript declarations to enable use of SpeechRecognition on `window`
+type SpeechRecognitionType = typeof window extends { SpeechRecognition: infer R }
+  ? R
+  : any;
+
+// declare ambient global access (simplifies usage below)
+declare global {
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
+  }
+}
+
 const LANG_OPTIONS = [
   { code: 'en', label: 'English' },
   { code: 'fr', label: 'French' },
@@ -105,9 +118,9 @@ export const TranslatePage = () => {
 
   // Speech-to-text
   const handleSpeechToText = () => {
+    // Both Chrome and Safari may provide speech recognition under different names
     const SpeechRecognitionClass =
-      (window as MySpeechRecognition).SpeechRecognition ||
-      (window as MySpeechRecognition).webkitSpeechRecognition;
+      window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (!SpeechRecognitionClass) {
       toast("Speech recognition not supported in this browser.");
