@@ -1,8 +1,8 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, CheckCircle, CreditCard, Shield, Home, FileText } from 'lucide-react';
+import { ReminderButton } from "@/components/ReminderButton";
 
 interface PostArrivalPageProps {
   onBack: () => void;
@@ -12,6 +12,7 @@ interface PostArrivalPageProps {
 
 export const PostArrivalPage = ({ onBack, onComplete, isCompleted }: PostArrivalPageProps) => {
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
+  const [reminders, setReminders] = useState<{ [id: string]: string }>({});
 
   const urgentTasks = [
     {
@@ -128,8 +129,12 @@ export const PostArrivalPage = ({ onBack, onComplete, isCompleted }: PostArrival
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm text-gray-500">Timeline: {task.timeline}</p>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="text-sm text-gray-500 flex-1">Timeline: {task.timeline}</span>
+                    <ReminderButton
+                      date={reminders[task.id]}
+                      onSet={dt => setReminders(rem => ({ ...rem, [task.id]: dt }))}
+                    />
                     {!isStepCompleted && (
                       <Button 
                         size="sm"

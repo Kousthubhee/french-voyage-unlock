@@ -31,6 +31,7 @@ export const QAPage = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
+  const [language, setLanguage] = useState("en");
 
   // Preview image/file
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -48,7 +49,7 @@ export const QAPage = () => {
         {
           id: prev.length + 1,
           type: "bot",
-          message: `Thanks for your question about "${userMsg || file?.name || "your file"}". This is a simulated AI bot, not a real human. In production, this would connect to an AI service to provide answers about studying in France.`,
+          message: `(${language === "fr" ? "FR" : "EN"}) Thanks for your question about "${userMsg || file?.name || "your file"}". This is a simulated AI bot, not a real human. In production, this would connect to an AI service to provide answers about studying in France in ${language === "fr" ? "French" : "English"}.`,
         },
       ]);
       setIsTyping(false);
@@ -125,6 +126,18 @@ export const QAPage = () => {
           </Button>
         </div>
       )}
+
+      <div className="flex justify-end mb-2">
+        <label className="mr-2 text-sm text-gray-700">Language:</label>
+        <select
+          value={language}
+          onChange={e => setLanguage(e.target.value)}
+          className="border rounded px-2 py-1 text-sm"
+        >
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
+      </div>
 
       <Card className="h-96 mb-6">
         <CardContent className="p-0 h-full flex flex-col">

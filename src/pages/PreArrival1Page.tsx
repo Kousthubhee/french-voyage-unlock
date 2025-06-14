@@ -1,9 +1,10 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ArrowLeft, CheckCircle, Calendar, ChevronDown, FileText, Clock } from 'lucide-react';
+import { ReminderButton } from "@/components/ReminderButton";
+import { VisaSchedulerDialog } from "@/components/VisaSchedulerDialog";
 
 interface PreArrival1PageProps {
   onBack: () => void;
@@ -14,6 +15,8 @@ interface PreArrival1PageProps {
 export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1PageProps) => {
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [openSections, setOpenSections] = useState<string[]>([]);
+  const [reminders, setReminders] = useState<{ [id: string]: string }>({});
+  const [appointments, setAppointments] = useState<{ [id: string]: { date: string; location: string } }>({});
 
   const toggleSection = (sectionId: string) => {
     setOpenSections(prev => 
@@ -165,6 +168,7 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
         {checklistItems.map((item, index) => {
           const isStepCompleted = completedSteps.includes(item.id);
           const isOpen = openSections.includes(item.id);
+          const isVisaStep = item.id === "vfs";
           
           return (
             <Card key={index} className={`border-l-4 border-l-blue-500 ${isStepCompleted ? 'ring-2 ring-green-500' : ''}`}>
@@ -243,7 +247,17 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <div className="flex items-center justify-between pt-2">
+                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                    <ReminderButton
+                      date={reminders[item.id]}
+                      onSet={dt => setReminders(rem => ({ ...rem, [item.id]: dt }))}
+                    />
+                    {isVisaStep && (
+                      <VisaSchedulerDialog
+                        appointment={appointments[item.id] || null}
+                        onSet={val => setAppointments(a => ({ ...a, [item.id]: val }))}
+                      />
+                    )}
                     {!isStepCompleted && (
                       <Button 
                         size="sm"
