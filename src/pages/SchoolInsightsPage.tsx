@@ -3,13 +3,20 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ArrowLeft, MapPin, Users, BookOpen, Info } from 'lucide-react';
-
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from "@/components/ui/select";
 import { citiesData, School, City } from '@/data/schoolsData';
 
 export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [selectedSchool, setSelectedSchool] = useState<School | null>(null);
   const [showInsights, setShowInsights] = useState(false);
+  const [programFilter, setProgramFilter] = useState<string>('all');
 
   // SCHOOL CONTACT INFORMATION DISPLAY
   const getContact = (school: School) => school.contact || {};
@@ -17,7 +24,6 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
   // Find the school currently displayed
   const findSchoolById = (id: string | undefined): School | undefined => {
     if (!id) return undefined;
-
     for (const cityKey of Object.keys(citiesData)) {
       const city = citiesData[cityKey];
       const sch = city.schools.find((s) => s.id === id);
@@ -181,13 +187,30 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
     );
   }
 
-  // City-Specific View with Schools and Local Insights
+  // City-Specific View with Schools and Local Insights (filter added here)
   if (selectedCity && citiesData[selectedCity]) {
     const cityData = citiesData[selectedCity];
+
+    // Gather all programs unique to this city
+    const allPrograms = Array.from(
+      new Set(cityData.schools.flatMap((school) => school.programs))
+    ).sort();
+
+    // Filter schools by selected program
+    const filteredSchools =
+      programFilter === 'all'
+        ? cityData.schools
+        : cityData.schools.filter((school) =>
+            school.programs.includes(programFilter)
+          );
+
     return (
       <div className="max-w-6xl mx-auto">
         <div className="mb-6">
-          <Button variant="outline" onClick={() => setSelectedCity(null)} className="mb-4">
+          <Button variant="outline" onClick={() => {
+            setSelectedCity(null);
+            setProgramFilter('all');
+          }} className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" /> Back to Cities
           </Button>
           <div className="text-center mb-8">
@@ -220,10 +243,30 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
           </CardContent>
         </Card>
 
-        {/* Schools Section */}
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Schools in {cityData.name}</h2>
+        {/* Schools Filter */}
+        <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
+          <h2 className="text-xl font-semibold text-gray-900">Schools in {cityData.name}</h2>
+          <div className="flex items-center gap-2">
+            <label htmlFor="program-filter" className="mr-2 text-sm text-gray-700">Filter by Program:</label>
+            <Select value={programFilter} onValueChange={(val) => setProgramFilter(val)}>
+              <SelectTrigger className="w-48" id="program-filter">
+                <SelectValue>
+                  {programFilter === "all" ? "All Programs" : programFilter}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Programs</SelectItem>
+                {allPrograms.map((pr) => (
+                  <SelectItem key={pr} value={pr}>{pr}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cityData.schools.map((school, index) => (
+          {filteredSchools.length === 0 ? (
+            <div className="col-span-3 text-center py-8 text-gray-500">No schools found for selected program.</div>
+          ) : filteredSchools.map((school, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow" onClick={() => setSelectedSchool(school)}>
               <CardHeader>
                 <div className="flex items-start justify-between">
@@ -271,7 +314,6 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
             </Card>
           ))}
         </div>
-
         {/* Local Insights Modal */}
         <Dialog open={showInsights} onOpenChange={setShowInsights}>
           <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
@@ -302,7 +344,29 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
     );
   }
 
-  // City Selection View
+  // City Selection View (add filter by program for all cities)
+  // User's selected program here will work as a global filter across all cities
+  const allProgramsGlobal = Array.from(
+    new Set(
+      Object.values(citiesData).flatMap((city) =>
+        city.schools.flatMap((school) => school.programs)
+      )
+    )
+  ).sort();
+  // flatten all schools
+  const getSchoolsByProgram = (program: string) => {
+    return Object.entries(citiesData).map(([cityKey, city]) => ({
+      cityKey,
+      city,
+      schools: city.schools.filter((school) =>
+        program === 'all' ? true : school.programs.includes(program)
+      ),
+    }));
+  };
+  const citiesFiltered = getSchoolsByProgram(programFilter).filter(
+    ({ schools }) => schools.length > 0
+  );
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-6">
@@ -315,9 +379,26 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
           <p className="text-lg text-gray-600">Explore French schools and get local insights for each city</p>
         </div>
       </div>
-
+      <div className="flex items-center justify-end mb-6">
+        <label htmlFor="program-filter-main" className="mr-2 text-sm text-gray-700">Filter by Program:</label>
+        <Select value={programFilter} onValueChange={setProgramFilter}>
+          <SelectTrigger className="w-56" id="program-filter-main">
+            <SelectValue>
+              {programFilter === "all" ? "All Programs" : programFilter}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Programs</SelectItem>
+            {allProgramsGlobal.map((p) => (
+              <SelectItem key={p} value={p}>{p}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Object.entries(citiesData).map(([cityKey, city]) => (
+        {citiesFiltered.length === 0 ? (
+          <div className="col-span-3 text-center py-8 text-gray-500">No schools found for selected program.</div>
+        ) : citiesFiltered.map(({ cityKey, city, schools }) => (
           <Card key={cityKey} className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => setSelectedCity(cityKey)}>
             <CardHeader>
               <CardTitle className="text-lg">{city.name} {city.emoji}</CardTitle>
@@ -326,7 +407,7 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
             <CardContent>
               <div className="flex items-center justify-between">
                 <div className="flex gap-2">
-                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">{city.schools.length} Schools</span>
+                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">{schools.length} Schools</span>
                   <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Local Tips</span>
                 </div>
                 <Button size="sm">Explore</Button>
