@@ -43,15 +43,15 @@ export const AppSidebar = ({
   const avatarUrl = userAvatarUrl ?? "";
 
   const menuItems = [
-    { id: 'checklist', icon: CheckSquare, label: 'Checklist', color: 'text-blue-600', tooltip: 'Your onboarding checklist' },
-    { id: 'documents', icon: FileText, label: 'Documents & Renewals', color: 'text-teal-600', tooltip: 'Manage paperwork and renewal timelines' },
-    { id: 'qa', icon: MessageSquare, label: 'Ask Me Anything', color: 'text-green-600', tooltip: 'Chat with our AI or browse FAQs' },
-    { id: 'hub', icon: Users, label: 'Community Hub', color: 'text-purple-600', tooltip: 'Connect with fellow students' },
-    { id: 'news', icon: BookOpen, label: 'Stay Updated', color: 'text-orange-600', tooltip: 'Latest campus and city news' },
-    { id: 'affiliation', icon: Building2, label: 'Our Partners', color: 'text-red-600', tooltip: 'See our affiliations' },
-    { id: 'language', icon: Languages, label: 'Learn French', color: 'text-indigo-600', tooltip: 'Practice French language skills' },
-    { id: 'translate', icon: Languages, label: 'Translate', color: 'text-cyan-600', tooltip: 'Translate documents or conversations' },
-    { id: 'contact', icon: Phone, label: 'Contact Us', color: 'text-pink-600', tooltip: 'Reach support or ask for help' },
+    { id: 'checklist', icon: CheckSquare, label: 'Checklist', tooltip: 'Your onboarding checklist' },
+    { id: 'documents', icon: FileText, label: 'Documents & Renewals', tooltip: 'Manage paperwork and renewal timelines' },
+    { id: 'qa', icon: MessageSquare, label: 'Ask Me Anything', tooltip: 'Chat with our AI or browse FAQs' },
+    { id: 'hub', icon: Users, label: 'Community Hub', tooltip: 'Connect with fellow students' },
+    { id: 'news', icon: BookOpen, label: 'Stay Updated', tooltip: 'Latest campus and city news' },
+    { id: 'affiliation', icon: Building2, label: 'Our Partners', tooltip: 'See our affiliations' },
+    { id: 'language', icon: Languages, label: 'Learn French', tooltip: 'Practice French language skills' },
+    { id: 'translate', icon: Languages, label: 'Translate', tooltip: 'Translate documents or conversations' },
+    { id: 'contact', icon: Phone, label: 'Contact Us', tooltip: 'Reach support or ask for help' },
   ];
 
   return (
@@ -81,9 +81,10 @@ export const AppSidebar = ({
             </div>
           )}
           <div className="ml-4">
-            {/* Greeting logic with name in bold, "Hello," in bold too */}
             <div className="leading-6 text-base font-normal text-gray-900">
-              <span className="font-bold">Hello{cleanedName ? "," : ", Stranger!"}</span>
+              <span className="font-bold">
+                Hello{cleanedName ? "," : ", Stranger!"}
+              </span>
               {cleanedName && (
                 <span className="font-bold"> {cleanedName}!</span>
               )}
@@ -107,8 +108,9 @@ export const AppSidebar = ({
                     <SidebarMenuButton
                       isActive={isActive}
                       onClick={() => setCurrentPage(item.id)}
-                      className={`w-full group transition-all px-3 py-2 rounded-lg hover:bg-blue-50 hover:shadow-md hover:scale-[1.03] text-sm font-normal ${
-                        isActive ? 'bg-blue-100 text-blue-700 shadow' : 'text-gray-700'
+                      className={`w-full group transition-all px-3 py-2 rounded-lg hover:bg-blue-50 hover:shadow-md hover:scale-[1.03] text-[15px] font-normal ${isActive 
+                        ? 'bg-blue-100 text-blue-700 shadow'
+                        : 'text-gray-700'
                       }`}
                       tooltip={item.tooltip}
                     >
@@ -116,7 +118,8 @@ export const AppSidebar = ({
                         rounded-full p-2 flex items-center justify-center mr-3 transition-all
                         ${isActive 
                           ? 'bg-blue-200 text-blue-700 scale-110 shadow'
-                          : item.color + ' bg-white'}
+                          : 'bg-gray-100 text-gray-500'
+                        }
                       `}>
                         <Icon className="h-5 w-5" />
                       </span>
