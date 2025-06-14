@@ -38,7 +38,7 @@ export const AppSidebar = ({
   userName,
   userAvatarUrl,
 }: AppSidebarProps) => {
-  // Change: treat blank or missing name as Stranger
+  // Treat blank or missing name as Stranger
   const cleanedName = typeof userName === "string" && userName.trim() !== "" ? userName : null;
   const avatarUrl = userAvatarUrl ?? "";
 
@@ -59,11 +59,10 @@ export const AppSidebar = ({
       <SidebarHeader>
         <div className="p-4 pb-2 border-b border-blue-100">
           <div
-            className="text-xl cursor-pointer hover:scale-105 transition-transform font-normal"
-            style={{ fontWeight: 400 }}
+            className="text-xl cursor-pointer hover:scale-105 transition-transform font-bold"
             onClick={() => setCurrentPage('checklist')}
           >
-            pas<span className="text-cyan-600">S</span>2<span className="text-blue-600">K</span>ampus
+            pas<span className="text-cyan-600 font-bold">S</span>2<span className="text-blue-600 font-bold">K</span>ampus
           </div>
           <div className="text-xs text-gray-600 mt-1 font-normal">
             Your guide to French education
@@ -82,9 +81,13 @@ export const AppSidebar = ({
             </div>
           )}
           <div className="ml-4">
-            {/* Greeting logic */}
+            {/* Greeting logic with name in bold, "Hello," in bold too */}
             <div className="leading-6 text-base font-normal text-gray-900">
-              Hello, {cleanedName ? cleanedName + "!" : "Stranger!"}
+              <span className="font-bold">Hello{cleanedName ? "," : ", Stranger!"}</span>
+              {cleanedName && (
+                <span className="font-bold"> {cleanedName}!</span>
+              )}
+              {!cleanedName && null}
             </div>
             <div className="text-xs text-gray-500 font-normal">Welcome!</div>
           </div>
@@ -104,7 +107,7 @@ export const AppSidebar = ({
                     <SidebarMenuButton
                       isActive={isActive}
                       onClick={() => setCurrentPage(item.id)}
-                      className={`w-full group transition-all px-3 py-2 rounded-lg hover:bg-blue-50 hover:shadow-md hover:scale-[1.03] text-base font-normal ${
+                      className={`w-full group transition-all px-3 py-2 rounded-lg hover:bg-blue-50 hover:shadow-md hover:scale-[1.03] text-sm font-normal ${
                         isActive ? 'bg-blue-100 text-blue-700 shadow' : 'text-gray-700'
                       }`}
                       tooltip={item.tooltip}
