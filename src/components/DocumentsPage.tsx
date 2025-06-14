@@ -328,7 +328,7 @@ export const DocumentsPage = () => {
     toast.success("Important document deleted!");
   };
 
-  // Suggestions for documents
+  // Suggestions for documents (update as requested)
   const docSuggestions = [
     { name: "Passport", type: "Identity" },
     { name: "Residence Permit", type: "Immigration" },
@@ -338,11 +338,12 @@ export const DocumentsPage = () => {
     { name: "CAF Attestation", type: "Housing/CAF" },
     { name: "Birth Certificate", type: "Identity" },
     { name: "Bank Proof (RIB)", type: "Finance" },
-    { name: "Vaccination Record", type: "Health" },
     { name: "Enrollment Certificate", type: "Education" },
+    { name: "OFII Certificate", type: "Immigration" },
+    { name: "Social Security Number (SSN)", type: "Social Security" }
   ];
 
-  // Function to use suggestion
+  // Function to use suggestion for regular documents
   const handleSuggestionClick = (suggestion: { name: string; type: string }) => {
     setNewDocument({
       ...newDocument,
@@ -350,6 +351,16 @@ export const DocumentsPage = () => {
       type: suggestion.type,
     });
     setIsAddDialogOpen(true);
+  };
+
+  // Function to use suggestion for important docs
+  const handleImportantSuggestionClick = (suggestion: { name: string; type: string }) => {
+    setNewImportantDoc({
+      ...newImportantDoc,
+      name: suggestion.name,
+      description: suggestion.type,
+    });
+    setShowAddImportantDialog(true);
   };
 
   return (
@@ -371,7 +382,7 @@ export const DocumentsPage = () => {
         </TabsList>
 
         <TabsContent value="renewal">
-          {/* Suggestions Section */}
+          {/* Suggestions Section (for 'to renew') */}
           <div className="mb-6 flex flex-wrap gap-2 items-center">
             <span className="font-medium text-gray-700 mr-2">Quick Add:</span>
             {docSuggestions.map((s, idx) => (
@@ -740,6 +751,22 @@ export const DocumentsPage = () => {
 
         {/* "All Important Documents" */}
         <TabsContent value="all">
+          {/* Suggestions Section (for 'important documents') */}
+          <div className="mb-6 flex flex-wrap gap-2 items-center">
+            <span className="font-medium text-gray-700 mr-2">Quick Add:</span>
+            {docSuggestions.map((s, idx) => (
+              <Button
+                key={idx}
+                size="sm"
+                variant="secondary"
+                className="rounded-full px-4"
+                onClick={() => handleImportantSuggestionClick(s)}
+                type="button"
+              >
+                {s.name}
+              </Button>
+            ))}
+          </div>
           <div className="mb-6 flex justify-end">
             <Button onClick={() => setShowAddImportantDialog(true)}>
               <Plus className="h-4 w-4 mr-2" />
