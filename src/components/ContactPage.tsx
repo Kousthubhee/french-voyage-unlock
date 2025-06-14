@@ -205,31 +205,6 @@ export const ContactPage = () => {
               </div>
             </CardContent>
           </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Need a Quick Answer?</h3>
-              <p className="text-gray-600 mb-4">
-                For instant help,{" "}
-                <span
-                  className="underline cursor-pointer text-blue-700"
-                >
-                  <Link to="/qa" className="underline text-blue-700">
-                    try our Ask Me Anything chatbot
-                  </Link>
-                </span>
-                {" "}or contact us any time!
-              </p>
-              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-lg">
-                <div className="text-sm text-gray-700">
-                  <strong>Student to student, we’re always happy to listen and help!</strong>
-                </div>
-              </div>
-              <div className="pt-4 text-blue-800 text-center font-medium">
-                — The pasS2Kampus Team
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
