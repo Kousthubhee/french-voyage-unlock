@@ -42,6 +42,11 @@ export const AppSidebar = ({
   const cleanedName = typeof userName === "string" && userName.trim() !== "" ? userName : null;
   const avatarUrl = userAvatarUrl ?? "";
 
+  // Subtle color classes for inactive icons (pale accents)
+  const iconInactiveBgClass = "bg-blue-50"; // very light blue background
+  const iconInactiveTextClass = "text-blue-400"; // soft, not gray
+  const iconActiveBgClass = "bg-blue-200";
+  const iconActiveTextClass = "text-blue-700";
   const menuItems = [
     { id: 'checklist', icon: CheckSquare, label: 'Checklist', tooltip: 'Your onboarding checklist' },
     { id: 'documents', icon: FileText, label: 'Documents & Renewals', tooltip: 'Manage paperwork and renewal timelines' },
@@ -108,19 +113,22 @@ export const AppSidebar = ({
                     <SidebarMenuButton
                       isActive={isActive}
                       onClick={() => setCurrentPage(item.id)}
-                      className={`w-full group transition-all px-3 py-2 rounded-lg hover:bg-blue-50 hover:shadow-md hover:scale-[1.03] text-[15px] font-normal ${isActive 
-                        ? 'bg-blue-100 text-blue-700 shadow'
-                        : 'text-gray-700'
+                      className={`w-full group transition-all px-3 py-2 rounded-lg hover:bg-blue-50 hover:shadow-md hover:scale-[1.03] text-[15px] font-normal ${
+                        isActive
+                          ? 'bg-blue-100 text-blue-700 shadow'
+                          : 'text-gray-700'
                       }`}
                       tooltip={item.tooltip}
                     >
-                      <span className={`
-                        rounded-full p-2 flex items-center justify-center mr-3 transition-all
-                        ${isActive 
-                          ? 'bg-blue-200 text-blue-700 scale-110 shadow'
-                          : 'bg-gray-100 text-gray-500'
-                        }
-                      `}>
+                      <span
+                        className={`
+                          rounded-full p-2 flex items-center justify-center mr-3 transition-all
+                          ${isActive
+                            ? `${iconActiveBgClass} ${iconActiveTextClass} scale-110 shadow`
+                            : `${iconInactiveBgClass} ${iconInactiveTextClass}`
+                          }
+                        `}
+                      >
                         <Icon className="h-5 w-5" />
                       </span>
                       <span className="font-normal">
