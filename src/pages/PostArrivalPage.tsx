@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, CheckCircle, CreditCard, Shield, Home, FileText } from 'lucide-react';
 import { ReminderButton } from "@/components/ReminderButton";
+import { PageTitle } from "@/components/PageTitle";
 
 interface PostArrivalPageProps {
   onBack: () => void;
@@ -78,11 +79,10 @@ export const PostArrivalPage = ({ onBack, onComplete, isCompleted }: PostArrival
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Checklist
         </Button>
-        
         <div className="text-center mb-8">
-          <h1 className="text-xl md:text-2xl font-semibold text-gray-700 mb-3 font-calibri">
+          <PageTitle>
             🏠 Post-Arrival Checklist
-          </h1>
+          </PageTitle>
           <p className="text-base text-gray-500 font-calibri">
             Bank account, SSN, insurance, CAF, and more
           </p>

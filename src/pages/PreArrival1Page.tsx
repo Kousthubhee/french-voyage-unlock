@@ -6,6 +6,7 @@ import { ArrowLeft, CheckCircle, Calendar, ChevronDown, FileText, Clock } from '
 import { ReminderButton } from "@/components/ReminderButton";
 import { VisaSchedulerDialog } from "@/components/VisaSchedulerDialog";
 import { useState as useProfileState, useEffect } from 'react';
+import { PageTitle } from "@/components/PageTitle";
 
 interface PreArrival1PageProps {
   onBack: () => void;
@@ -174,11 +175,10 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Checklist
         </Button>
-        
         <div className="text-center mb-8">
-          <h1 className="text-xl md:text-2xl font-semibold text-gray-700 mb-3 font-calibri">
+          <PageTitle>
             ✈️ Pre-Arrival Checklist (Part 1)
-          </h1>
+          </PageTitle>
           <p className="text-base text-gray-500 font-calibri">
             Campus France, VFS, and essential preparations
           </p>

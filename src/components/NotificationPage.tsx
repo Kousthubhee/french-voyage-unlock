@@ -1,7 +1,7 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Bell, CheckCircle, AlertCircle, Info, X } from 'lucide-react';
+import { PageTitle } from './PageTitle';
 
 export const NotificationPage = () => {
   const notifications = [
@@ -76,10 +76,12 @@ export const NotificationPage = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-2xl font-medium text-blue-700 mb-4 flex items-center justify-center font-calibri">
-          <Bell className="h-7 w-7 mr-2 text-blue-600" />
-          Notifications
-        </h1>
+        <PageTitle>
+          <span className="align-middle">
+            <Bell className="h-6 w-6 mr-2 inline-block text-blue-600" />
+            Notifications
+          </span>
+        </PageTitle>
         <p className="text-base text-gray-600 font-calibri">
           Stay updated with your progress and important information
         </p>

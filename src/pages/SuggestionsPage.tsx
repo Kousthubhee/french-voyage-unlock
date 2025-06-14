@@ -1,7 +1,7 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
+import { PageTitle } from "@/components/PageTitle";
 
 interface SuggestionsPageProps {
   onBack: () => void;
@@ -14,9 +14,9 @@ export function SuggestionsPage({ onBack }: SuggestionsPageProps) {
         <ArrowLeft className="h-4 w-4 mr-2" />
         Back to Checklist
       </Button>
-      <h1 className="text-2xl font-medium mb-5 text-center text-yellow-700 font-calibri">
+      <PageTitle className="text-yellow-700">
         💡 Suggestions & Upcoming Features
-      </h1>
+      </PageTitle>
       <div className="space-y-4">
         <Card>
           <CardContent className="p-5">

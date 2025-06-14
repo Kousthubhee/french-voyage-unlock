@@ -1,10 +1,10 @@
-
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Edit } from 'lucide-react';
 import { ProfileEditDialog } from './ProfileEditDialog';
 import { AchievementsSection } from './AchievementsSection';
+import { PageTitle } from './PageTitle';
 
 const defaultProfilePhoto = "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=facearea&w=256&h=256&facepad=3&q=80";
 
@@ -51,7 +51,7 @@ export const ProfilePage = ({ profile, setProfile }: ProfilePageProps) => {
             className="w-28 h-28 rounded-full object-cover border-2 border-blue-400 mb-6 shadow-md"
             alt="Profile"
           />
-          <h2 className="text-2xl font-medium text-gray-900 mb-1 font-calibri">{profile.name}</h2>
+          <PageTitle className="mb-1">{profile.name}</PageTitle>
           <p className="text-gray-600 text-base mb-2 font-calibri">{profile.about}</p>
           <div className="text-sm text-gray-500 mt-1 mb-1 font-medium font-calibri">
             Member since {profile.memberSince}
