@@ -4,7 +4,21 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { 
+  Euro, 
+  Receipt, 
+  PiggyBank, 
+  TrendingUp, 
+  Bell,
+  CreditCard,
+  AlertTriangle,
+  FileText,
+  BarChart3,
+  Download,
+  Settings,
+  Camera
+} from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 // Newly modularized feature components
 import { CustomCategories } from "@/components/finance/CustomCategories";
