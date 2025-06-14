@@ -1,3 +1,4 @@
+
 /**
  * Checklist modules array for main checklist navigation.
  * Each object represents a module to display.
@@ -60,8 +61,8 @@ const checklistModules = [
     description: 'Explore new features and ideas to enhance your journey',
     icon: '💡',
     color: 'from-yellow-400 to-amber-500',
-    type: 'suggestions',
-    keysRequired: 2
+    type: 'suggestions'
+    // keysRequired removed to make it always unlocked
   }
 ];
 
