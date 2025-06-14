@@ -13,6 +13,13 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import { Info } from "lucide-react";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 
 interface Document {
   id: string;
@@ -404,7 +411,21 @@ export const DocumentsPage = () => {
               />
             </div>
             <div>
-              <Label htmlFor="new-doc-file">Attach File (PDF, JPG, PNG)</Label>
+              <Label htmlFor="new-doc-file" className="flex items-center gap-2">
+                Attach File (PDF, JPG, PNG)
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span tabIndex={0}>
+                        <Info className="h-4 w-4 text-blue-600 cursor-pointer" aria-label="Info about file upload"/>
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs">
+                      Attach a scan or photo of your document for easy access and as backup proof.
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </Label>
               <div className="flex items-center gap-2 mb-2">
                 <Input
                   id="new-doc-file"
