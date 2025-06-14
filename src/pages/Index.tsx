@@ -1,9 +1,9 @@
-
 import { useState } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
 import { Header } from '@/components/Header';
 import { MainRouter } from './MainRouter';
+import { useLocalStorageProgress } from "@/hooks/useLocalStorageProgress";
 
 interface UserProfile {
   name: string;
@@ -24,13 +24,8 @@ interface UserProfile {
 const Index = () => {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [currentPage, setCurrentPage] = useState('checklist');
+  const [userProgress, setUserProgress, resetProgress] = useLocalStorageProgress();
   const [selectedSchool, setSelectedSchool] = useState(null);
-  const [userProgress, setUserProgress] = useState({
-    keys: 4,
-    completedModules: [],
-    unlockedModules: ['school', 'pre-arrival-1', 'pre-arrival-2'],
-    currentPage: 'checklist'
-  });
 
   const handleProgressUpdate = (newProgress: any) => {
     setUserProgress(newProgress);
