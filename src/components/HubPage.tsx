@@ -391,16 +391,7 @@ export const HubPage = () => {
 
   return (
     <div className="max-w-6xl mx-auto">
-      {/* Alert: No sharing personal contacts */}
-      <div className="mb-4">
-        <Alert variant="destructive">
-          <AlertTriangle className="h-5 w-5" />
-          <AlertTitle>Notice: No Sharing of Personal Contact Details</AlertTitle>
-          <AlertDescription>
-            For your safety, sharing phone numbers or other personal contact information is not allowed in posts, comments, or replies. Please keep discussions public.
-          </AlertDescription>
-        </Alert>
-      </div>
+      {/* Remove the alert from the main area */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center">
           <Users className="h-8 w-8 mr-3 text-purple-600" />
@@ -523,14 +514,25 @@ export const HubPage = () => {
         </div>
 
         <div className="space-y-6">
+          {/* Only show the EventsCard and AchievementsCard; remove StatsCard/QuickHelpCard, and add the alert card */}
           <EventsCard events={upcomingEvents} />
           <AchievementsCard />
-          <StatsCard
-            activeMembers={activeMembers}
-            postsThisWeek={postsThisWeek}
-            questionsAnswered={questionsAnswered}
-          />
-          <QuickHelpCard />
+
+          {/* Notice: No sharing contact details */}
+          <div>
+            <Alert variant="destructive" className="rounded-lg border p-6">
+              <div className="flex items-start">
+                <AlertTriangle className="h-6 w-6 mt-1 mr-3 text-destructive" />
+                <div>
+                  <AlertTitle className="text-lg font-semibold mb-1">Notice: Sharing Contact Details Is Not Allowed</AlertTitle>
+                  <AlertDescription>
+                    For your safety, sharing phone numbers or other personal contact information is not allowed in posts, comments, or replies.
+                    Please keep discussions public.
+                  </AlertDescription>
+                </div>
+              </div>
+            </Alert>
+          </div>
         </div>
       </div>
     </div>
