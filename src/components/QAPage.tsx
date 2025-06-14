@@ -291,7 +291,16 @@ export const QAPage = () => {
                       placeholder="Type your question here..."
                       className="flex-1"
                       onKeyDown={(e) => {
-                        if (e.key === "Enter") e.preventDefault(); // DISABLE enter-to-send
+                        if (
+                          e.key === "Enter" &&
+                          !e.shiftKey &&
+                          !e.ctrlKey &&
+                          !isTyping &&
+                          (newMessage.trim() || file)
+                        ) {
+                          e.preventDefault();
+                          handleSendMessage();
+                        }
                       }}
                     />
                     <Button
