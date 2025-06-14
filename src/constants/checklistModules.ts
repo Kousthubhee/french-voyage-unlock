@@ -1,4 +1,3 @@
-
 /**
  * Checklist modules array for main checklist navigation.
  * Each object represents a module to display.
@@ -55,6 +54,15 @@ const checklistModules = [
     type: 'documents',
     keysRequired: 1
   },
+  {
+    id: 'suggestions',
+    title: 'Suggestions for You',
+    description: 'Explore new features and ideas to enhance your journey',
+    icon: '💡',
+    color: 'from-yellow-400 to-amber-500',
+    type: 'suggestions',
+    keysRequired: 2
+  }
 ];
 
 export default checklistModules;

@@ -16,6 +16,7 @@ import { PreArrival1Page } from './PreArrival1Page';
 import { PreArrival2Page } from './PreArrival2Page';
 import { PostArrivalPage } from './PostArrivalPage';
 import { FinanceTrackingPage } from './FinanceTrackingPage';
+import { SuggestionsPage } from './SuggestionsPage';
 import checklistModules from '@/constants/checklistModules';
 
 interface MainRouterProps {
@@ -146,6 +147,12 @@ export function MainRouter({
       return <FrenchIntegrationPage />;
     case 'documents':
       return <DocumentsPage />;
+    case 'suggestions':
+      return (
+        <SuggestionsPage 
+          onBack={() => setCurrentPage('checklist')}
+        />
+      );
     default:
       return (
         <ChecklistModule 
