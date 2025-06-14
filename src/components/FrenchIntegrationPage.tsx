@@ -218,6 +218,33 @@ export const FrenchIntegrationPage = () => {
                       Greeting in shops, saying "bonjour" before asking questions, saying "au revoir" when leaving.
                     </AccordionContent>
                   </AccordionItem>
+                  {/* ADDITION: Mental Health & Adjustment Tips */}
+                  <AccordionItem value="mental-health">
+                    <AccordionTrigger>Mental Health & Adjustment Tips</AccordionTrigger>
+                    <AccordionContent>
+                      <div>
+                        Moving abroad can be challenging! France offers student counseling services (often free/low-cost via university), and English-speaking therapists can be found in bigger cities. Normalize culture shock—join student clubs, stay connected with friends/family, and practice self-care. For urgent support, dial 3114 (national helpline for mental health).
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                  {/* ADDITION: Cultural Comparison */}
+                  <AccordionItem value="cultural-comparison">
+                    <AccordionTrigger>Cultural Comparison: France vs India</AccordionTrigger>
+                    <AccordionContent>
+                      <div>
+                        French culture emphasizes formality (bonjour, vous), strict punctuality, and quiet in public spaces. Academic methods focus on discussion and debate. Indian culture may be more relaxed on punctuality, and socializing can be more spontaneous. Both value warmth, but expect to adapt to French directness and privacy norms.
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                  {/* ADDITION: Indo-French Integration */}
+                  <AccordionItem value="indo-french">
+                    <AccordionTrigger>Indo-French Integration</AccordionTrigger>
+                    <AccordionContent>
+                      <div>
+                        Join Indo-French friendship groups or cultural associations in your city (look for "France-Inde" on Facebook), attend Holi/Diwali events, or connect at Indian restaurants. Universities often host "international days" featuring Indian culture, and city libraries carry Indian literature sections.
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
                 </Accordion>
               </CardContent>
             </Card>
@@ -306,7 +333,7 @@ export const FrenchIntegrationPage = () => {
               </ul>
               <div className="mt-4 mb-3 text-gray-800 font-semibold">💡 Dining Out Tip</div>
               <ul className="list-disc pl-8 space-y-1 text-gray-700">
-                <li>Politely ask: <span className="italic">“Est-ce végétarien / halal ?”</span> (Is this vegetarian/halal?)</li>
+                <li>Politely ask: <span className="italic">"Est-ce végétarien / halal ?"</span> (Is this vegetarian/halal?)</li>
               </ul>
             </CardContent>
           </Card>
@@ -319,6 +346,18 @@ export const FrenchIntegrationPage = () => {
                 <MapPin className="mr-3 h-7 w-7 text-cyan-600" />
                 <span className="text-xl font-semibold text-cyan-800">Practical Living & Safety</span>
               </div>
+              <Accordion type="single" collapsible className="w-full mb-4">
+                {/* INSERT French Bureaucracy Made Simple */}
+                <AccordionItem value="bureaucracy">
+                  <AccordionTrigger>French Bureaucracy Made Simple</AccordionTrigger>
+                  <AccordionContent>
+                    <div>
+                      French paperwork can feel overwhelming! Register at OFII within three months, open a French bank account for all payments, and get mandatory health insurance (student or national Sécurité Sociale). Always keep copies of your documents (passport, visa, housing attestations). If you need help, visit your university's international office.
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                {/* Optionally you can group other practical info as needed */}
+              </Accordion>
               <div className="mb-3 text-gray-800 font-semibold">🛡️ Public Transit</div>
               <ul className="list-disc pl-8 space-y-1 text-gray-700">
                 <li><b>Paris:</b> Use Navigo Pass (monthly/weekly)</li>
