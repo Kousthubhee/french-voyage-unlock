@@ -1,10 +1,8 @@
-
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select";
-import { BookOpen, ExternalLink, Filter } from "lucide-react";
+import { BookOpen, ExternalLink } from "lucide-react";
 
 // Placeholder news data structure
 const placeholders = {
@@ -58,30 +56,8 @@ const placeholders = {
   ]
 };
 
-const types = {
-  france: ["All", "Visa", "Housing"],
-  india: ["All", "International", "Policy"],
-  world: ["All", "Ranking", "Visa"],
-};
-
 export const NewsPage = () => {
   const [region, setRegion] = useState("france");
-  const [filters, setFilters] = useState({
-    france: "All",
-    india: "All",
-    world: "All"
-  });
-
-  const handleTypeFilterChange = (regionName: string, value: string) => {
-    setFilters({ ...filters, [regionName]: value });
-  };
-
-  // Only show stories matching the filter (or all)
-  function getFilteredNews(regionKey: keyof typeof placeholders) {
-    const filter = filters[regionKey];
-    if (filter === "All") return placeholders[regionKey];
-    return placeholders[regionKey].filter((news) => news.type === filter);
-  }
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -104,36 +80,15 @@ export const NewsPage = () => {
 
         {["france", "india", "world"].map((regionKey) => (
           <TabsContent key={regionKey} value={regionKey}>
-            <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
-              <div className="flex items-center gap-1">
-                <Filter className="text-blue-600 h-5 w-5" />
-                <span className="font-medium text-blue-900">Filter by type:</span>
-              </div>
-              <Select
-                value={filters[regionKey as keyof typeof filters]}
-                onValueChange={(val) => handleTypeFilterChange(regionKey, val)}
-              >
-                <SelectTrigger className="max-w-xs">
-                  <span>
-                    {filters[regionKey as keyof typeof filters]}
-                  </span>
-                </SelectTrigger>
-                <SelectContent>
-                  {types[regionKey as keyof typeof types].map(t => (
-                    <SelectItem key={t} value={t}>{t}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
             <div className="space-y-6">
-              {getFilteredNews(regionKey as keyof typeof placeholders).length === 0 ? (
+              {placeholders[regionKey as keyof typeof placeholders].length === 0 ? (
                 <Card>
                   <CardContent className="p-6 text-center">
                     <div className="text-gray-500">No news of this type yet. Coming soon!</div>
                   </CardContent>
                 </Card>
               ) : (
-                getFilteredNews(regionKey as keyof typeof placeholders).map(article => (
+                placeholders[regionKey as keyof typeof placeholders].map(article => (
                   <Card key={article.id} className="hover:shadow-lg transition-shadow">
                     <CardContent className="p-6 flex flex-col md:flex-row items-start">
                       <div className="flex-1">
