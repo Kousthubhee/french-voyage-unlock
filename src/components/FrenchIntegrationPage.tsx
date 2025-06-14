@@ -1,7 +1,7 @@
 
 import { Globe } from "lucide-react";
 import { GlossarySidebar } from "./FrenchGlossarySidebar";
-import { FrenchIntegrationTabs } from "./french-integration/FrenchIntegrationTabs";
+import { FrenchIntegrationModulesOverview } from "./french-integration/FrenchIntegrationModulesOverview";
 
 export const FrenchIntegrationPage = () => {
   return (
@@ -20,10 +20,9 @@ export const FrenchIntegrationPage = () => {
             </div>
           </div>
         </div>
-        {/* TABBED MAIN SECTIONS */}
-        <FrenchIntegrationTabs />
+        {/* MODULES GRID */}
+        <FrenchIntegrationModulesOverview />
       </div>
-
       {/* RIGHT COLUMN - SIDEBAR */}
       <div className="w-full lg:w-1/4 flex flex-col sticky top-6 gap-6 h-max">
         <GlossarySidebar />
