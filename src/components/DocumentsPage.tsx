@@ -20,6 +20,7 @@ import {
   TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
+import { Edit } from "lucide-react";
 
 interface Document {
   id: string;
@@ -123,6 +124,12 @@ export const DocumentsPage = () => {
     fileUrl: null as null | string,
   });
 
+  const [editDocId, setEditDocId] = useState<string | null>(null);
+  const [editValues, setEditValues] = useState<{ submissionDate: string; expiryDate: string }>({
+    submissionDate: '',
+    expiryDate: '',
+  });
+
   const calculateStatus = (expiryDate: string): 'valid' | 'expiring' | 'expired' => {
     const today = new Date();
     const expiry = new Date(expiryDate);
@@ -223,6 +230,47 @@ export const DocumentsPage = () => {
     setNewDocument(nd => ({ ...nd, file, fileUrl }));
   };
   const handleRemoveNewDocFile = () => setNewDocument(nd => ({ ...nd, file: null, fileUrl: null }));
+
+  // Handler to open edit dialog and preload dates
+  const openEditDialog = (doc: Document) => {
+    setEditDocId(doc.id);
+    setEditValues({
+      submissionDate: doc.submissionDate,
+      expiryDate: doc.expiryDate,
+    });
+  };
+
+  const closeEditDialog = () => {
+    setEditDocId(null);
+    setEditValues({ submissionDate: '', expiryDate: '' });
+  };
+
+  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditValues({ ...editValues, [e.target.name]: e.target.value });
+  };
+
+  const handleEditSubmit = () => {
+    if (!editValues.submissionDate || !editValues.expiryDate) {
+      toast.error("Both dates are required");
+      return;
+    }
+    setDocuments(docs =>
+      docs.map(doc => {
+        if (doc.id === editDocId) {
+          const status = calculateStatus(editValues.expiryDate);
+          return {
+            ...doc,
+            submissionDate: editValues.submissionDate,
+            expiryDate: editValues.expiryDate,
+            status,
+          };
+        }
+        return doc;
+      })
+    );
+    toast.success("Dates updated");
+    closeEditDialog();
+  };
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -370,6 +418,16 @@ export const DocumentsPage = () => {
                 </div>
 
                 <div className="flex gap-2">
+                  {/* Edit Button */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-gray-600"
+                    onClick={() => openEditDialog(doc)}
+                    aria-label="Edit dates"
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -398,6 +456,47 @@ export const DocumentsPage = () => {
           </Card>
         ))}
       </div>
+
+      {/* Edit Document Dates Dialog */}
+      <Dialog open={!!editDocId} onOpenChange={open => !open && closeEditDialog()}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Document Dates</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="edit-submission-date">Submission Date</Label>
+              <Input
+                id="edit-submission-date"
+                name="submissionDate"
+                type="date"
+                value={editValues.submissionDate}
+                onChange={handleEditChange}
+                required
+              />
+            </div>
+            <div>
+              <Label htmlFor="edit-expiry-date">Expiry Date</Label>
+              <Input
+                id="edit-expiry-date"
+                name="expiryDate"
+                type="date"
+                value={editValues.expiryDate}
+                onChange={handleEditChange}
+                required
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={closeEditDialog}>
+                Cancel
+              </Button>
+              <Button onClick={handleEditSubmit}>
+                Save Changes
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <DialogContent>
