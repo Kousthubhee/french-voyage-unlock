@@ -262,15 +262,17 @@ export const DocumentsPage = () => {
                     </Accordion>
                   )}
 
-                  {/* File preview section with info icon and tooltip (fixed) */}
+                  {/* File preview section with correct info icon and upload button behavior */}
                   <div className="mt-4">
                     <div className="flex items-center gap-2 mb-2">
                       <Label htmlFor={`file-input-${doc.id}`}>Document Scan / File:</Label>
+                      {/* Info icon and tooltip separated */}
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <span tabIndex={0}>
-                              <Info className="h-4 w-4 text-blue-600 cursor-pointer" aria-label="Info about document scan upload" />
+                            {/* Info icon, does not trigger file input */}
+                            <span tabIndex={0} role="button" aria-label="Info about document scan upload">
+                              <Info className="h-4 w-4 text-blue-600 cursor-pointer" />
                             </span>
                           </TooltipTrigger>
                           <TooltipContent side="top" className="max-w-xs">
@@ -278,6 +280,7 @@ export const DocumentsPage = () => {
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
+                      {/* Upload button triggers file input via label */}
                       <input
                         id={`file-input-${doc.id}`}
                         type="file"
@@ -285,7 +288,7 @@ export const DocumentsPage = () => {
                         className="hidden"
                         onChange={(e) => handleFileChange(e, doc.id)}
                       />
-                      <label htmlFor={`file-input-${doc.id}`} tabIndex={-1}>
+                      <label htmlFor={`file-input-${doc.id}`} tabIndex={-1} className="m-0">
                         <Button type="button" variant="outline" size="sm">
                           <UploadCloud className="h-4 w-4 mr-1" /> Upload
                         </Button>
