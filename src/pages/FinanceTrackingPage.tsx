@@ -1,33 +1,26 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { 
-  ArrowLeft, 
-  CheckCircle, 
-  Euro, 
-  PiggyBank, 
-  Receipt, 
-  CreditCard,
-  TrendingUp,
-  TrendingDown,
-  DollarSign,
-  Calendar,
-  FileText,
-  Users,
-  Clock,
-  Briefcase,
-  Bell,
-  Settings,
-  BarChart3,
-  Camera,
-  Download,
-  AlertTriangle
-} from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { ArrowLeft, CheckCircle } from 'lucide-react';
+
+// Newly modularized feature components
+import { CustomCategories } from "@/components/finance/CustomCategories";
+import { RecurringSetup } from "@/components/finance/RecurringSetup";
+import { AnalyticsCharts } from "@/components/finance/AnalyticsCharts";
+import { AlertsSettings } from "@/components/finance/AlertsSettings";
+import { CSVImportExport } from "@/components/finance/CSVImportExport";
+import { SnapshotReport } from "@/components/finance/SnapshotReport";
+import { CurrencyLiveRates } from "@/components/finance/CurrencyLiveRates";
+import { BillReminders } from "@/components/finance/BillReminders";
+import { SavingsGoals } from "@/components/finance/SavingsGoals";
+import { PartTimeJobLog } from "@/components/finance/PartTimeJobLog";
+import { DiscountIntegration } from "@/components/finance/DiscountIntegration";
+import { GamificationBadges } from "@/components/finance/GamificationBadges";
+import { PrivacyControls } from "@/components/finance/PrivacyControls";
+import { QuickAddMobile } from "@/components/finance/QuickAddMobile";
 
 interface FinanceTrackingPageProps {
   onBack: () => void;
@@ -37,6 +30,7 @@ interface FinanceTrackingPageProps {
 
 export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: FinanceTrackingPageProps) => {
   const [selectedTab, setSelectedTab] = useState('dashboard');
+  const [showAdvancedTools, setShowAdvancedTools] = useState(false);
   const [monthlyIncome, setMonthlyIncome] = useState(1200);
   const [totalExpenses, setTotalExpenses] = useState(850);
   const [emergencyFund, setEmergencyFund] = useState(320);
@@ -69,7 +63,7 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
   ];
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto animate-fade-in">
       <div className="mb-6">
         <Button 
           variant="outline" 
@@ -636,6 +630,37 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
           </Card>
         </TabsContent>
       </Tabs>
+
+      <QuickAddMobile />
+
+      <div className="mt-8 flex flex-col items-center">
+        <Button
+          onClick={() => setShowAdvancedTools((s) => !s)}
+          variant="outline"
+          className="mb-3"
+          aria-expanded={showAdvancedTools}
+        >
+          {showAdvancedTools ? "Hide" : "Show"} Advanced Tools & Insights
+        </Button>
+
+        {showAdvancedTools && (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
+            <CustomCategories />
+            <RecurringSetup />
+            <AnalyticsCharts />
+            <AlertsSettings />
+            <CSVImportExport />
+            <SnapshotReport />
+            <CurrencyLiveRates />
+            <BillReminders />
+            <SavingsGoals />
+            <PartTimeJobLog />
+            <DiscountIntegration />
+            <GamificationBadges />
+            <PrivacyControls />
+          </div>
+        )}
+      </div>
 
       {!isCompleted && (
         <Card className="mt-8 bg-green-50 border-green-200">
