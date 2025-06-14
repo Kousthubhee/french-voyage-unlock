@@ -4,6 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Users, MessageSquare, Share2, Heart, Calendar, Video, Edit, Search, Award, Pin } from 'lucide-react';
+import { QATab } from './hub/QATab';
+import { BlogsTab } from './hub/BlogsTab';
+import { ReelsTab } from './hub/ReelsTab';
+import { PollsTab } from './hub/PollsTab';
 
 export const HubPage = () => {
   const [activeTab, setActiveTab] = useState('qa'); // Default to Q&A tab
@@ -283,466 +287,65 @@ export const HubPage = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          {/* Q&A Section */}
           {activeTab === 'qa' && (
-            <>
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-4">Ask a Question</h3>
-                  <Textarea
-                    placeholder="What's on your mind? Ask a question or share an experience..."
-                    className="mb-4 h-20"
-                    value={newPost}
-                    onChange={(e) => setNewPost(e.target.value)}
-                  />
-                  <Button size="sm" onClick={handlePublishPost}>
-                    <Share2 className="h-4 w-4 mr-2" />
-                    Share
-                  </Button>
-                </CardContent>
-              </Card>
-              {qaPosts.map((item) => (
-                <Card key={item.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center">
-                        <div className="text-2xl mr-3">{item.avatar}</div>
-                        <div>
-                          <div className="font-semibold text-gray-900">{item.author}</div>
-                          <div className="text-sm text-gray-500">{item.time}</div>
-                        </div>
-                      </div>
-                      <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">{item.category}</span>
-                    </div>
-                    <p className="text-gray-700 mb-4">{item.content}</p>
-                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
-                      <button
-                        className="flex items-center hover:text-red-500"
-                        onClick={() => handleLike(item.id, item.type)}
-                      >
-                        <Heart className="h-4 w-4 mr-1" />
-                        {item.likes}
-                      </button>
-                      <span className="flex items-center">
-                        <MessageSquare className="h-4 w-4 mr-1" />
-                        {item.comments.length}
-                      </span>
-                    </div>
-
-                    {/* Comment Section */}
-                    <div className="mt-4">
-                      <Textarea
-                        placeholder="Write a comment..."
-                        className="mb-2 h-16"
-                        value={newComment[`${item.type}-${item.id}`] || ''}
-                        onChange={(e) =>
-                          setNewComment({
-                            ...newComment,
-                            [`${item.type}-${item.id}`]: e.target.value
-                          })
-                        }
-                      />
-                      <Button
-                        size="sm"
-                        onClick={() => handleComment(item.id, item.type)}
-                        disabled={!newComment[`${item.type}-${item.id}`]}
-                      >
-                        Comment
-                      </Button>
-                    </div>
-
-                    {/* Display Comments */}
-                    {item.comments.length > 0 && (
-                      <div className="mt-4 space-y-4">
-                        {item.comments.map((comment) => (
-                          <div key={comment.id} className="border-l-2 border-gray-200 pl-4">
-                            <div className="flex items-center mb-2">
-                              <span className="font-semibold text-gray-900 mr-2">{comment.author}</span>
-                              <span className="text-sm text-gray-500">{comment.time || 'Just now'}</span>
-                            </div>
-                            <p className="text-gray-700 mb-2">{comment.content}</p>
-
-                            {/* Reply Input */}
-                            <div className="mt-2">
-                              <Input
-                                placeholder="Write a reply..."
-                                className="mb-2"
-                                value={newComment[`reply-${item.type}-${item.id}-${comment.id}`] || ''}
-                                onChange={(e) =>
-                                  setNewComment({
-                                    ...newComment,
-                                    [`reply-${item.type}-${item.id}-${comment.id}`]: e.target.value
-                                  })
-                                }
-                              />
-                              <Button
-                                size="sm"
-                                onClick={() => handleReply(item.id, comment.id, item.type)}
-                                disabled={!newComment[`reply-${item.type}-${item.id}-${comment.id}`]}
-                              >
-                                Reply
-                              </Button>
-                            </div>
-
-                            {/* Display Replies */}
-                            {comment.replies && comment.replies.length > 0 && (
-                              <div className="mt-2 space-y-2 pl-4">
-                                {comment.replies.map((reply) => (
-                                  <div key={reply.id} className="border-l-2 border-gray-300 pl-4">
-                                    <div className="flex items-center mb-1">
-                                      <span className="font-semibold text-gray-900 mr-2">{reply.author}</span>
-                                      <span className="text-sm text-gray-500">{reply.time || 'Just now'}</span>
-                                    </div>
-                                    <p className="text-gray-700">{reply.content}</p>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </>
+            <QATab
+              qaPosts={posts.filter(p => p.type === 'post')}
+              newPost={newPost}
+              onNewPostChange={setNewPost}
+              onPublishPost={handlePublishPost}
+              onLike={handleLike}
+              newComment={newComment}
+              setNewComment={setNewComment}
+              onComment={handleComment}
+              onReply={handleReply}
+            />
           )}
-
-          {/* Blogs Section */}
           {activeTab === 'blogs' && (
-            <>
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-4 flex items-center">
-                    <Edit className="h-5 w-5 mr-2 text-blue-600" />
-                    Write a Blog
-                  </h3>
-                  <Input
-                    placeholder="Blog title"
-                    className="mb-4"
-                    value={blogTitle}
-                    onChange={(e) => setBlogTitle(e.target.value)}
-                  />
-                  <Textarea
-                    value={blogContent}
-                    onChange={(e) => setBlogContent(e.target.value)}
-                    placeholder="Write your blog post here..."
-                    className="mb-4 h-40"
-                  />
-                  <Button size="sm" onClick={handlePublishBlog}>
-                    <Share2 className="h-4 w-4 mr-2" />
-                    Publish
-                  </Button>
-                </CardContent>
-              </Card>
-              {blogs.map((item) => (
-                <Card key={item.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center">
-                        <div className="text-2xl mr-3">{item.avatar || '🧑‍🎓'}</div>
-                        <div>
-                          <div className="font-semibold text-gray-900">{item.author}</div>
-                          <div className="text-sm text-gray-500">{item.time}</div>
-                        </div>
-                      </div>
-                    </div>
-                    <h4 className="text-lg font-semibold">{item.title}</h4>
-                    <p className="text-gray-700 whitespace-pre-wrap">{item.content}</p>
-                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
-                      <button
-                        className="flex items-center hover:text-red-500"
-                        onClick={() => handleLike(item.id, 'blog')}
-                      >
-                        <Heart className="h-4 w-4 mr-1" />
-                        {item.likes}
-                      </button>
-                      <span className="flex items-center">
-                        <MessageSquare className="h-4 w-4 mr-1" />
-                        {item.comments.length}
-                      </span>
-                    </div>
-
-                    {/* Comment Section */}
-                    <div className="mt-4">
-                      <Textarea
-                        placeholder="Write a comment..."
-                        className="mb-2 h-16"
-                        value={newComment[`blog-${item.id}`] || ''}
-                        onChange={(e) =>
-                          setNewComment({
-                            ...newComment,
-                            [`blog-${item.id}`]: e.target.value
-                          })
-                        }
-                      />
-                      <Button
-                        size="sm"
-                        onClick={() => handleComment(item.id, 'blog')}
-                        disabled={!newComment[`blog-${item.id}`]}
-                      >
-                        Comment
-                      </Button>
-                    </div>
-
-                    {/* Display Comments */}
-                    {item.comments.length > 0 && (
-                      <div className="mt-4 space-y-4">
-                        {item.comments.map((comment) => (
-                          <div key={comment.id} className="border-l-2 border-gray-200 pl-4">
-                            <div className="flex items-center mb-2">
-                              <span className="font-semibold text-gray-900 mr-2">{comment.author}</span>
-                              <span className="text-sm text-gray-500">{comment.time || 'Just now'}</span>
-                            </div>
-                            <p className="text-gray-700 mb-2">{comment.content}</p>
-
-                            {/* Reply Input */}
-                            <div className="mt-2">
-                              <Input
-                                placeholder="Write a reply..."
-                                className="mb-2"
-                                value={newComment[`reply-blog-${item.id}-${comment.id}`] || ''}
-                                onChange={(e) =>
-                                  setNewComment({
-                                    ...newComment,
-                                    [`reply-blog-${item.id}-${comment.id}`]: e.target.value
-                                  })
-                                }
-                              />
-                              <Button
-                                size="sm"
-                                onClick={() => handleReply(item.id, comment.id, 'blog')}
-                                disabled={!newComment[`reply-blog-${item.id}-${comment.id}`]}
-                              >
-                                Reply
-                              </Button>
-                            </div>
-
-                            {/* Display Replies */}
-                            {comment.replies && comment.replies.length > 0 && (
-                              <div className="mt-2 space-y-2 pl-4">
-                                {comment.replies.map((reply) => (
-                                  <div key={reply.id} className="border-l-2 border-gray-300 pl-4">
-                                    <div className="flex items-center mb-1">
-                                      <span className="font-semibold text-gray-900 mr-2">{reply.author}</span>
-                                      <span className="text-sm text-gray-500">{reply.time || 'Just now'}</span>
-                                    </div>
-                                    <p className="text-gray-700">{reply.content}</p>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </>
+            <BlogsTab
+              blogTitle={blogTitle}
+              blogContent={blogContent}
+              onChangeTitle={setBlogTitle}
+              onChangeContent={setBlogContent}
+              onPublish={handlePublishBlog}
+              blogs={blogs}
+              onLike={handleLike}
+              newComment={newComment}
+              setNewComment={setNewComment}
+              onComment={handleComment}
+              onReply={handleReply}
+            />
           )}
-
-          {/* Reels Section */}
           {activeTab === 'reels' && (
-            <>
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-4 flex items-center">
-                    <Video className="h-5 w-5 mr-2 text-red-600" />
-                    Upload a Reel
-                  </h3>
-                  <Input type="file" accept="video/*" onChange={handleReelUpload} className="mb-4" />
-                  {newReel && <video src={newReel} controls className="w-full rounded-lg mb-4" />}
-                  <Textarea
-                    placeholder="Add a caption..."
-                    className="mb-4"
-                    value={newReelCaption}
-                    onChange={(e) => setNewReelCaption(e.target.value)}
-                  />
-                  <Button size="sm" onClick={handlePublishReel}>
-                    <Share2 className="h-4 w-4 mr-2" />
-                    Share Reel
-                  </Button>
-                </CardContent>
-              </Card>
-              {reels.map((item) => (
-                <Card key={item.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center">
-                        <div className="text-2xl mr-3">{item.avatar}</div>
-                        <div>
-                          <div className="font-semibold text-gray-900">{item.author}</div>
-                          <div className="text-sm text-gray-500">{item.time}</div>
-                        </div>
-                      </div>
-                      <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">{item.category}</span>
-                    </div>
-                    <video src={item.videoUrl} controls className="w-full rounded-lg mb-4" />
-                    <p className="text-gray-700 mt-2">{item.caption}</p>
-                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
-                      <button
-                        className="flex items-center hover:text-red-500"
-                        onClick={() => handleLike(item.id, item.type)}
-                      >
-                        <Heart className="h-4 w-4 mr-1" />
-                        {item.likes}
-                      </button>
-                      <span className="flex items-center">
-                        <MessageSquare className="h-4 w-4 mr-1" />
-                        {item.comments.length}
-                      </span>
-                    </div>
-
-                    {/* Comment Section */}
-                    <div className="mt-4">
-                      <Textarea
-                        placeholder="Write a comment..."
-                        className="mb-2 h-16"
-                        value={newComment[`${item.type}-${item.id}`] || ''}
-                        onChange={(e) =>
-                          setNewComment({
-                            ...newComment,
-                            [`${item.type}-${item.id}`]: e.target.value
-                          })
-                        }
-                      />
-                      <Button
-                        size="sm"
-                        onClick={() => handleComment(item.id, item.type)}
-                        disabled={!newComment[`${item.type}-${item.id}`]}
-                      >
-                        Comment
-                      </Button>
-                    </div>
-
-                    {/* Display Comments */}
-                    {item.comments.length > 0 && (
-                      <div className="mt-4 space-y-4">
-                        {item.comments.map((comment) => (
-                          <div key={comment.id} className="border-l-2 border-gray-200 pl-4">
-                            <div className="flex items-center mb-2">
-                              <span className="font-semibold text-gray-900 mr-2">{comment.author}</span>
-                              <span className="text-sm text-gray-500">{comment.time || 'Just now'}</span>
-                            </div>
-                            <p className="text-gray-700 mb-2">{comment.content}</p>
-
-                            {/* Reply Input */}
-                            <div className="mt-2">
-                              <Input
-                                placeholder="Write a reply..."
-                                className="mb-2"
-                                value={newComment[`reply-${item.type}-${item.id}-${comment.id}`] || ''}
-                                onChange={(e) =>
-                                  setNewComment({
-                                    ...newComment,
-                                    [`reply-${item.type}-${item.id}-${comment.id}`]: e.target.value
-                                  })
-                                }
-                              />
-                              <Button
-                                size="sm"
-                                onClick={() => handleReply(item.id, comment.id, item.type)}
-                                disabled={!newComment[`reply-${item.type}-${item.id}-${comment.id}`]}
-                              >
-                                Reply
-                              </Button>
-                            </div>
-
-                            {/* Display Replies */}
-                            {comment.replies && comment.replies.length > 0 && (
-                              <div className="mt-2 space-y-2 pl-4">
-                                {comment.replies.map((reply) => (
-                                  <div key={reply.id} className="border-l-2 border-gray-300 pl-4">
-                                    <div className="flex items-center mb-1">
-                                      <span className="font-semibold text-gray-900 mr-2">{reply.author}</span>
-                                      <span className="text-sm text-gray-500">{reply.time || 'Just now'}</span>
-                                    </div>
-                                    <p className="text-gray-700">{reply.content}</p>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </>
+            <ReelsTab
+              reels={posts.filter(p => p.type === 'reel')}
+              newReel={newReel}
+              newReelCaption={newReelCaption}
+              onReelUpload={handleReelUpload}
+              onChangeCaption={setNewReelCaption}
+              onPublish={handlePublishReel}
+              onLike={handleLike}
+              newComment={newComment}
+              setNewComment={setNewComment}
+              onComment={handleComment}
+              onReply={handleReply}
+            />
           )}
-
-          {/* Polls Section */}
           {activeTab === 'polls' && (
-            <>
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-4">Create a Poll</h3>
-                  <Input
-                    placeholder="Poll question"
-                    value={pollQuestion}
-                    onChange={(e) => setPollQuestion(e.target.value)}
-                    className="mb-4"
-                  />
-                  {pollOptions.map((option, index) => (
-                    <Input
-                      key={index}
-                      placeholder={`Option ${index + 1}`}
-                      value={option}
-                      onChange={(e) => updatePollOption(index, e.target.value)}
-                      className="mb-2"
-                    />
-                  ))}
-                  <Button variant="outline" size="sm" onClick={addPollOption} className="mb-4">
-                    Add Option
-                  </Button>
-                  <Button size="sm" onClick={handlePublishPoll}>
-                    <Share2 className="h-4 w-4 mr-2" />
-                    Share Poll
-                  </Button>
-                </CardContent>
-              </Card>
-              {polls.map((item) => (
-                <Card key={item.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center">
-                        <div className="text-2xl mr-3">{item.avatar}</div>
-                        <div>
-                          <div className="font-semibold text-gray-900">{item.author}</div>
-                          <div className="text-sm text-gray-500">{item.time}</div>
-                        </div>
-                      </div>
-                      <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">{item.category}</span>
-                    </div>
-                    <h4 className="text-lg font-semibold">{item.question}</h4>
-                    <div className="space-y-2 mt-2">
-                      {item.options.map((option, idx) => (
-                        <div key={idx} className="flex items-center justify-between">
-                          <span>{option.text}</span>
-                          <div className="flex items-center space-x-2">
-                            <span>{option.votes} votes</span>
-                            <Button size="sm" onClick={() => handleVotePoll(item.id, idx)}>
-                              Vote
-                            </Button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex items-center space-x-4 text-sm text-gray-500 mt-4">
-                      <button
-                        className="flex items-center hover:text-red-500"
-                        onClick={() => handleLike(item.id, item.type)}
-                      >
-                        <Heart className="h-4 w-4 mr-1" />
-                        {item.likes}
-                      </button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </>
+            <PollsTab
+              polls={posts.filter(p => p.type === 'poll')}
+              pollQuestion={pollQuestion}
+              pollOptions={pollOptions}
+              onChangeQuestion={setPollQuestion}
+              onUpdateOption={updatePollOption}
+              onAddOption={addPollOption}
+              onPublish={handlePublishPoll}
+              onVote={handleVotePoll}
+              onLike={handleLike}
+              newComment={newComment}
+              setNewComment={setNewComment}
+              onComment={handleComment}
+              onReply={handleReply}
+            />
           )}
         </div>
 

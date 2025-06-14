@@ -2,26 +2,8 @@
 import { useState } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
-import { ChecklistModule } from '@/components/ChecklistModule';
-import { QAPage } from '@/components/QAPage';
-import { HubPage } from '@/components/HubPage';
-import { NewsPage } from '@/components/NewsPage';
-import { AffiliationPage } from '@/components/AffiliationPage';
-import { LanguagePage } from '@/components/LanguagePage';
-import { TranslatePage } from '@/components/TranslatePage';
-import { ContactPage } from '@/components/ContactPage';
-import { ProfilePage } from '@/components/ProfilePage';
-import { NotificationPage } from '@/components/NotificationPage';
-import { SchoolDetails } from '@/components/SchoolDetails';
-import { FrenchIntegrationPage } from '@/components/FrenchIntegrationPage';
-import { DocumentsPage } from '@/components/DocumentsPage';
-// import { LoginPage } from '@/components/LoginPage'; // REMOVED
 import { Header } from '@/components/Header';
-import { SchoolInsightsPage } from './SchoolInsightsPage';
-import { PreArrival1Page } from './PreArrival1Page';
-import { PreArrival2Page } from './PreArrival2Page';
-import { PostArrivalPage } from './PostArrivalPage';
-import { FinanceTrackingPage } from './FinanceTrackingPage';
+import { MainRouter } from './MainRouter';
 
 interface UserProfile {
   name: string;
@@ -40,23 +22,15 @@ interface UserProfile {
 }
 
 const Index = () => {
-  // No login state now
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [currentPage, setCurrentPage] = useState('checklist');
   const [selectedSchool, setSelectedSchool] = useState(null);
   const [userProgress, setUserProgress] = useState({
-    keys: 4, // Start with 4 keys
+    keys: 4,
     completedModules: [],
-    unlockedModules: ['school', 'pre-arrival-1', 'pre-arrival-2'], // Only first 3 modules unlocked
+    unlockedModules: ['school', 'pre-arrival-1', 'pre-arrival-2'],
     currentPage: 'checklist'
   });
-
-  // No login handler needed anymore
-  // const handleLogin = (profile: UserProfile) => {
-  //   setUserProfile(profile);
-  //   setIsLoggedIn(true);
-  // };
 
   const handleProgressUpdate = (newProgress: any) => {
     setUserProgress(newProgress);
@@ -64,60 +38,6 @@ const Index = () => {
       setCurrentPage(newProgress.currentPage);
     }
   };
-
-  const checklistModules = [
-    {
-      id: 'school',
-      title: 'School & Local Insights',
-      description: 'Explore French schools and get local insights for each city',
-      icon: '🏫',
-      color: 'from-blue-500 to-cyan-500',
-      type: 'school'
-    },
-    {
-      id: 'pre-arrival-1',
-      title: 'Pre-Arrival Checklist (Part 1)',
-      description: 'Campus France, VFS, and essential preparations',
-      icon: '✈️',
-      color: 'from-green-500 to-emerald-500',
-      type: 'checklist'
-    },
-    {
-      id: 'pre-arrival-2',
-      title: 'Pre-Arrival Checklist (Part 2)',
-      description: 'Food, clothes, and cultural preparation',
-      icon: '🎒',
-      color: 'from-orange-500 to-red-500',
-      type: 'checklist'
-    },
-    {
-      id: 'post-arrival',
-      title: 'Post-Arrival Checklist',
-      description: 'Bank account, SSN, insurance, CAF, and more',
-      icon: '🏠',
-      color: 'from-indigo-500 to-purple-500',
-      type: 'checklist',
-      keysRequired: 2
-    },
-    {
-      id: 'integration',
-      title: 'French Integration',
-      description: 'Cultural adaptation and social integration',
-      icon: '🤝',
-      color: 'from-rose-500 to-pink-500',
-      type: 'integration',
-      keysRequired: 3
-    },
-    {
-      id: 'finance',
-      title: 'Tracking your Finances',
-      description: 'Important paperwork and renewal processes',
-      icon: '📄',
-      color: 'from-teal-500 to-blue-500',
-      type: 'documents',
-      keysRequired: 1
-    },
-  ];
 
   const sidebarPages = ['qa', 'hub', 'news', 'affiliation', 'language', 'translate', 'contact', 'profile', 'notifications', 'integration', 'documents'];
   
@@ -133,131 +53,6 @@ const Index = () => {
     setCurrentPage(page);
   };
 
-  // LOGIN PAGE REMOVED: Always render main app content
-
-  const renderCurrentPage = () => {
-    if (selectedSchool) {
-      return (
-        <SchoolDetails 
-          school={selectedSchool} 
-          onBack={() => setSelectedSchool(null)}
-        />
-      );
-    }
-
-    switch (currentPage) {
-      case 'checklist':
-        return (
-          <ChecklistModule 
-            modules={checklistModules}
-            userProgress={userProgress}
-            setUserProgress={handleProgressUpdate}
-            onSchoolSelect={setSelectedSchool}
-            currentPage={currentPage}
-          />
-        );
-      case 'school-insights':
-        return <SchoolInsightsPage onBack={() => setCurrentPage('checklist')} />;
-      case 'pre-arrival-1':
-        return (
-          <PreArrival1Page 
-            onBack={() => setCurrentPage('checklist')} 
-            onComplete={() => {
-              const newProgress = {
-                ...userProgress,
-                completedModules: [...userProgress.completedModules, 'pre-arrival-1'],
-                keys: userProgress.keys + 1
-              };
-              handleProgressUpdate(newProgress);
-              setCurrentPage('checklist');
-            }}
-            isCompleted={userProgress.completedModules.includes('pre-arrival-1')}
-            userProfile={userProfile}
-          />
-        );
-      case 'pre-arrival-2':
-        return (
-          <PreArrival2Page 
-            onBack={() => setCurrentPage('checklist')} 
-            onComplete={() => {
-              const newProgress = {
-                ...userProgress,
-                completedModules: [...userProgress.completedModules, 'pre-arrival-2'],
-                keys: userProgress.keys + 1
-              };
-              handleProgressUpdate(newProgress);
-              setCurrentPage('checklist');
-            }}
-            isCompleted={userProgress.completedModules.includes('pre-arrival-2')}
-          />
-        );
-      case 'post-arrival':
-        return (
-          <PostArrivalPage 
-            onBack={() => setCurrentPage('checklist')} 
-            onComplete={() => {
-              const newProgress = {
-                ...userProgress,
-                completedModules: [...userProgress.completedModules, 'post-arrival'],
-                keys: userProgress.keys + 1
-              };
-              handleProgressUpdate(newProgress);
-              setCurrentPage('checklist');
-            }}
-            isCompleted={userProgress.completedModules.includes('post-arrival')}
-          />
-        );
-      case 'finance-tracking':
-        return (
-          <FinanceTrackingPage 
-            onBack={() => setCurrentPage('checklist')} 
-            onComplete={() => {
-              const newProgress = {
-                ...userProgress,
-                completedModules: [...userProgress.completedModules, 'finance'],
-                keys: userProgress.keys + 1
-              };
-              handleProgressUpdate(newProgress);
-              setCurrentPage('checklist');
-            }}
-            isCompleted={userProgress.completedModules.includes('finance')}
-          />
-        );
-      case 'qa':
-        return <QAPage />;
-      case 'hub':
-        return <HubPage />;
-      case 'news':
-        return <NewsPage />;
-      case 'affiliation':
-        return <AffiliationPage />;
-      case 'language':
-        return <LanguagePage />;
-      case 'translate':
-        return <TranslatePage />;
-      case 'contact':
-        return <ContactPage />;
-      case 'profile':
-        return <ProfilePage />;
-      case 'notifications':
-        return <NotificationPage />;
-      case 'integration':
-        return <FrenchIntegrationPage />;
-      case 'documents':
-        return <DocumentsPage />;
-      default:
-        return (
-          <ChecklistModule 
-            modules={checklistModules}
-            userProgress={userProgress}
-            setUserProgress={handleProgressUpdate}
-            onSchoolSelect={setSelectedSchool}
-            currentPage={currentPage}
-          />
-        );
-    }
-  };
-
   return (
     <SidebarProvider>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex w-full">
@@ -269,7 +64,16 @@ const Index = () => {
             userProgress={userProgress}
           />
           <main className="flex-1 p-4 md:p-6 overflow-auto">
-            {renderCurrentPage()}
+            <MainRouter
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              userProfile={userProfile}
+              userProgress={userProgress}
+              setUserProgress={setUserProgress}
+              selectedSchool={selectedSchool}
+              setSelectedSchool={setSelectedSchool}
+              handleProgressUpdate={handleProgressUpdate}
+            />
           </main>
           <footer className="bg-white border-t border-gray-200 py-4 px-6">
             <div className="text-center text-gray-600">
