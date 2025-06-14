@@ -17,7 +17,7 @@ const modulesMeta = [
     icon: <Languages />,
     topicCount: 5,
     description: "Essential French phrases, daily convos, and pronunciation tips.",
-    colorClass: "text-blue-700",
+    // colorClass: "text-blue-700", // Not needed
   },
   {
     key: "etiquette",
@@ -25,7 +25,7 @@ const modulesMeta = [
     icon: <Users />,
     topicCount: 4,
     description: "Master polite norms, greetings, and public dos and don'ts.",
-    colorClass: "text-cyan-800",
+    // colorClass: "text-cyan-800",
   },
   {
     key: "events",
@@ -33,7 +33,7 @@ const modulesMeta = [
     icon: <Calendar />,
     topicCount: 3,
     description: "Key holidays, how to join and host French parties.",
-    colorClass: "text-orange-700",
+    // colorClass: "text-orange-700",
   },
   {
     key: "food",
@@ -41,7 +41,7 @@ const modulesMeta = [
     icon: <Utensils />,
     topicCount: 4,
     description: "Eating habits, labels, allergy tips, and specialty shopping.",
-    colorClass: "text-green-700",
+    // colorClass: "text-green-700",
   },
   {
     key: "studentLife",
@@ -49,7 +49,7 @@ const modulesMeta = [
     icon: <Home />,
     topicCount: 6,
     description: "Housing, finances, academics, volunteering and more.",
-    colorClass: "text-amber-900",
+    // colorClass: "text-amber-900",
   },
   {
     key: "bureaucracy",
@@ -57,7 +57,7 @@ const modulesMeta = [
     icon: <FileText />,
     topicCount: 3,
     description: "Navigate prefectures, polite phrases, and follow-up tips.",
-    colorClass: "text-violet-700",
+    // colorClass: "text-violet-700",
   },
   {
     key: "mentalHealth",
@@ -65,7 +65,7 @@ const modulesMeta = [
     icon: <Brain />,
     topicCount: 3,
     description: "Culture shock, support groups, and wellbeing resources.",
-    colorClass: "text-fuchsia-700",
+    // colorClass: "text-fuchsia-700",
   },
   {
     key: "culturalComparison",
@@ -73,7 +73,7 @@ const modulesMeta = [
     icon: <BookOpen />,
     topicCount: 4,
     description: "French vs Indian education, work, and value systems.",
-    colorClass: "text-pink-800",
+    // colorClass: "text-pink-800",
   },
   {
     key: "practicalLiving",
@@ -81,7 +81,7 @@ const modulesMeta = [
     icon: <Sun />,
     topicCount: 2,
     description: "Weather hacks, public transport, and local survival tips.",
-    colorClass: "text-yellow-600",
+    // colorClass: "text-yellow-600",
   },
   {
     key: "safety",
@@ -89,7 +89,7 @@ const modulesMeta = [
     icon: <Shield />,
     topicCount: 1,
     description: "Emergency contacts, helplines, and personal safety advice.",
-    colorClass: "text-red-700",
+    // colorClass: "text-red-700",
   },
   {
     key: "indoFrench",
@@ -97,7 +97,7 @@ const modulesMeta = [
     icon: <IndianRupee />,
     topicCount: 4,
     description: "Compare life, food, and homesickness from a Desi lens.",
-    colorClass: "text-orange-900",
+    // colorClass: "text-orange-900",
   }
 ];
 
@@ -908,7 +908,6 @@ export const FrenchIntegrationPage = () => {
               title={mod.title}
               topicCount={mod.topicCount}
               description={mod.description}
-              colorClass={mod.colorClass}
               onClick={() => setExpandedModuleKey(mod.key)}
             />
           ))}
