@@ -17,16 +17,14 @@ const glossary = [
 ];
 
 export function GlossarySidebar() {
-  // Handles navigation to the integration page's useful links section
-  const handleUsefulLinks = (e: React.MouseEvent) => {
-    e.preventDefault();
-    // If using react-router, navigate to /?page=integration#useful-links
-    window.location.hash = "#useful-links";
-    // If you want to change the route, you can do: window.location.href = "/?page=integration"
-  };
-
   // Feedback link: opens a mail client to send feedback to support.
   const feedbackEmail = "contact@pas2kampus.com"; // replace with correct email if available
+
+  // Handles navigation to the integration page's useful links section (full reload to workaround navigation limitation)
+  const handleUsefulLinks = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.location.href = "/?page=integration#useful-links";
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -56,7 +54,7 @@ export function GlossarySidebar() {
             Student Favorites
           </a>
           <a
-            href="#useful-links"
+            href="/?page=integration#useful-links"
             onClick={handleUsefulLinks}
             className="flex items-center text-blue-700 hover:underline"
           >
