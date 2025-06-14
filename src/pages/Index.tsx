@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
@@ -14,7 +15,7 @@ import { NotificationPage } from '@/components/NotificationPage';
 import { SchoolDetails } from '@/components/SchoolDetails';
 import { FrenchIntegrationPage } from '@/components/FrenchIntegrationPage';
 import { DocumentsPage } from '@/components/DocumentsPage';
-import { LoginPage } from '@/components/LoginPage';
+// import { LoginPage } from '@/components/LoginPage'; // REMOVED
 import { Header } from '@/components/Header';
 import { SchoolInsightsPage } from './SchoolInsightsPage';
 import { PreArrival1Page } from './PreArrival1Page';
@@ -39,7 +40,8 @@ interface UserProfile {
 }
 
 const Index = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // No login state now
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [currentPage, setCurrentPage] = useState('checklist');
   const [selectedSchool, setSelectedSchool] = useState(null);
@@ -50,12 +52,12 @@ const Index = () => {
     currentPage: 'checklist'
   });
 
-  const handleLogin = (profile: UserProfile) => {
-    setUserProfile(profile);
-    setIsLoggedIn(true);
-  };
+  // No login handler needed anymore
+  // const handleLogin = (profile: UserProfile) => {
+  //   setUserProfile(profile);
+  //   setIsLoggedIn(true);
+  // };
 
-  // Update current page when user progress changes
   const handleProgressUpdate = (newProgress: any) => {
     setUserProgress(newProgress);
     if (newProgress.currentPage && newProgress.currentPage !== currentPage) {
@@ -71,7 +73,6 @@ const Index = () => {
       icon: '🏫',
       color: 'from-blue-500 to-cyan-500',
       type: 'school'
-      // No keysRequired - always available
     },
     {
       id: 'pre-arrival-1',
@@ -80,7 +81,6 @@ const Index = () => {
       icon: '✈️',
       color: 'from-green-500 to-emerald-500',
       type: 'checklist'
-      // No keysRequired - initially available
     },
     {
       id: 'pre-arrival-2',
@@ -89,7 +89,6 @@ const Index = () => {
       icon: '🎒',
       color: 'from-orange-500 to-red-500',
       type: 'checklist'
-      // No keysRequired - initially available
     },
     {
       id: 'post-arrival',
@@ -98,7 +97,7 @@ const Index = () => {
       icon: '🏠',
       color: 'from-indigo-500 to-purple-500',
       type: 'checklist',
-      keysRequired: 2 // Requires 2 keys to unlock
+      keysRequired: 2
     },
     {
       id: 'integration',
@@ -107,7 +106,7 @@ const Index = () => {
       icon: '🤝',
       color: 'from-rose-500 to-pink-500',
       type: 'integration',
-      keysRequired: 3 // Requires 3 keys to unlock
+      keysRequired: 3
     },
     {
       id: 'finance',
@@ -116,7 +115,7 @@ const Index = () => {
       icon: '📄',
       color: 'from-teal-500 to-blue-500',
       type: 'documents',
-      keysRequired: 1 // Requires 1 key to unlock
+      keysRequired: 1
     },
   ];
 
@@ -134,10 +133,7 @@ const Index = () => {
     setCurrentPage(page);
   };
 
-  // Show login page if not logged in
-  if (!isLoggedIn) {
-    return <LoginPage onLogin={handleLogin} />;
-  }
+  // LOGIN PAGE REMOVED: Always render main app content
 
   const renderCurrentPage = () => {
     if (selectedSchool) {
