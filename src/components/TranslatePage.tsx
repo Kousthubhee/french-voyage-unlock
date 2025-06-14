@@ -1,286 +1,356 @@
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Mic, Volume2, ArrowLeft, RefreshCcw, ArrowLeft as Swap } from 'lucide-react';
+import { Volume2, ArrowLeft as Swap, Mic, Copy, Notes } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { toast } from '@/components/ui/sonner';
 
 const LANG_OPTIONS = [
   { code: 'en', label: 'English' },
   { code: 'fr', label: 'French' },
+  { code: 'es', label: 'Spanish' },
+  { code: 'de', label: 'German' },
+  { code: 'it', label: 'Italian' },
+  { code: 'zh', label: 'Chinese' },
+  { code: 'ja', label: 'Japanese' },
+  { code: 'hi', label: 'Hindi' },
+  { code: 'ru', label: 'Russian' },
+  { code: 'ar', label: 'Arabic' },
 ];
 
-interface TranslationFormProps {
-  sourceText: string;
-  setSourceText: (text: string) => void;
-  translatedText: string;
-  sourceLanguage: string;
-  targetLanguage: string;
-  setSourceLanguage: (lang: string) => void;
-  setTargetLanguage: (lang: string) => void;
-  onTranslate: () => void;
-  isLoading: boolean;
-  onSwap: () => void;
-  onClear: () => void;
-  onListen: () => void;
-}
+const AUTO_DETECT = { code: 'auto', label: 'Detect' };
 
-interface CommonPhrasesProps {
-  phrases: Array<{ english: string; french: string; category: string }>;
-  onPhraseSelect: (phrase: { english: string; french: string }) => void;
-}
-
-const TranslationForm = ({
-  sourceText,
-  setSourceText,
-  translatedText,
-  sourceLanguage,
-  targetLanguage,
-  setSourceLanguage,
-  setTargetLanguage,
-  onTranslate,
-  isLoading,
-  onSwap,
-  onClear,
-  onListen,
-}: TranslationFormProps) => {
-  return (
-    <Card>
-      <CardContent className="p-6">
-        <h2 className="text-lg font-semibold mb-4">Translate</h2>
-        <div className="grid gap-4">
-          {/* Language selectors with swap */}
-          <div className="grid grid-cols-2 sm:grid-cols-[1fr_auto_1fr] gap-2 items-center">
-            <select
-              className="border rounded px-4 py-2"
-              aria-label="Source Language"
-              value={sourceLanguage}
-              onChange={(e) => setSourceLanguage(e.target.value)}
-              disabled={isLoading}
-            >
-              {LANG_OPTIONS.map((opt) => (
-                <option key={opt.code} value={opt.code}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-            <Button
-              type="button"
-              onClick={onSwap}
-              variant="ghost"
-              aria-label="Swap source and target languages"
-              className="justify-self-center mx-1"
-              disabled={isLoading}
-              tabIndex={0}
-            >
-              <Swap className="h-5 w-5" />
-            </Button>
-            <select
-              className="border rounded px-4 py-2"
-              aria-label="Target Language"
-              value={targetLanguage}
-              onChange={(e) => setTargetLanguage(e.target.value)}
-              disabled={isLoading}
-            >
-              {LANG_OPTIONS
-                .filter((opt) => opt.code !== sourceLanguage)
-                .map((opt) => (
-                  <option key={opt.code} value={opt.code}>
-                    {opt.label}
-                  </option>
-                ))}
-            </select>
-          </div>
-
-          {/* Input textarea */}
-          <textarea
-            className="border rounded px-4 py-2"
-            placeholder="Enter text to translate"
-            value={sourceText}
-            onChange={(e) => setSourceText(e.target.value)}
-            readOnly={isLoading}
-            aria-label="Text to translate"
-            rows={4}
-          />
-
-          {/* Translated text + listen */}
-          <div className="relative flex flex-col gap-2">
-            <textarea
-              className="border rounded px-4 py-2 bg-gray-100"
-              placeholder="Translated text"
-              value={translatedText}
-              readOnly
-              aria-label="Translated text"
-              rows={4}
-            />
-            <div className="flex items-center justify-between mt-2">
-              <Button
-                type="button"
-                onClick={onListen}
-                variant="outline"
-                size="sm"
-                disabled={!translatedText || isLoading}
-                aria-label="Listen to translation"
-                className="gap-1"
-              >
-                <Volume2 className="h-4 w-4" /> Listen
-              </Button>
-              <Button
-                type="button"
-                onClick={onClear}
-                variant="ghost"
-                size="sm"
-                className="text-gray-500"
-                disabled={isLoading && !sourceText && !translatedText}
-              >
-                <RefreshCcw className="h-4 w-4" /> Clear
-              </Button>
-            </div>
-          </div>
-
-          {/* Translate button */}
-          <Button
-            onClick={onTranslate}
-            disabled={isLoading || !sourceText.trim() || sourceLanguage === targetLanguage}
-            className="w-full"
-            aria-busy={isLoading}
-            aria-live={isLoading ? "polite" : undefined}
-          >
-            {isLoading ? (
-              <span className="flex items-center gap-2">
-                <svg className="animate-spin h-4 w-4 text-current" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                  <path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="4" fill="none" />
-                </svg>
-                Translating...
-              </span>
-            ) : (
-              "Translate"
-            )}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
-
-const CommonPhrases = ({ phrases, onPhraseSelect }: CommonPhrasesProps) => (
-  <Card>
-    <CardContent className="p-6">
-      <h2 className="text-lg font-semibold mb-4">Common Phrases</h2>
-      <div className="grid gap-4">
-        {phrases.map((phrase, index) => (
-          <Button key={index} onClick={() => onPhraseSelect(phrase)} className="justify-start">
-            {phrase.english} - {phrase.french} <span className="ml-2 text-xs text-gray-400">({phrase.category})</span>
-          </Button>
-        ))}
-      </div>
-    </CardContent>
-  </Card>
+const getLangLabel = (code: string) => (
+  LANG_OPTIONS.find(l => l.code === code)?.label || code
 );
 
 export const TranslatePage = () => {
   const [sourceText, setSourceText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
-  const [sourceLanguage, setSourceLanguage] = useState('en');
+  const [sourceLanguage, setSourceLanguage] = useState('auto'); // 'auto' means detect
   const [targetLanguage, setTargetLanguage] = useState('fr');
   const [isLoading, setIsLoading] = useState(false);
+  const [translationHistory, setTranslationHistory] = useState<Array<any>>([]);
+  const [notesOpen, setNotesOpen] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  // Listen to translated text
-  const handleListen = () => {
-    if (!translatedText) return;
-    const utter = new window.SpeechSynthesisUtterance(translatedText);
-    utter.lang = targetLanguage === "fr" ? "fr-FR" : "en-US";
-    window.speechSynthesis.speak(utter);
+  // Detect language using a simple heuristics (and demo API key for Google Translate auto-detect)
+  async function detectLanguage(text: string): Promise<string> {
+    // For demo, use character sets, fallback to 'en'
+    if (!text.trim()) return 'auto';
+    // quick ugly presets
+    if (/[\u3040-\u30ff\u31f0-\u31ff]/.test(text)) return 'ja';
+    if (/[\u4e00-\u9fff]/.test(text)) return 'zh';
+    if (/[\u0600-\u06FF]/.test(text)) return 'ar';
+    if (/[\u0400-\u04FF]/.test(text)) return 'ru';
+    if (/[¿áéíóúñü]/i.test(text)) return 'es';
+    if (/[üöäß]/i.test(text)) return 'de';
+    if (/[àâçéèêëîïôûùüÿœ]/i.test(text)) return 'fr';
+    if (/[अ-ह]{2}/i.test(text)) return 'hi';
+    return 'en';
+    // For robust detection, use a language API (Google Translate, Detect endpoint)
+  }
+
+  // Translation logic: simulate API - can be replaced by any translation API
+  const fakeTranslate = (txt: string, from: string, to: string) => {
+    // Just for demo; in prod, call a real translation API.
+    if (from === "en" && to === "fr") return "Traduction simulée : " + txt;
+    if (from === "fr" && to === "en") return "Simulated translation: " + txt;
+    return `[${getLangLabel(from)}→${getLangLabel(to)}]: ${txt}`;
   };
 
-  // Swap source and target languages
+  const handleTranslate = async (latestText = sourceText, latestSourceLang = sourceLanguage, latestTargetLang = targetLanguage) => {
+    setIsLoading(true);
+
+    let from = latestSourceLang;
+    // Auto-detect language
+    if (latestSourceLang === 'auto') {
+      from = await detectLanguage(latestText);
+      setSourceLanguage(from);
+    }
+    // Fake delay for demo purposes
+    setTimeout(() => {
+      const result = latestText
+        ? fakeTranslate(latestText, from, latestTargetLang)
+        : '';
+      setTranslatedText(result);
+
+      // Save to translation history if non-empty
+      if (latestText.trim() && result) {
+        setTranslationHistory((prev) => [
+          { text: latestText, from, to: latestTargetLang, result, timestamp: Date.now() },
+          ...prev.filter(item => !(item.text === latestText && item.from === from && item.to === latestTargetLang)), // dedupe
+        ]);
+      }
+      setIsLoading(false);
+    }, 350);
+  };
+
+  // Debounced auto-translate as user types, or on language change
+  useEffect(() => {
+    if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
+    debounceTimeout.current = setTimeout(() => {
+      if (sourceText.trim() && targetLanguage) {
+        handleTranslate(sourceText, sourceLanguage, targetLanguage);
+      } else {
+        setTranslatedText('');
+      }
+    }, 400);
+    // eslint-disable-next-line
+  }, [sourceText, sourceLanguage, targetLanguage]);
+
+  // Speech-to-text
+  const handleSpeechToText = () => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      toast("Speech recognition not supported in this browser.");
+      return;
+    }
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+      return;
+    }
+    const SpeechRecognitionClass = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const recognition = new SpeechRecognitionClass();
+    recognition.lang = sourceLanguage !== 'auto' ? sourceLanguage : 'en-US';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.onstart = () => setIsListening(true);
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
+      const text = event.results[0][0].transcript;
+      setSourceText(text);
+      setIsListening(false);
+      recognition.stop();
+    };
+    recognition.onerror = () => {
+      setIsListening(false);
+      recognition.stop();
+    };
+    recognitionRef.current = recognition;
+    recognition.start();
+  };
+
+  // Swap languages
   const handleSwap = () => {
+    if (sourceLanguage === 'auto') return; // can't swap if detecting
     setSourceLanguage(targetLanguage);
     setTargetLanguage(sourceLanguage);
     setSourceText(translatedText);
     setTranslatedText(sourceText);
   };
 
-  // Clear text fields
-  const handleClear = () => {
-    setSourceText('');
-    setTranslatedText('');
+  // Play translated text
+  const handleListen = () => {
+    if (!translatedText) return;
+    const utter = new window.SpeechSynthesisUtterance(translatedText);
+    utter.lang = targetLanguage !== 'auto' ? targetLanguage : 'en-US';
+    window.speechSynthesis.speak(utter);
   };
 
-  const commonPhrases = [
-    { english: "Hello", french: "Bonjour", category: "Greetings" },
-    { english: "Thank you", french: "Merci", category: "Greetings" },
-    { english: "Excuse me", french: "Excusez-moi", category: "Polite" },
-  ];
-
-  const handleTranslate = () => {
-    setIsLoading(true);
-    // Simulating realistic translation for demo; replace logic for real API
-    setTimeout(() => {
-      if (sourceLanguage === "en" && targetLanguage === "fr") {
-        if (sourceText.trim().toLowerCase() === "hello") setTranslatedText("Bonjour");
-        else if (sourceText.trim().toLowerCase() === "thank you") setTranslatedText("Merci");
-        else if (sourceText.trim().toLowerCase() === "excuse me") setTranslatedText("Excusez-moi");
-        else setTranslatedText("Traduction simulée : " + sourceText);
-      } else if (sourceLanguage === "fr" && targetLanguage === "en") {
-        if (sourceText.trim().toLowerCase() === "bonjour") setTranslatedText("Hello");
-        else if (sourceText.trim().toLowerCase() === "merci") setTranslatedText("Thank you");
-        else if (sourceText.trim().toLowerCase() === "excusez-moi") setTranslatedText("Excuse me");
-        else setTranslatedText("Simulated translation: " + sourceText);
-      } else {
-        setTranslatedText("");
-      }
-      setIsLoading(false);
-    }, 1000);
+  // Copy translated text
+  const handleCopy = () => {
+    if (!translatedText) return;
+    navigator.clipboard.writeText(translatedText);
+    toast("Copied translation!");
   };
 
-  const handlePhraseSelect = (phrase: { english: string; french: string }) => {
-    // When a phrase is selected, auto set fields and translate if needed
-    if (sourceLanguage === "en" && targetLanguage === "fr") {
-      setSourceText(phrase.english);
-      setTranslatedText(phrase.french);
-    } else if (sourceLanguage === "fr" && targetLanguage === "en") {
-      setSourceText(phrase.french);
-      setTranslatedText(phrase.english);
-    } else {
-      setSourceText('');
-      setTranslatedText('');
-    }
+  // Select a translation from history
+  const handleHistoryClick = (entry: any) => {
+    setSourceText(entry.text);
+    setSourceLanguage(entry.from);
+    setTargetLanguage(entry.to);
+    setTranslatedText(entry.result);
+    setNotesOpen(false);
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-2">
+    <div className="max-w-3xl mx-auto p-2 relative">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">🌐 Translation Hub</h1>
-        <p className="text-lg text-gray-600">Translate between English and French instantly</p>
+        <p className="text-lg text-gray-600">Instantly translate between dozens of languages</p>
       </div>
-      <Tabs defaultValue="translate" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="translate">Translate</TabsTrigger>
-          <TabsTrigger value="phrases">Common Phrases</TabsTrigger>
-        </TabsList>
-        <TabsContent value="translate">
-          <TranslationForm
-            sourceText={sourceText}
-            setSourceText={setSourceText}
-            translatedText={translatedText}
-            sourceLanguage={sourceLanguage}
-            targetLanguage={targetLanguage}
-            setSourceLanguage={setSourceLanguage}
-            setTargetLanguage={setTargetLanguage}
-            onTranslate={handleTranslate}
-            isLoading={isLoading}
-            onSwap={handleSwap}
-            onClear={handleClear}
-            onListen={handleListen}
-          />
-        </TabsContent>
-        <TabsContent value="phrases">
-          <CommonPhrases phrases={commonPhrases} onPhraseSelect={handlePhraseSelect} />
-        </TabsContent>
-      </Tabs>
+      <div className="flex justify-end mb-2">
+        <Button
+          variant="outline"
+          onClick={() => setNotesOpen(true)}
+          className="gap-1"
+        >
+          <Notes className="h-4 w-4" />
+          Notes
+        </Button>
+      </div>
+
+      <Card>
+        <CardContent className="p-6">
+          <div className="grid gap-4">
+            {/* Language selectors with swap */}
+            <div className="grid grid-cols-2 sm:grid-cols-[1fr_auto_1fr] gap-2 items-center">
+              <select
+                className="border rounded px-4 py-2"
+                aria-label="Source Language"
+                value={sourceLanguage}
+                onChange={(e) => setSourceLanguage(e.target.value)}
+                disabled={isLoading}
+              >
+                <option value="auto">{AUTO_DETECT.label}</option>
+                {LANG_OPTIONS.map((opt) => (
+                  <option key={opt.code} value={opt.code}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+              <Button
+                type="button"
+                onClick={handleSwap}
+                variant="ghost"
+                aria-label="Swap source and target languages"
+                className="justify-self-center mx-1"
+                disabled={isLoading || sourceLanguage === 'auto' || targetLanguage === 'auto'}
+                tabIndex={0}
+              >
+                <Swap className="h-5 w-5" />
+              </Button>
+              <select
+                className="border rounded px-4 py-2"
+                aria-label="Target Language"
+                value={targetLanguage}
+                onChange={(e) => setTargetLanguage(e.target.value)}
+                disabled={isLoading}
+              >
+                {LANG_OPTIONS
+                  .filter((opt) => opt.code !== sourceLanguage && opt.code !== 'auto')
+                  .map((opt) => (
+                    <option key={opt.code} value={opt.code}>
+                      {opt.label}
+                    </option>
+                  ))}
+              </select>
+            </div>
+
+            {/* Input textarea with speech to text */}
+            <div className="flex gap-2 items-start">
+              <Textarea
+                className="flex-1 border rounded px-4 py-2"
+                placeholder="Enter text to translate"
+                value={sourceText}
+                onChange={(e) => setSourceText(e.target.value)}
+                readOnly={isLoading}
+                aria-label="Text to translate"
+                rows={4}
+              />
+              <Button
+                type="button"
+                onClick={handleSpeechToText}
+                variant={isListening ? "secondary" : "outline"}
+                size="icon"
+                className={isListening ? "animate-pulse border-primary" : ""}
+                aria-label={isListening ? "Stop recording" : "Speak"}
+                disabled={isLoading}
+              >
+                <Mic className="h-5 w-5" />
+              </Button>
+            </div>
+
+            {/* Translated text, with listen and copy */}
+            <div className="relative flex flex-col gap-2">
+              <Textarea
+                className="border rounded px-4 py-2 bg-gray-100"
+                placeholder="Translated text"
+                value={translatedText}
+                readOnly
+                aria-label="Translated text"
+                rows={4}
+              />
+              <div className="flex items-center justify-between mt-2">
+                <Button
+                  type="button"
+                  onClick={handleListen}
+                  variant="outline"
+                  size="sm"
+                  disabled={!translatedText || isLoading}
+                  aria-label="Listen to translation"
+                  className="gap-1"
+                >
+                  <Volume2 className="h-4 w-4" /> Listen
+                </Button>
+                <Button
+                  type="button"
+                  onClick={handleCopy}
+                  variant="outline"
+                  size="sm"
+                  className="gap-1"
+                  disabled={!translatedText}
+                  aria-label="Copy translated text"
+                >
+                  <Copy className="h-4 w-4" />
+                  Copy
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => {
+                    setSourceText('');
+                    setTranslatedText('');
+                  }}
+                  variant="ghost"
+                  size="sm"
+                  className="text-gray-500"
+                  disabled={isLoading && !sourceText && !translatedText}
+                >
+                  Clear
+                </Button>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Notes/history Drawer */}
+      {notesOpen && (
+        <div className="fixed top-0 left-0 w-full h-full z-40 bg-black/25 flex items-start justify-end">
+          <div className="bg-white shadow-lg h-full w-full max-w-md p-6 overflow-y-auto transition-all animate-in fade-in right-0">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">Translation History</h2>
+              <Button variant="ghost" onClick={() => setNotesOpen(false)}>Close</Button>
+            </div>
+            <div className="space-y-3">
+              {translationHistory.length === 0 ? (
+                <div className="text-gray-400 text-center mt-12">No history.</div>
+              ) : (
+                translationHistory.map((item, idx) => (
+                  <Card key={idx} className="mb-2 hover:bg-muted cursor-pointer"
+                    onClick={() => handleHistoryClick(item)}
+                  >
+                    <CardContent className="p-3">
+                      <div className="text-xs flex gap-2 mb-1">
+                        <span className="rounded bg-gray-100 px-2">{getLangLabel(item.from)}</span>
+                        <span>→</span>
+                        <span className="rounded bg-gray-100 px-2">{getLangLabel(item.to)}</span>
+                        <span className="ml-auto text-gray-400">{new Date(item.timestamp).toLocaleString()}</span>
+                      </div>
+                      <div className="font-semibold text-gray-800">{item.text}</div>
+                      <div className="text-xs text-gray-600 mt-1 truncate">{item.result}</div>
+                    </CardContent>
+                  </Card>
+                ))
+              )}
+            </div>
+            {translationHistory.length > 0 && (
+              <Button
+                variant="outline"
+                className="w-full mt-6"
+                onClick={() => setTranslationHistory([])}
+              >
+                Clear All History
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
-
