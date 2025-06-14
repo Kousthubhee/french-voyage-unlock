@@ -1,9 +1,11 @@
+
 import { useState } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
 import { Header } from '@/components/Header';
 import { MainRouter } from './MainRouter';
 import { useLocalStorageProgress } from "@/hooks/useLocalStorageProgress";
+import { Button } from '@/components/ui/button';
 
 interface UserProfile {
   name: string;
@@ -26,6 +28,7 @@ const Index = () => {
   const [currentPage, setCurrentPage] = useState('checklist');
   const [userProgress, setUserProgress, resetProgress] = useLocalStorageProgress();
   const [selectedSchool, setSelectedSchool] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleProgressUpdate = (newProgress: any) => {
     setUserProgress(newProgress);
@@ -46,6 +49,12 @@ const Index = () => {
       return;
     }
     setCurrentPage(page);
+  };
+
+  const handleResetProgress = () => {
+    resetProgress();
+    setShowConfirm(false);
+    setCurrentPage('checklist');
   };
 
   return (
@@ -70,10 +79,44 @@ const Index = () => {
               handleProgressUpdate={handleProgressUpdate}
             />
           </main>
-          <footer className="bg-white border-t border-gray-200 py-4 px-6">
+          <footer className="bg-white border-t border-gray-200 py-4 px-6 flex flex-col items-center gap-3">
             <div className="text-center text-gray-600">
              🎓 © {new Date().getFullYear()} <span className="text-blue-600 font-semibold">  Kousthubhee Krishna K</span> & <span className="text-cyan-600 font-semibold">Srivatsava CK</span>
             </div>
+            <Button 
+              variant="destructive"
+              size="sm"
+              className="mt-1"
+              onClick={() => setShowConfirm(true)}
+            >
+              Reset Progress
+            </Button>
+            {showConfirm && (
+              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
+                <div className="bg-white rounded-lg shadow-lg p-6 max-w-xs w-full border flex flex-col items-center">
+                  <div className="font-semibold text-lg mb-2">Reset Progress?</div>
+                  <div className="text-gray-700 text-sm mb-4 text-center">
+                    This will erase your checklist progress. Are you sure?
+                  </div>
+                  <div className="flex gap-3 justify-center">
+                    <Button 
+                      variant="destructive"
+                      size="sm"
+                      onClick={handleResetProgress}
+                    >
+                      Yes, Reset
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowConfirm(false)}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
           </footer>
         </div>
       </div>
@@ -82,3 +125,4 @@ const Index = () => {
 };
 
 export default Index;
+
