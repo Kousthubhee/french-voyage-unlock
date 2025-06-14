@@ -1,7 +1,8 @@
+
 import React, { useState } from "react";
 import {
   Languages, Users, Calendar, Utensils, Home, FileText, Brain, BookOpen, Sun,
-  Shield, IndianRupee, Globe, MessageCircle, Link as LinkIcon, Newspaper
+  Shield, IndianRupee, Globe, MessageCircle, Link as LinkIcon, Newspaper, ArrowRight
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
