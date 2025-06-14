@@ -37,10 +37,11 @@ export const QAPage = () => {
   const [noticeClosed, setNoticeClosed] = useState(false);
 
   // Simulate bot reply with typing animation
+  // Make sure userMsg is a string & type is correct
   const sendBotReply = (userMsg: string) => {
     setIsTyping(true);
     setTimeout(() => {
-      setMessages((prev) => [
+      setMessages((prev: MessageItem[]): MessageItem[] => [
         ...prev,
         {
           id: prev.length + 1,
@@ -56,15 +57,18 @@ export const QAPage = () => {
     if (!newMessage.trim() && !file) return;
     const messageText = newMessage.trim();
 
-    const userMessage = {
+    const userMessage: MessageItem = {
       id: messages.length + 1,
       type: "user",
       message: messageText + (file ? `\n[Attached: ${file.name}]` : ""),
-      file: filePreview,
+      file: filePreview || undefined,
       fileName: file?.name,
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((prev: MessageItem[]): MessageItem[] => [
+      ...prev,
+      userMessage,
+    ]);
     setNewMessage("");
     setFile(null);
     setFilePreview(null);
