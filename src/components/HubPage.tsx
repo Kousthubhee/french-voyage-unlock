@@ -8,6 +8,10 @@ import { QATab } from './hub/QATab';
 import { BlogsTab } from './hub/BlogsTab';
 import { ReelsTab } from './hub/ReelsTab';
 import { PollsTab } from './hub/PollsTab';
+import { EventsCard } from './hub/EventsCard';
+import { AchievementsCard } from './hub/AchievementsCard';
+import { StatsCard } from './hub/StatsCard';
+import { QuickHelpCard } from './hub/QuickHelpCard';
 
 // Type definitions for each post type
 type QAComment = {
@@ -328,6 +332,11 @@ export const HubPage = () => {
   const reels = posts.filter((p): p is Reel => p.type === 'reel');
   const polls = posts.filter((p): p is Poll => p.type === 'poll');
 
+  // Community stats
+  const activeMembers = 1247;
+  const postsThisWeek = posts.filter(p => p.time === 'Just now').length + 89;
+  const questionsAnswered = posts.reduce((acc, post) => acc + post.comments.length, 0) + 156;
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-8">
@@ -431,89 +440,18 @@ export const HubPage = () => {
         </div>
 
         <div className="space-y-6">
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <Calendar className="h-5 w-5 mr-2 text-blue-600" />
-                Upcoming Events
-              </h3>
-              <div className="space-y-4">
-                {upcomingEvents.map((event) => (
-                  <div key={event.id} className="bg-blue-50 p-4 rounded-lg">
-                    <div className="font-semibold text-blue-900">{event.title}</div>
-                    <div className="text-sm text-blue-700">{event.date} at {event.time}</div>
-                    <div className="text-xs text-blue-600 mt-1">{event.attendees} attending</div>
-                    <Button size="sm" className="mt-2 w-full">Join Event</Button>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <Award className="h-5 w-5 mr-2 text-yellow-600" />
-                Achievements
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center">
-                  <span className="text-yellow-600 mr-2">🏆</span>
-                  <span>Top Contributor</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-yellow-600 mr-2">🌟</span>
-                  <span>Helpful Mentor</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-yellow-600 mr-2">🎉</span>
-                  <span>Community Star</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Community Stats</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Active Members</span>
-                  <span className="font-semibold">1,247</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Posts This Week</span>
-                  <span className="font-semibold">{posts.filter(p => p.time === 'Just now').length + 89}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Questions Answered</span>
-                  <span className="font-semibold">{posts.reduce((acc, post) => acc + post.comments.length, 0) + 156}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Quick Help</h3>
-              <div className="space-y-2">
-                <Button variant="outline" className="w-full justify-start">
-                  📋 Post a Question
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  🤝 Find Study Partner
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  🏠 Housing Exchange
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  📚 Share Resources
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <EventsCard events={upcomingEvents} />
+          <AchievementsCard />
+          <StatsCard
+            activeMembers={activeMembers}
+            postsThisWeek={postsThisWeek}
+            questionsAnswered={questionsAnswered}
+          />
+          <QuickHelpCard />
         </div>
       </div>
     </div>
   );
 };
+
+export default HubPage;
