@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,12 +12,15 @@ import { EventsCard } from './hub/EventsCard';
 import { AchievementsCard } from './hub/AchievementsCard';
 import { StatsCard } from './hub/StatsCard';
 import { QuickHelpCard } from './hub/QuickHelpCard';
+import { toast } from "@/components/ui/sonner";
 
 // Import shared types from hubTypes
 import { QAPost, QAComment, QAReply, Reel, Poll, Blog } from './hub/hubTypes';
 
 // Unified Post type
 type Post = QAPost | Reel | Poll;
+
+const CATEGORIES = ["All", "Arrival", "Housing", "Travel", "Poll", "General"];
 
 export const HubPage = () => {
   const [activeTab, setActiveTab] = useState('qa'); // Default to Q&A tab
@@ -84,8 +87,50 @@ export const HubPage = () => {
     { id: 3, title: 'Live Q&A: Visa Tips', date: 'Dec 20, 2024', time: '5:00 PM CET', attendees: 30 }
   ];
 
-  // Update handleLike (type must be "post" | "reel" | "poll")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("All");
+  const [likedItems, setLikedItems] = useState<string[]>([]);
+
+  // Load liked items from localStorage once
+  useEffect(() => {
+    const stored = localStorage.getItem("hub-liked-items");
+    if (stored) setLikedItems(JSON.parse(stored));
+  }, []);
+
+  // Save likes to localStorage when changed
+  useEffect(() => {
+    localStorage.setItem("hub-liked-items", JSON.stringify(likedItems));
+  }, [likedItems]);
+
+  // Helper: is this item liked?
+  function isLiked(id: number, type: string) {
+    return likedItems.includes(`${type}-${id}`);
+  }
+
+  // Phone number detection regex (simple, international & local)
+  function containsPhoneNumber(text: string): boolean {
+    // Match sequences of 8-15 digits, allowing spaces, dashes or start with +, ignore year ranges etc.
+    return /(?:\+?\d[\d .-]{7,14})/.test(text);
+  }
+
+  // Show and block if content has phone number
+  function blockIfPhone(content: string): boolean {
+    if (containsPhoneNumber(content)) {
+      toast("Sharing personal contact info is not allowed.");
+      return true;
+    }
+    return false;
+  }
+
+  // Update handleLike to limit to once per item per person
   const handleLike = (itemId: number, type: "post" | "reel" | "poll" | "blog") => {
+    const likeKey = `${type}-${itemId}`;
+    if (isLiked(itemId, type)) {
+      toast("You may only like this once.");
+      return;
+    }
+    setLikedItems([...likedItems, likeKey]);
+    // ... Keep previous liking logic ...
     if (type === 'post' || type === 'reel' || type === 'poll') {
       setPosts(posts.map(item =>
         item.id === itemId && item.type === type
@@ -99,11 +144,11 @@ export const HubPage = () => {
     }
   };
 
-  // Update handleComment to have proper comment shape
+  // Update handleComment with phone detection
   const handleComment = (itemId: number, type: "post" | "reel" | "poll" | "blog") => {
     const commentText = newComment[`${type}-${itemId}`] || '';
     if (!commentText) return;
-
+    if (blockIfPhone(commentText)) return;
     const newCommentObj: QAComment = {
       id: Date.now(),
       author: 'You',
@@ -111,7 +156,6 @@ export const HubPage = () => {
       likes: 0,
       replies: []
     };
-
     if (type === 'post' || type === 'reel' || type === 'poll') {
       setPosts(posts.map(item =>
         item.id === itemId && item.type === type
@@ -125,11 +169,10 @@ export const HubPage = () => {
           : blog
       ));
     }
-
     setNewComment({ ...newComment, [`${type}-${itemId}`]: '' });
   };
 
-  // Update handleReply for proper types
+  // Update handleReply for phone check
   const handleReply = (
     itemId: number,
     commentId: number,
@@ -137,14 +180,13 @@ export const HubPage = () => {
   ) => {
     const replyText = newComment[`reply-${type}-${itemId}-${commentId}`] || '';
     if (!replyText) return;
-
+    if (blockIfPhone(replyText)) return;
     const newReply: QAReply = {
       id: Date.now(),
       author: 'You',
       content: replyText,
       likes: 0
     };
-
     if (type === 'post' || type === 'reel' || type === 'poll') {
       setPosts(posts.map(post =>
         post.id === itemId && post.type === type
@@ -172,12 +214,13 @@ export const HubPage = () => {
           : blog
       ));
     }
-
     setNewComment({ ...newComment, [`reply-${type}-${itemId}-${commentId}`]: '' });
   };
 
+  // Restrict phone sharing on post/blog/reel/poll creation
   const handlePublishPost = () => {
     if (!newPost) return;
+    if (blockIfPhone(newPost)) return;
     const newPostObj: QAPost = {
       id: Date.now(),
       type: 'post',
@@ -187,7 +230,7 @@ export const HubPage = () => {
       content: newPost,
       likes: 0,
       comments: [],
-      category: 'General'
+      category: categoryFilter === "All" ? "General" : categoryFilter
     };
     setPosts([newPostObj, ...posts]);
     setNewPost('');
@@ -201,6 +244,7 @@ export const HubPage = () => {
 
   const handlePublishReel = () => {
     if (!newReel || !newReelCaption) return;
+    if (blockIfPhone(newReelCaption)) return;
     const newReelObj: Reel = {
       id: Date.now(),
       type: 'reel',
@@ -221,6 +265,7 @@ export const HubPage = () => {
 
   const handlePublishBlog = () => {
     if (!blogTitle || !blogContent) return;
+    if (blockIfPhone(blogContent)) return;
     const newBlog = {
       id: Date.now(),
       author: 'You',
@@ -276,12 +321,32 @@ export const HubPage = () => {
     ));
   };
 
-  // Filter posts by exact type for each tab
-  const qaPosts = posts.filter((p): p is QAPost => p.type === 'post');
-  const reels = posts.filter((p): p is Reel => p.type === 'reel');
-  const polls = posts.filter((p): p is Poll => p.type === 'poll');
+  // For search and filter: filter posts in each tab
+  function filterPosts(posts: Post[], type: string) {
+    let result = posts;
+    if (categoryFilter !== "All") {
+      result = result.filter(p => p.category === categoryFilter || (p.type === "poll" && categoryFilter === "Poll"));
+    }
+    if (searchTerm.trim()) {
+      const term = searchTerm.trim().toLowerCase();
+      result = result.filter(p =>
+        ("title" in p ? p.title.toLowerCase().includes(term) : false) ||
+        ("content" in p ? p.content.toLowerCase().includes(term) : false) ||
+        ("caption" in p ? p.caption.toLowerCase().includes(term) : false) ||
+        ("question" in p ? p.question.toLowerCase().includes(term) : false)
+      );
+    }
+    // For 'poll', 'reel', etc, match respective fields
+    return result;
+  }
 
-  // Community stats
+  // Filter posts by exact type for each tab
+  const qaPosts = filterPosts(posts.filter((p): p is QAPost => p.type === 'post'), 'post');
+  const reels = filterPosts(posts.filter((p): p is Reel => p.type === 'reel'), 'reel');
+  const polls = filterPosts(posts.filter((p): p is Poll => p.type === 'poll'), 'poll');
+  const filteredBlogs = filterPosts(blogs, 'blog');
+
+  // Community stats (use all posts for stats, not just filtered)
   const activeMembers = 1247;
   const postsThisWeek = posts.filter(p => p.time === 'Just now').length + 89;
   const questionsAnswered = posts.reduce((acc, post) => acc + post.comments.length, 0) + 156;
@@ -296,6 +361,27 @@ export const HubPage = () => {
         <p className="text-lg text-gray-600">
           Connect with fellow students, share experiences, and get support
         </p>
+        {/* Search and Filter bar */}
+        <div className="mt-6 flex flex-col md:flex-row items-center gap-3 justify-center">
+          <div className="flex items-center gap-2 w-full md:w-96">
+            <Search className="h-5 w-5 text-gray-400" />
+            <Input
+              placeholder="Search community posts…"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            className="border rounded px-2 py-2 text-sm md:w-48 w-full focus:outline-none"
+          >
+            {CATEGORIES.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
         <div className="mt-4 flex justify-center space-x-4">
           <button
             className={`px-4 py-2 rounded ${activeTab === 'qa' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-800'}`}
@@ -346,7 +432,7 @@ export const HubPage = () => {
               onChangeTitle={setBlogTitle}
               onChangeContent={setBlogContent}
               onPublish={handlePublishBlog}
-              blogs={blogs}
+              blogs={filteredBlogs}
               onLike={handleLike}
               newComment={newComment}
               setNewComment={setNewComment}
