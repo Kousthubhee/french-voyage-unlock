@@ -10,42 +10,56 @@ import { Card, CardContent } from "@/components/ui/card";
 import { LanguageCommunicationSection } from "./sections/LanguageCommunicationSection";
 import { CulturalEtiquetteSection } from "./sections/CulturalEtiquetteSection";
 import { FoodGrocerySection } from "./sections/FoodGrocerySection";
-import { FestivalsEventsSection } from "./sections/FestivalsEventsSection";
+import { PracticalLivingSection } from "./sections/PracticalLivingSection";
 import { StudentLifeSection } from "./sections/StudentLifeSection";
+import { FestivalsEventsSection } from "./sections/FestivalsEventsSection";
 import { BureaucracySection } from "./sections/BureaucracySection";
+import { SafetySection } from "./sections/SafetySection";
 import { MentalHealthSection } from "./sections/MentalHealthSection";
 import { CulturalComparisonSection } from "./sections/CulturalComparisonSection";
-import { PracticalLivingSection } from "./sections/PracticalLivingSection";
-import { SafetySection } from "./sections/SafetySection";
 import { IndoFrenchSection } from "./sections/IndoFrenchSection";
 
 export function FrenchIntegrationTabs() {
   return (
-    <Tabs defaultValue="language" className="w-full">
+    <Tabs defaultValue="communication" className="w-full">
       <TabsList className="flex flex-wrap gap-2 mb-6 bg-gray-100 mt-2">
-        <TabsTrigger value="language">Language & Communication</TabsTrigger>
-        <TabsTrigger value="etiquette">Cultural Etiquette</TabsTrigger>
-        <TabsTrigger value="food">Food & Grocery Guidance</TabsTrigger>
-        <TabsTrigger value="festivals">Festivals & Social Events</TabsTrigger>
-        <TabsTrigger value="student">Student Life Integration</TabsTrigger>
-        <TabsTrigger value="bureaucracy">French Bureaucracy</TabsTrigger>
-        <TabsTrigger value="mental">Mental Health & Adjustment</TabsTrigger>
-        <TabsTrigger value="comparison">Cultural Comparison</TabsTrigger>
-        <TabsTrigger value="living">Practical Living</TabsTrigger>
-        <TabsTrigger value="safety">Safety & Emergency</TabsTrigger>
-        <TabsTrigger value="indofrench">Indo-French Integration</TabsTrigger>
+        <TabsTrigger value="communication">Communication & Etiquette</TabsTrigger>
+        <TabsTrigger value="foodliving">Food & Living</TabsTrigger>
+        <TabsTrigger value="studentlife">Student & Everyday Life</TabsTrigger>
+        <TabsTrigger value="bureaucracy">Bureaucracy & Emergency</TabsTrigger>
+        <TabsTrigger value="culturebridge">Cultural Bridge</TabsTrigger>
       </TabsList>
-      <TabsContent value="language"><Card><CardContent><LanguageCommunicationSection /></CardContent></Card></TabsContent>
-      <TabsContent value="etiquette"><Card><CardContent><CulturalEtiquetteSection /></CardContent></Card></TabsContent>
-      <TabsContent value="food"><Card><CardContent><FoodGrocerySection /></CardContent></Card></TabsContent>
-      <TabsContent value="festivals"><Card><CardContent><FestivalsEventsSection /></CardContent></Card></TabsContent>
-      <TabsContent value="student"><Card><CardContent><StudentLifeSection /></CardContent></Card></TabsContent>
-      <TabsContent value="bureaucracy"><Card><CardContent><BureaucracySection /></CardContent></Card></TabsContent>
-      <TabsContent value="mental"><Card><CardContent><MentalHealthSection /></CardContent></Card></TabsContent>
-      <TabsContent value="comparison"><Card><CardContent><CulturalComparisonSection /></CardContent></Card></TabsContent>
-      <TabsContent value="living"><Card><CardContent><PracticalLivingSection /></CardContent></Card></TabsContent>
-      <TabsContent value="safety"><Card><CardContent><SafetySection /></CardContent></Card></TabsContent>
-      <TabsContent value="indofrench"><Card><CardContent><IndoFrenchSection /></CardContent></Card></TabsContent>
+
+      {/* Communication & Etiquette */}
+      <TabsContent value="communication">
+        <Card className="mb-4"><CardContent><LanguageCommunicationSection /></CardContent></Card>
+        <Card><CardContent><CulturalEtiquetteSection /></CardContent></Card>
+      </TabsContent>
+
+      {/* Food & Living */}
+      <TabsContent value="foodliving">
+        <Card className="mb-4"><CardContent><FoodGrocerySection /></CardContent></Card>
+        <Card><CardContent><PracticalLivingSection /></CardContent></Card>
+      </TabsContent>
+
+      {/* Student & Everyday Life */}
+      <TabsContent value="studentlife">
+        <Card className="mb-4"><CardContent><StudentLifeSection /></CardContent></Card>
+        <Card><CardContent><FestivalsEventsSection /></CardContent></Card>
+        <Card className="mt-4"><CardContent><MentalHealthSection /></CardContent></Card>
+      </TabsContent>
+
+      {/* Bureaucracy & Emergency */}
+      <TabsContent value="bureaucracy">
+        <Card className="mb-4"><CardContent><BureaucracySection /></CardContent></Card>
+        <Card><CardContent><SafetySection /></CardContent></Card>
+      </TabsContent>
+
+      {/* Cultural Bridge */}
+      <TabsContent value="culturebridge">
+        <Card className="mb-4"><CardContent><CulturalComparisonSection /></CardContent></Card>
+        <Card className="mb-4"><CardContent><IndoFrenchSection /></CardContent></Card>
+      </TabsContent>
     </Tabs>
   );
 }
