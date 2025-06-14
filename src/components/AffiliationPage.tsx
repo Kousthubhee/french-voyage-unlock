@@ -4,80 +4,159 @@ import { Building2, ExternalLink, Star, Users } from 'lucide-react';
 
 export const AffiliationPage = () => {
   const partners = [
+    // BANKING PARTNERS
     {
       id: 1,
-      name: 'Campus France',
-      type: 'Government Agency',
-      description: 'Official French government agency for promoting French higher education abroad',
-      services: ['Visa guidance', 'University applications', 'Scholarship information'],
-      rating: 4.8,
-      users: '10,000+',
-      logo: '🇫🇷',
-      website: 'https://www.campusfrance.org'
+      name: 'HDFC Bank (India)',
+      type: 'Banking Partner',
+      description: 'Preferred Indian bank offering international education loans and forex cards for students going abroad.',
+      services: ['Student loans', 'Forex card', 'Remittance'],
+      rating: 4.7,
+      users: '1M+',
+      logo: '🏦',
+      website: 'https://www.hdfcbank.com/personal/borrow/education-loan',
+      affiliate: true
     },
     {
       id: 2,
-      name: 'CROUS',
-      type: 'Student Services',
-      description: 'Regional organization managing student life including housing and dining',
-      services: ['Student housing', 'Meal plans', 'Financial aid'],
-      rating: 4.5,
+      name: 'Niyo Global',
+      type: 'Neobank',
+      description: 'A global card for Indian students—easy international transactions, great forex rates, and student discounts.',
+      services: ['Prepaid forex card', 'Zero mark-up', 'Easy account opening'],
+      rating: 4.8,
       users: '500K+',
-      logo: '🏢',
-      website: 'https://www.crous-paris.fr'
+      logo: '💳',
+      website: 'https://www.goniyo.com/niyo-global/',
+      affiliate: true
     },
     {
       id: 3,
-      name: 'AMELI',
-      type: 'Health Insurance',
-      description: 'French national health insurance system for students and residents',
-      services: ['Health coverage', 'Medical reimbursements', 'Insurance cards'],
-      rating: 4.3,
-      users: '2M+',
-      logo: '🏥',
-      website: 'https://www.ameli.fr'
+      name: 'BNP Paribas',
+      type: 'French Bank',
+      description: 'Top French bank trusted by international students for easy account opening and affordable services.',
+      services: ['Bank account', 'Student offers', 'Nationwide branches'],
+      rating: 4.5,
+      users: '10M+',
+      logo: '🇫🇷',
+      website: 'https://mabanque.bnpparibas/en/opening-bank-account/france-student',
+      affiliate: true
     },
     {
       id: 4,
-      name: 'CAF',
-      type: 'Financial Support',
-      description: 'Family allowance fund providing housing assistance to students',
-      services: ['Housing aid', 'Financial assistance', 'Social benefits'],
+      name: 'Société Générale',
+      type: 'French Bank',
+      description: 'Popular among students, offers special packages and English-speaking support for internationals.',
+      services: ['Student bank account', 'International card', 'Mobile banking'],
       rating: 4.4,
-      users: '1.5M+',
-      logo: '💰',
-      website: 'https://www.caf.fr'
+      users: '5M+',
+      logo: '🏛️',
+      website: 'https://www.societegenerale.com/en/individuals/france/students',
+      affiliate: true
     },
     {
       id: 5,
-      name: 'VFS Global',
-      type: 'Visa Services',
-      description: 'Visa application center for French student visa processing',
-      services: ['Visa applications', 'Document verification', 'Appointment booking'],
-      rating: 4.2,
-      users: '50K+',
-      logo: '📋',
-      website: 'https://visa.vfsglobal.com'
+      name: 'Wise (ex-TransferWise)',
+      type: 'Money Transfer',
+      description: 'Send money abroad with real exchange rates and low fees, perfect for fees and living expenses.',
+      services: ['International transfer', 'Multi-currency account'],
+      rating: 4.9,
+      users: '16M+',
+      logo: '🌍',
+      website: 'https://wise.com/in/student/',
+      affiliate: true
     },
     {
       id: 6,
-      name: 'StudyInFrance.org',
-      type: 'Education Platform',
-      description: 'Comprehensive guide for international students in France',
-      services: ['University search', 'Study guides', 'Community support'],
-      rating: 4.6,
-      users: '25K+',
-      logo: '📚',
-      website: 'https://www.studyinfrance.org'
-    }
+      name: 'Revolut',
+      type: 'Neobank',
+      description: 'Open a Euro account before arriving in France. Card works globally. App for students.',
+      services: ['Mobile account', 'Free card', 'Easy signup'],
+      rating: 4.8,
+      users: '30M+',
+      logo: '💸',
+      website: 'https://www.revolut.com',
+      affiliate: true
+    },
+    // SIM/MOBILE OPERATORS
+    {
+      id: 7,
+      name: 'Orange France',
+      type: 'SIM Card & Telecom',
+      description: 'France’s largest mobile network provider. Get a French SIM at airport or online.',
+      services: ['Prepaid SIM', 'Student offers', 'Nationwide coverage'],
+      rating: 4.3,
+      users: '20M+',
+      logo: '📱',
+      website: 'https://boutique.orange.fr/mobile/cartes-sim-prepayees',
+      affiliate: true
+    },
+    {
+      id: 8,
+      name: 'Free Mobile',
+      type: 'SIM Card & Telecom',
+      description: 'Student-friendly prepaid plans—get a SIM quickly at airport kiosks or partner stores.',
+      services: ['Prepaid SIM', 'Affordable plans', 'No contract'],
+      rating: 4.2,
+      users: '13M+',
+      logo: '📶',
+      website: 'https://mobile.free.fr/forfaits/forfait-free-2-euros.html',
+      affiliate: false
+    },
+    {
+      id: 9,
+      name: 'Bouygues Telecom',
+      type: 'SIM Card & Telecom',
+      description: 'Great coverage, affordable SIM plans, English-speaking support for internationals.',
+      services: ['Prepaid SIM', 'Student promotions'],
+      rating: 4.2,
+      users: '15M+',
+      logo: '📲',
+      website: 'https://www.bouyguestelecom.fr/forfaits-mobiles/cartes-prepayees',
+      affiliate: false
+    },
+    {
+      id: 10,
+      name: 'SFR',
+      type: 'SIM Card & Telecom',
+      description: 'Major French operator. Various prepaid and 4G/5G SIM offers for students.',
+      services: ['Prepaid SIM', '4G/5G data', 'Student discounts'],
+      rating: 4.0,
+      users: '17M+',
+      logo: '📡',
+      website: 'https://www.sfr.fr/offre-mobile-forfait-mobile.html',
+      affiliate: false
+    },
+    // ... keep some institutional partners (Campus France etc.) if space
+    {
+      id: 11,
+      name: 'Campus France',
+      type: 'Govt. Agency',
+      description: 'Official agency for French study—guides students with visas, university selection, and scholarships.',
+      services: ['Visa guidance', 'University advice', 'Scholarship info'],
+      rating: 4.8,
+      users: '100K+',
+      logo: '🎓',
+      website: 'https://www.campusfrance.org/en'
+    },
+    {
+      id: 12,
+      name: 'CAF',
+      type: 'Financial Support',
+      description: 'France family support agency—apply for student housing and monthly financial aid.',
+      services: ['CAF housing aid', 'Social benefits'],
+      rating: 4.2,
+      users: '2M+',
+      logo: '💰',
+      website: 'https://www.caf.fr'
+    },
   ];
 
   const partnershipBenefits = [
-    'Direct access to official information',
-    'Streamlined application processes',
-    'Dedicated student support',
-    'Verified and up-to-date resources',
-    'Priority assistance channels'
+    'Get the best deals for students via our affiliate links',
+    'Direct access to official and private providers',
+    'Streamlined banking and telecom onboarding',
+    'Trusted services and supports',
+    'Priority consultancy support if you use our links'
   ];
 
   return (
@@ -85,10 +164,11 @@ export const AffiliationPage = () => {
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center">
           <Building2 className="h-8 w-8 mr-3 text-red-600" />
-          Our Partners
+          Our Partners & Student Offers
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          We collaborate with official French institutions and trusted organizations to provide you with accurate, reliable information and services.
+          We connect you with trusted banks, NeoBanks, SIM providers, and institutions to help you settle in France. 
+          By registering or opening an account using our links, you support our student consultancy and get special benefits.
         </p>
       </div>
 
@@ -108,14 +188,25 @@ export const AffiliationPage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {partners.map((partner) => (
-          <Card key={partner.id} className="hover:shadow-lg transition-all duration-300 hover:scale-105">
+          <Card key={partner.id} className={`hover:shadow-lg transition-all duration-300 hover:scale-105 ${partner.affiliate ? 'border-2 border-green-300' : ''}`}>
             <CardContent className="p-6">
               <div className="text-center mb-4">
                 <div className="text-4xl mb-2">{partner.logo}</div>
                 <h3 className="text-lg font-semibold text-gray-900">{partner.name}</h3>
-                <span className="text-sm text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                <span className={`text-sm px-2 py-1 rounded
+                  ${
+                    partner.type === 'SIM Card & Telecom'
+                      ? 'bg-orange-100 text-orange-600'
+                      : partner.type.toLowerCase().includes('bank')
+                      ? 'bg-green-100 text-green-600'
+                      : 'bg-blue-100 text-blue-600'
+                  }`
+                }>
                   {partner.type}
                 </span>
+                {partner.affiliate && (
+                  <span className="ml-2 text-xs bg-green-200 text-green-800 px-2 py-1 rounded inline-block">Affiliate</span>
+                )}
               </div>
               
               <p className="text-sm text-gray-600 mb-4 text-center">
@@ -154,7 +245,7 @@ export const AffiliationPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button className="w-full" size="sm" variant="outline">
+                <Button className={`w-full ${partner.affiliate ? 'bg-green-600 hover:bg-green-700 text-white' : ''}`} size="sm" variant={partner.affiliate ? "default" : "outline"}>
                   <ExternalLink className="h-4 w-4 mr-2" />
                   Visit {new URL(partner.website).hostname}
                 </Button>
@@ -167,11 +258,13 @@ export const AffiliationPage = () => {
       <Card className="mt-8 bg-green-50 border-green-200">
         <CardContent className="p-6 text-center">
           <h3 className="text-lg font-semibold text-green-900 mb-4">
-            Become a Partner
+            Why Use Our Affiliate/Referral Links?
           </h3>
           <p className="text-green-700 mb-4 max-w-2xl mx-auto">
-            Are you an educational institution, service provider, or organization that supports international students in France? 
-            We'd love to collaborate with you to help more students succeed in their French education journey.
+            By opening your account, applying for a loan, or getting a SIM card with our listed partners using the above links, 
+            you support our consultancy at zero extra cost and often unlock exclusive rates or student bonuses. This helps us keep offering free guidance and services for students like you!
+            <br />
+            <span className="text-green-900 font-semibold">Thank you for supporting our student community!</span>
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button className="bg-green-600 hover:bg-green-700">
