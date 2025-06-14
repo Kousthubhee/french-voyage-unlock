@@ -201,7 +201,6 @@ export const QAPage = () => {
 
         <div className="flex flex-col md:flex-row gap-5">
           <div className="flex-1">
-
             {/* ---- REMOVED BotPersonaSelector, only 1 bot ---- */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
               <span className="inline-flex items-center px-3 py-1 rounded text-xs bg-blue-600 text-white font-semibold">
@@ -213,7 +212,6 @@ export const QAPage = () => {
                 onShowBookmarks={() => setShowBookmarks(!showBookmarks)}
               />
             </div>
-
             {/* Quick suggested Qs */}
             <div className="mb-4 flex flex-wrap gap-2">
               {commonQuickQs.map((q, idx) => (
@@ -227,7 +225,6 @@ export const QAPage = () => {
                 </button>
               ))}
             </div>
-
             {/* Existing Card for chat */}
             <Card className="h-96 mb-6">
               <CardContent className="p-0 h-full flex flex-col">
@@ -261,7 +258,6 @@ export const QAPage = () => {
                     </div>
                   )}
                 </div>
-
                 <div className="p-4 border-t border-gray-200">
                   <form
                     className="flex flex-col sm:flex-row items-center gap-2"
@@ -341,14 +337,7 @@ export const QAPage = () => {
               </Button>
             </div>
           </div>
-
-          {/* Trending questions sidebar */}
-          <div className="hidden md:block min-w-[220px] w-[240px]">
-            <TrendingQuestions
-              questions={trendingQuestions}
-              onSelect={(q) => setNewMessage(q)}
-            />
-          </div>
+          {/* REMOVED: TrendingQuestions sidebar */}
         </div>
 
         <div>
