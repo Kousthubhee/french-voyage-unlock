@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,63 +12,155 @@ type CityRec = {
 const cities: CityRec[] = [
   {
     city: "Paris",
-    cafes: ["Café de Flore", "Le Procope", "Shakespeare & Company Café", "Dose Café", "KB Coffee Roasters"],
-    studySpots: ["Bibliothèque François-Mitterrand", "Cité Internationale Universitaire Library", "Sainte-Geneviève Library"],
-    clubs: ["Rex Club", "Le Duplex", "Nouveau Casino", "Wanderlust"],
+    cafes: [
+      "Shakespeare & Company Café (5th)", 
+      "KB Café (9th)", 
+      "Café Lomi (18th)", 
+      "Grounded (11th)"
+    ],
+    studySpots: [
+      "Bibliothèque Sainte-Geneviève",
+      "BPI at Centre Pompidou",
+    ],
+    clubs: [
+      "Sciences Po Student Union",
+      "ESCP Student Societies"
+    ],
   },
   {
     city: "Lyon",
-    cafes: ["Café Mokxa", "Le Luminarium", "Slake Coffee"],
-    studySpots: ["Bibliothèque de la Part-Dieu", "Université de Lyon Library"],
-    clubs: ["Le Sucre", "Transbordeur", "L'Absolu"],
+    cafes: [
+      "Slake Coffee House", 
+      "Loutsa", 
+      "Café Mokxa"
+    ],
+    studySpots: [
+      "Bibliothèque de la Part-Dieu"
+    ],
+    clubs: [
+      "Avenir Lyon (international student group)",
+      "ENSL Music Club"
+    ],
   },
   {
     city: "Toulouse",
-    cafes: ["Café Cerise", "La Fiancée", "Les Fils à Maman"],
-    studySpots: ["Bibliothèque d'Étude et du Patrimoine", "Université Toulouse Library"],
-    clubs: ["Le Bikini", "Connexion Live", "The Hopscotch Pub"],
+    cafes: [
+      "Le Café Cerise",
+      "Allegory Coffee Bar",
+      "Les Farfadets"
+    ],
+    studySpots: [
+      "Toulouse Capitole University Library",
+      "Ombres Blanches Bookstore Café"
+    ],
+    clubs: [
+      "TBS Student Clubs",
+      "Erasmus Student Network Toulouse"
+    ],
   },
   {
     city: "Rouen",
-    cafes: ["Café Hamlet", "Suppose Café", "La Petite Bouffe"],
-    studySpots: ["Bibliothèque Simone de Beauvoir", "Université de Rouen Library"],
-    clubs: ["Le 106", "Le So", "Le Bateau Ivre"],
+    cafes: [
+      "Citizen Coffee",
+      "Métropole Café"
+    ],
+    studySpots: [
+      "Université de Rouen libraries",
+      "Docks 76 co-working spots"
+    ],
+    clubs: [
+      "ESIGELEC Clubs",
+      "Université de Rouen Social Clubs"
+    ],
   },
   {
     city: "Reims",
-    cafes: ["Café du Palais", "L'Epicerie Au Bon Manger", "Café de la Paix"],
-    studySpots: ["Médiathèque Jean Falala", "Bibliothèque Carnegie"],
-    clubs: ["Club 30", "Le Vogue", "L'Atrium"],
+    cafes: [
+      "L'Opéra Café",
+      "La Brûlerie Moderne"
+    ],
+    studySpots: [
+      "Sciences Po Reims Library",
+      "Bibliothèque Carnegie"
+    ],
+    clubs: [
+      "Champagne Tasting Club (Sciences Po)",
+      "Erasmus Club Reims"
+    ],
   },
   {
     city: "Lille",
-    cafes: ["Coffee Makers", "Tamper Espresso Bar", "Le Dandy"],
-    studySpots: ["Bibliothèque Universitaire SHS", "Lille Grand Palais Library"],
-    clubs: ["Magazine Club", "Network Club", "Le Baron"],
+    cafes: [
+      "Coffee Makers", 
+      "Wally’s Coffee", 
+      "La Luck"
+    ],
+    studySpots: [
+      "B.U. de Lille",
+      "Gare Saint Sauveur (also cultural events)"
+    ],
+    clubs: [
+      "IÉSEG & EDHEC student associations",
+      "ESN Lille"
+    ],
   },
   {
     city: "Strasbourg",
-    cafes: ["Café Bretelles", "Oh My Goodness Café", "What the Cake?"],
-    studySpots: ["Médiathèque André Malraux", "Université de Strasbourg Library"],
-    clubs: ["La Laiterie", "Mudd Club", "The Living Room"],
+    cafes: [ 
+      "Café Bretelles", 
+      "Oh My Goodness Café"
+    ],
+    studySpots: [
+      "Bibliothèque nationale et universitaire",
+      "Shadok coworking"
+    ],
+    clubs: [
+      "UNISTRA Language Exchange",
+      "Music & Theater Club"
+    ],
   },
   {
     city: "Bordeaux",
-    cafes: ["Black List Café", "SIP Coffee Bar", "L'Alchimiste Café Boutique"],
-    studySpots: ["Bibliothèque Mériadeck", "Université de Bordeaux Library"],
-    clubs: ["I.Boat", "La Plage", "Le Black Diamond"],
+    cafes: [
+      "SIP Coffee Bar",
+      "Books & Coffee"
+    ],
+    studySpots: [
+      "Université de Bordeaux Libraries"
+    ],
+    clubs: [
+      "Erasmus Bordeaux",
+      "KEDGE Business School societies"
+    ],
   },
   {
     city: "Nice",
-    cafes: ["Café Marché", "Empreinte Café", "Brulerie des Cafés Indien"],
-    studySpots: ["Bibliothèque Louis Nucéra", "Université Côte d'Azur Library"],
-    clubs: ["High Club", "Le Glam", "Studio 47"],
+    cafes: [
+      "Café Marché",
+      "Paper Plane"
+    ],
+    studySpots: [
+      "Université Côte d’Azur libraries"
+    ],
+    clubs: [
+      "EDHEC Nice student clubs",
+      "Aloha Nice (international welcome)"
+    ],
   },
   {
     city: "Marseille",
-    cafes: ["Café de la Banque", "Noailles Café", "La Caravelle"],
-    studySpots: ["Alcazar Library", "Université Aix-Marseille Library"],
-    clubs: ["Le Trolleybus", "Baby Club", "Le Spartacus"],
+    cafes: [
+      "Deep Coffee Roasters",
+      "La Caravelle"
+    ],
+    studySpots: [
+      "Bibliothèque Alcazar",
+      "Coworking spots near Vieux Port"
+    ],
+    clubs: [
+      "AMU Sports Clubs",
+      "Erasmus Marseille"
+    ],
   }
 ];
 

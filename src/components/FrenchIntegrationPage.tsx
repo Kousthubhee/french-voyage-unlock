@@ -273,12 +273,40 @@ export const FrenchIntegrationPage = () => {
                 <Utensils className="mr-3 h-7 w-7 text-green-600" />
                 <span className="text-xl font-semibold text-green-700">Food & Grocery Survival</span>
               </div>
-              <ul className="list-disc pl-8 space-y-2 text-gray-700">
-                <li>Lunch: 12–2 PM, Dinner: 7–9 PM, most restaurants close between.</li>
-                <li>Many supermarkets offer basic Indian/Asian items (labeled "végétarien", "halal").</li>
-                <li>Look for Carrefour, Leclerc, local ethnic markets for spices and ingredients.</li>
-                <li>At restaurants, ask: "Est-ce végétarien/halal ?"</li>
-                <li>Check university canteens ("Resto U") for cheap student meals.</li>
+              <div className="mb-3 text-gray-800 font-semibold">🛒 Major Supermarkets</div>
+              <ul className="list-disc pl-8 space-y-1 text-gray-700">
+                <li><b>Carrefour (market/superstore):</b> Ubiquitous</li>
+                <li><b>Leclerc:</b> Common outside city centers</li>
+                <li><b>Intermarché / Super U:</b> Local convenience format</li>
+                <li><b>Franprix / Monoprix:</b> Urban centers, late hours</li>
+                <li><b>Lidl / Aldi:</b> Budget-friendly, limited international</li>
+                <li><b>ACTION:</b> Discount store, great for daily needs</li>
+                <li>
+                  <b>Triangle / Paris Store / Tang Frères:</b> Asian markets for Indian, Chinese, Thai ingredients (Paris, Lyon, Marseille, Lille, Strasbourg, Bordeaux)
+                </li>
+                <li>
+                  <b>Halal Butchers & Indo-Pak Stores:</b> Present in student-populated areas (e.g., La Chapelle in Paris, Guillotière in Lyon)
+                </li>
+              </ul>
+              <div className="mt-4 mb-3 text-gray-800 font-semibold">🍱 Meal Times</div>
+              <ul className="list-disc pl-8 space-y-1 text-gray-700">
+                <li>Lunch: <b>12 PM – 2 PM</b></li>
+                <li>Dinner: <b>7 PM – 9 PM</b></li>
+                <li>Restaurants often close in between, especially in smaller cities.</li>
+              </ul>
+              <div className="mt-4 mb-3 text-gray-800 font-semibold">🛒 Supermarket Options</div>
+              <ul className="list-disc pl-8 space-y-1 text-gray-700">
+                <li>Carrefour, Leclerc, Super U, and Lidl carry essentials.</li>
+                <li>Asian/Indian stores (Triangle, Paris Store) have dals, rice, masalas, Maggi, etc.</li>
+                <li>Items often labeled "<b>végétarien</b>", "<b>halal</b>", or "<b>bio</b>" (organic).</li>
+              </ul>
+              <div className="mt-4 mb-3 text-gray-800 font-semibold">🍴 Student Dining</div>
+              <ul className="list-disc pl-8 space-y-1 text-gray-700">
+                <li>Check "<b>Resto U</b>" (university canteens) for affordable full meals (~€3.30 with student card).</li>
+              </ul>
+              <div className="mt-4 mb-3 text-gray-800 font-semibold">💡 Dining Out Tip</div>
+              <ul className="list-disc pl-8 space-y-1 text-gray-700">
+                <li>Politely ask: <span className="italic">“Est-ce végétarien / halal ?”</span> (Is this vegetarian/halal?)</li>
               </ul>
             </CardContent>
           </Card>
@@ -291,12 +319,28 @@ export const FrenchIntegrationPage = () => {
                 <MapPin className="mr-3 h-7 w-7 text-cyan-600" />
                 <span className="text-xl font-semibold text-cyan-800">Practical Living & Safety</span>
               </div>
-              <ul className="list-disc pl-8 space-y-2 text-gray-700">
-                <li>Public transit: Get a Navigo pass (Paris) or check your city’s transport site.</li>
-                <li>Always validate tickets—spot checks are common!</li>
-                <li>Use city bikes or walk, most cities are pedestrian-friendly.</li>
-                <li>Quiet hours: 10pm–7am in most apartments.</li>
-                <li>Call 112 for any emergency throughout the EU.</li>
+              <div className="mb-3 text-gray-800 font-semibold">🛡️ Public Transit</div>
+              <ul className="list-disc pl-8 space-y-1 text-gray-700">
+                <li><b>Paris:</b> Use Navigo Pass (monthly/weekly)</li>
+                <li><b>Lyon:</b> TCL card</li>
+                <li><b>Toulouse:</b> Tisséo card</li>
+                <li><b>Other cities:</b> Get a local transit card</li>
+                <li>Validate tickets always! Fines for unvalidated travel can be €50+.</li>
+              </ul>
+              <div className="mt-4 mb-3 text-gray-800 font-semibold">🚲 Getting Around</div>
+              <ul className="list-disc pl-8 space-y-1 text-gray-700">
+                <li><b>Cycling apps:</b> Vélib (Paris), Vélov (Lyon), Bicloo, etc.</li>
+                <li>Cities are pedestrian-friendly; walking is safe and common.</li>
+              </ul>
+              <div className="mt-4 mb-3 text-gray-800 font-semibold">🏠 Apartment Life</div>
+              <ul className="list-disc pl-8 space-y-1 text-gray-700">
+                <li>Quiet Hours: <b>10 PM – 7 AM</b> (legally enforced in most residencies).</li>
+                <li>Respect for neighbors is expected.</li>
+              </ul>
+              <div className="mt-4 mb-3 text-gray-800 font-semibold">🚨 Emergency</div>
+              <ul className="list-disc pl-8 space-y-1 text-gray-700">
+                <li>112 is the EU-wide emergency number (works across all cities).</li>
+                <li>For police/fire/ambulance.</li>
               </ul>
             </CardContent>
           </Card>
