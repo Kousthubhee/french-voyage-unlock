@@ -1,4 +1,3 @@
-
 import { useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,8 +6,18 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { MessageSquare, Send, Bot, User, ImageUp, FileUp } from "lucide-react";
 import { faqCategories } from "@/data/faqCategories";
 
+// ✅ Define type for messages allowing optional file/fileName
+interface MessageItem {
+  id: number;
+  type: "user" | "bot";
+  message: string;
+  file?: string;
+  fileName?: string;
+}
+
 export const QAPage = () => {
-  const [messages, setMessages] = useState([
+  // ✅ Add types to messages array
+  const [messages, setMessages] = useState<MessageItem[]>([
     {
       id: 1,
       type: "bot",
@@ -127,7 +136,7 @@ export const QAPage = () => {
                       <div className="mt-2">
                         {/* Show image preview if image, else file icon */}
                         {msg.file.startsWith("data:image") ? (
-                          <img src={msg.file} alt={msg.fileName} className="h-24 max-w-full rounded border" />
+                          <img src={msg.file} alt={msg.fileName || ""} className="h-24 max-w-full rounded border" />
                         ) : (
                           <div className="flex items-center gap-1 text-sm text-blue-800">
                             <FileUp className="h-4 w-4" />
