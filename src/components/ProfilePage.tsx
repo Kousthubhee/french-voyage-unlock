@@ -36,7 +36,7 @@ export const ProfilePage = ({ profile, setProfile }: ProfilePageProps) => {
   ];
 
   return (
-    <div className="max-w-xl mx-auto mt-8">
+    <div className="max-w-xl mx-auto mt-10 mb-10">
       <ProfileEditDialog
         open={editOpen}
         onOpenChange={setEditOpen}
@@ -44,31 +44,33 @@ export const ProfilePage = ({ profile, setProfile }: ProfilePageProps) => {
         onSave={setProfile}
       />
 
-      <Card>
+      <Card className="w-full shadow-lg rounded-xl animate-fade-in">
         <CardContent className="p-8 flex flex-col items-center">
           <img
             src={profile.photo || defaultProfilePhoto}
-            className="w-24 h-24 rounded-full object-cover border-2 border-blue-400 mb-4"
+            className="w-28 h-28 rounded-full object-cover border-2 border-blue-400 mb-6 shadow-md"
             alt="Profile"
           />
-          <h2 className="text-2xl font-semibold text-gray-900">{profile.name}</h2>
-          <p className="text-gray-600">{profile.about}</p>
-          <div className="text-sm text-gray-500 mt-1">
+          <h2 className="text-3xl font-bold text-gray-900 mb-1 font-playfair">{profile.name}</h2>
+          <p className="text-gray-600 text-base mb-2">{profile.about}</p>
+          <div className="text-sm text-gray-500 mt-1 mb-1 font-medium">
             Member since {profile.memberSince}
           </div>
           <div className="text-sm text-gray-500">{profile.email}</div>
-          {profile.age && (
-            <div className="text-sm mt-2 text-gray-700">Age: {profile.age}</div>
-          )}
-          {profile.prevEducation && (
-            <div className="text-sm mt-1 text-gray-700">Previous Education: {profile.prevEducation}</div>
-          )}
-          {profile.workExperience && (
-            <div className="text-sm mt-1 text-gray-700">Work Experience: {profile.workExperience}</div>
-          )}
+          <div className="flex flex-wrap gap-4 mt-4 w-full justify-center">
+            {profile.age && (
+              <div className="text-sm bg-blue-50 px-3 py-1 rounded-full text-blue-800 border border-blue-200">Age: {profile.age}</div>
+            )}
+            {profile.prevEducation && (
+              <div className="text-sm bg-green-50 px-3 py-1 rounded-full text-green-800 border border-green-200">Prev. Education: {profile.prevEducation}</div>
+            )}
+            {profile.workExperience && (
+              <div className="text-sm bg-purple-50 px-3 py-1 rounded-full text-purple-700 border border-purple-200">Work Exp: {profile.workExperience}</div>
+            )}
+          </div>
           <Button
             variant="outline"
-            className="mt-4"
+            className="mt-7 shadow hover:scale-105 transition-transform font-semibold"
             onClick={() => setEditOpen(true)}
           >
             <Edit className="h-4 w-4 mr-2" />
@@ -77,7 +79,10 @@ export const ProfilePage = ({ profile, setProfile }: ProfilePageProps) => {
         </CardContent>
       </Card>
 
-      <AchievementsSection achievements={achievements} />
+      <div className="mt-9 animate-fade-in">
+        <div className="mb-4 text-2xl font-bold text-gray-900 font-playfair">Achievements</div>
+        <AchievementsSection achievements={achievements} />
+      </div>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+
 import { 
   CheckSquare, 
   MessageSquare, 
@@ -55,7 +56,7 @@ export const AppSidebar = ({
   return (
     <Sidebar>
       <SidebarHeader>
-        <div className="p-4 pb-2">
+        <div className="p-4 pb-2 border-b border-blue-100">
           <div 
             className="text-xl font-bold cursor-pointer hover:scale-105 transition-transform"
             onClick={() => setCurrentPage('checklist')}
@@ -66,20 +67,20 @@ export const AppSidebar = ({
             Your guide to French education
           </div>
         </div>
-        <div className="flex items-center mb-2 px-4 mt-2">
+        <div className="flex items-center mb-3 px-4 mt-3">
           {avatarUrl ? (
             <img
               src={avatarUrl}
               alt="avatar"
-              className="w-9 h-9 rounded-full border-2 border-blue-400 shadow-sm"
+              className="w-12 h-12 rounded-full border-2 border-blue-400 shadow-sm"
             />
           ) : (
-            <div className="w-9 h-9 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-semibold text-lg border">
+            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-semibold text-xl border">
               {name ? name[0].toUpperCase() : 'U'}
             </div>
           )}
-          <div className="ml-3">
-            <div className="font-medium text-gray-900 leading-5 text-sm">Hello, {name}!</div>
+          <div className="ml-4">
+            <div className="font-semibold text-gray-900 leading-6 text-base">Hello, {name}!</div>
             <div className="text-xs text-gray-500">Welcome!</div>
           </div>
         </div>
@@ -98,18 +99,18 @@ export const AppSidebar = ({
                     <SidebarMenuButton
                       isActive={isActive}
                       onClick={() => setCurrentPage(item.id)}
-                      className={`w-full group transition-all`}
+                      className={`w-full group transition-all px-3 py-2 rounded-lg hover:bg-blue-50 hover:shadow-md hover:scale-[1.03] font-medium text-base ${isActive ? 'bg-blue-100 text-blue-700 font-extrabold shadow' : 'text-gray-700'} `}
                       tooltip={item.tooltip}
                     >
                       <span className={`
-                        rounded-full p-1 flex items-center justify-center mr-2 transition-all
+                        rounded-full p-2 flex items-center justify-center mr-3 transition-all
                         ${isActive 
-                          ? 'bg-blue-100 text-blue-600 scale-110 shadow-sm animate-sidebar-active'
-                          : item.color + ' bg-transparent'}
+                          ? 'bg-blue-200 text-blue-700 scale-110 shadow'
+                          : item.color + ' bg-white'}
                       `}>
-                        <Icon className={`h-5 w-5`} />
+                        <Icon className="h-5 w-5" />
                       </span>
-                      <span className={`transition-all ${isActive ? 'text-blue-900 font-bold' : ''}`}>
+                      <span className={`transition-all`}>
                         {item.label}
                       </span>
                     </SidebarMenuButton>
@@ -122,14 +123,14 @@ export const AppSidebar = ({
       </SidebarContent>
       
       <SidebarFooter>
-        <div className="bg-blue-50 p-3 rounded-lg">
+        <div className="bg-blue-50 p-3 rounded-lg mt-4">
           <div className="text-sm font-medium text-blue-900 mb-1">Need Help?</div>
           <div className="text-xs text-blue-700 mb-2">
             Reach out to our support team for assistance
           </div>
           <Button 
             size="sm" 
-            className="w-full bg-blue-600 hover:bg-blue-700"
+            className="w-full bg-blue-600 hover:bg-blue-700 shadow"
             onClick={() => setCurrentPage('contact')}
           >
             Contact Support

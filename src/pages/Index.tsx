@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
@@ -91,23 +92,25 @@ const Index = () => {
             setCurrentPage={handlePageNavigation}
             userProgress={userProgress}
           />
-          <main className="flex-1 p-4 md:p-6 overflow-auto">
-            {currentPage === "profile" ? (
-              <ProfilePage profile={profile} setProfile={setProfile} />
-            ) : (
-              <MainRouter
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                userProfile={userProfile}
-                userProgress={userProgress}
-                setUserProgress={setUserProgress}
-                selectedSchool={selectedSchool}
-                setSelectedSchool={setSelectedSchool}
-                handleProgressUpdate={handleProgressUpdate}
-              />
-            )}
+          <main className="flex-1 p-4 md:p-8 main-area overflow-auto">
+            <div className="max-w-5xl mx-auto animate-fade-in section-padding">
+              {currentPage === "profile" ? (
+                <ProfilePage profile={profile} setProfile={setProfile} />
+              ) : (
+                <MainRouter
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  userProfile={userProfile}
+                  userProgress={userProgress}
+                  setUserProgress={setUserProgress}
+                  selectedSchool={selectedSchool}
+                  setSelectedSchool={setSelectedSchool}
+                  handleProgressUpdate={handleProgressUpdate}
+                />
+              )}
+            </div>
           </main>
-          <footer className="bg-white border-t border-gray-200 py-4 px-6 flex flex-col items-center gap-3">
+          <footer className="bg-white border-t border-gray-200 py-6 px-6 flex flex-col items-center gap-3 animate-fade-in">
             <div className="text-center text-gray-600">
              🎓 © {new Date().getFullYear()} <span className="text-blue-600 font-semibold">  Kousthubhee Krishna K</span> & <span className="text-cyan-600 font-semibold">Srivatsava CK</span>
             </div>
@@ -121,7 +124,7 @@ const Index = () => {
             </Button>
             {showConfirm && (
               <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
-                <div className="bg-white rounded-lg shadow-lg p-6 max-w-xs w-full border flex flex-col items-center">
+                <div className="bg-white rounded-lg shadow-lg p-6 max-w-xs w-full border flex flex-col items-center animate-fade-in">
                   <div className="font-semibold text-lg mb-2">Reset Progress?</div>
                   <div className="text-gray-700 text-sm mb-4 text-center">
                     This will erase your checklist progress. Are you sure?

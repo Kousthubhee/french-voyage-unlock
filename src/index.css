@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,4 +99,44 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Add entrance animation for cards and sections */
+@keyframes fade-in {
+  0% { opacity: 0; transform: translateY(18px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-fade-in {
+  animation: fade-in 0.5s cubic-bezier(0.33,1,0.68,1);
+}
+
+/* White space for card/section content */
+.section-padding {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+@media (max-width: 640px) {
+  .section-padding {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+/* Form improvements for input spacing */
+.input-group {
+  @apply flex flex-col gap-2;
+}
+
+.input-label {
+  @apply font-semibold;
+}
+
+.input-hint {
+  @apply text-xs text-gray-400 ml-1 mt-1;
+}
+
+/* Responsive paddings for main areas */
+.main-area {
+  @apply px-2 py-2 md:px-7 md:py-5;
 }

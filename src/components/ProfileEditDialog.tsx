@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Image } from 'lucide-react';
 import { ProfileEditExtra } from './ProfileEditExtra';
+import { useToast } from '@/hooks/use-toast';
 
 interface ProfileType {
   name: string;
@@ -31,6 +32,7 @@ const defaultProfilePhoto = "https://images.unsplash.com/photo-1649972904349-6e4
 export function ProfileEditDialog({ open, onOpenChange, profile, onSave }: ProfileEditDialogProps) {
   const [editingProfile, setEditingProfile] = useState(profile);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
 
   // Reset editing fields when dialog is reopened
   React.useEffect(() => {
@@ -53,27 +55,32 @@ export function ProfileEditDialog({ open, onOpenChange, profile, onSave }: Profi
   const handleSave = () => {
     onSave(editingProfile);
     onOpenChange(false);
+    toast({
+      title: "Profile updated",
+      description: "Your profile changes were saved.",
+      variant: "default",
+    });
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>Edit Profile</DialogTitle>
+          <DialogTitle className="font-bold text-2xl">Edit Profile</DialogTitle>
         </DialogHeader>
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div className="flex flex-col items-center gap-3">
             <div className="relative">
               <img
                 src={editingProfile.photo || defaultProfilePhoto}
                 alt="Profile"
-                className="w-20 h-20 rounded-full object-cover border-2 border-blue-500"
+                className="w-24 h-24 rounded-full object-cover border-2 border-blue-500 shadow"
               />
               <Button
                 type="button"
                 variant="outline"
                 size="icon"
-                className="absolute right-0 bottom-0 bg-white hover:bg-gray-100 border shadow"
+                className="absolute right-1 bottom-1 bg-white hover:bg-gray-100 border shadow"
                 onClick={() => fileInputRef.current?.click()}
                 aria-label="Change photo"
               >
@@ -88,43 +95,51 @@ export function ProfileEditDialog({ open, onOpenChange, profile, onSave }: Profi
               />
             </div>
           </div>
-          <div>
-            <Label htmlFor="edit-name">Name</Label>
-            <Input
-              id="edit-name"
-              value={editingProfile.name}
-              placeholder="Enter your name"
-              onChange={e => setEditingProfile({ ...editingProfile, name: e.target.value })}
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <Label htmlFor="edit-name" className="font-semibold">Name</Label>
+              <Input
+                id="edit-name"
+                value={editingProfile.name}
+                placeholder="Enter your name"
+                onChange={e => setEditingProfile({ ...editingProfile, name: e.target.value })}
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="edit-email" className="font-semibold">Email</Label>
+              <Input
+                id="edit-email"
+                value={editingProfile.email}
+                placeholder="Enter your email"
+                onChange={e => setEditingProfile({ ...editingProfile, email: e.target.value })}
+                className="mt-1"
+              />
+            </div>
           </div>
           <div>
-            <Label htmlFor="edit-email">Email</Label>
-            <Input
-              id="edit-email"
-              value={editingProfile.email}
-              placeholder="Enter your email"
-              onChange={e => setEditingProfile({ ...editingProfile, email: e.target.value })}
-            />
-          </div>
-          <div>
-            <Label htmlFor="edit-about">About</Label>
+            <Label htmlFor="edit-about" className="font-semibold">About</Label>
             <Input
               id="edit-about"
               value={editingProfile.about}
               placeholder="Enter something about yourself"
               onChange={e => setEditingProfile({ ...editingProfile, about: e.target.value })}
+              className="mt-1"
+            />
+            <div className="text-xs text-gray-400 ml-1 mt-1">Short bio, e.g., your study goals or interests</div>
+          </div>
+          <div className="py-2">
+            <ProfileEditExtra
+              age={editingProfile.age}
+              prevEducation={editingProfile.prevEducation}
+              workExperience={editingProfile.workExperience}
+              onChange={fields => setEditingProfile(prev => ({ ...prev, ...fields }))}
             />
           </div>
-          <ProfileEditExtra
-            age={editingProfile.age}
-            prevEducation={editingProfile.prevEducation}
-            workExperience={editingProfile.workExperience}
-            onChange={fields => setEditingProfile(prev => ({ ...prev, ...fields }))}
-          />
         </div>
-        <DialogFooter>
+        <DialogFooter className="pt-4">
           <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button onClick={handleSave}>Save Changes</Button>
+          <Button onClick={handleSave} className="font-semibold">Save Changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
