@@ -12,11 +12,64 @@ import {
 } from "@/components/ui/select";
 import { citiesData, School, City } from '@/data/schoolsData';
 
+// Helper to extract level from program name
+function extractCourseLevel(program: string): string {
+  // Accepts variants like "MSc", "MBA", "Masters", etc.
+  const lower = program.toLowerCase();
+  if (lower.startsWith('msc') || lower.startsWith('master')) return "Masters";
+  if (lower.startsWith('mba')) return "MBA";
+  if (lower.startsWith('bsc') || lower.startsWith('bachelor')) return "Bachelors";
+  if (lower.startsWith('phd')) return "PhD";
+  if (lower.startsWith('doctor')) return "PhD";
+  if (lower.startsWith('license') || lower.startsWith('licence')) return "Bachelors";
+  return "Other";
+}
+
 export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [selectedSchool, setSelectedSchool] = useState<School | null>(null);
   const [showInsights, setShowInsights] = useState(false);
+
+  // --- New two-level filter state ---
+  const [courseLevelFilter, setCourseLevelFilter] = useState<string>('all');
   const [programFilter, setProgramFilter] = useState<string>('all');
+
+  // Gather all programs across all cities for two-level filter
+  const programsByLevel: Record<string, Set<string>> = {};
+  Object.values(citiesData).forEach(city => {
+    city.schools.forEach(school => {
+      school.programs.forEach(prog => {
+        const level = extractCourseLevel(prog);
+        if (!programsByLevel[level]) programsByLevel[level] = new Set();
+        programsByLevel[level].add(prog);
+      });
+    });
+  });
+  const allLevels = Object.keys(programsByLevel).sort((a, b) => {
+    // Prioritize main ones first for user-friendliness.
+    const order = ["Bachelors", "Masters", "MBA", "PhD", "Other"];
+    return order.indexOf(a) - order.indexOf(b);
+  });
+
+  // Subjects/programs for current selected level, for use in subject filter
+  const programSubjects =
+    courseLevelFilter === 'all'
+      ? Object.values(programsByLevel).flatMap(set => Array.from(set)).sort()
+      : Array.from(programsByLevel[courseLevelFilter] || []).sort();
+
+  // Helper: Filter schools given the two-level filter.
+  function filterSchools(schools: School[]) {
+    return schools.filter(school => {
+      // Both course level and (if selected) subject must match.
+      const hasProgramWithLevel = school.programs.some(
+        p => courseLevelFilter === 'all' || extractCourseLevel(p) === courseLevelFilter
+      );
+      const hasSpecificProgram =
+        programFilter === 'all' ||
+        school.programs.some(p => p === programFilter);
+      return hasProgramWithLevel && hasSpecificProgram;
+    });
+  }
 
   // SCHOOL CONTACT INFORMATION DISPLAY
   const getContact = (school: School) => school.contact || {};
@@ -187,28 +240,33 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
     );
   }
 
-  // City-Specific View with Schools and Local Insights (filter added here)
+  // City-Specific View with Schools and Local Insights (add two-level filter here)
   if (selectedCity && citiesData[selectedCity]) {
     const cityData = citiesData[selectedCity];
 
-    // Gather all programs unique to this city
-    const allPrograms = Array.from(
-      new Set(cityData.schools.flatMap((school) => school.programs))
-    ).sort();
+    // All schools in this city filtered by courseLevel and program
+    const filteredSchools = filterSchools(cityData.schools);
 
-    // Filter schools by selected program
-    const filteredSchools =
-      programFilter === 'all'
-        ? cityData.schools
-        : cityData.schools.filter((school) =>
-            school.programs.includes(programFilter)
-          );
+    // Program subjects for this city only and current level (for tabs/subjects dropdown)
+    const cityProgramsByLevel: Record<string, Set<string>> = {};
+    cityData.schools.forEach(school => {
+      school.programs.forEach(prog => {
+        const level = extractCourseLevel(prog);
+        if (!cityProgramsByLevel[level]) cityProgramsByLevel[level] = new Set();
+        cityProgramsByLevel[level].add(prog);
+      });
+    });
+    const citySubjects =
+      courseLevelFilter === 'all'
+        ? Object.values(cityProgramsByLevel).flatMap(set => Array.from(set)).sort()
+        : Array.from(cityProgramsByLevel[courseLevelFilter] || []).sort();
 
     return (
       <div className="max-w-6xl mx-auto">
         <div className="mb-6">
           <Button variant="outline" onClick={() => {
             setSelectedCity(null);
+            setCourseLevelFilter('all');
             setProgramFilter('all');
           }} className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" /> Back to Cities
@@ -216,6 +274,41 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-4">🏫 {cityData.name} - School & Local Insights</h1>
             <p className="text-lg text-gray-600">{cityData.description}</p>
+          </div>
+        </div>
+
+        {/* --- Two-level filters --- */}
+        <div className="flex flex-wrap gap-4 items-center justify-end mb-6">
+          <div>
+            <label htmlFor="city-course-level-filter" className="block text-xs mb-1 text-gray-700">Filter by Level</label>
+            <Select value={courseLevelFilter} onValueChange={val => {
+              setCourseLevelFilter(val);
+              setProgramFilter('all');
+            }}>
+              <SelectTrigger className="w-40" id="city-course-level-filter">
+                <SelectValue>{courseLevelFilter === "all" ? "All Levels" : courseLevelFilter}</SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Levels</SelectItem>
+                {Object.keys(cityProgramsByLevel).sort((a, b) => allLevels.indexOf(a) - allLevels.indexOf(b)).map(lvl =>
+                  <SelectItem key={lvl} value={lvl}>{lvl}</SelectItem>
+                )}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <label htmlFor="city-program-filter" className="block text-xs mb-1 text-gray-700">Filter by Subject</label>
+            <Select value={programFilter} onValueChange={setProgramFilter}>
+              <SelectTrigger className="w-64" id="city-program-filter">
+                <SelectValue>{programFilter === "all" ? "All Subjects" : programFilter}</SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Subjects</SelectItem>
+                {citySubjects.map((p) => (
+                  <SelectItem key={p} value={p}>{p}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
@@ -243,29 +336,9 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
           </CardContent>
         </Card>
 
-        {/* Schools Filter */}
-        <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
-          <h2 className="text-xl font-semibold text-gray-900">Schools in {cityData.name}</h2>
-          <div className="flex items-center gap-2">
-            <label htmlFor="program-filter" className="mr-2 text-sm text-gray-700">Filter by Program:</label>
-            <Select value={programFilter} onValueChange={(val) => setProgramFilter(val)}>
-              <SelectTrigger className="w-48" id="program-filter">
-                <SelectValue>
-                  {programFilter === "all" ? "All Programs" : programFilter}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Programs</SelectItem>
-                {allPrograms.map((pr) => (
-                  <SelectItem key={pr} value={pr}>{pr}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredSchools.length === 0 ? (
-            <div className="col-span-3 text-center py-8 text-gray-500">No schools found for selected program.</div>
+            <div className="col-span-3 text-center py-8 text-gray-500">No schools found for selected filters.</div>
           ) : filteredSchools.map((school, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow" onClick={() => setSelectedSchool(school)}>
               <CardHeader>
@@ -344,28 +417,13 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
     );
   }
 
-  // City Selection View (add filter by program for all cities)
-  // User's selected program here will work as a global filter across all cities
-  const allProgramsGlobal = Array.from(
-    new Set(
-      Object.values(citiesData).flatMap((city) =>
-        city.schools.flatMap((school) => school.programs)
-      )
-    )
-  ).sort();
-  // flatten all schools
-  const getSchoolsByProgram = (program: string) => {
-    return Object.entries(citiesData).map(([cityKey, city]) => ({
-      cityKey,
-      city,
-      schools: city.schools.filter((school) =>
-        program === 'all' ? true : school.programs.includes(program)
-      ),
-    }));
-  };
-  const citiesFiltered = getSchoolsByProgram(programFilter).filter(
-    ({ schools }) => schools.length > 0
-  );
+  // Main Cities View — add top-level filters here
+  // Compute which cities to display based on filters:
+  const citiesFiltered = Object.entries(citiesData).map(([cityKey, city]) => ({
+    cityKey,
+    city,
+    schools: filterSchools(city.schools),
+  })).filter(({ schools }) => schools.length > 0);
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -379,25 +437,45 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
           <p className="text-lg text-gray-600">Explore French schools and get local insights for each city</p>
         </div>
       </div>
-      <div className="flex items-center justify-end mb-6">
-        <label htmlFor="program-filter-main" className="mr-2 text-sm text-gray-700">Filter by Program:</label>
-        <Select value={programFilter} onValueChange={setProgramFilter}>
-          <SelectTrigger className="w-56" id="program-filter-main">
-            <SelectValue>
-              {programFilter === "all" ? "All Programs" : programFilter}
-            </SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Programs</SelectItem>
-            {allProgramsGlobal.map((p) => (
-              <SelectItem key={p} value={p}>{p}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+
+      {/* --- Two-level filter bar (global) --- */}
+      <div className="flex flex-wrap gap-4 items-center justify-end mb-8">
+        <div>
+          <label htmlFor="main-course-level-filter" className="block text-xs mb-1 text-gray-700">Filter by Level</label>
+          <Select value={courseLevelFilter} onValueChange={val => {
+            setCourseLevelFilter(val);
+            setProgramFilter('all');
+          }}>
+            <SelectTrigger className="w-40" id="main-course-level-filter">
+              <SelectValue>{courseLevelFilter === "all" ? "All Levels" : courseLevelFilter}</SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Levels</SelectItem>
+              {allLevels.map(lvl =>
+                <SelectItem key={lvl} value={lvl}>{lvl}</SelectItem>
+              )}
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <label htmlFor="main-program-filter" className="block text-xs mb-1 text-gray-700">Filter by Subject</label>
+          <Select value={programFilter} onValueChange={setProgramFilter}>
+            <SelectTrigger className="w-64" id="main-program-filter">
+              <SelectValue>{programFilter === "all" ? "All Subjects" : programFilter}</SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Subjects</SelectItem>
+              {programSubjects.map((p) => (
+                <SelectItem key={p} value={p}>{p}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {citiesFiltered.length === 0 ? (
-          <div className="col-span-3 text-center py-8 text-gray-500">No schools found for selected program.</div>
+          <div className="col-span-3 text-center py-8 text-gray-500">No schools found for selected filters.</div>
         ) : citiesFiltered.map(({ cityKey, city, schools }) => (
           <Card key={cityKey} className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => setSelectedCity(cityKey)}>
             <CardHeader>
