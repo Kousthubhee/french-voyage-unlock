@@ -9,10 +9,7 @@ interface PageTitleProps {
 export function PageTitle({ children, className = "" }: PageTitleProps) {
   return (
     <h1
-      className={
-        "font-calibri text-lg md:text-xl font-bold text-gray-700 mb-5 text-center " +
-        className
-      }
+      className={`font-calibri font-bold text-xl md:text-2xl text-gray-700 text-center mb-6 ${className}`}
     >
       {children}
     </h1>

@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
@@ -14,7 +15,7 @@ export function SuggestionsPage({ onBack }: SuggestionsPageProps) {
         <ArrowLeft className="h-4 w-4 mr-2" />
         Back to Checklist
       </Button>
-      <PageTitle className="text-yellow-700">
+      <PageTitle>
         💡 Suggestions & Upcoming Features
       </PageTitle>
       <div className="space-y-4">

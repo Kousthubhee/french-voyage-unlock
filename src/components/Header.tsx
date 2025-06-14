@@ -49,7 +49,7 @@ export const Header = ({ currentPage, setCurrentPage, userProgress }: HeaderProp
 
         <div className="flex items-center space-x-4">
           <div className="hidden md:block">
-            <h1 className="text-lg font-semibold text-gray-800 font-calibri">{getPageTitle()}</h1>
+            <h1 className="font-calibri font-bold text-xl text-gray-700">{getPageTitle()}</h1>
           </div>
 
           <div className="flex items-center space-x-2">
