@@ -6,6 +6,7 @@ import { Header } from '@/components/Header';
 import { MainRouter } from './MainRouter';
 import { useLocalStorageProgress } from "@/hooks/useLocalStorageProgress";
 import { Button } from '@/components/ui/button';
+import { useToast } from "@/hooks/use-toast";
 
 interface UserProfile {
   name: string;
@@ -29,6 +30,7 @@ const Index = () => {
   const [userProgress, setUserProgress, resetProgress] = useLocalStorageProgress();
   const [selectedSchool, setSelectedSchool] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
+  const { toast } = useToast();
 
   const handleProgressUpdate = (newProgress: any) => {
     setUserProgress(newProgress);
@@ -55,6 +57,11 @@ const Index = () => {
     resetProgress();
     setShowConfirm(false);
     setCurrentPage('checklist');
+    toast({
+      title: "Progress Reset",
+      description: "Your checklist progress has been reset.",
+      variant: "destructive",
+    });
   };
 
   return (
@@ -125,4 +132,3 @@ const Index = () => {
 };
 
 export default Index;
-
