@@ -32,26 +32,20 @@ export const ContactPage = () => {
     {
       icon: Mail,
       title: 'Email',
-      value: 'kousthubheekrishna@gmail.com',
-      description: 'Send us an email anytime'
+      value: 'pass2kampus@gmail.com',
+      description: 'Write to us anytime — for doubts, suggestions, or to say hello!'
     },
     {
       icon: Phone,
       title: 'Phone',
       value: 'Available on request',
-      description: 'Call us during business hours'
+      description: 'Contact details provided if needed'
     },
     {
       icon: MapPin,
       title: 'Location',
       value: 'Rouen, France',
       description: 'Our team is based in France'
-    },
-    {
-      icon: Clock,
-      title: 'Response Time',
-      value: '24-48 hours',
-      description: 'We typically respond within'
     }
   ];
 
@@ -76,7 +70,6 @@ export const ContactPage = () => {
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-8">
         <h1 className="sr-only">Contact Us</h1>
-        {/* Use the PageTitle component for uniformity */}
         <div className="flex items-center justify-center mb-2">
           <Phone className="h-8 w-8 mr-3 text-pink-600" />
           <span>
@@ -86,11 +79,11 @@ export const ContactPage = () => {
           </span>
         </div>
         <p className="text-lg text-gray-600 mb-1">
-          Welcome! Whether you're planning your move, just arrived in France, or facing a tricky moment, we’re here for you.<br />
-          No question is too small—reach out and our student team will get back to you soon!
+          Have a doubt, suggestion, or just want to talk? We’d love to hear from you.<br />
+          Reach out about anything — no question is too small, and feedback is always welcome!
         </p>
         <div className="mt-2 text-sm text-blue-700 italic">
-          “We’ve lived the French student experience. Let’s make it easier, together.”
+          “We've lived the French student experience. Whatever's on your mind, let's connect.”
         </div>
       </div>
 
@@ -138,7 +131,7 @@ export const ContactPage = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    placeholder="What is this about?"
+                    placeholder="Let us know what's on your mind"
                     required
                   />
                 </div>
@@ -152,7 +145,7 @@ export const ContactPage = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="Your message (ask us anything!)"
+                    placeholder="Your message — ask, suggest, or simply say hello!"
                     className="h-32 resize-none"
                     required
                   />
@@ -163,7 +156,7 @@ export const ContactPage = () => {
                   Send Message
                 </Button>
                 <div className="text-xs text-gray-500 mt-1 text-center">
-                  We'll reply within 24-48 hours. Your information stays private—used only to help you with your journey.
+                  Your information is confidential and only used to help you with your journey. See our privacy policy for details.
                 </div>
               </form>
             </CardContent>
@@ -197,10 +190,10 @@ export const ContactPage = () => {
           <Card className="bg-blue-50 border-blue-200">
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-blue-900 mb-4">
-                Meet the Creators
+                Meet the Team
               </h3>
               <p className="text-blue-700 mb-4">
-                We're passionate about helping students like you build their future in France. No matter what you’re facing, just ask—we’re excited to help!
+                We’re passionate about helping students navigate life in France. No matter what you’re facing, just ask — we’re here for you!
               </p>
               <div className="space-y-3">
                 {creators.map((creator, index) => (
@@ -219,16 +212,24 @@ export const ContactPage = () => {
 
           <Card>
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Here to Support Your Journey</h3>
+              <h3 className="text-lg font-semibold mb-4">Need a Quick Answer?</h3>
               <p className="text-gray-600 mb-4">
-                Our goal is to make studying in France as easy and enjoyable as possible for international students.
-                Check our <span className="underline cursor-pointer text-blue-700"
-                  onClick={() => window.scrollTo(0, 0)}>FAQ & resources</span> for instant help, or contact us any time!
+                For instant help,{" "}
+                <span
+                  className="underline cursor-pointer text-blue-700"
+                  onClick={() => window.location.href = '/qa'}
+                >
+                  try our Ask Me Anything chatbot
+                </span>
+                {" "}or contact us any time!
               </p>
               <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-lg">
                 <div className="text-sm text-gray-700">
-                  <strong>Student to student, we've got your back!</strong>
+                  <strong>Student to student, we’re always happy to listen and help!</strong>
                 </div>
+              </div>
+              <div className="pt-4 text-blue-800 text-center font-medium">
+                — The pasS2Kampus Team
               </div>
             </CardContent>
           </Card>
