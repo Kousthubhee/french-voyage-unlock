@@ -48,7 +48,7 @@ export const TranslatePage = () => {
   const [translationHistory, setTranslationHistory] = useState<Array<any>>([]);
   const [notesOpen, setNotesOpen] = useState(false);
   const [isListening, setIsListening] = useState(false);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<SpeechRecognitionType | null>(null);
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // Detect language using a simple heuristics (and demo API key for Google Translate auto-detect)
