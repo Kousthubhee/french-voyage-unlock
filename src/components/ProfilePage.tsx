@@ -1,4 +1,3 @@
-
 import { useState, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { User, Image, Edit } from 'lucide-react';
+import { ProfileEditExtra } from './ProfileEditExtra';
 
 const defaultProfilePhoto = "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=facearea&w=256&h=256&facepad=3&q=80";
 
@@ -17,13 +17,16 @@ export const ProfilePage = () => {
     about: "Future student in France",
     memberSince: "December 2024",
     photo: defaultProfilePhoto,
+    age: '',
+    prevEducation: '',
+    workExperience: '',
   });
 
   const [editOpen, setEditOpen] = useState(false);
   const [editingProfile, setEditingProfile] = useState(profile);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Only achievements are shown
+  // Achievements section, unchanged
   const achievements = [
     { title: 'First Steps', description: 'Completed your first module', icon: '🎯', earned: true },
     { title: 'Key Collector', description: 'Earned 5 keys', icon: '🗝️', earned: false },
@@ -31,7 +34,7 @@ export const ProfilePage = () => {
     { title: 'Community Helper', description: 'Helped 5 fellow students', icon: '🤝', earned: false }
   ];
 
-  // Handle photo selection (local preview only)
+  // Photo upload logic unchanged
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
@@ -45,7 +48,7 @@ export const ProfilePage = () => {
     }
   };
 
-  // Save changes to profile
+  // Profile save logic updated to include new fields
   const handleSave = () => {
     setProfile(editingProfile);
     setEditOpen(false);
@@ -110,6 +113,12 @@ export const ProfilePage = () => {
                 onChange={e => setEditingProfile({ ...editingProfile, about: e.target.value })}
               />
             </div>
+            <ProfileEditExtra
+              age={editingProfile.age}
+              prevEducation={editingProfile.prevEducation}
+              workExperience={editingProfile.workExperience}
+              onChange={fields => setEditingProfile(prev => ({ ...prev, ...fields }))}
+            />
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => { setEditOpen(false); setEditingProfile(profile); }}>Cancel</Button>
@@ -131,6 +140,15 @@ export const ProfilePage = () => {
             Member since {profile.memberSince}
           </div>
           <div className="text-sm text-gray-500">{profile.email}</div>
+          {profile.age && (
+            <div className="text-sm mt-2 text-gray-700">Age: {profile.age}</div>
+          )}
+          {profile.prevEducation && (
+            <div className="text-sm mt-1 text-gray-700">Previous Education: {profile.prevEducation}</div>
+          )}
+          {profile.workExperience && (
+            <div className="text-sm mt-1 text-gray-700">Work Experience: {profile.workExperience}</div>
+          )}
           <Button
             variant="outline"
             className="mt-4"

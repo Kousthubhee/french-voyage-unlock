@@ -5,6 +5,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { ArrowLeft, CheckCircle, Calendar, ChevronDown, FileText, Clock } from 'lucide-react';
 import { ReminderButton } from "@/components/ReminderButton";
 import { VisaSchedulerDialog } from "@/components/VisaSchedulerDialog";
+import { useState as useProfileState, useEffect } from 'react';
 
 interface PreArrival1PageProps {
   onBack: () => void;
@@ -13,6 +14,13 @@ interface PreArrival1PageProps {
 }
 
 export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1PageProps) => {
+  // Simulate getting user profile for logic; in production use context or global store
+  const [profile, setProfile] = useProfileState({
+    age: '',
+    prevEducation: '',
+    workExperience: ''
+  });
+
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [openSections, setOpenSections] = useState<string[]>([]);
   const [reminders, setReminders] = useState<{ [id: string]: string }>({});
@@ -26,6 +34,7 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
     );
   };
 
+  // IMPORTANT LOGIC: Based on profile, adjust document lists.
   const checklistItems = [
     {
       id: 'campus-france',
@@ -33,16 +42,26 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
       description: "Complete your Campus France application and interview",
       urgency: "high",
       timeline: "3-4 months before departure",
-      documents: [
-        "Degree/diploma certificates (original + copy)",
-        "Resume (CV)",
-        "Cover letter",
-        "Experience letter (if applicable)",
-        "Admission letter",
-        "Passport copy",
-        "Photograph",
-        "Campus France fee payment receipt"
-      ],
+      documents: (() => {
+        // Always required
+        const docs = [
+          "Degree/diploma certificates (original + copy)",
+          "Resume (CV)",
+          "Cover letter",
+          "Admission letter",
+          "Passport copy",
+          "Photograph",
+          "Campus France fee payment receipt"
+        ];
+        // Only require Experience Letter & Gap justification if age > 23 or gap-year/experience data
+        if ((profile.age && Number(profile.age) >= 23) || (profile.workExperience && profile.workExperience.trim() && profile.workExperience.trim().toLowerCase() !== 'n/a')) {
+          docs.splice(3,0,"Experience letter (if applicable)");
+        }
+        if (profile.age && Number(profile.age) >= 23) {
+          docs.push("Gap year justification (if any)");
+        }
+        return docs;
+      })(),
       process: [
         "Create account on Etudes en France portal",
         "Upload documents and submit application",
@@ -56,20 +75,30 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
       description: "Submit visa documents and attend biometric appointment",
       urgency: "high",
       timeline: "2-3 months before departure",
-      documents: [
-        "Visa application form (signed)",
-        "Passport + copy",
-        "2 passport-size photos",
-        "Campus France registration number + NOC",
-        "Admission letter",
-        "Tuition fee payment proof",
-        "Proof of accommodation",
-        "Proof of financial means",
-        "Cover letter",
-        "Travel insurance (3 months)",
-        "Flight booking (dummy or real)",
-        "SOP, expense sheet, CA statement (optional)"
-      ],
+      documents: (() => {
+        const docs = [
+          "Visa application form (signed)",
+          "Passport + copy",
+          "2 passport-size photos",
+          "Campus France registration number + NOC",
+          "Admission letter",
+          "Tuition fee payment proof",
+          "Proof of accommodation",
+          "Proof of financial means",
+          "Cover letter",
+          "Travel insurance (3 months)",
+          "Flight booking (dummy or real)",
+          "SOP, expense sheet, CA statement (optional)"
+        ];
+        // Require extra docs for older or gap/experience applicants
+        if ((profile.age && Number(profile.age) >= 23) || (profile.workExperience && profile.workExperience.trim() && profile.workExperience.trim().toLowerCase() !== 'n/a')) {
+          docs.splice(3, 0, "Experience letter (if applicable)");
+        }
+        if (profile.age && Number(profile.age) >= 23) {
+          docs.push("Gap year justification (if any)");
+        }
+        return docs;
+      })(),
       process: [
         "Gather all documents",
         "Book VFS appointment",
