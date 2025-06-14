@@ -14,8 +14,9 @@ export function TrendingQuestions({ questions, onSelect }: TrendingQuestionsProp
           <li key={i}>
             <button
               onClick={() => onSelect(q)}
-              className="text-left w-full text-xs text-blue-700 underline hover:text-blue-900"
+              className="text-left w-full text-xs text-blue-700 underline hover:text-blue-900 focus:outline-none"
               type="button"
+              tabIndex={0}
             >
               {q}
             </button>
