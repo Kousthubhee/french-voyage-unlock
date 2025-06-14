@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { SchoolSelector } from './SchoolSelector';
 import { ModuleContent } from './ModuleContent';
@@ -18,7 +19,7 @@ interface Module {
 }
 
 interface ChecklistModuleProps {
-  modules: Module[];
+  modules: Module[] | undefined;
   userProgress: any;
   setUserProgress: (progress: any) => void;
   onSchoolSelect: (school: any) => void;
@@ -35,28 +36,41 @@ export const ChecklistModule = ({
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const { toast } = useToast();
 
-  // Add console log for troubleshooting
-  console.log("ChecklistModule loaded. modules:", modules, "userProgress:", userProgress, "currentPage:", currentPage);
+  // DIAGNOSTIC LOGGING
+  console.log("ChecklistModule: modules", modules);
+  console.log("ChecklistModule: userProgress", userProgress);
+
+  // Defensive setup for expected array values
+  const unlockedModules = userProgress?.unlockedModules ?? [];
+  const completedModules = userProgress?.completedModules ?? [];
 
   // Reset selected module when navigating back to checklist page
   useEffect(() => {
     if (currentPage === 'checklist' && selectedModule) {
       setSelectedModule(null);
     }
-  }, [currentPage]);
+  }, [currentPage, selectedModule]);
 
   // Initialize with some modules unlocked and others requiring keys
   useEffect(() => {
-    if (!userProgress.unlockedModules) {
+    // Defensive fallback defaults to avoid crash
+    if (userProgress && (!userProgress.unlockedModules || !Array.isArray(userProgress.unlockedModules))) {
       setUserProgress({
         ...userProgress,
         unlockedModules: ['school', 'pre-arrival-1', 'pre-arrival-2']
       });
     }
+    if (userProgress && (!userProgress.completedModules || !Array.isArray(userProgress.completedModules))) {
+      setUserProgress({
+        ...userProgress,
+        completedModules: []
+      });
+    }
   }, [modules, userProgress, setUserProgress]);
 
   const handleModuleClick = (module: Module) => {
-    const isUnlocked = userProgress.unlockedModules.includes(module.id);
+    console.log('Module clicked:', module);
+    const isUnlocked = unlockedModules.includes(module.id);
 
     // If module is locked and requires keys, check if user has enough keys
     if (!isUnlocked && module.keysRequired) {
@@ -73,7 +87,7 @@ export const ChecklistModule = ({
       const newProgress = {
         ...userProgress,
         keys: userProgress.keys - module.keysRequired,
-        unlockedModules: [...userProgress.unlockedModules, module.id]
+        unlockedModules: [...unlockedModules, module.id]
       };
       setUserProgress(newProgress);
       toast({
@@ -108,11 +122,11 @@ export const ChecklistModule = ({
   };
 
   const handleModuleComplete = (moduleId: string) => {
-    if (userProgress.completedModules.includes(moduleId)) return;
+    if (completedModules.includes(moduleId)) return;
     const newProgress = {
       ...userProgress,
-      completedModules: [...userProgress.completedModules, moduleId],
-      keys: userProgress.keys + 1, // Earn 1 key per completed module
+      completedModules: [...completedModules, moduleId],
+      keys: userProgress.keys + 1,
     };
 
     setUserProgress(newProgress);
@@ -124,10 +138,27 @@ export const ChecklistModule = ({
     });
   };
 
-  // Central handler to show toast from child components if needed
   const handleToast = (options: { title: string; description?: string; variant?: "default" | "destructive" }) => {
     toast(options);
   };
+
+  // Early error rendering for missing or invalid props
+  if (!modules || !Array.isArray(modules)) {
+    return (
+      <div className="max-w-4xl mx-auto py-10">
+        <ChecklistHeader />
+        <div className="text-red-600 font-bold text-center">❌ Error: Checklist modules failed to load.</div>
+      </div>
+    );
+  }
+  if (!userProgress || typeof userProgress !== "object") {
+    return (
+      <div className="max-w-4xl mx-auto py-10">
+        <ChecklistHeader />
+        <div className="text-red-600 font-bold text-center">❌ Error: User progress state is missing or corrupt.</div>
+      </div>
+    );
+  }
 
   if (selectedModule) {
     if (selectedModule.type === "school") {
@@ -146,44 +177,52 @@ export const ChecklistModule = ({
           module={selectedModule}
           onBack={() => setSelectedModule(null)}
           onComplete={handleModuleComplete}
-          isCompleted={userProgress.completedModules.includes(selectedModule.id)}
+          isCompleted={completedModules.includes(selectedModule.id)}
           onToast={handleToast}
         />
       );
     }
   }
 
+  // Fallback for no modules found (empty array)
+  if (modules.length === 0) {
+    return (
+      <div className="max-w-4xl mx-auto py-10">
+        <ChecklistHeader />
+        <div className="text-gray-500 text-center my-8">No modules found.</div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-6xl mx-auto">
       <ChecklistHeader />
-      {(!modules || modules.length === 0) ? (
-        <div className="text-center text-gray-500 my-8">No modules found.</div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {modules.map((module) => {
-            const isCompleted = userProgress.completedModules.includes(module.id);
-            const isUnlocked = userProgress.unlockedModules.includes(module.id);
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {modules.map((module) => {
+          // Defensive: each module
+          if (!module || !module.id) return null;
+          const isCompleted = completedModules.includes(module.id);
+          const isUnlocked = unlockedModules.includes(module.id);
 
-            return (
-              <div key={module.id} onClick={() => handleModuleClick(module)}>
-                <ModuleCard
-                  title={module.title}
-                  preview={module.description}
-                  details={
-                    <div>
-                      <span className="text-3xl mr-2">{module.icon}</span>
-                      <div>{module.description}</div>
-                    </div>
-                  }
-                />
-              </div>
-            );
-          })}
-        </div>
-      )}
+          return (
+            <div key={module.id} onClick={() => handleModuleClick(module)}>
+              <ModuleCard
+                title={module.title}
+                preview={module.description}
+                details={
+                  <div>
+                    <span className="text-3xl mr-2">{module.icon}</span>
+                    <div>{module.description}</div>
+                  </div>
+                }
+              />
+            </div>
+          );
+        })}
+      </div>
       <ProgressSection 
         modules={modules}
-        completedModulesCount={userProgress.completedModules.length}
+        completedModulesCount={completedModules.length}
         keys={userProgress.keys}
       />
     </div>
