@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { SchoolSelector } from './SchoolSelector';
 import { ModuleContent } from './ModuleContent';
@@ -154,7 +153,6 @@ export const ChecklistModule = ({
   return (
     <div className="max-w-6xl mx-auto">
       <ChecklistHeader />
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {modules.map((module) => {
           const isCompleted = userProgress.completedModules.includes(module.id);
@@ -163,16 +161,20 @@ export const ChecklistModule = ({
           return (
             <ModuleCard
               key={module.id}
-              module={module}
-              isCompleted={isCompleted}
-              isUnlocked={isUnlocked}
-              onModuleClick={handleModuleClick}
-              userKeys={userProgress.keys}
+              title={module.title}
+              preview={module.description}
+              // Use a simple details block with icon/description for now
+              details={
+                <div>
+                  <span className="text-3xl mr-2">{module.icon}</span>
+                  <div>{module.description}</div>
+                  {/* Add more details if needed */}
+                </div>
+              }
             />
           );
         })}
       </div>
-
       <ProgressSection 
         modules={modules}
         completedModulesCount={userProgress.completedModules.length}
