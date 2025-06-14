@@ -13,14 +13,19 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
-import { Info } from "lucide-react";
+import { Info, Edit } from "lucide-react";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import { Edit } from "lucide-react";
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent
+} from "@/components/ui/tabs";
 
 interface Document {
   id: string;
@@ -32,6 +37,14 @@ interface Document {
   renewalProcess: string[];
   notificationEnabled: boolean;
   notes?: string;
+  file?: File | null;
+  fileUrl?: string | null;
+}
+
+interface ImportantDoc {
+  id: string;
+  name: string;
+  description: string;
   file?: File | null;
   fileUrl?: string | null;
 }
@@ -128,6 +141,15 @@ export const DocumentsPage = () => {
   const [editValues, setEditValues] = useState<{ submissionDate: string; expiryDate: string }>({
     submissionDate: '',
     expiryDate: '',
+  });
+
+  const [importantDocs, setImportantDocs] = useState<ImportantDoc[]>([]);
+  const [showAddImportantDialog, setShowAddImportantDialog] = useState(false);
+  const [newImportantDoc, setNewImportantDoc] = useState<{ name: string; description: string; file: null | File; fileUrl: null | string }>({
+    name: "",
+    description: "",
+    file: null,
+    fileUrl: null,
   });
 
   const calculateStatus = (expiryDate: string): 'valid' | 'expiring' | 'expired' => {
@@ -272,6 +294,40 @@ export const DocumentsPage = () => {
     closeEditDialog();
   };
 
+  const handleAddImportantDoc = () => {
+    if (!newImportantDoc.name || !newImportantDoc.file) {
+      toast.error("Please provide at least a name and a file for the document.");
+      return;
+    }
+    const doc: ImportantDoc = {
+      id: Date.now().toString(),
+      name: newImportantDoc.name,
+      description: newImportantDoc.description,
+      file: newImportantDoc.file,
+      fileUrl: newImportantDoc.fileUrl,
+    };
+    setImportantDocs((prev) => [...prev, doc]);
+    toast.success("Important document uploaded!");
+    setShowAddImportantDialog(false);
+    setNewImportantDoc({ name: "", description: "", file: null, fileUrl: null });
+  };
+
+  const handleImportantFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!["application/pdf", "image/jpeg", "image/png"].includes(file.type)) {
+      toast.error("Only PDF, JPG, or PNG files are allowed.");
+      return;
+    }
+    const fileUrl = URL.createObjectURL(file);
+    setNewImportantDoc(nd => ({ ...nd, file, fileUrl }));
+  };
+
+  const handleDeleteImportantDoc = (id: string) => {
+    setImportantDocs(docs => docs.filter(doc => doc.id !== id));
+    toast.success("Important document deleted!");
+  };
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-8">
@@ -280,118 +336,389 @@ export const DocumentsPage = () => {
           Documents & Renewals
         </h1>
         <p className="text-lg text-gray-600">
-          Track your important documents and stay updated on renewal deadlines
+          Track your important documents, keep digital copies, and stay on top of renewal deadlines.
         </p>
       </div>
 
-      <div className="mb-6 flex justify-end">
-        <Button onClick={() => setIsAddDialogOpen(true)}>
-          <Plus className="h-4 w-4 mr-2" />
-          Add Document
-        </Button>
-      </div>
+      <Tabs defaultValue="renewal" className="w-full">
+        <TabsList className="mb-6">
+          <TabsTrigger value="renewal">Documents to Renew</TabsTrigger>
+          <TabsTrigger value="all">All Important Documents</TabsTrigger>
+        </TabsList>
 
-      <div className="grid grid-cols-1 gap-6">
-        {documents.map((doc) => (
-          <Card key={doc.id} className={`border-l-4 ${
-            doc.status === 'valid' ? 'border-l-green-500' :
-            doc.status === 'expiring' ? 'border-l-orange-500' :
-            'border-l-red-500'
-          }`}>
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start">
-                <div className="flex-1">
-                  <div className="flex items-center mb-2">
-                    <h3 className="text-xl font-semibold text-gray-900 mr-3">{doc.name}</h3>
-                    {getStatusIcon(doc.status)}
-                  </div>
-                  <p className="text-sm text-gray-600 mb-2">Type: {doc.type}</p>
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <div className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      Submitted: {new Date(doc.submissionDate).toLocaleDateString()}
-                    </div>
-                    <div className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      Expires: {new Date(doc.expiryDate).toLocaleDateString()}
-                    </div>
-                  </div>
+        <TabsContent value="renewal">
+          <div className="mb-6 flex justify-end">
+            <Button onClick={() => setIsAddDialogOpen(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              Add Document
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 gap-6">
+            {documents.map((doc) => (
+              <Card key={doc.id} className={`border-l-4 ${
+                doc.status === 'valid' ? 'border-l-green-500' :
+                doc.status === 'expiring' ? 'border-l-orange-500' :
+                'border-l-red-500'
+              }`}>
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <div className="flex items-center mb-2">
+                        <h3 className="text-xl font-semibold text-gray-900 mr-3">{doc.name}</h3>
+                        {getStatusIcon(doc.status)}
+                      </div>
+                      <p className="text-sm text-gray-600 mb-2">Type: {doc.type}</p>
+                      <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-1" />
+                          Submitted: {new Date(doc.submissionDate).toLocaleDateString()}
+                        </div>
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-1" />
+                          Expires: {new Date(doc.expiryDate).toLocaleDateString()}
+                        </div>
+                      </div>
 
-                  <Accordion type="single" collapsible className="mb-2">
-                    <AccordionItem value="renewal">
-                      <AccordionTrigger className="font-medium text-gray-900">
-                        Renewal Process
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <ul className="list-disc list-inside space-y-1">
-                          {doc.renewalProcess.map((step, index) => (
-                            <li key={index} className="text-sm text-gray-600">{step}</li>
-                          ))}
-                        </ul>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
+                      <Accordion type="single" collapsible className="mb-2">
+                        <AccordionItem value="renewal">
+                          <AccordionTrigger className="font-medium text-gray-900">
+                            Renewal Process
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <ul className="list-disc list-inside space-y-1">
+                              {doc.renewalProcess.map((step, index) => (
+                                <li key={index} className="text-sm text-gray-600">{step}</li>
+                              ))}
+                            </ul>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
 
-                  {doc.notes && (
-                    <Accordion type="single" collapsible className="mb-2">
-                      <AccordionItem value="notes">
-                        <AccordionTrigger className="font-medium text-gray-900">
-                          Notes
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded-md">{doc.notes}</p>
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  )}
-
-                  {/* File preview section with correct info icon and upload button behavior */}
-                  <div className="mt-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Label htmlFor={`file-input-${doc.id}`}>Document Scan / File:</Label>
-                      {/* Info icon with tooltip (not clickable for upload) */}
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <span
-                              tabIndex={0}
-                              role="button"
-                              aria-label="Info about document scan upload"
-                            >
-                              <Info className="h-4 w-4 text-blue-600 cursor-pointer" />
-                            </span>
-                          </TooltipTrigger>
-                          <TooltipContent side="top" className="max-w-xs">
-                            Attach a scan or photo of your document for easy access and as backup proof.
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                      {/* The input is associated by being a sibling—but we'll nest the Button within the label for best compatibility */}
-                      <input
-                        id={`file-input-${doc.id}`}
-                        type="file"
-                        accept=".pdf, image/jpeg, image/png"
-                        className="hidden"
-                        onChange={(e) => handleFileChange(e, doc.id)}
-                      />
-                      <label htmlFor={`file-input-${doc.id}`} style={{ margin: 0 }}>
-                        <Button type="button" variant="outline" size="sm" asChild>
-                          <span>
-                            <UploadCloud className="h-4 w-4 mr-1" /> Upload
-                          </span>
-                        </Button>
-                      </label>
-                      {doc.file && (
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleRemoveFile(doc.id)}
-                          className="text-red-600"
-                        >
-                          <X className="h-4 w-4" /> Remove
-                        </Button>
+                      {doc.notes && (
+                        <Accordion type="single" collapsible className="mb-2">
+                          <AccordionItem value="notes">
+                            <AccordionTrigger className="font-medium text-gray-900">
+                              Notes
+                            </AccordionTrigger>
+                            <AccordionContent>
+                              <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded-md">{doc.notes}</p>
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
                       )}
+
+                      {/* File preview section with correct info icon and upload button behavior */}
+                      <div className="mt-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Label htmlFor={`file-input-${doc.id}`}>Document Scan / File:</Label>
+                          {/* Info icon with tooltip (not clickable for upload) */}
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <span
+                                  tabIndex={0}
+                                  role="button"
+                                  aria-label="Info about document scan upload"
+                                >
+                                  <Info className="h-4 w-4 text-blue-600 cursor-pointer" />
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent side="top" className="max-w-xs">
+                                Attach a scan or photo of your document for easy access and as backup proof.
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          {/* The input is associated by being a sibling—but we'll nest the Button within the label for best compatibility */}
+                          <input
+                            id={`file-input-${doc.id}`}
+                            type="file"
+                            accept=".pdf, image/jpeg, image/png"
+                            className="hidden"
+                            onChange={(e) => handleFileChange(e, doc.id)}
+                          />
+                          <label htmlFor={`file-input-${doc.id}`} style={{ margin: 0 }}>
+                            <Button type="button" variant="outline" size="sm" asChild>
+                              <span>
+                                <UploadCloud className="h-4 w-4 mr-1" /> Upload
+                              </span>
+                            </Button>
+                          </label>
+                          {doc.file && (
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleRemoveFile(doc.id)}
+                              className="text-red-600"
+                            >
+                              <X className="h-4 w-4" /> Remove
+                            </Button>
+                          )}
+                        </div>
+                        {doc.fileUrl && (
+                          <div className="flex items-center gap-2">
+                            {doc.file?.type?.startsWith("image") ? (
+                              <img
+                                src={doc.fileUrl}
+                                alt={doc.name}
+                                className="w-16 h-16 object-cover border rounded"
+                              />
+                            ) : (
+                              <a
+                                href={doc.fileUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 underline text-blue-600"
+                              >
+                                <FileIcon className="h-5 w-5" />
+                                {doc.file?.name ?? "View PDF"}
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                      {/* Edit Button */}
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-gray-600"
+                        onClick={() => openEditDialog(doc)}
+                        aria-label="Edit dates"
+                      >
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className={doc.notificationEnabled ? 'text-blue-600' : 'text-gray-400'}
+                        onClick={() => toggleNotification(doc.id)}
+                      >
+                        <Bell className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-red-600"
+                        onClick={() => deleteDocument(doc.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between">
+                    <div className={`text-sm font-medium ${getStatusColor(doc.status)}`}>
+                      Status: {doc.status.charAt(0).toUpperCase() + doc.status.slice(1)}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Edit Document Dates Dialog */}
+          <Dialog open={!!editDocId} onOpenChange={open => !open && closeEditDialog()}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Edit Document Dates</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="edit-submission-date">Submission Date</Label>
+                  <Input
+                    id="edit-submission-date"
+                    name="submissionDate"
+                    type="date"
+                    value={editValues.submissionDate}
+                    onChange={handleEditChange}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="edit-expiry-date">Expiry Date</Label>
+                  <Input
+                    id="edit-expiry-date"
+                    name="expiryDate"
+                    type="date"
+                    value={editValues.expiryDate}
+                    onChange={handleEditChange}
+                    required
+                  />
+                </div>
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" onClick={closeEditDialog}>
+                    Cancel
+                  </Button>
+                  <Button onClick={handleEditSubmit}>
+                    Save Changes
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add New Document</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="name">Document Name</Label>
+                  <Input
+                    id="name"
+                    value={newDocument.name}
+                    onChange={(e) => setNewDocument({ ...newDocument, name: e.target.value })}
+                    placeholder="e.g., Student Visa"
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="type">Document Type</Label>
+                  <Input
+                    id="type"
+                    value={newDocument.type}
+                    onChange={(e) => setNewDocument({ ...newDocument, type: e.target.value })}
+                    placeholder="e.g., Immigration"
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="submissionDate">Submission Date</Label>
+                  <Input
+                    id="submissionDate"
+                    type="date"
+                    value={newDocument.submissionDate}
+                    onChange={(e) => setNewDocument({ ...newDocument, submissionDate: e.target.value })}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="expiryDate">Expiry Date</Label>
+                  <Input
+                    id="expiryDate"
+                    type="date"
+                    value={newDocument.expiryDate}
+                    onChange={(e) => setNewDocument({ ...newDocument, expiryDate: e.target.value })}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="renewalProcess">Renewal Process (one step per line)</Label>
+                  <Textarea
+                    id="renewalProcess"
+                    value={newDocument.renewalProcess}
+                    onChange={(e) => setNewDocument({ ...newDocument, renewalProcess: e.target.value })}
+                    placeholder="Step 1&#10;Step 2&#10;Step 3"
+                    className="h-32"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="notes">Additional Notes</Label>
+                  <Textarea
+                    id="notes"
+                    value={newDocument.notes}
+                    onChange={(e) => setNewDocument({ ...newDocument, notes: e.target.value })}
+                    placeholder="Add any important notes or reminders..."
+                    className="h-20"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="new-doc-file" className="flex items-center gap-2">
+                    Attach File (PDF, JPG, PNG)
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <span tabIndex={0}>
+                            <Info className="h-4 w-4 text-blue-600 cursor-pointer" aria-label="Info about file upload"/>
+                          </span>
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="max-w-xs">
+                          Attach a scan or photo of your document for easy access and as backup proof.
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </Label>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Input
+                      id="new-doc-file"
+                      type="file"
+                      accept=".pdf, image/jpeg, image/png"
+                      className="block"
+                      onChange={handleNewDocFileChange}
+                    />
+                    {newDocument.file && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleRemoveNewDocFile}
+                        className="text-red-600"
+                      >
+                        <X className="h-4 w-4" />
+                        Remove
+                      </Button>
+                    )}
+                  </div>
+                  {newDocument.fileUrl && (
+                    <div className="my-2">
+                      {newDocument.file?.type?.startsWith("image") ? (
+                        <img
+                          src={newDocument.fileUrl}
+                          alt={newDocument.name}
+                          className="w-16 h-16 object-cover border rounded"
+                        />
+                      ) : (
+                        <a
+                          href={newDocument.fileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 underline text-blue-600"
+                        >
+                          <FileIcon className="h-5 w-5" />
+                          {newDocument.file?.name ?? "View PDF"}
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </div>
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button onClick={handleAddDocument}>
+                    Add Document
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </TabsContent>
+
+        {/* "All Important Documents" */}
+        <TabsContent value="all">
+          <div className="mb-6 flex justify-end">
+            <Button onClick={() => setShowAddImportantDialog(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              Upload Important Document
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {importantDocs.length === 0 ? (
+              <div className="text-gray-500 italic">No important documents uploaded yet.</div>
+            ) : (
+              importantDocs.map((doc) => (
+                <Card key={doc.id}>
+                  <CardContent className="p-5 flex flex-col gap-3">
+                    <div className="flex items-center gap-2">
+                      <FileIcon className="h-6 w-6 text-blue-500" />
+                      <div>
+                        <div className="font-semibold">{doc.name}</div>
+                        {doc.description && <div className="text-xs text-gray-500">{doc.description}</div>}
+                      </div>
                     </div>
                     {doc.fileUrl && (
                       <div className="flex items-center gap-2">
@@ -414,226 +741,93 @@ export const DocumentsPage = () => {
                         )}
                       </div>
                     )}
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  {/* Edit Button */}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-gray-600"
-                    onClick={() => openEditDialog(doc)}
-                    aria-label="Edit dates"
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={doc.notificationEnabled ? 'text-blue-600' : 'text-gray-400'}
-                    onClick={() => toggleNotification(doc.id)}
-                  >
-                    <Bell className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-red-600"
-                    onClick={() => deleteDocument(doc.id)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-
-              <div className="mt-4 flex items-center justify-between">
-                <div className={`text-sm font-medium ${getStatusColor(doc.status)}`}>
-                  Status: {doc.status.charAt(0).toUpperCase() + doc.status.slice(1)}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Edit Document Dates Dialog */}
-      <Dialog open={!!editDocId} onOpenChange={open => !open && closeEditDialog()}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit Document Dates</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="edit-submission-date">Submission Date</Label>
-              <Input
-                id="edit-submission-date"
-                name="submissionDate"
-                type="date"
-                value={editValues.submissionDate}
-                onChange={handleEditChange}
-                required
-              />
-            </div>
-            <div>
-              <Label htmlFor="edit-expiry-date">Expiry Date</Label>
-              <Input
-                id="edit-expiry-date"
-                name="expiryDate"
-                type="date"
-                value={editValues.expiryDate}
-                onChange={handleEditChange}
-                required
-              />
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={closeEditDialog}>
-                Cancel
-              </Button>
-              <Button onClick={handleEditSubmit}>
-                Save Changes
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add New Document</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="name">Document Name</Label>
-              <Input
-                id="name"
-                value={newDocument.name}
-                onChange={(e) => setNewDocument({ ...newDocument, name: e.target.value })}
-                placeholder="e.g., Student Visa"
-                required
-              />
-            </div>
-            <div>
-              <Label htmlFor="type">Document Type</Label>
-              <Input
-                id="type"
-                value={newDocument.type}
-                onChange={(e) => setNewDocument({ ...newDocument, type: e.target.value })}
-                placeholder="e.g., Immigration"
-                required
-              />
-            </div>
-            <div>
-              <Label htmlFor="submissionDate">Submission Date</Label>
-              <Input
-                id="submissionDate"
-                type="date"
-                value={newDocument.submissionDate}
-                onChange={(e) => setNewDocument({ ...newDocument, submissionDate: e.target.value })}
-                required
-              />
-            </div>
-            <div>
-              <Label htmlFor="expiryDate">Expiry Date</Label>
-              <Input
-                id="expiryDate"
-                type="date"
-                value={newDocument.expiryDate}
-                onChange={(e) => setNewDocument({ ...newDocument, expiryDate: e.target.value })}
-                required
-              />
-            </div>
-            <div>
-              <Label htmlFor="renewalProcess">Renewal Process (one step per line)</Label>
-              <Textarea
-                id="renewalProcess"
-                value={newDocument.renewalProcess}
-                onChange={(e) => setNewDocument({ ...newDocument, renewalProcess: e.target.value })}
-                placeholder="Step 1&#10;Step 2&#10;Step 3"
-                className="h-32"
-              />
-            </div>
-            <div>
-              <Label htmlFor="notes">Additional Notes</Label>
-              <Textarea
-                id="notes"
-                value={newDocument.notes}
-                onChange={(e) => setNewDocument({ ...newDocument, notes: e.target.value })}
-                placeholder="Add any important notes or reminders..."
-                className="h-20"
-              />
-            </div>
-            <div>
-              <Label htmlFor="new-doc-file" className="flex items-center gap-2">
-                Attach File (PDF, JPG, PNG)
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span tabIndex={0}>
-                        <Info className="h-4 w-4 text-blue-600 cursor-pointer" aria-label="Info about file upload"/>
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" className="max-w-xs">
-                      Attach a scan or photo of your document for easy access and as backup proof.
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </Label>
-              <div className="flex items-center gap-2 mb-2">
-                <Input
-                  id="new-doc-file"
-                  type="file"
-                  accept=".pdf, image/jpeg, image/png"
-                  className="block"
-                  onChange={handleNewDocFileChange}
-                />
-                {newDocument.file && (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleRemoveNewDocFile}
-                    className="text-red-600"
-                  >
-                    <X className="h-4 w-4" />
-                    Remove
-                  </Button>
-                )}
-              </div>
-              {newDocument.fileUrl && (
-                <div className="my-2">
-                  {newDocument.file?.type?.startsWith("image") ? (
-                    <img
-                      src={newDocument.fileUrl}
-                      alt={newDocument.name}
-                      className="w-16 h-16 object-cover border rounded"
-                    />
-                  ) : (
-                    <a
-                      href={newDocument.fileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 underline text-blue-600"
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="text-red-600 w-fit"
+                      onClick={() => handleDeleteImportantDoc(doc.id)}
                     >
-                      <FileIcon className="h-5 w-5" />
-                      {newDocument.file?.name ?? "View PDF"}
-                    </a>
+                      <Trash2 className="h-4 w-4" />
+                      Delete
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+            )}
+          </div>
+          {/* Add Important Document Dialog */}
+          <Dialog open={showAddImportantDialog} onOpenChange={setShowAddImportantDialog}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Upload Important Document</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="important-doc-name">Document Name</Label>
+                  <Input
+                    id="important-doc-name"
+                    placeholder="e.g., Passport"
+                    value={newImportantDoc.name}
+                    onChange={e => setNewImportantDoc({ ...newImportantDoc, name: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="important-doc-desc">Description</Label>
+                  <Textarea
+                    id="important-doc-desc"
+                    placeholder="Brief description"
+                    className="h-16"
+                    value={newImportantDoc.description}
+                    onChange={e => setNewImportantDoc({ ...newImportantDoc, description: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="important-doc-file">Attach File (PDF, JPG, PNG)</Label>
+                  <Input
+                    id="important-doc-file"
+                    type="file"
+                    accept=".pdf, image/jpeg, image/png"
+                    onChange={handleImportantFileChange}
+                  />
+                  {newImportantDoc.fileUrl && (
+                    <div className="my-2">
+                      {newImportantDoc.file?.type?.startsWith("image") ? (
+                        <img
+                          src={newImportantDoc.fileUrl}
+                          alt={newImportantDoc.name}
+                          className="w-16 h-16 object-cover border rounded"
+                        />
+                      ) : (
+                        <a
+                          href={newImportantDoc.fileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 underline text-blue-600"
+                        >
+                          <FileIcon className="h-5 w-5" />
+                          {newImportantDoc.file?.name ?? "View PDF"}
+                        </a>
+                      )}
+                    </div>
                   )}
                 </div>
-              )}
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
-                Cancel
-              </Button>
-              <Button onClick={handleAddDocument}>
-                Add Document
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+                <div className="flex justify-end gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowAddImportantDialog(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button onClick={handleAddImportantDoc}>
+                    Upload
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
