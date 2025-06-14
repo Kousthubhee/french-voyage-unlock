@@ -7,10 +7,10 @@ import { MessageSquare, Send, Bot, User, ImageUp, FileUp } from "lucide-react";
 import { faqCategories } from "@/data/faqCategories";
 import { QAMessageItem } from "./QAMessageItem";
 import styles from "./QAPage.module.css";
-import { BotPersonaSelector } from "./qa/BotPersonaSelector";
 import { TrendingQuestions } from "./qa/TrendingQuestions";
 import { QASharedToolbar } from "./qa/QASharedToolbar";
 import { useQAUserPrefs } from "./qa/useQAUserPrefs";
+import { toast } from "@/hooks/use-toast"; // for notification
 
 // ✅ Define type for messages allowing optional file/fileName
 interface MessageItem {
@@ -33,24 +33,20 @@ export const QAPage = () => {
   const [newMessage, setNewMessage] = useState("");
   const [selectedTab, setSelectedTab] = useState(faqCategories[0].label);
   const [isTyping, setIsTyping] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
-  const [filePreview, setFilePreview] = useState<string | null>(null);
+  const [file, setFile] = useState(null);
+  const [filePreview, setFilePreview] = useState(null);
   const [language, setLanguage] = useState("en");
 
   // Preview image/file
-  const inputFileRef = useRef<HTMLInputElement>(null);
+  const inputFileRef = useRef(null);
 
   // Notice close state
   const [noticeClosed, setNoticeClosed] = useState(false);
 
-  // Preferences for QA page
+  // Preferences for QA page (only bookmarks now)
   const {
-    nightMode,
-    setNightMode,
     showBookmarks,
     setShowBookmarks,
-    persona,
-    setPersona,
   } = useQAUserPrefs();
 
   // -- Quick suggestions (static for now) --
@@ -71,47 +67,44 @@ export const QAPage = () => {
   ];
 
   // For message bookmarks
-  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>([]);
+  const [bookmarkedIds, setBookmarkedIds] = useState([]);
 
   // Show only bookmarked answers if toggled
   const visibleMessages = showBookmarks
     ? messages.filter((msg) => bookmarkedIds.includes(msg.id))
     : messages;
 
-  // For demo, assign tags by bot persona (could be more elaborate)
-  function getMessageTags(msg: MessageItem) {
+  // For demo, assign generic tag for the bot
+  function getMessageTags(msg) {
     if (msg.type === "bot") {
-      if (persona === "advisor") return ["Official", "Visa"];
-      if (persona === "mentor") return ["Alumni", "Support"];
-      return ["Student"];
+      return ["Bot"];
     }
     return [];
   }
 
   // Handle bookmarking
-  function toggleBookmarkMessage(id: number) {
+  function toggleBookmarkMessage(id) {
     setBookmarkedIds((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
   }
 
   // Handle rating
-  function handleRateMessage(id: number, val: "up" | "down") {
-    // In production, send feedback to backend/analytics
-    // Here: just show a toast or state (not implemented, but could use toast)
+  function handleRateMessage(id, val) {
+    // Could display a toast/toaster here
   }
 
   // Simulate bot reply with typing animation
   // Make sure userMsg is a string & type is correct
-  const sendBotReply = (userMsg: string) => {
+  const sendBotReply = (userMsg) => {
     setIsTyping(true);
     setTimeout(() => {
-      setMessages((prev: MessageItem[]): MessageItem[] => [
+      setMessages((prev) => [
         ...prev,
         {
           id: prev.length + 1,
           type: "bot",
-          message: `(${language === "fr" ? "FR" : "EN"}) Thanks for your question about "${userMsg || file?.name || "your file"}". This is a simulated AI bot, not a real human. In production, this would connect to an AI service to provide answers about studying in France in ${language === "fr" ? "French" : "English"}.`,
+          message: `(${language === "fr" ? "FR" : "EN"}) Thanks for your question about "${userMsg || file?.name || "your file"}". This is a simulated AI bot. If you would like help from a real person, click the button below!`,
         },
       ]);
       setIsTyping(false);
@@ -122,7 +115,7 @@ export const QAPage = () => {
     if (!newMessage.trim() && !file) return;
     const messageText = newMessage.trim();
 
-    const userMessage: MessageItem = {
+    const userMessage = {
       id: messages.length + 1,
       type: "user",
       message: messageText + (file ? `\n[Attached: ${file.name}]` : ""),
@@ -130,7 +123,7 @@ export const QAPage = () => {
       fileName: file?.name,
     };
 
-    setMessages((prev: MessageItem[]): MessageItem[] => [
+    setMessages((prev) => [
       ...prev,
       userMessage,
     ]);
@@ -140,21 +133,30 @@ export const QAPage = () => {
     sendBotReply(messageText);
   };
 
-  const handleQuickQuestion = (q: string) => {
+  const handleQuickQuestion = (q) => {
     setNewMessage(q);
     if (inputFileRef.current) inputFileRef.current.value = "";
     setFile(null);
     setFilePreview(null);
   };
 
+  // Handler for "Ask a real person"
+  const handleAskRealPerson = () => {
+    toast({
+      title: "Redirecting to real support...",
+      description:
+        "This feature would connect you to a real person or alumni for direct help. (Demo placeholder)",
+    });
+  };
+
   // Handle file upload and preview for images
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e) => {
     const uploadedFile = e.target.files && e.target.files[0];
     if (!uploadedFile) return;
     setFile(uploadedFile);
     if (uploadedFile.type.startsWith("image/")) {
       const reader = new FileReader();
-      reader.onload = (ev) => setFilePreview(ev.target?.result as string);
+      reader.onload = (ev) => setFilePreview(ev.target?.result);
       reader.readAsDataURL(uploadedFile);
     } else {
       setFilePreview(null);
@@ -162,9 +164,7 @@ export const QAPage = () => {
   };
 
   return (
-    <div className={nightMode ? "bg-gray-900 text-gray-100 transition-all" : ""}>
-      {/* NIGHT MODE STYLES for demo only */}
-
+    <div>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-4">
           <h1 className="text-3xl font-bold text-gray-900 mb-3 flex items-center justify-center">
@@ -175,7 +175,6 @@ export const QAPage = () => {
             Get instant answers to your questions about studying in France
           </p>
         </div>
-
         {!noticeClosed && (
           <div className="bg-blue-50 border border-blue-200 px-5 py-4 mb-4 rounded relative text-sm text-blue-900 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 animate-fade-in">
             <span>
@@ -207,11 +206,13 @@ export const QAPage = () => {
         <div className="flex flex-col md:flex-row gap-5">
           <div className="flex-1">
 
+            {/* ---- REMOVED BotPersonaSelector, only 1 bot ---- */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
-              <BotPersonaSelector persona={persona} onChangePersona={setPersona} />
+              <span className="inline-flex items-center px-3 py-1 rounded text-xs bg-blue-600 text-white font-semibold">
+                <Bot className="h-4 w-4 mr-2" />
+                Bot Assistant
+              </span>
               <QASharedToolbar
-                nightMode={nightMode}
-                setNightMode={setNightMode}
                 showBookmarks={showBookmarks}
                 onShowBookmarks={() => setShowBookmarks(!showBookmarks)}
               />
@@ -247,7 +248,7 @@ export const QAPage = () => {
                       toggleBookmark={() => toggleBookmarkMessage(msg.id)}
                       tags={getMessageTags(msg)}
                       showRating={msg.type === "bot"}
-                      onRate={(val: "up" | "down") => handleRateMessage(msg.id, val)}
+                      onRate={(val) => handleRateMessage(msg.id, val)}
                     />
                   ))}
                   {isTyping && (
@@ -337,6 +338,12 @@ export const QAPage = () => {
                 </div>
               </CardContent>
             </Card>
+            {/* Ask a real person button */}
+            <div className="text-center mb-8">
+              <Button variant="secondary" className="px-5 py-2" onClick={handleAskRealPerson}>
+                Ask a real person
+              </Button>
+            </div>
           </div>
 
           {/* Trending questions sidebar */}
@@ -385,4 +392,3 @@ export const QAPage = () => {
   );
 };
 export {};
-
