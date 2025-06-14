@@ -917,17 +917,19 @@ export const FrenchIntegrationPage = () => {
         // EXPANDED MODULE
         <div className="mb-10 animate-fade-in">
           <Button variant="ghost" size="sm" className="mb-3 flex items-center" onClick={handleBack}>
-            <span className="mr-2">{/* Back arrow, using lucide ArrowRight rotated */}<span className="inline-block rotate-180"><ArrowRight className="h-4 w-4" /></span></span>
+            <span className="mr-2">
+              <span className="inline-block rotate-180"><ArrowRight className="h-4 w-4" /></span>
+            </span>
             Back to Modules
           </Button>
           <Card className="mb-4">
             <CardContent className="pt-8 pb-6 px-7">
               <div className="flex items-center gap-3 mb-2">
-                <span className={modulesMeta.find(m => m.key === expandedModuleKey)?.colorClass + " text-2xl"}>
+                <span className="text-2xl text-gray-700">
                   {modulesMeta.find(m => m.key === expandedModuleKey)?.icon}
                 </span>
-                <span className="font-bold text-xl">{modulesMeta.find(m => m.key === expandedModuleKey)?.title}</span>
-                <span className="ml-auto bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded-full">
+                <span className="font-bold text-xl text-gray-800">{modulesMeta.find(m => m.key === expandedModuleKey)?.title}</span>
+                <span className="ml-auto bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded-full border">
                   {modulesMeta.find(m => m.key === expandedModuleKey)?.topicCount} topics
                 </span>
               </div>
@@ -936,12 +938,14 @@ export const FrenchIntegrationPage = () => {
               </div>
               <ol className="space-y-4 mt-7">
                 {(allTopics[expandedModuleKey] || []).map((topic, idx) => (
-                  <li key={topic.title} className="border-l-4 pl-4 border-indigo-200">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-indigo-700 font-bold">{idx + 1}.</span>
-                      <span className="font-semibold">{topic.title}</span>
+                  <li key={topic.title} className="border-l-4 pl-4 border-gray-200">
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="font-bold text-gray-700">{idx + 1}.</span>
+                      <span className="font-semibold text-gray-800">{topic.title}</span>
                     </div>
-                    <div className="text-gray-700 mt-1 text-sm">{topic.content}</div>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-2 text-gray-800 text-sm">
+                      {topic.content}
+                    </div>
                   </li>
                 ))}
               </ol>
