@@ -35,6 +35,9 @@ export const ChecklistModule = ({
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const { toast } = useToast();
 
+  // Add console log for troubleshooting
+  console.log("ChecklistModule loaded. modules:", modules, "userProgress:", userProgress, "currentPage:", currentPage);
+
   // Reset selected module when navigating back to checklist page
   useEffect(() => {
     if (currentPage === 'checklist' && selectedModule) {
@@ -90,7 +93,7 @@ export const ChecklistModule = ({
       'post-arrival': 'post-arrival',
       'integration': 'integration',
       'finance': 'finance-tracking',
-      'suggestions': 'suggestions', // <--- ADDED THIS LINE
+      'suggestions': 'suggestions',
     };
 
     if (pageMapping[module.id]) {
@@ -153,28 +156,31 @@ export const ChecklistModule = ({
   return (
     <div className="max-w-6xl mx-auto">
       <ChecklistHeader />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {modules.map((module) => {
-          const isCompleted = userProgress.completedModules.includes(module.id);
-          const isUnlocked = userProgress.unlockedModules.includes(module.id);
+      {(!modules || modules.length === 0) ? (
+        <div className="text-center text-gray-500 my-8">No modules found.</div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {modules.map((module) => {
+            const isCompleted = userProgress.completedModules.includes(module.id);
+            const isUnlocked = userProgress.unlockedModules.includes(module.id);
 
-          return (
-            <ModuleCard
-              key={module.id}
-              title={module.title}
-              preview={module.description}
-              // Use a simple details block with icon/description for now
-              details={
-                <div>
-                  <span className="text-3xl mr-2">{module.icon}</span>
-                  <div>{module.description}</div>
-                  {/* Add more details if needed */}
-                </div>
-              }
-            />
-          );
-        })}
-      </div>
+            return (
+              <div key={module.id} onClick={() => handleModuleClick(module)}>
+                <ModuleCard
+                  title={module.title}
+                  preview={module.description}
+                  details={
+                    <div>
+                      <span className="text-3xl mr-2">{module.icon}</span>
+                      <div>{module.description}</div>
+                    </div>
+                  }
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
       <ProgressSection 
         modules={modules}
         completedModulesCount={userProgress.completedModules.length}
