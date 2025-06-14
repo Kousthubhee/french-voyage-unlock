@@ -328,6 +328,30 @@ export const DocumentsPage = () => {
     toast.success("Important document deleted!");
   };
 
+  // Suggestions for documents
+  const docSuggestions = [
+    { name: "Passport", type: "Identity" },
+    { name: "Residence Permit", type: "Immigration" },
+    { name: "Student Visa", type: "Immigration" },
+    { name: "Health Insurance", type: "Insurance" },
+    { name: "Housing Guarantee", type: "Housing" },
+    { name: "CAF Attestation", type: "Housing/CAF" },
+    { name: "Birth Certificate", type: "Identity" },
+    { name: "Bank Proof (RIB)", type: "Finance" },
+    { name: "Vaccination Record", type: "Health" },
+    { name: "Enrollment Certificate", type: "Education" },
+  ];
+
+  // Function to use suggestion
+  const handleSuggestionClick = (suggestion: { name: string; type: string }) => {
+    setNewDocument({
+      ...newDocument,
+      name: suggestion.name,
+      type: suggestion.type,
+    });
+    setIsAddDialogOpen(true);
+  };
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-8">
@@ -347,6 +371,22 @@ export const DocumentsPage = () => {
         </TabsList>
 
         <TabsContent value="renewal">
+          {/* Suggestions Section */}
+          <div className="mb-6 flex flex-wrap gap-2 items-center">
+            <span className="font-medium text-gray-700 mr-2">Quick Add:</span>
+            {docSuggestions.map((s, idx) => (
+              <Button
+                key={idx}
+                size="sm"
+                variant="secondary"
+                className="rounded-full px-4"
+                onClick={() => handleSuggestionClick(s)}
+                type="button"
+              >
+                {s.name}
+              </Button>
+            ))}
+          </div>
           <div className="mb-6 flex justify-end">
             <Button onClick={() => setIsAddDialogOpen(true)}>
               <Plus className="h-4 w-4 mr-2" />
