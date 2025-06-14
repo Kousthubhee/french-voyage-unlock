@@ -1,9 +1,8 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Volume2, ArrowLeft as Swap, Mic, Copy, Notes } from 'lucide-react';
+import { Volume2, ArrowLeft as Swap, Mic, Copy, StickyNote } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/sonner';
@@ -106,7 +105,11 @@ export const TranslatePage = () => {
 
   // Speech-to-text
   const handleSpeechToText = () => {
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    const SpeechRecognitionClass =
+      (window as MySpeechRecognition).SpeechRecognition ||
+      (window as MySpeechRecognition).webkitSpeechRecognition;
+
+    if (!SpeechRecognitionClass) {
       toast("Speech recognition not supported in this browser.");
       return;
     }
@@ -115,13 +118,12 @@ export const TranslatePage = () => {
       setIsListening(false);
       return;
     }
-    const SpeechRecognitionClass = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognitionClass();
     recognition.lang = sourceLanguage !== 'auto' ? sourceLanguage : 'en-US';
     recognition.continuous = false;
     recognition.interimResults = false;
     recognition.onstart = () => setIsListening(true);
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
+    recognition.onresult = (event: any) => {
       const text = event.results[0][0].transcript;
       setSourceText(text);
       setIsListening(false);
@@ -180,7 +182,7 @@ export const TranslatePage = () => {
           onClick={() => setNotesOpen(true)}
           className="gap-1"
         >
-          <Notes className="h-4 w-4" />
+          <StickyNote className="h-4 w-4" />
           Notes
         </Button>
       </div>
