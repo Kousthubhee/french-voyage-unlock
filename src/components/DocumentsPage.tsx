@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,6 +7,12 @@ import { Label } from '@/components/ui/label';
 import { FileText, Plus, Bell, Calendar, AlertTriangle, CheckCircle, Clock, Trash2, UploadCloud, File as FileIcon, X } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from '@/components/ui/sonner';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 
 interface Document {
   id: string;
@@ -221,21 +226,33 @@ export const DocumentsPage = () => {
                       Expires: {new Date(doc.expiryDate).toLocaleDateString()}
                     </div>
                   </div>
-                  
-                  <div className="mb-4">
-                    <h4 className="font-medium text-gray-900 mb-2">Renewal Process:</h4>
-                    <ul className="list-disc list-inside space-y-1">
-                      {doc.renewalProcess.map((step, index) => (
-                        <li key={index} className="text-sm text-gray-600">{step}</li>
-                      ))}
-                    </ul>
-                  </div>
+
+                  <Accordion type="single" collapsible className="mb-2">
+                    <AccordionItem value="renewal">
+                      <AccordionTrigger className="font-medium text-gray-900">
+                        Renewal Process
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <ul className="list-disc list-inside space-y-1">
+                          {doc.renewalProcess.map((step, index) => (
+                            <li key={index} className="text-sm text-gray-600">{step}</li>
+                          ))}
+                        </ul>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
 
                   {doc.notes && (
-                    <div className="mt-4 bg-gray-50 p-3 rounded-md">
-                      <h4 className="font-medium text-gray-900 mb-1">Notes:</h4>
-                      <p className="text-sm text-gray-600">{doc.notes}</p>
-                    </div>
+                    <Accordion type="single" collapsible className="mb-2">
+                      <AccordionItem value="notes">
+                        <AccordionTrigger className="font-medium text-gray-900">
+                          Notes
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded-md">{doc.notes}</p>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
                   )}
 
                   {/* File preview section */}
