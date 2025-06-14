@@ -877,26 +877,47 @@ export const FrenchIntegrationPage = () => {
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-[#e3f0fe] to-[#f6faff] transition-colors">
       <div className="max-w-5xl mx-auto px-2 md:px-7 py-6 md:py-9">
-        {/* Title and Action Buttons: matches UI from screenshot */}
-        <div className="mb-10">
-          <div className="flex items-start flex-col">
-            <h1 className="flex items-center gap-3 text-[2.15rem] md:text-4xl font-extrabold text-[#322c6a] mb-2 leading-tight">
-              <Globe className="h-7 w-7 text-indigo-600" />
-              <span>French Cultural Integration</span>
-            </h1>
-            <div className="text-gray-600 text-base md:text-lg mb-5 md:mb-7 md:pl-10" style={{ maxWidth: '380px' }}>
-              Interactive and practical guide for thriving in France
-            </div>
-            <div className="flex flex-col sm:flex-row md:pl-10 gap-2 md:gap-3">
-              <Button variant="outline" onClick={() => setUsefulLinksOpen(true)} className="font-semibold text-base">
-                <LinkIcon className="h-5 w-5 mr-2" />
-                Useful Links & Contacts
-              </Button>
-              <Button variant="outline" onClick={() => setFeedbackOpen(true)} className="font-semibold text-base">
-                <MessageCircle className="h-5 w-5 mr-1" />
-                Feedback
-              </Button>
-            </div>
+        {/* Title and Action Buttons, centered */}
+        <div className="mb-10 flex flex-col items-center w-full">
+          <h1 className="flex items-center gap-3 text-[2.15rem] md:text-4xl font-extrabold text-[#322c6a] mb-2 leading-tight justify-center text-center">
+            <Globe className="h-7 w-7 text-indigo-600" />
+            <span>French Cultural Integration</span>
+          </h1>
+          <div
+            className="
+              text-gray-600
+              text-base md:text-lg
+              mb-5 md:mb-7
+              w-full
+              max-w-[420px]
+              text-center
+              whitespace-nowrap
+              overflow-x-auto
+              md:overflow-visible
+              md:whitespace-normal
+              mx-auto
+            "
+            style={{ textOverflow: 'ellipsis' }}
+          >
+            Interactive and practical guide for thriving in France
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center w-full">
+            <Button
+              variant="outline"
+              onClick={() => setUsefulLinksOpen(true)}
+              className="font-semibold text-base"
+            >
+              <LinkIcon className="h-5 w-5 mr-2" />
+              Useful Links & Contacts
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setFeedbackOpen(true)}
+              className="font-semibold text-base"
+            >
+              <MessageCircle className="h-5 w-5 mr-1" />
+              Feedback
+            </Button>
           </div>
         </div>
 
