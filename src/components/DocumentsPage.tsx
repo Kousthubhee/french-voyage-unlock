@@ -1,10 +1,11 @@
+
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { FileText, Plus, Bell, Calendar, AlertTriangle, CheckCircle, Clock, Trash2 } from 'lucide-react';
+import { FileText, Plus, Bell, Calendar, AlertTriangle, CheckCircle, Clock, Trash2, UploadCloud, File as FileIcon, X } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from '@/components/ui/sonner';
 
@@ -18,6 +19,8 @@ interface Document {
   renewalProcess: string[];
   notificationEnabled: boolean;
   notes?: string;
+  file?: File | null;
+  fileUrl?: string | null;
 }
 
 export const DocumentsPage = () => {
@@ -37,7 +40,9 @@ export const DocumentsPage = () => {
         'Submit application at prefecture'
       ],
       notificationEnabled: true,
-      notes: 'Remember to bring original documents and copies'
+      notes: 'Remember to bring original documents and copies',
+      file: null,
+      fileUrl: null,
     },
     {
       id: '2',
@@ -53,7 +58,9 @@ export const DocumentsPage = () => {
         'Submit renewal application'
       ],
       notificationEnabled: true,
-      notes: 'Keep proof of previous permits'
+      notes: 'Keep proof of previous permits',
+      file: null,
+      fileUrl: null,
     }
   ]);
 
@@ -64,14 +71,16 @@ export const DocumentsPage = () => {
     submissionDate: '',
     expiryDate: '',
     renewalProcess: '',
-    notes: ''
+    notes: '',
+    file: null as null | File,
+    fileUrl: null as null | string,
   });
 
   const calculateStatus = (expiryDate: string): 'valid' | 'expiring' | 'expired' => {
     const today = new Date();
     const expiry = new Date(expiryDate);
     const monthsUntilExpiry = (expiry.getTime() - today.getTime()) / (1000 * 60 * 60 * 24 * 30);
-    
+
     if (monthsUntilExpiry < 0) return 'expired';
     if (monthsUntilExpiry < 2) return 'expiring';
     return 'valid';
@@ -89,12 +98,14 @@ export const DocumentsPage = () => {
       ...newDocument,
       status,
       renewalProcess: newDocument.renewalProcess.split('\n').filter(step => step.trim()),
-      notificationEnabled: true
+      notificationEnabled: true,
+      file: newDocument.file || null,
+      fileUrl: newDocument.fileUrl || null,
     };
 
     setDocuments([...documents, newDoc]);
     setIsAddDialogOpen(false);
-    setNewDocument({ name: '', type: '', submissionDate: '', expiryDate: '', renewalProcess: '', notes: '' });
+    setNewDocument({ name: '', type: '', submissionDate: '', expiryDate: '', renewalProcess: '', notes: '', file: null, fileUrl: null });
     toast.success('Document added successfully');
   };
 
@@ -139,6 +150,32 @@ export const DocumentsPage = () => {
         return null;
     }
   };
+
+  // --- Document file actions ---
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, docId: string) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const fileUrl = URL.createObjectURL(file);
+    setDocuments(docs => docs.map(doc => doc.id === docId ? { ...doc, file, fileUrl } : doc));
+    toast.success('File uploaded successfully');
+  };
+
+  const handleRemoveFile = (docId: string) => {
+    setDocuments(docs => docs.map(doc => doc.id === docId ? { ...doc, file: null, fileUrl: null } : doc));
+  };
+
+  // --- New document dialog file upload ---
+  const handleNewDocFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!["application/pdf", "image/jpeg", "image/png"].includes(file.type)) {
+      toast.error("Only PDF, JPG, or PNG files are allowed.");
+      return;
+    }
+    const fileUrl = URL.createObjectURL(file);
+    setNewDocument(nd => ({ ...nd, file, fileUrl }));
+  };
+  const handleRemoveNewDocFile = () => setNewDocument(nd => ({ ...nd, file: null, fileUrl: null }));
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -200,6 +237,57 @@ export const DocumentsPage = () => {
                       <p className="text-sm text-gray-600">{doc.notes}</p>
                     </div>
                   )}
+
+                  {/* File preview section */}
+                  <div className="mt-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Label>Document Scan / File:</Label>
+                      <Input
+                        id={`file-input-${doc.id}`}
+                        type="file"
+                        accept=".pdf, image/jpeg, image/png"
+                        className="hidden"
+                        onChange={(e) => handleFileChange(e, doc.id)}
+                      />
+                      <label htmlFor={`file-input-${doc.id}`}>
+                        <Button type="button" variant="outline" size="sm">
+                          <UploadCloud className="h-4 w-4 mr-1" /> Upload
+                        </Button>
+                      </label>
+                      {doc.file && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleRemoveFile(doc.id)}
+                          className="text-red-600"
+                        >
+                          <X className="h-4 w-4" /> Remove
+                        </Button>
+                      )}
+                    </div>
+                    {doc.fileUrl && (
+                      <div className="flex items-center gap-2">
+                        {doc.file?.type?.startsWith("image") ? (
+                          <img
+                            src={doc.fileUrl}
+                            alt={doc.name}
+                            className="w-16 h-16 object-cover border rounded"
+                          />
+                        ) : (
+                          <a
+                            href={doc.fileUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1 underline text-blue-600"
+                          >
+                            <FileIcon className="h-5 w-5" />
+                            {doc.file?.name ?? "View PDF"}
+                          </a>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div className="flex gap-2">
@@ -297,6 +385,51 @@ export const DocumentsPage = () => {
                 placeholder="Add any important notes or reminders..."
                 className="h-20"
               />
+            </div>
+            <div>
+              <Label htmlFor="new-doc-file">Attach File (PDF, JPG, PNG)</Label>
+              <div className="flex items-center gap-2 mb-2">
+                <Input
+                  id="new-doc-file"
+                  type="file"
+                  accept=".pdf, image/jpeg, image/png"
+                  className="block"
+                  onChange={handleNewDocFileChange}
+                />
+                {newDocument.file && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleRemoveNewDocFile}
+                    className="text-red-600"
+                  >
+                    <X className="h-4 w-4" />
+                    Remove
+                  </Button>
+                )}
+              </div>
+              {newDocument.fileUrl && (
+                <div className="my-2">
+                  {newDocument.file?.type?.startsWith("image") ? (
+                    <img
+                      src={newDocument.fileUrl}
+                      alt={newDocument.name}
+                      className="w-16 h-16 object-cover border rounded"
+                    />
+                  ) : (
+                    <a
+                      href={newDocument.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 underline text-blue-600"
+                    >
+                      <FileIcon className="h-5 w-5" />
+                      {newDocument.file?.name ?? "View PDF"}
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
