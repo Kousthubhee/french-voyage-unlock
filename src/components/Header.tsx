@@ -2,6 +2,7 @@
 import { Bell, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SidebarTrigger } from '@/components/ui/sidebar';
+import { PageTitle } from "@/components/PageTitle";
 
 interface HeaderProps {
   currentPage: string;
