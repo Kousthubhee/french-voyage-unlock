@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
@@ -7,6 +6,7 @@ import { MainRouter } from './MainRouter';
 import { useLocalStorageProgress } from "@/hooks/useLocalStorageProgress";
 import { Button } from '@/components/ui/button';
 import { useToast } from "@/hooks/use-toast";
+import { ProfilePage } from "@/components/ProfilePage";
 
 interface UserProfile {
   name: string;
@@ -24,8 +24,20 @@ interface UserProfile {
   hasChildren: boolean;
 }
 
+const defaultProfile = {
+  name: "Student Name",
+  email: "student@example.com",
+  about: "Future student in France",
+  memberSince: "December 2024",
+  photo: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=facearea&w=256&h=256&facepad=3&q=80",
+  age: '',
+  prevEducation: '',
+  workExperience: '',
+};
+
 const Index = () => {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [profile, setProfile] = useState(defaultProfile);
   const [currentPage, setCurrentPage] = useState('checklist');
   const [userProgress, setUserProgress, resetProgress] = useLocalStorageProgress();
   const [selectedSchool, setSelectedSchool] = useState(null);
@@ -67,7 +79,12 @@ const Index = () => {
   return (
     <SidebarProvider>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex w-full">
-        <AppSidebar currentPage={currentPage} setCurrentPage={handlePageNavigation} />
+        <AppSidebar
+          currentPage={currentPage}
+          setCurrentPage={handlePageNavigation}
+          userName={profile.name}
+          userAvatarUrl={profile.photo}
+        />
         <div className="flex-1 flex flex-col">
           <Header 
             currentPage={currentPage} 
@@ -75,16 +92,20 @@ const Index = () => {
             userProgress={userProgress}
           />
           <main className="flex-1 p-4 md:p-6 overflow-auto">
-            <MainRouter
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              userProfile={userProfile}
-              userProgress={userProgress}
-              setUserProgress={setUserProgress}
-              selectedSchool={selectedSchool}
-              setSelectedSchool={setSelectedSchool}
-              handleProgressUpdate={handleProgressUpdate}
-            />
+            {currentPage === "profile" ? (
+              <ProfilePage profile={profile} setProfile={setProfile} />
+            ) : (
+              <MainRouter
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                userProfile={userProfile}
+                userProgress={userProgress}
+                setUserProgress={setUserProgress}
+                selectedSchool={selectedSchool}
+                setSelectedSchool={setSelectedSchool}
+                handleProgressUpdate={handleProgressUpdate}
+              />
+            )}
           </main>
           <footer className="bg-white border-t border-gray-200 py-4 px-6 flex flex-col items-center gap-3">
             <div className="text-center text-gray-600">

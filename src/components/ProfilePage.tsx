@@ -8,19 +8,23 @@ import { AchievementsSection } from './AchievementsSection';
 
 const defaultProfilePhoto = "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=facearea&w=256&h=256&facepad=3&q=80";
 
-export const ProfilePage = () => {
-  // Profile state
-  const [profile, setProfile] = useState({
-    name: "Student Name",
-    email: "student@example.com",
-    about: "Future student in France",
-    memberSince: "December 2024",
-    photo: defaultProfilePhoto,
-    age: '',
-    prevEducation: '',
-    workExperience: '',
-  });
+interface ProfileType {
+  name: string;
+  email: string;
+  about: string;
+  memberSince: string;
+  photo: string;
+  age: string;
+  prevEducation: string;
+  workExperience: string;
+}
 
+interface ProfilePageProps {
+  profile: ProfileType;
+  setProfile: (p: ProfileType) => void;
+}
+
+export const ProfilePage = ({ profile, setProfile }: ProfilePageProps) => {
   const [editOpen, setEditOpen] = useState(false);
 
   // Achievements section

@@ -1,4 +1,3 @@
-
 import { 
   CheckSquare, 
   MessageSquare, 
@@ -28,7 +27,6 @@ import { useState } from 'react';
 interface AppSidebarProps {
   currentPage: string;
   setCurrentPage: (page: string) => void;
-  // Optionally, user profile info, fallback to mock if not provided (for demo)
   userName?: string | null;
   userAvatarUrl?: string | null;
 }
@@ -39,7 +37,6 @@ export const AppSidebar = ({
   userName,
   userAvatarUrl,
 }: AppSidebarProps) => {
-  // Fallback demo user (in real usage, pass via props)
   const name = userName ?? "Explorer";
   const avatarUrl = userAvatarUrl ?? "";
 
