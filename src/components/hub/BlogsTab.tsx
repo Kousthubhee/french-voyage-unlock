@@ -1,48 +1,26 @@
-
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Edit, Heart, MessageSquare, Share2 } from 'lucide-react';
-
-interface Blog {
-  id: number;
-  author: string;
-  title: string;
-  time: string;
-  content: string;
-  likes: number;
-  comments: CommentType[];
-  avatar?: string;
-}
-interface CommentType {
-  id: number;
-  author: string;
-  content: string;
-  time?: string;
-  likes: number;
-  replies: ReplyType[];
-}
-interface ReplyType {
-  id: number;
-  author: string;
-  content: string;
-  time?: string;
-  likes: number;
-}
+import { Blog, QAComment, QAReply } from './hubTypes';
 
 interface BlogsTabProps {
   blogTitle: string;
   blogContent: string;
-  onChangeTitle: (value: string) => void;
-  onChangeContent: (value: string) => void;
+  onChangeTitle: (val: string) => void;
+  onChangeContent: (val: string) => void;
   onPublish: () => void;
   blogs: Blog[];
-  onLike: (itemId: number, type: string) => void;
-  newComment: Record<string, string>;
-  setNewComment: (v: Record<string, string>) => void;
-  onComment: (itemId: number, type: string) => void;
-  onReply: (itemId: number, commentId: number, type: string) => void;
+  onLike: (id: number, type: "post" | "reel" | "poll" | "blog") => void;
+  newComment: any;
+  setNewComment: (a: any) => void;
+  onComment: (id: number, type: "post" | "reel" | "poll" | "blog") => void;
+  onReply: (
+    itemId: number,
+    commentId: number,
+    type: "post" | "reel" | "poll" | "blog"
+  ) => void;
 }
 
 export function BlogsTab({

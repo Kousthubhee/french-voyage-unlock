@@ -13,59 +13,8 @@ import { AchievementsCard } from './hub/AchievementsCard';
 import { StatsCard } from './hub/StatsCard';
 import { QuickHelpCard } from './hub/QuickHelpCard';
 
-// Type definitions for each post type
-type QAComment = {
-  id: number;
-  author: string;
-  content: string;
-  time?: string;
-  likes: number;
-  replies: QAReply[];
-};
-type QAReply = {
-  id: number;
-  author: string;
-  content: string;
-  time?: string;
-  likes: number;
-};
-export type QAPost = {
-  id: number;
-  type: "post";
-  author: string;
-  avatar: string;
-  time: string;
-  content: string;
-  likes: number;
-  comments: QAComment[];
-  category: string;
-};
-
-export type Reel = {
-  id: number;
-  type: "reel";
-  author: string;
-  avatar: string;
-  time: string;
-  videoUrl: string;
-  caption: string;
-  likes: number;
-  comments: QAComment[];
-  category: string;
-};
-
-export type Poll = {
-  id: number;
-  type: "poll";
-  author: string;
-  avatar: string;
-  time: string;
-  question: string;
-  options: { text: string; votes: number }[];
-  likes: number;
-  comments: QAComment[];
-  category: string;
-};
+// Import shared types from hubTypes
+import { QAPost, QAComment, QAReply, Reel, Poll, Blog } from './hub/hubTypes';
 
 // Unified Post type
 type Post = QAPost | Reel | Poll;

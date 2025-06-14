@@ -1,47 +1,24 @@
-
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { Heart, MessageSquare, Share2 } from 'lucide-react';
 import { Input } from '../ui/input';
-
-interface QAPost {
-  id: number;
-  type: 'post';
-  author: string;
-  avatar: string;
-  time: string;
-  content: string;
-  likes: number;
-  comments: CommentType[];
-  category: string;
-}
-interface CommentType {
-  id: number;
-  author: string;
-  content: string;
-  time?: string;
-  likes: number;
-  replies: ReplyType[];
-}
-interface ReplyType {
-  id: number;
-  author: string;
-  content: string;
-  time?: string;
-  likes: number;
-}
+import { QAPost, QAComment, QAReply } from './hubTypes';
 
 interface QATabProps {
   qaPosts: QAPost[];
   newPost: string;
-  onNewPostChange: (t: string) => void;
+  onNewPostChange: (val: string) => void;
   onPublishPost: () => void;
-  onLike: (itemId: number, type: string) => void;
-  newComment: Record<string, string>;
-  setNewComment: (v: Record<string, string>) => void;
-  onComment: (itemId: number, type: string) => void;
-  onReply: (itemId: number, commentId: number, type: string) => void;
+  onLike: (id: number, type: "post" | "reel" | "poll" | "blog") => void;
+  newComment: any;
+  setNewComment: (a: any) => void;
+  onComment: (id: number, type: "post" | "reel" | "poll" | "blog") => void;
+  onReply: (
+    itemId: number,
+    commentId: number,
+    type: "post" | "reel" | "poll" | "blog"
+  ) => void;
 }
 
 export function QATab({

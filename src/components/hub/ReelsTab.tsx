@@ -1,50 +1,26 @@
-
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Video, Heart, MessageSquare, Share2 } from 'lucide-react';
-
-interface Reel {
-  id: number;
-  type: 'reel';
-  author: string;
-  avatar: string;
-  time: string;
-  videoUrl: string;
-  caption: string;
-  likes: number;
-  comments: CommentType[];
-  category: string;
-}
-interface CommentType {
-  id: number;
-  author: string;
-  content: string;
-  time?: string;
-  likes: number;
-  replies: ReplyType[];
-}
-interface ReplyType {
-  id: number;
-  author: string;
-  content: string;
-  time?: string;
-  likes: number;
-}
+import { Reel, QAComment, QAReply } from './hubTypes';
 
 interface ReelsTabProps {
   reels: Reel[];
   newReel: string | null;
   newReelCaption: string;
   onReelUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeCaption: (caption: string) => void;
+  onChangeCaption: (val: string) => void;
   onPublish: () => void;
-  onLike: (itemId: number, type: string) => void;
-  newComment: Record<string, string>;
-  setNewComment: (v: Record<string, string>) => void;
-  onComment: (itemId: number, type: string) => void;
-  onReply: (itemId: number, commentId: number, type: string) => void;
+  onLike: (id: number, type: "post" | "reel" | "poll" | "blog") => void;
+  newComment: any;
+  setNewComment: (a: any) => void;
+  onComment: (id: number, type: "post" | "reel" | "poll" | "blog") => void;
+  onReply: (
+    itemId: number,
+    commentId: number,
+    type: "post" | "reel" | "poll" | "blog"
+  ) => void;
 }
 
 export function ReelsTab({
