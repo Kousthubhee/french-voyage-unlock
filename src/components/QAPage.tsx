@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { MessageSquare, Send, Bot, User, ImageUp, FileUp } from "lucide-react";
 import { faqCategories } from "@/data/faqCategories";
+import { QAMessageItem } from "./QAMessageItem";
+import styles from "./QAPage.module.css";
 
 // ✅ Define type for messages allowing optional file/fileName
 interface MessageItem {
@@ -128,30 +130,14 @@ export const QAPage = () => {
         <CardContent className="p-0 h-full flex flex-col">
           <div className="flex-1 p-4 overflow-y-auto space-y-4">
             {messages.map((msg) => (
-              <div key={msg.id} className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`flex items-start max-w-xs lg:max-w-md ${msg.type === "user" ? "flex-row-reverse" : ""}`}>
-                  <div className={`p-2 rounded-full ${msg.type === "user" ? "bg-blue-600 text-white ml-2" : "bg-gray-200 text-gray-600 mr-2"}`}>
-                    {msg.type === "user" ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
-                  </div>
-                  <div className={`p-3 rounded-lg ${msg.type === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"}`}>
-                    {msg.message}
-                    {/* Show preview if message has file */}
-                    {msg.file && (
-                      <div className="mt-2">
-                        {/* Show image preview if image, else file icon */}
-                        {msg.file.startsWith("data:image") ? (
-                          <img src={msg.file} alt={msg.fileName || ""} className="h-24 max-w-full rounded border" />
-                        ) : (
-                          <div className="flex items-center gap-1 text-sm text-blue-800">
-                            <FileUp className="h-4 w-4" />
-                            {msg.fileName}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <QAMessageItem
+                key={msg.id}
+                id={msg.id}
+                type={msg.type}
+                message={msg.message}
+                file={msg.file}
+                fileName={msg.fileName}
+              />
             ))}
             {isTyping && (
               <div className="flex items-center gap-2 animate-fade-in">
@@ -159,9 +145,9 @@ export const QAPage = () => {
                   <Bot className="h-4 w-4" />
                 </div>
                 <div className="p-3 rounded-lg bg-gray-100 text-gray-900 flex items-center gap-2">
-                  <span className="dot-flash" />
-                  <span className="dot-flash" />
-                  <span className="dot-flash" />
+                  <span className={styles["dot-flash"]} />
+                  <span className={styles["dot-flash"]} />
+                  <span className={styles["dot-flash"]} />
                   <span className="ml-2">typing...</span>
                 </div>
               </div>
@@ -273,25 +259,6 @@ export const QAPage = () => {
           ))}
         </Tabs>
       </div>
-
-      {/* Typing dots CSS */}
-      <style>{`
-        .dot-flash {
-          width: 8px;
-          height: 8px;
-          background: #888;
-          display: inline-block;
-          border-radius: 50%;
-          margin-right: 3px;
-          animation: dot-flash-keyframes 1s infinite linear alternate;
-        }
-        .dot-flash:nth-child(2) { animation-delay: .2s; }
-        .dot-flash:nth-child(3) { animation-delay: .4s; }
-        @keyframes dot-flash-keyframes {
-          0% { opacity: 0.2; transform: scale(0.85); }
-          100% { opacity: 1; transform: scale(1.2);}
-        }
-      `}</style>
     </div>
   );
 };
