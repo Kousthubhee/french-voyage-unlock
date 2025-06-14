@@ -514,11 +514,7 @@ export const HubPage = () => {
         </div>
 
         <div className="space-y-6">
-          {/* Only show the EventsCard and AchievementsCard; remove StatsCard/QuickHelpCard, and add the alert card */}
-          <EventsCard events={upcomingEvents} />
-          <AchievementsCard />
-
-          {/* Notice: No sharing contact details */}
+          {/* Only show the safety notice and a trip planning card */}
           <div>
             <Alert variant="destructive" className="rounded-lg border p-6">
               <div className="flex items-start">
@@ -532,6 +528,19 @@ export const HubPage = () => {
                 </div>
               </div>
             </Alert>
+          </div>
+          <div>
+            <Card>
+              <CardContent className="p-6 flex flex-col items-center text-center">
+                <div className="text-3xl mb-2">🧳✈️</div>
+                <h3 className="text-lg font-semibold mb-1">Plan a Trip Together!</h3>
+                <p className="text-gray-600 mb-3">
+                  Looking to explore France or Europe with friends?
+                  Start a conversation in the Q&amp;A or Reels tab and connect with fellow travelers!
+                </p>
+                {/* You might want a call-to-action button in the future */}
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
