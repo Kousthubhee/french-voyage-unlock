@@ -208,7 +208,7 @@ export const LanguagePage = () => {
                             {!hideFrench ? phrase.french : <span className="text-gray-400 italic">[hidden]</span>}
                           </div>
                           <div className="text-sm text-gray-500">
-                            [{phrase.pronunciation}]
+                            {!hideFrench ? `[${phrase.pronunciation}]` : <span className="text-gray-400 italic">[hidden]</span>}
                           </div>
                         </div>
                       </div>
