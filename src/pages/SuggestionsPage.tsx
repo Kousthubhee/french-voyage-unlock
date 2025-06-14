@@ -79,8 +79,17 @@ export function SuggestionsPage({ onBack }: SuggestionsPageProps) {
             <p className="text-gray-700">Let users set notification preferences, customize their dashboard, or edit their profile.</p>
           </CardContent>
         </Card>
+        <Card>
+          <CardContent className="p-5">
+            <h2 className="text-lg font-bold mb-2">11. Workshops & Webinars with Professors</h2>
+            <p className="text-gray-700">
+              Facilitate planning and participation in workshops or webinars with professors to help students understand academic and research opportunities.
+            </p>
+          </CardContent>
+        </Card>
       </div>
       <div className="mt-8 text-center text-xs text-gray-400">More suggestions? Share your ideas!</div>
     </div>
   );
 }
+
