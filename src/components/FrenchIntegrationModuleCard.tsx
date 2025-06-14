@@ -8,7 +8,7 @@ interface FrenchIntegrationModuleCardProps {
   title: string;
   topicCount: number;
   description: string;
-  colorClass?: string;
+  // colorClass?: string; // No longer needed
   onClick?: () => void;
 }
 
@@ -17,7 +17,6 @@ export const FrenchIntegrationModuleCard: React.FC<FrenchIntegrationModuleCardPr
   title,
   topicCount,
   description,
-  colorClass = "text-indigo-700",
   onClick,
 }) => (
   <button
@@ -31,21 +30,18 @@ export const FrenchIntegrationModuleCard: React.FC<FrenchIntegrationModuleCardPr
     type="button"
   >
     <div className="flex items-center justify-between w-full">
-      <span className={cn("text-3xl", colorClass)}>{icon}</span>
-      <span className={cn(
-        "rounded-full px-2 py-0.5 text-xs font-semibold bg-indigo-100 text-indigo-700",
-        colorClass
-      )}>
+      <span className="text-3xl text-indigo-700">{icon}</span>
+      <span className="rounded-full px-2 py-0.5 text-xs font-semibold bg-indigo-100 text-indigo-700">
         {topicCount} topics
       </span>
     </div>
     <div className="mt-4">
-      <div className={cn("text-lg font-bold mb-1", colorClass)}>{title}</div>
+      <div className="text-lg font-bold text-gray-900 mb-1">{title}</div>
       <div className="text-sm text-gray-600 min-h-[38px]">{description}</div>
     </div>
     <div className="mt-auto w-full flex justify-between items-center pt-3">
       <span
-        className={cn("font-medium text-indigo-700 text-sm group-hover:underline flex items-center gap-2", colorClass)}
+        className="font-medium text-indigo-700 text-sm group-hover:underline flex items-center gap-2"
       >
         Start Learning
         <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
@@ -55,3 +51,4 @@ export const FrenchIntegrationModuleCard: React.FC<FrenchIntegrationModuleCardPr
 );
 
 export default FrenchIntegrationModuleCard;
+
