@@ -5,6 +5,7 @@ import { ModuleContent } from './ModuleContent';
 import { ChecklistHeader } from './ChecklistHeader';
 import { ModuleCard } from './ModuleCard';
 import { ProgressSection } from './ProgressSection';
+import { useToast } from '@/hooks/use-toast';
 
 interface Module {
   id: string;
@@ -32,12 +33,11 @@ export const ChecklistModule = ({
   currentPage
 }: ChecklistModuleProps) => {
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
+  const { toast } = useToast();
 
   // Reset selected module when navigating back to checklist page
   useEffect(() => {
-    console.log('ChecklistModule useEffect triggered:', { currentPage });
     if (currentPage === 'checklist' && selectedModule) {
-      console.log('Resetting selected module due to page navigation');
       setSelectedModule(null);
     }
   }, [currentPage]);
@@ -47,21 +47,25 @@ export const ChecklistModule = ({
     if (!userProgress.unlockedModules) {
       setUserProgress({
         ...userProgress,
-        unlockedModules: ['school', 'pre-arrival-1', 'pre-arrival-2'] // Only first 3 modules unlocked
+        unlockedModules: ['school', 'pre-arrival-1', 'pre-arrival-2']
       });
     }
   }, [modules, userProgress, setUserProgress]);
 
   const handleModuleClick = (module: Module) => {
     const isUnlocked = userProgress.unlockedModules.includes(module.id);
-    
+
     // If module is locked and requires keys, check if user has enough keys
     if (!isUnlocked && module.keysRequired) {
       if (userProgress.keys < module.keysRequired) {
-        console.log('Not enough keys to unlock module:', module.id);
+        toast({
+          title: "Not Enough Keys",
+          description: `You need ${module.keysRequired} key${module.keysRequired > 1 ? 's' : ''} to unlock this module.`,
+          variant: "destructive",
+        });
         return;
       }
-      
+
       // Unlock the module by spending keys
       const newProgress = {
         ...userProgress,
@@ -69,12 +73,15 @@ export const ChecklistModule = ({
         unlockedModules: [...userProgress.unlockedModules, module.id]
       };
       setUserProgress(newProgress);
+      toast({
+        title: "New Module Unlocked",
+        description: `You've unlocked "${module.title}" by spending ${module.keysRequired} key${module.keysRequired > 1 ? 's' : ''}!`,
+        variant: "default",
+      });
     }
-    
+
     if (!isUnlocked && !module.keysRequired) return;
-    
-    console.log('Module clicked:', module.id);
-    
+
     // Handle navigation to specific pages
     const pageMapping: { [key: string]: string } = {
       'school': 'school-insights',
@@ -92,11 +99,12 @@ export const ChecklistModule = ({
       });
       return;
     }
-    
+
     setSelectedModule(module);
   };
 
   const handleModuleComplete = (moduleId: string) => {
+    if (userProgress.completedModules.includes(moduleId)) return;
     const newProgress = {
       ...userProgress,
       completedModules: [...userProgress.completedModules, moduleId],
@@ -104,6 +112,17 @@ export const ChecklistModule = ({
     };
 
     setUserProgress(newProgress);
+
+    toast({
+      title: "Module Completed!",
+      description: "You earned a key for completing this module.",
+      variant: "default",
+    });
+  };
+
+  // Central handler to show toast from child components if needed
+  const handleToast = (options: { title: string; description?: string; variant?: "default" | "destructive" }) => {
+    toast(options);
   };
 
   if (selectedModule) {
@@ -121,6 +140,7 @@ export const ChecklistModule = ({
           onBack={() => setSelectedModule(null)}
           onComplete={handleModuleComplete}
           isCompleted={userProgress.completedModules.includes(selectedModule.id)}
+          onToast={handleToast}
         />
       );
     }

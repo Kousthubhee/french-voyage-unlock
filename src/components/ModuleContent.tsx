@@ -2,16 +2,17 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft, CheckCircle, Clock, FileText } from 'lucide-react';
+import { ArrowLeft, CheckCircle } from 'lucide-react';
 
 interface ModuleContentProps {
   module: any;
   onBack: () => void;
   onComplete: (moduleId: string) => void;
   isCompleted: boolean;
+  onToast?: (args: { title: string; description?: string; variant?: "default" | "destructive" }) => void;
 }
 
-export const ModuleContent = ({ module, onBack, onComplete, isCompleted }: ModuleContentProps) => {
+export const ModuleContent = ({ module, onBack, onComplete, isCompleted, onToast }: ModuleContentProps) => {
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
 
   const getModuleSteps = (moduleId: string) => {
@@ -52,11 +53,24 @@ export const ModuleContent = ({ module, onBack, onComplete, isCompleted }: Modul
   const handleStepComplete = (stepId: string) => {
     if (!completedSteps.includes(stepId)) {
       setCompletedSteps([...completedSteps, stepId]);
+      if (onToast) {
+        onToast({
+          title: "Step Completed",
+          description: "You have completed a step.",
+        });
+      }
     }
   };
 
   const handleModuleComplete = () => {
     onComplete(module.id);
+    if (onToast) {
+      onToast({
+        title: "Module Completed",
+        description: "All steps done. You earned a key!",
+        variant: "default",
+      });
+    }
   };
 
   return (
