@@ -2,7 +2,6 @@
 import React from "react";
 import { BookOpen, Link as LinkIcon, MessageCircle, Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 // A small glossary dataset for demonstration
 const glossary = [
@@ -18,6 +17,17 @@ const glossary = [
 ];
 
 export function GlossarySidebar() {
+  // Handles navigation to the integration page's useful links section
+  const handleUsefulLinks = (e: React.MouseEvent) => {
+    e.preventDefault();
+    // If using react-router, navigate to /?page=integration#useful-links
+    window.location.hash = "#useful-links";
+    // If you want to change the route, you can do: window.location.href = "/?page=integration"
+  };
+
+  // Feedback link: opens a mail client to send feedback to support.
+  const feedbackEmail = "contact@pas2kampus.com"; // replace with correct email if available
+
   return (
     <div className="flex flex-col gap-6">
       {/* Mini-glossary */}
@@ -45,11 +55,18 @@ export function GlossarySidebar() {
             <Star className="mr-2 h-4 w-4" />
             Student Favorites
           </a>
-          <a href="#" className="flex items-center text-blue-700 hover:underline">
+          <a
+            href="#useful-links"
+            onClick={handleUsefulLinks}
+            className="flex items-center text-blue-700 hover:underline"
+          >
             <LinkIcon className="mr-2 h-4 w-4" />
             Useful Links
           </a>
-          <a href="#" className="flex items-center text-green-700 hover:underline">
+          <a
+            href={`mailto:${feedbackEmail}?subject=Feedback%20for%20pas2kampus`}
+            className="flex items-center text-green-700 hover:underline"
+          >
             <MessageCircle className="mr-2 h-4 w-4" />
             Feedback
           </a>
