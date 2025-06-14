@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Building2, ExternalLink, Star, Users, Filter } from 'lucide-react';
 import { PartnerCard } from "./PartnerCard";
 import { BenefitsList } from "./BenefitsList";
+import { PageTitle } from "./PageTitle";
 import { useState } from "react";
 import {
   Select,
@@ -184,6 +185,8 @@ export const AffiliationPage = () => {
 
   return (
     <div className="max-w-6xl mx-auto">
+      {/* PAGE TITLE */}
+      <PageTitle>Our Partners</PageTitle>
 
       {/* BANNER for affiliate benefits */}
       <Card className="mb-8 border-blue-300">
