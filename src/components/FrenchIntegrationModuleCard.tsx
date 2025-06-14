@@ -8,7 +8,6 @@ interface FrenchIntegrationModuleCardProps {
   title: string;
   topicCount: number;
   description: string;
-  // colorClass?: string; // No longer needed
   onClick?: () => void;
 }
 
@@ -21,34 +20,38 @@ export const FrenchIntegrationModuleCard: React.FC<FrenchIntegrationModuleCardPr
 }) => (
   <button
     className={cn(
-      "group relative flex flex-col items-start justify-between rounded-xl bg-white shadow-md border p-5 w-full aspect-square min-h-[220px] transition hover:shadow-lg outline-none focus-visible:ring-2 focus-visible:ring-indigo-400",
-      "hover:scale-105 active:scale-100"
+      // Main card appearance based on your reference image:
+      "relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#e6ecf4] bg-[#f6faff] shadow-sm h-full w-full transition hover:shadow-md hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-indigo-400",
+      "outline-none"
     )}
     tabIndex={0}
     onClick={onClick}
     aria-label={`${title}: Start Learning`}
     type="button"
   >
-    <div className="flex items-center justify-between w-full">
-      <span className="text-3xl text-indigo-700">{icon}</span>
-      <span className="rounded-full px-2 py-0.5 text-xs font-semibold bg-indigo-100 text-indigo-700">
-        {topicCount} topics
-      </span>
+    {/* ICON */}
+    <div className="flex justify-center items-center w-full pt-8">
+      <div className="bg-blue-50 rounded-xl w-20 h-20 flex items-center justify-center mb-5">
+        <span className="text-[2.1rem] text-gray-700">{icon}</span>
+      </div>
     </div>
-    <div className="mt-4">
-      <div className="text-lg font-bold text-gray-900 mb-1">{title}</div>
-      <div className="text-sm text-gray-600 min-h-[38px]">{description}</div>
-    </div>
-    <div className="mt-auto w-full flex justify-between items-center pt-3">
-      <span
-        className="font-medium text-indigo-700 text-sm group-hover:underline flex items-center gap-2"
-      >
-        Start Learning
-        <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
-      </span>
+    {/* DETAILS */}
+    <div className="flex-1 flex flex-col px-6 pb-5 gap-2">
+      <span className="font-bold text-lg text-gray-900 mt-1 text-left">{title}</span>
+      <span className="text-sm text-gray-600 text-left">{description}</span>
+      <div className="flex justify-between items-end mt-6">
+        <span className="inline-block rounded-full bg-blue-100 text-blue-700 px-3 py-1 text-xs font-semibold select-none">
+          Available
+        </span>
+        <span className="flex items-center gap-1 ml-auto">
+          <span className="bg-gray-900 hover:bg-gray-700 text-white font-semibold px-4 py-1.5 rounded-lg text-sm transition-all">
+            Start
+          </span>
+          <ArrowRight className="ml-1 w-4 h-4 text-gray-400" />
+        </span>
+      </div>
     </div>
   </button>
 );
 
 export default FrenchIntegrationModuleCard;
-
