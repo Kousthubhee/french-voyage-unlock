@@ -266,12 +266,15 @@ export const DocumentsPage = () => {
                   <div className="mt-4">
                     <div className="flex items-center gap-2 mb-2">
                       <Label htmlFor={`file-input-${doc.id}`}>Document Scan / File:</Label>
-                      {/* Info icon and tooltip separated */}
+                      {/* Info icon with tooltip (not clickable for upload) */}
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            {/* Info icon, does not trigger file input */}
-                            <span tabIndex={0} role="button" aria-label="Info about document scan upload">
+                            <span
+                              tabIndex={0}
+                              role="button"
+                              aria-label="Info about document scan upload"
+                            >
                               <Info className="h-4 w-4 text-blue-600 cursor-pointer" />
                             </span>
                           </TooltipTrigger>
@@ -280,7 +283,7 @@ export const DocumentsPage = () => {
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
-                      {/* Upload button triggers file input via label */}
+                      {/* The input is associated by being a sibling—but we'll nest the Button within the label for best compatibility */}
                       <input
                         id={`file-input-${doc.id}`}
                         type="file"
@@ -288,9 +291,11 @@ export const DocumentsPage = () => {
                         className="hidden"
                         onChange={(e) => handleFileChange(e, doc.id)}
                       />
-                      <label htmlFor={`file-input-${doc.id}`} tabIndex={-1} className="m-0">
-                        <Button type="button" variant="outline" size="sm">
-                          <UploadCloud className="h-4 w-4 mr-1" /> Upload
+                      <label htmlFor={`file-input-${doc.id}`} style={{ margin: 0 }}>
+                        <Button type="button" variant="outline" size="sm" asChild>
+                          <span>
+                            <UploadCloud className="h-4 w-4 mr-1" /> Upload
+                          </span>
                         </Button>
                       </label>
                       {doc.file && (
