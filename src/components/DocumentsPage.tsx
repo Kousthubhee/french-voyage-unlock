@@ -330,7 +330,6 @@ export const DocumentsPage = () => {
 
   // Suggestions for documents (update as requested)
   const docSuggestions = [
-    { name: "Passport", type: "Identity" },
     { name: "Residence Permit", type: "Immigration" },
     { name: "Student Visa", type: "Immigration" },
     { name: "Health Insurance", type: "Insurance" },
@@ -751,6 +750,13 @@ export const DocumentsPage = () => {
 
         {/* "All Important Documents" */}
         <TabsContent value="all">
+          {/* Sensitive info warning */}
+          <div className="mb-4">
+            <div className="flex items-center bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded text-yellow-900 text-sm font-medium">
+              <AlertTriangle className="h-5 w-5 mr-2 text-yellow-500" />
+              Do not add anything that contains sensitive information (such as government numbers, personal ID numbers, or confidential details).
+            </div>
+          </div>
           {/* Suggestions Section (for 'important documents') */}
           <div className="mb-6 flex flex-wrap gap-2 items-center">
             <span className="font-medium text-gray-700 mr-2">Quick Add:</span>
