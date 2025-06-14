@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -67,7 +68,7 @@ export function BlogsTab({
           <CardContent className="p-6">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center">
-                <div className="text-2xl mr-3">{item.avatar || '🧑‍🎓'}</div>
+                <div className="text-2xl mr-3">📝</div>
                 <div>
                   <div className="font-semibold text-gray-900">{item.author}</div>
                   <div className="text-sm text-gray-500">{item.time}</div>

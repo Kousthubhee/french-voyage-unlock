@@ -1,4 +1,3 @@
-
 import { ChecklistModule } from '@/components/ChecklistModule';
 import { QAPage } from '@/components/QAPage';
 import { HubPage } from '@/components/HubPage';
@@ -128,7 +127,6 @@ export function MainRouter({
             setCurrentPage('checklist');
           }}
           isCompleted={userProgress.completedModules.includes('pre-arrival-1')}
-          userProfile={userProfile}
         />
       );
     case 'pre-arrival-2':
