@@ -538,7 +538,14 @@ export const HubPage = () => {
                   Looking to explore France or Europe with friends?
                   Start a conversation in the Q&amp;A or Reels tab and connect with fellow travelers!
                 </p>
-                {/* You might want a call-to-action button in the future */}
+                <Button
+                  className="mt-2"
+                  onClick={() =>
+                    toast("This would start a chat group for trip planning. (Requires Supabase integration for real chat.)")
+                  }
+                >
+                  Start Trip Chat Group
+                </Button>
               </CardContent>
             </Card>
           </div>
