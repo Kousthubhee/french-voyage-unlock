@@ -176,10 +176,10 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
         </Button>
         
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <h1 className="text-xl md:text-2xl font-semibold text-gray-700 mb-3 font-calibri">
             ✈️ Pre-Arrival Checklist (Part 1)
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-base text-gray-500 font-calibri">
             Campus France, VFS, and essential preparations
           </p>
           {isCompleted && (

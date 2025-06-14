@@ -80,10 +80,10 @@ export const PostArrivalPage = ({ onBack, onComplete, isCompleted }: PostArrival
         </Button>
         
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <h1 className="text-xl md:text-2xl font-semibold text-gray-700 mb-3 font-calibri">
             🏠 Post-Arrival Checklist
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-base text-gray-500 font-calibri">
             Bank account, SSN, insurance, CAF, and more
           </p>
           {isCompleted && (
