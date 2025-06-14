@@ -12,6 +12,8 @@ import { EventsCard } from './hub/EventsCard';
 import { AchievementsCard } from './hub/AchievementsCard';
 import { StatsCard } from './hub/StatsCard';
 import { QuickHelpCard } from './hub/QuickHelpCard';
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { AlertTriangle } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 
 // Import shared types from hubTypes
@@ -113,7 +115,7 @@ export const HubPage = () => {
     return /(?:\+?\d[\d .-]{7,14})/.test(text);
   }
 
-  // Show and block if content has phone number
+  // Show alert and block if content has phone number
   function blockIfPhone(content: string): boolean {
     if (containsPhoneNumber(content)) {
       toast("Sharing personal contact info is not allowed.");
@@ -321,30 +323,66 @@ export const HubPage = () => {
     ));
   };
 
-  // For search and filter: filter posts in each tab
-  function filterPosts(posts: Post[], type: string) {
+  // For search and filter: filter posts per type safely
+  function searchQAPosts(posts: QAPost[]): QAPost[] {
     let result = posts;
     if (categoryFilter !== "All") {
-      result = result.filter(p => p.category === categoryFilter || (p.type === "poll" && categoryFilter === "Poll"));
+      result = result.filter(p => p.category === categoryFilter);
     }
     if (searchTerm.trim()) {
       const term = searchTerm.trim().toLowerCase();
       result = result.filter(p =>
-        ("title" in p ? p.title.toLowerCase().includes(term) : false) ||
-        ("content" in p ? p.content.toLowerCase().includes(term) : false) ||
-        ("caption" in p ? p.caption.toLowerCase().includes(term) : false) ||
-        ("question" in p ? p.question.toLowerCase().includes(term) : false)
+        p.content.toLowerCase().includes(term)
       );
     }
-    // For 'poll', 'reel', etc, match respective fields
     return result;
   }
 
-  // Filter posts by exact type for each tab
-  const qaPosts = filterPosts(posts.filter((p): p is QAPost => p.type === 'post'), 'post');
-  const reels = filterPosts(posts.filter((p): p is Reel => p.type === 'reel'), 'reel');
-  const polls = filterPosts(posts.filter((p): p is Poll => p.type === 'poll'), 'poll');
-  const filteredBlogs = filterPosts(blogs, 'blog');
+  function searchReels(posts: Reel[]): Reel[] {
+    let result = posts;
+    if (categoryFilter !== "All") {
+      result = result.filter(p => p.category === categoryFilter);
+    }
+    if (searchTerm.trim()) {
+      const term = searchTerm.trim().toLowerCase();
+      result = result.filter(p =>
+        p.caption.toLowerCase().includes(term)
+      );
+    }
+    return result;
+  }
+
+  function searchPolls(posts: Poll[]): Poll[] {
+    let result = posts;
+    if (categoryFilter !== "All") {
+      result = result.filter(p => categoryFilter === "Poll" || p.category === categoryFilter);
+    }
+    if (searchTerm.trim()) {
+      const term = searchTerm.trim().toLowerCase();
+      result = result.filter(p =>
+        p.question.toLowerCase().includes(term)
+      );
+    }
+    return result;
+  }
+
+  function searchBlogs(blogs: typeof blogs): typeof blogs {
+    let result = blogs;
+    if (searchTerm.trim()) {
+      const term = searchTerm.trim().toLowerCase();
+      result = result.filter(b =>
+        b.title.toLowerCase().includes(term) ||
+        b.content.toLowerCase().includes(term)
+      );
+    }
+    return result;
+  }
+
+  // Content-typed datasets for tabs
+  const qaPosts = searchQAPosts(posts.filter((p): p is QAPost => p.type === "post"));
+  const reels = searchReels(posts.filter((p): p is Reel => p.type === "reel"));
+  const polls = searchPolls(posts.filter((p): p is Poll => p.type === "poll"));
+  const filteredBlogs = searchBlogs(blogs);
 
   // Community stats (use all posts for stats, not just filtered)
   const activeMembers = 1247;
@@ -353,6 +391,16 @@ export const HubPage = () => {
 
   return (
     <div className="max-w-6xl mx-auto">
+      {/* Alert: No sharing personal contacts */}
+      <div className="mb-4">
+        <Alert variant="destructive">
+          <AlertTriangle className="h-5 w-5" />
+          <AlertTitle>Notice: No Sharing of Personal Contact Details</AlertTitle>
+          <AlertDescription>
+            For your safety, sharing phone numbers or other personal contact information is not allowed in posts, comments, or replies. Please keep discussions public.
+          </AlertDescription>
+        </Alert>
+      </div>
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center">
           <Users className="h-8 w-8 mr-3 text-purple-600" />
