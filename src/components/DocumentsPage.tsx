@@ -262,18 +262,32 @@ export const DocumentsPage = () => {
                     </Accordion>
                   )}
 
-                  {/* File preview section */}
+                  {/* File preview section with info icon and tooltip */}
                   <div className="mt-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <Label>Document Scan / File:</Label>
-                      <Input
+                      <Label className="flex items-center gap-2" htmlFor={`file-input-${doc.id}`}>
+                        Document Scan / File:
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <span tabIndex={0}>
+                                <Info className="h-4 w-4 text-blue-600 cursor-pointer" aria-label="Info about document scan upload"/>
+                              </span>
+                            </TooltipTrigger>
+                            <TooltipContent side="top" className="max-w-xs">
+                              Attach a scan or photo of your document for easy access and as backup proof.
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </Label>
+                      <input
                         id={`file-input-${doc.id}`}
                         type="file"
                         accept=".pdf, image/jpeg, image/png"
                         className="hidden"
                         onChange={(e) => handleFileChange(e, doc.id)}
                       />
-                      <label htmlFor={`file-input-${doc.id}`}>
+                      <label htmlFor={`file-input-${doc.id}`} tabIndex={-1}>
                         <Button type="button" variant="outline" size="sm">
                           <UploadCloud className="h-4 w-4 mr-1" /> Upload
                         </Button>
