@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Languages, Play, Volume2, BookOpen, Award } from 'lucide-react';
+import { Languages, Play, Volume2, BookOpen, Award, Star } from 'lucide-react';
+import { useFavorites } from '../hooks/useFavorites';
+import { FavoriteStar } from './FavoriteStar';
 
 export const LanguagePage = () => {
   const [selectedLesson, setSelectedLesson] = useState(null);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [hideFrench, setHideFrench] = useState(false);
+  const [hideEnglish, setHideEnglish] = useState(false);
+
+  // Persist phrase favorites
+  const [favorites, toggleFavorite] = useFavorites("french-phrase-favs-v1");
 
   useEffect(() => {
     const synth = window.speechSynthesis;
@@ -91,6 +98,12 @@ export const LanguagePage = () => {
     'Practice with native speakers when possible'
   ];
 
+  // Helper: each phrase gets a unique id for favoriting
+  const getPhraseId = (lessonId: string, index: number) => `${lessonId}-${index}`;
+
+  // Find favorite phrases for "Favorites" section
+  const favoriteSet = favorites;
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-8">
@@ -102,7 +115,67 @@ export const LanguagePage = () => {
           Essential French phrases for your studies and daily life in France
         </p>
       </div>
+      
+      {/* --- Favorites Section at the top (show if any) --- */}
+      {favoriteSet.size > 0 && (
+        <Card className="mb-8 border-yellow-300 bg-yellow-50">
+          <CardContent className="p-6">
+            <h3 className="text-lg font-semibold flex items-center mb-4">
+              <Star className="h-5 w-5 text-yellow-400 mr-2" />
+              Favorite Phrases
+            </h3>
+            <ul className="flex flex-wrap gap-4">
+              {Array.from(favoriteSet).map(favId => {
+                // locate phrase
+                let phrase, lessonTitle;
+                for (const lesson of lessons) {
+                  const idx = lesson.phrases.findIndex((_, i) => getPhraseId(lesson.id, i) === favId);
+                  if (idx >= 0) {
+                    phrase = lesson.phrases[idx];
+                    lessonTitle = lesson.title;
+                    break;
+                  }
+                }
+                if (!phrase) return null;
+                return (
+                  <li key={favId} className="border rounded px-3 py-2 bg-white shadow-sm">
+                    <div className="flex items-center mb-1">
+                      <FavoriteStar isActive={true} onClick={() => toggleFavorite(favId)} />
+                      <span className="font-semibold text-gray-900 mr-2">
+                        {phrase.french}
+                      </span>
+                      <span className="ml-auto text-xs text-gray-500">{lessonTitle}</span>
+                    </div>
+                    <div className="text-sm text-gray-700">{phrase.english}</div>
+                  </li>
+                );
+              })}
+            </ul>
+          </CardContent>
+        </Card>
+      )}
 
+      {/* --- Hide/Reveal toggles when viewing lesson --- */}
+      {selectedLesson && (
+        <div className="flex gap-2 justify-end mb-4">
+          <Button
+            size="sm"
+            variant={hideFrench ? "default" : "outline"}
+            onClick={() => setHideFrench(x => !x)}
+          >
+            {hideFrench ? "Show French" : "Hide French"}
+          </Button>
+          <Button
+            size="sm"
+            variant={hideEnglish ? "default" : "outline"}
+            onClick={() => setHideEnglish(x => !x)}
+          >
+            {hideEnglish ? "Show English" : "Hide English"}
+          </Button>
+        </div>
+      )}
+
+      {/* --- Lessons Display --- */}
       {selectedLesson ? (
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center mb-6">
@@ -119,35 +192,44 @@ export const LanguagePage = () => {
           </div>
 
           <div className="space-y-4">
-            {selectedLesson.phrases.map((phrase, index) => (
-              <Card key={index} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-                    <div>
-                      <div className="text-lg font-semibold text-gray-900 mb-1">
-                        {phrase.french}
+            {selectedLesson.phrases.map((phrase, index) => {
+              const phraseId = getPhraseId(selectedLesson.id, index);
+              return (
+                <Card key={index} className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                      <div className="flex items-center">
+                        <FavoriteStar
+                          isActive={favoriteSet.has(phraseId)}
+                          onClick={() => toggleFavorite(phraseId)}
+                        />
+                        <div>
+                          <div className="text-lg font-semibold text-gray-900 mb-1">
+                            {!hideFrench ? phrase.french : <span className="text-gray-400 italic">[hidden]</span>}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            [{phrase.pronunciation}]
+                          </div>
+                        </div>
                       </div>
-                      <div className="text-sm text-gray-500">
-                        [{phrase.pronunciation}]
+                      <div className="text-gray-700">
+                        {!hideEnglish ? phrase.english : <span className="text-gray-400 italic">[hidden]</span>}
+                      </div>
+                      <div className="flex space-x-2">
+                        <Button size="sm" variant="outline" onClick={() => speakText(phrase.french)}>
+                          <Volume2 className="h-4 w-4 mr-2" />
+                          Listen
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Play className="h-4 w-4 mr-2" />
+                          Practice
+                        </Button>
                       </div>
                     </div>
-                    <div className="text-gray-700">
-                      {phrase.english}
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button size="sm" variant="outline" onClick={() => speakText(phrase.french)}>
-                        <Volume2 className="h-4 w-4 mr-2" />
-                        Listen
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        <Play className="h-4 w-4 mr-2" />
-                        Practice
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
 
           <Card className="mt-8 bg-green-50 border-green-200">
