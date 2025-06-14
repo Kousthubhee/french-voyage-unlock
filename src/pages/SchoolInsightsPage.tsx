@@ -246,10 +246,10 @@ export const SchoolInsightsPage = ({ onBack }: SchoolInsightsPageProps) => {
       description: 'Historic city with modern business and tech schools',
       emoji: '🇫🇷',
       schools: [
-        { id: 'neoma-rouen', name: 'NEOMA Business School (Main campus)', description: 'PGE, MSc, BBA programs', location: 'Rouen', programs: ['PGE', 'MSc', 'BBA'] },
-        { id: 'insa-rouen', name: 'INSA Rouen Normandie', description: 'Engineering across multiple domains', location: 'Rouen', programs: ['Engineering'] },
-        { id: 'rouen-univ', name: 'Université de Rouen Normandie', description: 'Comprehensive university', location: 'Rouen', programs: ['Various'] },
-        { id: 'esigelec', name: 'ESIGELEC Rouen', description: 'Electronics and digital tech', location: 'Rouen', programs: ['Engineering'] }
+        { id: 'neoma-rouen', name: 'NEOMA Business School (Main campus)', description: 'PGE, MSc, BBA programs', location: 'Rouen', programs: ['Master in Management (PGE)', 'MSc International Project Development', 'Global BBA', 'Finance', 'Marketing'], website: 'https://www.neoma-bs.com/en/' },
+        { id: 'insa-rouen', name: 'INSA Rouen Normandie', description: 'Engineering across multiple domains', location: 'Rouen', programs: ['Chemical Engineering', 'Mechanical Engineering', 'Data Science', 'Civil Engineering'], website: 'https://www.insa-rouen.fr/en/' },
+        { id: 'rouen-univ', name: 'Université de Rouen Normandie', description: 'Comprehensive university', location: 'Rouen', programs: ['Humanities', 'Law', 'Sciences', 'Medical', 'Engineering'], website: 'https://www.univ-rouen.fr/' },
+        { id: 'esigelec', name: 'ESIGELEC Rouen', description: 'Electronics and digital tech', location: 'Rouen', programs: ['Electronics', 'Robotics', 'Informatics', 'Cybersecurity'], website: 'https://www.esigelec.fr/en' }
       ],
       localInsights: [
         {
@@ -289,10 +289,10 @@ export const SchoolInsightsPage = ({ onBack }: SchoolInsightsPageProps) => {
       description: 'Business and international affairs education hub',
       emoji: '🇫🇷',
       schools: [
-        { id: 'neoma-reims', name: 'NEOMA Business School (Reims)', description: 'Core business programs', location: 'Reims', programs: ['Business', 'MBA', 'MSc'] },
-        { id: 'sciencespo-reims', name: 'Sciences Po Campus Reims', description: 'International program focus', location: 'Reims', programs: ['Politics', 'Global Affairs'] },
-        { id: 'reims-univ', name: 'Université de Reims Champagne-Ardenne', description: 'Regional public university', location: 'Reims', programs: ['Various'] },
-        { id: 'esiec', name: 'ESIEC Reims', description: 'Packaging and digital engineering', location: 'Reims', programs: ['Engineering'] }
+        { id: 'neoma-reims', name: 'NEOMA Business School (Reims)', description: 'Core business programs', location: 'Reims', programs: ['Master in Management (PGE)', 'MBA', 'MSc Marketing', 'Global BBA'], website: 'https://www.neoma-bs.com/en/' },
+        { id: 'sciencespo-reims', name: 'Sciences Po Campus Reims', description: 'International program focus', location: 'Reims', programs: ['Europe-North America Program', 'Europe-Africa Program', 'Global Affairs'], website: 'https://www.sciencespo.fr/en/campus-reims/' },
+        { id: 'reims-univ', name: 'Université de Reims Champagne-Ardenne', description: 'Regional public university', location: 'Reims', programs: ['Law', 'Medicine', 'Science and Technology', 'Economics', 'Humanities'], website: 'https://www.univ-reims.fr/' },
+        { id: 'esiec', name: 'ESIEC Reims', description: 'Packaging and digital engineering', location: 'Reims', programs: ['Packaging Engineering', 'Digital Systems', 'Environmental Engineering'], website: 'https://www.univ-reims.fr/esiec/menu-principal-esiec/' }
       ],
       localInsights: [
         {
@@ -332,11 +332,11 @@ export const SchoolInsightsPage = ({ onBack }: SchoolInsightsPageProps) => {
       description: 'Northern hub for business and engineering education',
       emoji: '🇫🇷',
       schools: [
-        { id: 'lille-univ', name: 'Université de Lille', description: 'Large multidisciplinary public university', location: 'Lille', programs: ['Various'] },
-        { id: 'edhec-lille', name: 'EDHEC Business School', description: 'Top 5 French business school', location: 'Lille', programs: ['MBA', 'MSc', 'Finance'] },
-        { id: 'centrale-lille', name: 'École Centrale de Lille', description: 'Elite engineering school', location: 'Lille', programs: ['Engineering'] },
-        { id: 'ieseg', name: 'IESEG School of Management', description: 'AACSB-accredited Grande École', location: 'Lille', programs: ['Management', 'MSc'] },
-        { id: 'hei', name: 'HEI – Hautes Études d\'Ingénieur', description: 'Private engineering school', location: 'Lille', programs: ['Engineering'] }
+        { id: 'lille-univ', name: 'Université de Lille', description: 'Large multidisciplinary public university', location: 'Lille', programs: ['Medicine', 'Law', 'Science and Technology', 'Humanities', 'Economics'], website: 'https://www.univ-lille.fr/' },
+        { id: 'edhec-lille', name: 'EDHEC Business School', description: 'Top 5 French business school', location: 'Lille', programs: ['BBA', 'MSc in Finance', 'Global MBA', 'Business Management'], website: 'https://www.edhec.edu/en' },
+        { id: 'centrale-lille', name: 'École Centrale de Lille', description: 'Elite engineering school', location: 'Lille', programs: ['General Engineering', 'Masters', 'PhD: Applied Sciences'], website: 'https://www.centralelille.fr/' },
+        { id: 'ieseg', name: 'IESEG School of Management', description: 'AACSB-accredited Grande École', location: 'Lille', programs: ['Grande École', 'MSc International Business', 'Bachelor in International Business'], website: 'https://www.ieseg.fr/en/' },
+        { id: 'hei', name: 'HEI – Hautes Études d\'Ingénieur', description: 'Private engineering school', location: 'Lille', programs: ['General Engineering', 'Digital Systems', 'Civil Engineering'], website: 'https://www.hei.fr/' }
       ],
       localInsights: [
         {
@@ -376,10 +376,10 @@ export const SchoolInsightsPage = ({ onBack }: SchoolInsightsPageProps) => {
       description: 'Prestigious academic and international region',
       emoji: '🇫🇷',
       schools: [
-        { id: 'strasbourg-univ', name: 'Université de Strasbourg', description: 'Prestigious university, strong in sciences and humanities', location: 'Strasbourg', programs: ['Science', 'Humanities'] },
-        { id: 'insa-strasbourg', name: 'INSA Strasbourg', description: 'Part of the INSA engineering network', location: 'Strasbourg', programs: ['Engineering'] },
-        { id: 'em-strasbourg', name: 'EM Strasbourg Business School', description: 'Business school within the university', location: 'Strasbourg', programs: ['Business'] },
-        { id: 'sciencespo-strasbourg', name: 'Sciences Po Strasbourg', description: 'Regional campus of Sciences Po', location: 'Strasbourg', programs: ['Politics'] }
+        { id: 'strasbourg-univ', name: 'Université de Strasbourg', description: 'Prestigious university, strong in sciences and humanities', location: 'Strasbourg', programs: ['Law', 'Biology', 'Physics', 'Humanities', 'Medicine'], website: 'https://www.unistra.fr/' },
+        { id: 'insa-strasbourg', name: 'INSA Strasbourg', description: 'Part of the INSA engineering network', location: 'Strasbourg', programs: ['Architecture', 'Mechanical Engineering', 'Electrical Engineering'], website: 'https://www.insa-strasbourg.fr/en/' },
+        { id: 'em-strasbourg', name: 'EM Strasbourg Business School', description: 'Business school within the university', location: 'Strasbourg', programs: ['Bachelor in International Business', 'Grande École', 'MBA'], website: 'https://www.em-strasbourg.com/en' },
+        { id: 'sciencespo-strasbourg', name: 'Sciences Po Strasbourg', description: 'Regional campus of Sciences Po', location: 'Strasbourg', programs: ['Public Administration', 'European Studies', 'International Relations'], website: 'https://sciencespo-strasbourg.fr/' }
       ],
       localInsights: [
         {
@@ -419,11 +419,11 @@ export const SchoolInsightsPage = ({ onBack }: SchoolInsightsPageProps) => {
       description: 'Southwest academic powerhouse in sciences and business',
       emoji: '🇫🇷',
       schools: [
-        { id: 'bordeaux-univ', name: 'Université de Bordeaux', description: 'Comprehensive research university', location: 'Bordeaux', programs: ['Science', 'Engineering'] },
-        { id: 'kedge-bordeaux', name: 'KEDGE Business School', description: 'Top-tier business school', location: 'Bordeaux', programs: ['MBA', 'MSc'] },
-        { id: 'enseirb', name: 'ENSEIRB-MATMECA', description: 'Engineering in IT, electronics, math', location: 'Bordeaux', programs: ['Engineering'] },
-        { id: 'sciencespo-bordeaux', name: 'Sciences Po Bordeaux', description: 'Political science and international studies', location: 'Bordeaux', programs: ['Politics'] },
-        { id: 'inpbordeaux', name: 'INP Bordeaux', description: 'Engineering network incl. ENSEIRB-MATMECA, ENSCBP', location: 'Bordeaux', programs: ['Engineering'] }
+        { id: 'bordeaux-univ', name: 'Université de Bordeaux', description: 'Comprehensive research university', location: 'Bordeaux', programs: ['Sciences', 'Law', 'Economics', 'Humanities', 'Medicine'], website: 'https://www.u-bordeaux.com/' },
+        { id: 'kedge-bordeaux', name: 'KEDGE Business School', description: 'Top-tier business school', location: 'Bordeaux', programs: ['Grande École (PGE)', 'MBA', 'MSc in Wine Management', 'Supply Chain Management'], website: 'https://kedge.edu/' },
+        { id: 'enseirb', name: 'ENSEIRB-MATMECA', description: 'Engineering in IT, electronics, math', location: 'Bordeaux', programs: ['Computer Science', 'Mathematics and Mechanics', 'Electronics'], website: 'https://www.enseirb-matmeca.fr/en/' },
+        { id: 'sciencespo-bordeaux', name: 'Sciences Po Bordeaux', description: 'Political science and international studies', location: 'Bordeaux', programs: ['Political Science', 'International Relations', 'Public Affairs'], website: 'https://www.sciencespobordeaux.fr/en/' },
+        { id: 'inpbordeaux', name: 'INP Bordeaux', description: 'Engineering network incl. ENSEIRB-MATMECA, ENSCBP', location: 'Bordeaux', programs: ['Biotechnology', 'Chemical Engineering', 'Mathematics', 'Physics'], website: 'https://www.bordeaux-inp.fr/en' }
       ],
       localInsights: [
         {
@@ -463,11 +463,11 @@ export const SchoolInsightsPage = ({ onBack }: SchoolInsightsPageProps) => {
       description: 'Côte d’Azur region with business and engineering strengths',
       emoji: '🇫🇷',
       schools: [
-        { id: 'uca', name: 'Université Côte d\'Azur', description: 'Alliance of local institutions under one label', location: 'Nice', programs: ['Various'] },
-        { id: 'skema-nice', name: 'SKEMA Business School (Sophia)', description: 'Global business school with AI focus', location: 'Sophia Antipolis', programs: ['Business', 'AI'] },
-        { id: 'polytech-nice', name: 'Polytech Nice Sophia', description: 'Engineering school within UCA', location: 'Nice', programs: ['Engineering'] },
-        { id: 'edhec-nice', name: 'EDHEC Business School (Nice)', description: 'Specializes in Finance MSc and Global MBA', location: 'Nice', programs: ['Finance', 'MBA'] },
-        { id: 'mines-sophia', name: 'Mines Paris – Sophia', description: 'AI and systems engineering research campus', location: 'Sophia Antipolis', programs: ['Engineering', 'AI'] }
+        { id: 'uca', name: 'Université Côte d\'Azur', description: 'Alliance of local institutions under one label', location: 'Nice', programs: ['Information Technology', 'Health Sciences', 'Business and Law', 'Humanities'], website: 'https://univ-cotedazur.eu/' },
+        { id: 'skema-nice', name: 'SKEMA Business School (Sophia)', description: 'Global business school with AI focus', location: 'Sophia Antipolis', programs: ['AI Business', 'International Marketing', 'Finance', 'Global BBA'], website: 'https://www.skema.edu/campus/sophia-antipolis-campus' },
+        { id: 'polytech-nice', name: 'Polytech Nice Sophia', description: 'Engineering school within UCA', location: 'Nice', programs: ['Computer Science', 'Biological Engineering', 'Civil Engineering', 'Telecommunications'], website: 'https://polytech.univ-cotedazur.fr/' },
+        { id: 'edhec-nice', name: 'EDHEC Business School (Nice)', description: 'Specializes in Finance MSc and Global MBA', location: 'Nice', programs: ['Finance', 'International Business', 'Global MBA'], website: 'https://www.edhec.edu/en/nice-campus' },
+        { id: 'mines-sophia', name: 'Mines Paris – Sophia', description: 'AI and systems engineering research campus', location: 'Sophia Antipolis', programs: ['AI Systems', 'Software Engineering', 'Robotics'], website: 'https://www.minesparis.psl.eu/accueil/mines-paris-sophia-antipolis' }
       ],
       localInsights: [
         {
@@ -507,10 +507,10 @@ export const SchoolInsightsPage = ({ onBack }: SchoolInsightsPageProps) => {
       description: 'Mediterranean port city with large academic presence',
       emoji: '🇫🇷',
       schools: [
-        { id: 'amu', name: 'Aix-Marseille Université', description: 'One of France’s largest public universities', location: 'Marseille', programs: ['Various'] },
-        { id: 'kedge-marseille', name: 'KEDGE Business School (Marseille)', description: 'Major business school', location: 'Marseille', programs: ['Business'] },
-        { id: 'centrale-marseille', name: 'École Centrale de Marseille', description: 'Part of the Centrale engineering group', location: 'Marseille', programs: ['Engineering'] },
-        { id: 'polytech-marseille', name: 'Polytech Marseille', description: 'Engineering programs under AMU', location: 'Marseille', programs: ['Engineering'] }
+        { id: 'amu', name: 'Aix-Marseille Université', description: 'One of France’s largest public universities', location: 'Marseille', programs: ['Law', 'Health Science', 'Engineering', 'Economics', 'Literature'], website: 'https://www.univ-amu.fr/en' },
+        { id: 'kedge-marseille', name: 'KEDGE Business School (Marseille)', description: 'Major business school', location: 'Marseille', programs: ['Grande École (PGE)', 'MBA', 'MSc Wine & Spirits Management'], website: 'https://kedge.edu/' },
+        { id: 'centrale-marseille', name: 'École Centrale de Marseille', description: 'Part of the Centrale engineering group', location: 'Marseille', programs: ['General Engineering', 'Applied Mathematics', 'Physics', 'Mechanical Engineering'], website: 'https://www.centrale-marseille.fr/' },
+        { id: 'polytech-marseille', name: 'Polytech Marseille', description: 'Engineering programs under AMU', location: 'Marseille', programs: ['Civil Engineering', 'Biological Engineering', 'Mechanical Engineering'], website: 'https://polytech.univ-amu.fr/' }
       ],
       localInsights: [
         {
