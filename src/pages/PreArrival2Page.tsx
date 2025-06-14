@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, CheckCircle, ShoppingBag, Utensils, BookOpen, Filter, ChefHat, Cloud, Users } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { PageTitle } from '@/components/ui/page-title';
 
 interface PreArrival2PageProps {
   onBack: () => void;
@@ -428,10 +429,10 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
         </Button>
         
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <PageTitle>
             🎒 Pre-Arrival Checklist (Part 2)
-          </h1>
-          <p className="text-lg text-gray-600">
+          </PageTitle>
+          <p className="text-base text-gray-600 font-calibri">
             Food, clothes, and cultural preparation
           </p>
           {isCompleted && (

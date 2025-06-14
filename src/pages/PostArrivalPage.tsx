@@ -83,7 +83,7 @@ export const PostArrivalPage = ({ onBack, onComplete, isCompleted }: PostArrival
           <PageTitle>
             🏠 Post-Arrival Checklist
           </PageTitle>
-          <p className="text-base text-gray-500 font-calibri">
+          <p className="text-base text-gray-600 font-calibri">
             Bank account, SSN, insurance, CAF, and more
           </p>
           {isCompleted && (

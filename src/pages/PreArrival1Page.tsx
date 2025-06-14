@@ -179,7 +179,7 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
           <PageTitle>
             ✈️ Pre-Arrival Checklist (Part 1)
           </PageTitle>
-          <p className="text-base text-gray-500 font-calibri">
+          <p className="text-base text-gray-600 font-calibri">
             Campus France, VFS, and essential preparations
           </p>
           {isCompleted && (
