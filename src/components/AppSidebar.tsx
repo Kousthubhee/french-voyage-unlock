@@ -44,8 +44,11 @@ export const AppSidebar = ({
   // Subtle color classes for inactive icons (pale accents)
   const iconInactiveBgClass = "bg-blue-50"; // very light blue background
   const iconInactiveTextClass = "text-blue-400"; // soft, not gray
-  const iconActiveBgClass = "bg-blue-200";
-  const iconActiveTextClass = "text-blue-700";
+
+  // Set active to cyan for clearer feedback
+  const iconActiveBgClass = "bg-cyan-100";       // cyan background
+  const iconActiveTextClass = "text-cyan-600";   // deep cyan
+
   const menuItems = [
     { id: 'checklist', icon: CheckSquare, label: 'Checklist', tooltip: 'Your onboarding checklist' },
     { id: 'documents', icon: FileText, label: 'Documents & Renewals', tooltip: 'Manage paperwork and renewal timelines' },
