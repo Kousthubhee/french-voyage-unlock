@@ -38,7 +38,8 @@ export const AppSidebar = ({
   userName,
   userAvatarUrl,
 }: AppSidebarProps) => {
-  const name = userName ?? "Explorer";
+  // Change: treat blank or missing name as Stranger
+  const cleanedName = typeof userName === "string" && userName.trim() !== "" ? userName : null;
   const avatarUrl = userAvatarUrl ?? "";
 
   const menuItems = [
@@ -57,13 +58,14 @@ export const AppSidebar = ({
     <Sidebar>
       <SidebarHeader>
         <div className="p-4 pb-2 border-b border-blue-100">
-          <div 
-            className="text-xl font-bold cursor-pointer hover:scale-105 transition-transform"
+          <div
+            className="text-xl cursor-pointer hover:scale-105 transition-transform font-normal"
+            style={{ fontWeight: 400 }}
             onClick={() => setCurrentPage('checklist')}
           >
             pas<span className="text-cyan-600">S</span>2<span className="text-blue-600">K</span>ampus
           </div>
-          <div className="text-xs text-gray-600 mt-1">
+          <div className="text-xs text-gray-600 mt-1 font-normal">
             Your guide to French education
           </div>
         </div>
@@ -76,19 +78,22 @@ export const AppSidebar = ({
             />
           ) : (
             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-semibold text-xl border">
-              {name ? name[0].toUpperCase() : 'U'}
+              {cleanedName ? cleanedName[0].toUpperCase() : 'S'}
             </div>
           )}
           <div className="ml-4">
-            <div className="font-semibold text-gray-900 leading-6 text-base">Hello, {name}!</div>
-            <div className="text-xs text-gray-500">Welcome!</div>
+            {/* Greeting logic */}
+            <div className="leading-6 text-base font-normal text-gray-900">
+              Hello, {cleanedName ? cleanedName + "!" : "Stranger!"}
+            </div>
+            <div className="text-xs text-gray-500 font-normal">Welcome!</div>
           </div>
         </div>
       </SidebarHeader>
       
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="font-normal">Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => {
@@ -99,7 +104,9 @@ export const AppSidebar = ({
                     <SidebarMenuButton
                       isActive={isActive}
                       onClick={() => setCurrentPage(item.id)}
-                      className={`w-full group transition-all px-3 py-2 rounded-lg hover:bg-blue-50 hover:shadow-md hover:scale-[1.03] font-medium text-base ${isActive ? 'bg-blue-100 text-blue-700 font-extrabold shadow' : 'text-gray-700'} `}
+                      className={`w-full group transition-all px-3 py-2 rounded-lg hover:bg-blue-50 hover:shadow-md hover:scale-[1.03] text-base font-normal ${
+                        isActive ? 'bg-blue-100 text-blue-700 shadow' : 'text-gray-700'
+                      }`}
                       tooltip={item.tooltip}
                     >
                       <span className={`
@@ -110,7 +117,7 @@ export const AppSidebar = ({
                       `}>
                         <Icon className="h-5 w-5" />
                       </span>
-                      <span className={`transition-all`}>
+                      <span className="font-normal">
                         {item.label}
                       </span>
                     </SidebarMenuButton>
@@ -124,8 +131,8 @@ export const AppSidebar = ({
       
       <SidebarFooter>
         <div className="bg-blue-50 p-3 rounded-lg mt-4">
-          <div className="text-sm font-medium text-blue-900 mb-1">Need Help?</div>
-          <div className="text-xs text-blue-700 mb-2">
+          <div className="text-sm text-blue-900 mb-1 font-normal">Need Help?</div>
+          <div className="text-xs text-blue-700 mb-2 font-normal">
             Reach out to our support team for assistance
           </div>
           <Button 
