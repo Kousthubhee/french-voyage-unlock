@@ -139,8 +139,6 @@ export function MainRouter({
       return <TranslatePage />;
     case 'contact':
       return <ContactPage />;
-    case 'profile':
-      return <ProfilePage />;
     case 'notifications':
       return <NotificationPage />;
     case 'integration':
