@@ -182,8 +182,9 @@ export const FrenchIntegrationPage = () => {
 
       {/* Tab content */}
       {activeTab === 'social' && (
-        <div>
-          {/* Language & Communication, Cultural Etiquette, Festivals/Events */}
+        // Grid for all main cards in the "Social Integration" tab
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Language & Communication */}
           <Card className="mb-6">
             <CardContent className="p-6">
               <div className="flex items-center mb-3">
@@ -379,64 +380,67 @@ export const FrenchIntegrationPage = () => {
       )}
 
       {activeTab === 'food' && (
-        <Card className="mb-8">
-          <CardContent className="p-6">
-            <div className="flex items-center mb-4">
-              <Utensils className="mr-3 h-7 w-7 text-green-600" />
-              <span className="text-xl font-semibold text-green-700">🍽️ Food & Grocery Guidance</span>
-            </div>
-            <Accordion type="multiple">
-              <AccordionItem value="eating-habits">
-                <AccordionTrigger>1. French Eating Habits</AccordionTrigger>
-                <AccordionContent>
-                  <ul className="list-disc pl-6 text-gray-800">
-                    <li>Lunch at 12–2 PM, dinner at 7–9 PM</li>
-                    <li>Cold food (e.g., salads) common</li>
-                    <li>Smaller portions, multiple courses</li>
-                    <li>Coffee after meals, not during</li>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="food-labels">
-                <AccordionTrigger>2. Reading Food Labels and Identifying Dietary Needs</AccordionTrigger>
-                <AccordionContent>
-                  <ul className="list-disc pl-6 text-gray-800">
-                    <li>Look for "végétarien" or "sans viande"</li>
-                    <li>Halal marked as "halal" on packaging</li>
-                    <li>Check ingredients for pork (porc)</li>
-                    <li>Ask staff if unsure: "Est-ce végétarien/halal ?"</li>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="specialty-shopping">
-                <AccordionTrigger>3. Tips for Specialty Grocery Shopping</AccordionTrigger>
-                <AccordionContent>
-                  <ul className="list-disc pl-6 text-gray-800">
-                    <li>Specialty items at Carrefour or Leclerc</li>
-                    <li>Visit local Asian or African markets for diverse spices</li>
-                    <li>Check online stores for international products</li>
-                    <li>Explore ethnic food shops in major cities</li>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="allergy-phrases">
-                <AccordionTrigger>4. Explaining Allergies or Dietary Restrictions in French</AccordionTrigger>
-                <AccordionContent>
-                  <ul className="list-disc pl-6 text-gray-800">
-                    <li>Je suis allergique à... (I am allergic to...)</li>
-                    <li>Je ne mange pas de... (I don’t eat...)</li>
-                    <li>Pouvez-vous éviter...? (Can you avoid...?)</li>
-                    <li>Je suis végétarien/vegan. (I am vegetarian/vegan.)</li>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </CardContent>
-        </Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="mb-8">
+            <CardContent className="p-6">
+              <div className="flex items-center mb-4">
+                <Utensils className="mr-3 h-7 w-7 text-green-600" />
+                <span className="text-xl font-semibold text-green-700">🍽️ Food & Grocery Guidance</span>
+              </div>
+              <Accordion type="multiple">
+                <AccordionItem value="eating-habits">
+                  <AccordionTrigger>1. French Eating Habits</AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="list-disc pl-6 text-gray-800">
+                      <li>Lunch at 12–2 PM, dinner at 7–9 PM</li>
+                      <li>Cold food (e.g., salads) common</li>
+                      <li>Smaller portions, multiple courses</li>
+                      <li>Coffee after meals, not during</li>
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="food-labels">
+                  <AccordionTrigger>2. Reading Food Labels and Identifying Dietary Needs</AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="list-disc pl-6 text-gray-800">
+                      <li>Look for "végétarien" or "sans viande"</li>
+                      <li>Halal marked as "halal" on packaging</li>
+                      <li>Check ingredients for pork (porc)</li>
+                      <li>Ask staff if unsure: "Est-ce végétarien/halal ?"</li>
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="specialty-shopping">
+                  <AccordionTrigger>3. Tips for Specialty Grocery Shopping</AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="list-disc pl-6 text-gray-800">
+                      <li>Specialty items at Carrefour or Leclerc</li>
+                      <li>Visit local Asian or African markets for diverse spices</li>
+                      <li>Check online stores for international products</li>
+                      <li>Explore ethnic food shops in major cities</li>
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="allergy-phrases">
+                  <AccordionTrigger>4. Explaining Allergies or Dietary Restrictions in French</AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="list-disc pl-6 text-gray-800">
+                      <li>Je suis allergique à... (I am allergic to...)</li>
+                      <li>Je ne mange pas de... (I don’t eat...)</li>
+                      <li>Pouvez-vous éviter...? (Can you avoid...?)</li>
+                      <li>Je suis végétarien/vegan. (I am vegetarian/vegan.)</li>
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </CardContent>
+          </Card>
+        </div>
       )}
 
       {activeTab === 'practical' && (
-        <div className="space-y-6">
+        // Grid for all major practical living cards
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center mb-3">
@@ -800,25 +804,27 @@ export const FrenchIntegrationPage = () => {
       )}
 
       {activeTab === 'news' && (
-        <Card className="mb-8">
-          <CardContent className="p-6">
-            <div className="flex items-center mb-4">
-              <Newspaper className="mr-3 h-7 w-7 text-indigo-600" />
-              <span className="text-xl font-semibold text-indigo-900">French News & Media</span>
-            </div>
-            <div className="grid md:grid-cols-2 gap-3">
-              {newsMediaRecommendations.map(s => (
-                <a key={s.name} href={s.url} target="_blank" rel="noopener" className="border rounded px-4 py-3 hover:bg-indigo-50 transition">
-                  <div className="font-semibold mb-1 flex items-center">
-                    <span className="mr-2">{s.type === "YouTube" ? "📺" : s.type === "Podcast" ? "🎧" : s.type === "App" ? "📱" : "📰"}</span>
-                    {s.name}
-                  </div>
-                  <div className="text-gray-700 text-sm">{s.description}</div>
-                </a>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="mb-8">
+            <CardContent className="p-6">
+              <div className="flex items-center mb-4">
+                <Newspaper className="mr-3 h-7 w-7 text-indigo-600" />
+                <span className="text-xl font-semibold text-indigo-900">French News & Media</span>
+              </div>
+              <div className="grid md:grid-cols-2 gap-3">
+                {newsMediaRecommendations.map(s => (
+                  <a key={s.name} href={s.url} target="_blank" rel="noopener" className="border rounded px-4 py-3 hover:bg-indigo-50 transition">
+                    <div className="font-semibold mb-1 flex items-center">
+                      <span className="mr-2">{s.type === "YouTube" ? "📺" : s.type === "Podcast" ? "🎧" : s.type === "App" ? "📱" : "📰"}</span>
+                      {s.name}
+                    </div>
+                    <div className="text-gray-700 text-sm">{s.description}</div>
+                  </a>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       )}
 
       {/* Useful Links Modal */}
