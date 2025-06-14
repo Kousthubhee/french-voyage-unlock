@@ -76,11 +76,11 @@ export const NotificationPage = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center">
-          <Bell className="h-8 w-8 mr-3 text-blue-600" />
+        <h1 className="text-2xl font-medium text-blue-700 mb-4 flex items-center justify-center font-calibri">
+          <Bell className="h-7 w-7 mr-2 text-blue-600" />
           Notifications
         </h1>
-        <p className="text-lg text-gray-600">
+        <p className="text-base text-gray-600 font-calibri">
           Stay updated with your progress and important information
         </p>
       </div>

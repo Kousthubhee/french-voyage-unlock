@@ -14,7 +14,7 @@ export function SuggestionsPage({ onBack }: SuggestionsPageProps) {
         <ArrowLeft className="h-4 w-4 mr-2" />
         Back to Checklist
       </Button>
-      <h1 className="text-3xl font-bold mb-5 text-center text-yellow-700">
+      <h1 className="text-2xl font-medium mb-5 text-center text-yellow-700 font-calibri">
         💡 Suggestions & Upcoming Features
       </h1>
       <div className="space-y-4">

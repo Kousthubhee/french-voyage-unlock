@@ -51,12 +51,12 @@ export const ProfilePage = ({ profile, setProfile }: ProfilePageProps) => {
             className="w-28 h-28 rounded-full object-cover border-2 border-blue-400 mb-6 shadow-md"
             alt="Profile"
           />
-          <h2 className="text-3xl font-bold text-gray-900 mb-1 font-playfair">{profile.name}</h2>
-          <p className="text-gray-600 text-base mb-2">{profile.about}</p>
-          <div className="text-sm text-gray-500 mt-1 mb-1 font-medium">
+          <h2 className="text-2xl font-medium text-gray-900 mb-1 font-calibri">{profile.name}</h2>
+          <p className="text-gray-600 text-base mb-2 font-calibri">{profile.about}</p>
+          <div className="text-sm text-gray-500 mt-1 mb-1 font-medium font-calibri">
             Member since {profile.memberSince}
           </div>
-          <div className="text-sm text-gray-500">{profile.email}</div>
+          <div className="text-sm text-gray-500 font-calibri">{profile.email}</div>
           <div className="flex flex-wrap gap-4 mt-4 w-full justify-center">
             {profile.age && (
               <div className="text-sm bg-blue-50 px-3 py-1 rounded-full text-blue-800 border border-blue-200">Age: {profile.age}</div>
@@ -80,7 +80,7 @@ export const ProfilePage = ({ profile, setProfile }: ProfilePageProps) => {
       </Card>
 
       <div className="mt-9 animate-fade-in">
-        <div className="mb-4 text-2xl font-bold text-gray-900 font-playfair">Achievements</div>
+        <div className="mb-4 text-xl font-bold text-gray-900 font-calibri">Achievements</div>
         <AchievementsSection achievements={achievements} />
       </div>
     </div>
