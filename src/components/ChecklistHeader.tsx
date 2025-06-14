@@ -4,7 +4,7 @@ import React from 'react';
 export const ChecklistHeader = () => {
   return (
     <div className="text-center mb-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">
+      <h1 className="text-3xl font-medium text-blue-700 mb-4">
         🎯 Checklist - Begin Your Journey
       </h1>
       <p className="text-lg text-gray-600 max-w-2xl mx-auto">
