@@ -1,4 +1,3 @@
-
 import { 
   CheckSquare, 
   MessageSquare, 
@@ -131,7 +130,7 @@ export const AppSidebar = ({
                       >
                         <Icon className="h-5 w-5" />
                       </span>
-                      <span className="font-normal">
+                      <span className={isActive ? "font-bold" : "font-normal"}>
                         {item.label}
                       </span>
                     </SidebarMenuButton>
