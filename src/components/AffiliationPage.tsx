@@ -1,8 +1,16 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Building2, ExternalLink, Star, Users } from 'lucide-react';
+import { Building2, ExternalLink, Star, Users, Filter } from 'lucide-react';
 import { PartnerCard } from "./PartnerCard";
 import { BenefitsList } from "./BenefitsList";
+import { useState } from "react";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem
+} from "@/components/ui/select";
 
 export const AffiliationPage = () => {
   const partners = [
@@ -161,19 +169,55 @@ export const AffiliationPage = () => {
     'Priority consultancy support if you use our links'
   ];
 
+  // derive categories dynamically
+  const categories = Array.from(
+    new Set(partners.map((p) => p.type))
+  );
+
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+
+  // Filter logic
+  const filteredPartners =
+    selectedCategory === "All"
+      ? partners
+      : partners.filter((p) => p.type === selectedCategory);
+
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center">
-          <Building2 className="h-8 w-8 mr-3 text-red-600" />
-          Our Partners & Student Offers
-        </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          We connect you with trusted banks, NeoBanks, SIM providers, and institutions to help you settle in France. 
-          By registering or opening an account using our links, you support our student consultancy and get special benefits.
-        </p>
+
+      {/* BANNER for affiliate benefits */}
+      <Card className="mb-8 border-blue-300">
+        <CardContent className="p-4 flex flex-col sm:flex-row items-center gap-4 justify-between bg-gradient-to-r from-blue-100 to-green-100 border-2 border-blue-200 rounded-lg">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl text-green-600"><Building2 /></span>
+            <span className="font-semibold text-blue-900 text-lg">Special Student Perks:</span>
+          </div>
+          <div className="text-sm sm:text-base text-blue-900">
+            Unlock exclusive deals and priority support with our trusted partner network by using affiliate links!
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* FILTER by category */}
+      <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
+        <div className="flex items-center gap-2">
+          <Filter className="text-blue-600 h-5 w-5" />
+          <span className="font-medium text-blue-900">Filter by category:</span>
+        </div>
+        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+          <SelectTrigger className="max-w-xs">
+            <span>{selectedCategory}</span>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="All">All</SelectItem>
+            {categories.map((cat) => (
+              <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
+      {/* Benefits List */}
       <Card className="mb-8 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
         <CardContent className="p-6">
           <h3 className="text-lg font-semibold text-blue-900 mb-4">Partnership Benefits</h3>
@@ -181,12 +225,14 @@ export const AffiliationPage = () => {
         </CardContent>
       </Card>
 
+      {/* Partner Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {partners.map((partner) => (
+        {filteredPartners.map((partner) => (
           <PartnerCard key={partner.id} partner={partner} />
         ))}
       </div>
 
+      {/* Affiliate why use block */}
       <Card className="mt-8 bg-green-50 border-green-200">
         <CardContent className="p-6 text-center">
           <h3 className="text-lg font-semibold text-green-900 mb-4">

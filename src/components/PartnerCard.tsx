@@ -29,7 +29,15 @@ export const PartnerCard = ({ partner }: PartnerCardProps) => {
     >
       <CardContent className="p-6">
         <div className="text-center mb-4">
-          <div className="text-4xl mb-2">{partner.logo}</div>
+          <a
+            href={partner.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={`Visit ${partner.name}`}
+            className="inline-block"
+          >
+            <div className="text-4xl mb-2 transition-transform hover:scale-110">{partner.logo}</div>
+          </a>
           <h3 className="text-lg font-semibold text-gray-900">{partner.name}</h3>
           <span
             className={`text-sm px-2 py-1 rounded
@@ -50,7 +58,7 @@ export const PartnerCard = ({ partner }: PartnerCardProps) => {
           )}
         </div>
 
-        <p className="text-sm text-gray-600 mb-4 text-center">
+        <p className="text-sm text-blue-700 font-medium mb-4 text-center italic">
           {partner.description}
         </p>
 
@@ -99,4 +107,3 @@ export const PartnerCard = ({ partner }: PartnerCardProps) => {
     </Card>
   );
 };
-
