@@ -73,6 +73,41 @@ export const DocumentsPage = () => {
       notes: 'Keep proof of previous permits',
       file: null,
       fileUrl: null,
+    },
+    {
+      id: '3',
+      name: 'Housing Guarantee',
+      type: 'Housing',
+      submissionDate: '2024-02-10',
+      expiryDate: '2025-02-09',
+      status: 'valid',
+      renewalProcess: [
+        'Contact the guarantee service one month before expiry',
+        'Provide updated tenancy agreement',
+        'Submit renewal forms online',
+        'Receive and store new guarantee document'
+      ],
+      notificationEnabled: true,
+      notes: 'Vital for renting apartments; check with landlord for specific requirements.',
+      file: null,
+      fileUrl: null,
+    },
+    {
+      id: '4',
+      name: 'Housing Insurance',
+      type: 'Insurance',
+      submissionDate: '2024-02-12',
+      expiryDate: '2025-02-11',
+      status: 'valid',
+      renewalProcess: [
+        'Renew automatically with insurance provider unless cancelled',
+        'Update payment details if needed',
+        'Download new insurance certificate'
+      ],
+      notificationEnabled: true,
+      notes: 'Keep receipts and certificates for your landlord and personal records.',
+      file: null,
+      fileUrl: null,
     }
   ]);
 
