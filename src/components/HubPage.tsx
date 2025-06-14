@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,16 +10,73 @@ import { BlogsTab } from './hub/BlogsTab';
 import { ReelsTab } from './hub/ReelsTab';
 import { PollsTab } from './hub/PollsTab';
 
+// Type definitions for each post type
+type QAComment = {
+  id: number;
+  author: string;
+  content: string;
+  time?: string;
+  likes: number;
+  replies: QAReply[];
+};
+type QAReply = {
+  id: number;
+  author: string;
+  content: string;
+  time?: string;
+  likes: number;
+};
+export type QAPost = {
+  id: number;
+  type: "post";
+  author: string;
+  avatar: string;
+  time: string;
+  content: string;
+  likes: number;
+  comments: QAComment[];
+  category: string;
+};
+
+export type Reel = {
+  id: number;
+  type: "reel";
+  author: string;
+  avatar: string;
+  time: string;
+  videoUrl: string;
+  caption: string;
+  likes: number;
+  comments: QAComment[];
+  category: string;
+};
+
+export type Poll = {
+  id: number;
+  type: "poll";
+  author: string;
+  avatar: string;
+  time: string;
+  question: string;
+  options: { text: string; votes: number }[];
+  likes: number;
+  comments: QAComment[];
+  category: string;
+};
+
+// Unified Post type
+type Post = QAPost | Reel | Poll;
+
 export const HubPage = () => {
   const [activeTab, setActiveTab] = useState('qa'); // Default to Q&A tab
   const [newPost, setNewPost] = useState('');
-  const [newReel, setNewReel] = useState(null);
+  const [newReel, setNewReel] = useState<string | null>(null);
   const [newReelCaption, setNewReelCaption] = useState('');
   const [blogTitle, setBlogTitle] = useState('');
   const [blogContent, setBlogContent] = useState('');
   const [pollQuestion, setPollQuestion] = useState('');
   const [pollOptions, setPollOptions] = useState(['', '']);
-  const [posts, setPosts] = useState([
+  const [posts, setPosts] = useState<Post[]>([
     {
       id: 1,
       type: 'post',
@@ -74,10 +132,13 @@ export const HubPage = () => {
     { id: 3, title: 'Live Q&A: Visa Tips', date: 'Dec 20, 2024', time: '5:00 PM CET', attendees: 30 }
   ];
 
-  const handleLike = (itemId, type) => {
+  // Update handleLike (type must be "post" | "reel" | "poll")
+  const handleLike = (itemId: number, type: "post" | "reel" | "poll" | "blog") => {
     if (type === 'post' || type === 'reel' || type === 'poll') {
       setPosts(posts.map(item =>
-        item.id === itemId && item.type === type ? { ...item, likes: item.likes + 1 } : item
+        item.id === itemId && item.type === type
+          ? { ...item, likes: item.likes + 1 }
+          : item
       ));
     } else if (type === 'blog') {
       setBlogs(blogs.map(blog =>
@@ -86,11 +147,12 @@ export const HubPage = () => {
     }
   };
 
-  const handleComment = (itemId, type) => {
+  // Update handleComment to have proper comment shape
+  const handleComment = (itemId: number, type: "post" | "reel" | "poll" | "blog") => {
     const commentText = newComment[`${type}-${itemId}`] || '';
     if (!commentText) return;
 
-    const newCommentObj = {
+    const newCommentObj: QAComment = {
       id: Date.now(),
       author: 'You',
       content: commentText,
@@ -100,22 +162,31 @@ export const HubPage = () => {
 
     if (type === 'post' || type === 'reel' || type === 'poll') {
       setPosts(posts.map(item =>
-        item.id === itemId && item.type === type ? { ...item, comments: [...item.comments, newCommentObj] } : item
+        item.id === itemId && item.type === type
+          ? { ...item, comments: [...item.comments, newCommentObj] }
+          : item
       ));
     } else if (type === 'blog') {
       setBlogs(blogs.map(blog =>
-        blog.id === itemId ? { ...blog, comments: [...blog.comments, newCommentObj] } : blog
+        blog.id === itemId
+          ? { ...blog, comments: [...blog.comments, newCommentObj] }
+          : blog
       ));
     }
 
     setNewComment({ ...newComment, [`${type}-${itemId}`]: '' });
   };
 
-  const handleReply = (itemId, commentId, type) => {
+  // Update handleReply for proper types
+  const handleReply = (
+    itemId: number,
+    commentId: number,
+    type: "post" | "reel" | "poll" | "blog"
+  ) => {
     const replyText = newComment[`reply-${type}-${itemId}-${commentId}`] || '';
     if (!replyText) return;
 
-    const newReply = {
+    const newReply: QAReply = {
       id: Date.now(),
       author: 'You',
       content: replyText,
@@ -124,21 +195,29 @@ export const HubPage = () => {
 
     if (type === 'post' || type === 'reel' || type === 'poll') {
       setPosts(posts.map(post =>
-        post.id === itemId && post.type === type ? {
-          ...post,
-          comments: post.comments.map(comment =>
-            comment.id === commentId ? { ...comment, replies: [...comment.replies, newReply] } : comment
-          )
-        } : post
+        post.id === itemId && post.type === type
+          ? {
+            ...post,
+            comments: post.comments.map(comment =>
+              comment.id === commentId
+                ? { ...comment, replies: [...comment.replies, newReply] }
+                : comment
+            )
+          }
+          : post
       ));
     } else if (type === 'blog') {
       setBlogs(blogs.map(blog =>
-        blog.id === itemId ? {
-          ...blog,
-          comments: blog.comments.map(comment =>
-            comment.id === commentId ? { ...comment, replies: [...comment.replies, newReply] } : comment
-          )
-        } : blog
+        blog.id === itemId
+          ? {
+            ...blog,
+            comments: blog.comments.map(comment =>
+              comment.id === commentId
+                ? { ...comment, replies: [...comment.replies, newReply] }
+                : comment
+            )
+          }
+          : blog
       ));
     }
 
@@ -147,7 +226,7 @@ export const HubPage = () => {
 
   const handlePublishPost = () => {
     if (!newPost) return;
-    const newPostObj = {
+    const newPostObj: QAPost = {
       id: Date.now(),
       type: 'post',
       author: 'You',
@@ -163,14 +242,14 @@ export const HubPage = () => {
     setActiveTab('qa');
   };
 
-  const handleReelUpload = (e) => {
-    const file = e.target.files[0];
+  const handleReelUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
     if (file) setNewReel(URL.createObjectURL(file));
   };
 
   const handlePublishReel = () => {
     if (!newReel || !newReelCaption) return;
-    const newReelObj = {
+    const newReelObj: Reel = {
       id: Date.now(),
       type: 'reel',
       author: 'You',
@@ -206,7 +285,7 @@ export const HubPage = () => {
   };
 
   const addPollOption = () => setPollOptions([...pollOptions, '']);
-  const updatePollOption = (index, value) => {
+  const updatePollOption = (index: number, value: string) => {
     const updatedOptions = [...pollOptions];
     updatedOptions[index] = value;
     setPollOptions(updatedOptions);
@@ -214,7 +293,7 @@ export const HubPage = () => {
 
   const handlePublishPoll = () => {
     if (!pollQuestion || pollOptions.some(opt => !opt)) return;
-    const newPoll = {
+    const newPoll: Poll = {
       id: Date.now(),
       type: 'poll',
       author: 'You',
@@ -232,20 +311,23 @@ export const HubPage = () => {
     setActiveTab('polls');
   };
 
-  const handleVotePoll = (pollId, optionIndex) => {
+  const handleVotePoll = (pollId: number, optionIndex: number) => {
     setPosts(posts.map(post =>
-      post.id === pollId && post.type === 'poll' ? {
-        ...post,
-        options: post.options.map((opt, idx) =>
-          idx === optionIndex ? { ...opt, votes: opt.votes + 1 } : opt
-        )
-      } : post
+      post.type === 'poll' && post.id === pollId
+        ? {
+          ...post,
+          options: post.options.map((opt, idx) =>
+            idx === optionIndex ? { ...opt, votes: opt.votes + 1 } : opt
+          )
+        }
+        : post
     ));
   };
 
-  const qaPosts = posts.filter(p => p.type === 'post');
-  const reels = posts.filter(p => p.type === 'reel');
-  const polls = posts.filter(p => p.type === 'poll');
+  // Filter posts by exact type for each tab
+  const qaPosts = posts.filter((p): p is QAPost => p.type === 'post');
+  const reels = posts.filter((p): p is Reel => p.type === 'reel');
+  const polls = posts.filter((p): p is Poll => p.type === 'poll');
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -289,7 +371,7 @@ export const HubPage = () => {
         <div className="lg:col-span-2 space-y-6">
           {activeTab === 'qa' && (
             <QATab
-              qaPosts={posts.filter(p => p.type === 'post')}
+              qaPosts={qaPosts}
               newPost={newPost}
               onNewPostChange={setNewPost}
               onPublishPost={handlePublishPost}
@@ -317,7 +399,7 @@ export const HubPage = () => {
           )}
           {activeTab === 'reels' && (
             <ReelsTab
-              reels={posts.filter(p => p.type === 'reel')}
+              reels={reels}
               newReel={newReel}
               newReelCaption={newReelCaption}
               onReelUpload={handleReelUpload}
@@ -332,7 +414,7 @@ export const HubPage = () => {
           )}
           {activeTab === 'polls' && (
             <PollsTab
-              polls={posts.filter(p => p.type === 'poll')}
+              polls={polls}
               pollQuestion={pollQuestion}
               pollOptions={pollOptions}
               onChangeQuestion={setPollQuestion}
