@@ -362,6 +362,8 @@ export const DocumentsPage = () => {
     setShowAddImportantDialog(true);
   };
 
+  const [showSensitiveInfoAlert, setShowSensitiveInfoAlert] = useState(true);
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-8">
@@ -381,6 +383,27 @@ export const DocumentsPage = () => {
         </TabsList>
 
         <TabsContent value="renewal">
+          {/* Sensitive info warning with close button */}
+          {showSensitiveInfoAlert && (
+            <div className="mb-4">
+              <div className="flex items-center bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded text-yellow-900 text-sm font-medium relative">
+                <AlertTriangle className="h-5 w-5 mr-2 text-yellow-500 flex-shrink-0" />
+                <span>
+                  Do not add anything that contains sensitive information (such as government numbers, personal ID numbers, or confidential details).
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowSensitiveInfoAlert(false)}
+                  aria-label="Close"
+                  className="absolute top-2 right-2 text-yellow-900 hover:text-red-500 transition"
+                >
+                  <span className="sr-only">Close warning</span>
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Suggestions Section (for 'to renew') */}
           <div className="mb-6 flex flex-wrap gap-2 items-center">
             <span className="font-medium text-gray-700 mr-2">Quick Add:</span>
@@ -904,3 +927,5 @@ export const DocumentsPage = () => {
     </div>
   );
 };
+
+export default DocumentsPage;
