@@ -7,6 +7,10 @@ import { MessageSquare, Send, Bot, User, ImageUp, FileUp } from "lucide-react";
 import { faqCategories } from "@/data/faqCategories";
 import { QAMessageItem } from "./QAMessageItem";
 import styles from "./QAPage.module.css";
+import { BotPersonaSelector } from "./qa/BotPersonaSelector";
+import { TrendingQuestions } from "./qa/TrendingQuestions";
+import { QASharedToolbar } from "./qa/QASharedToolbar";
+import { useQAUserPrefs } from "./qa/useQAUserPrefs";
 
 // ✅ Define type for messages allowing optional file/fileName
 interface MessageItem {
@@ -38,6 +42,64 @@ export const QAPage = () => {
 
   // Notice close state
   const [noticeClosed, setNoticeClosed] = useState(false);
+
+  // Preferences for QA page
+  const {
+    nightMode,
+    setNightMode,
+    showBookmarks,
+    setShowBookmarks,
+    persona,
+    setPersona,
+  } = useQAUserPrefs();
+
+  // -- Quick suggestions (static for now) --
+  const commonQuickQs = [
+    "How do I get a French student visa?",
+    "What is CAF and how do I apply?",
+    "Affordable housing tips for students?",
+    "Can I work part-time while studying in France?",
+    "Do I need private health insurance?",
+    "How to open a French bank account?",
+  ];
+
+  // -- Trending questions to show in the sidebar
+  const trendingQuestions = [
+    "Is French language mandatory for all universities?",
+    "Tips on student housing and finding roommates?",
+    "Best way to save on public transport?",
+  ];
+
+  // For message bookmarks
+  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>([]);
+
+  // Show only bookmarked answers if toggled
+  const visibleMessages = showBookmarks
+    ? messages.filter((msg) => bookmarkedIds.includes(msg.id))
+    : messages;
+
+  // For demo, assign tags by bot persona (could be more elaborate)
+  function getMessageTags(msg: MessageItem) {
+    if (msg.type === "bot") {
+      if (persona === "advisor") return ["Official", "Visa"];
+      if (persona === "mentor") return ["Alumni", "Support"];
+      return ["Student"];
+    }
+    return [];
+  }
+
+  // Handle bookmarking
+  function toggleBookmarkMessage(id: number) {
+    setBookmarkedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+  }
+
+  // Handle rating
+  function handleRateMessage(id: number, val: "up" | "down") {
+    // In production, send feedback to backend/analytics
+    // Here: just show a toast or state (not implemented, but could use toast)
+  }
 
   // Simulate bot reply with typing animation
   // Make sure userMsg is a string & type is correct
@@ -100,178 +162,227 @@ export const QAPage = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-4">
-        <h1 className="text-3xl font-bold text-gray-900 mb-3 flex items-center justify-center">
-          <MessageSquare className="h-8 w-8 mr-3 text-blue-600" />
-          Ask Me Anything
-        </h1>
-        <p className="text-lg text-gray-600">
-          Get instant answers to your questions about studying in France
-        </p>
-      </div>
+    <div className={nightMode ? "bg-gray-900 text-gray-100 transition-all" : ""}>
+      {/* NIGHT MODE STYLES for demo only */}
 
-      {!noticeClosed && (
-        <div className="bg-blue-50 border border-blue-200 px-5 py-4 mb-4 rounded relative text-sm text-blue-900 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 animate-fade-in">
-          <span>
-            <strong>AI Bot Notice:</strong> This is a simulated assistant for demo purposes. Your questions stay private and are <u>not</u> sent to any external servers or AI service.
-          </span>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="ml-auto px-2 py-1"
-            onClick={() => setNoticeClosed(true)}
-          >
-            Close
-          </Button>
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-4">
+          <h1 className="text-3xl font-bold text-gray-900 mb-3 flex items-center justify-center">
+            <MessageSquare className="h-8 w-8 mr-3 text-blue-600" />
+            Ask Me Anything
+          </h1>
+          <p className="text-lg text-gray-600">
+            Get instant answers to your questions about studying in France
+          </p>
         </div>
-      )}
 
-      <div className="flex justify-end mb-2">
-        <label className="mr-2 text-sm text-gray-700">Language:</label>
-        <select
-          value={language}
-          onChange={e => setLanguage(e.target.value)}
-          className="border rounded px-2 py-1 text-sm"
-        >
-          <option value="en">English</option>
-          <option value="fr">Français</option>
-        </select>
-      </div>
-
-      <Card className="h-96 mb-6">
-        <CardContent className="p-0 h-full flex flex-col">
-          <div className="flex-1 p-4 overflow-y-auto space-y-4">
-            {messages.map((msg) => (
-              <QAMessageItem
-                key={msg.id}
-                id={msg.id}
-                type={msg.type}
-                message={msg.message}
-                file={msg.file}
-                fileName={msg.fileName}
-              />
-            ))}
-            {isTyping && (
-              <div className="flex items-center gap-2 animate-fade-in">
-                <div className="p-2 rounded-full bg-gray-200 text-gray-600 mr-2">
-                  <Bot className="h-4 w-4" />
-                </div>
-                <div className="p-3 rounded-lg bg-gray-100 text-gray-900 flex items-center gap-2">
-                  <span className={styles["dot-flash"]} />
-                  <span className={styles["dot-flash"]} />
-                  <span className={styles["dot-flash"]} />
-                  <span className="ml-2">typing...</span>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="p-4 border-t border-gray-200">
-            <form
-              className="flex flex-col sm:flex-row items-center gap-2"
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSendMessage();
-              }}
+        {!noticeClosed && (
+          <div className="bg-blue-50 border border-blue-200 px-5 py-4 mb-4 rounded relative text-sm text-blue-900 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 animate-fade-in">
+            <span>
+              <strong>AI Bot Notice:</strong> This is a simulated assistant for demo purposes. Your questions stay private and are <u>not</u> sent to any external servers or AI service.
+            </span>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="ml-auto px-2 py-1"
+              onClick={() => setNoticeClosed(true)}
             >
-              {/* File/Image upload button */}
-              <input
-                type="file"
-                accept="image/*,.pdf,.doc,.docx"
-                ref={inputFileRef}
-                className="hidden"
-                onChange={handleFileChange}
-                aria-label="Attach file"
-              />
-              <Button
-                type="button"
-                variant="outline"
-                className="shrink-0"
-                aria-label="Attach an image or file"
-                onClick={() => inputFileRef.current?.click()}
-              >
-                <ImageUp className="h-5 w-5" />
-                File
-              </Button>
-              <Input
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                placeholder="Type your question here..."
-                className="flex-1"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") e.preventDefault(); // DISABLE enter-to-send
-                }}
-              />
-              <Button
-                type="submit"
-                className="flex-shrink-0"
-                disabled={(!newMessage.trim() && !file) || isTyping}
-              >
-                <Send className="h-4 w-4" />
-                Send
-              </Button>
-            </form>
-            {/* Show file preview if uploaded */}
-            {file && (
-              <div className="mt-2 flex items-center gap-2">
-                {filePreview && file.type.startsWith("image/") ? (
-                  <img src={filePreview} alt={file.name} className="h-16 rounded border" />
-                ) : (
-                  <FileUp className="text-blue-700" />
-                )}
-                <span className="text-xs">{file.name}</span>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  type="button"
-                  onClick={() => {
-                    setFile(null);
-                    setFilePreview(null);
-                    if (inputFileRef.current) inputFileRef.current.value = "";
-                  }}
-                  className="px-1 py-0"
-                >
-                  Remove
-                </Button>
-              </div>
-            )}
+              Close
+            </Button>
           </div>
-        </CardContent>
-      </Card>
+        )}
 
-      <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-3">Common Questions</h3>
-        <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-          <TabsList>
-            {faqCategories.map((cat) => (
-              <TabsTrigger
-                key={cat.label}
-                value={cat.label}
-                className="capitalize"
-              >
-                {cat.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          {faqCategories.map((cat) => (
-            <TabsContent value={cat.label} key={cat.label}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
-                {cat.questions.map((question, index) => (
-                  <Button
-                    key={index}
-                    variant="outline"
-                    className="justify-start h-auto p-3 text-left"
-                    onClick={() => handleQuickQuestion(question)}
+        <div className="flex justify-end mb-2">
+          <label className="mr-2 text-sm text-gray-700">Language:</label>
+          <select
+            value={language}
+            onChange={e => setLanguage(e.target.value)}
+            className="border rounded px-2 py-1 text-sm"
+          >
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-5">
+          <div className="flex-1">
+
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
+              <BotPersonaSelector persona={persona} onChangePersona={setPersona} />
+              <QASharedToolbar
+                nightMode={nightMode}
+                setNightMode={setNightMode}
+                showBookmarks={showBookmarks}
+                onShowBookmarks={() => setShowBookmarks(!showBookmarks)}
+              />
+            </div>
+
+            {/* Quick suggested Qs */}
+            <div className="mb-4 flex flex-wrap gap-2">
+              {commonQuickQs.map((q, idx) => (
+                <button
+                  key={q}
+                  onClick={() => setNewMessage(q)}
+                  className="bg-purple-100 text-purple-700 rounded px-3 py-1 text-xs hover:bg-purple-200"
+                  type="button"
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+
+            {/* Existing Card for chat */}
+            <Card className="h-96 mb-6">
+              <CardContent className="p-0 h-full flex flex-col">
+                <div className="flex-1 p-4 overflow-y-auto space-y-4">
+                  {visibleMessages.map((msg) => (
+                    <QAMessageItem
+                      key={msg.id}
+                      id={msg.id}
+                      type={msg.type}
+                      message={msg.message}
+                      file={msg.file}
+                      fileName={msg.fileName}
+                      isBookmarked={bookmarkedIds.includes(msg.id)}
+                      toggleBookmark={() => toggleBookmarkMessage(msg.id)}
+                      tags={getMessageTags(msg)}
+                      showRating={msg.type === "bot"}
+                      onRate={(val: "up" | "down") => handleRateMessage(msg.id, val)}
+                    />
+                  ))}
+                  {isTyping && (
+                    <div className="flex items-center gap-2 animate-fade-in">
+                      <div className="p-2 rounded-full bg-gray-200 text-gray-600 mr-2">
+                        <Bot className="h-4 w-4" />
+                      </div>
+                      <div className="p-3 rounded-lg bg-gray-100 text-gray-900 flex items-center gap-2">
+                        <span className={styles["dot-flash"]} />
+                        <span className={styles["dot-flash"]} />
+                        <span className={styles["dot-flash"]} />
+                        <span className="ml-2">typing...</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-4 border-t border-gray-200">
+                  <form
+                    className="flex flex-col sm:flex-row items-center gap-2"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }}
                   >
-                    {question}
-                  </Button>
-                ))}
-              </div>
-            </TabsContent>
-          ))}
-        </Tabs>
+                    {/* File/Image upload button */}
+                    <input
+                      type="file"
+                      accept="image/*,.pdf,.doc,.docx"
+                      ref={inputFileRef}
+                      className="hidden"
+                      onChange={handleFileChange}
+                      aria-label="Attach file"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="shrink-0"
+                      aria-label="Attach an image or file"
+                      onClick={() => inputFileRef.current?.click()}
+                    >
+                      <ImageUp className="h-5 w-5" />
+                      File
+                    </Button>
+                    <Input
+                      value={newMessage}
+                      onChange={(e) => setNewMessage(e.target.value)}
+                      placeholder="Type your question here..."
+                      className="flex-1"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") e.preventDefault(); // DISABLE enter-to-send
+                      }}
+                    />
+                    <Button
+                      type="submit"
+                      className="flex-shrink-0"
+                      disabled={(!newMessage.trim() && !file) || isTyping}
+                    >
+                      <Send className="h-4 w-4" />
+                      Send
+                    </Button>
+                  </form>
+                  {/* Show file preview if uploaded */}
+                  {file && (
+                    <div className="mt-2 flex items-center gap-2">
+                      {filePreview && file.type.startsWith("image/") ? (
+                        <img src={filePreview} alt={file.name} className="h-16 rounded border" />
+                      ) : (
+                        <FileUp className="text-blue-700" />
+                      )}
+                      <span className="text-xs">{file.name}</span>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        type="button"
+                        onClick={() => {
+                          setFile(null);
+                          setFilePreview(null);
+                          if (inputFileRef.current) inputFileRef.current.value = "";
+                        }}
+                        className="px-1 py-0"
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Trending questions sidebar */}
+          <div className="hidden md:block min-w-[220px] w-[240px]">
+            <TrendingQuestions
+              questions={trendingQuestions}
+              onSelect={(q) => setNewMessage(q)}
+            />
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-3">Common Questions</h3>
+          <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
+            <TabsList>
+              {faqCategories.map((cat) => (
+                <TabsTrigger
+                  key={cat.label}
+                  value={cat.label}
+                  className="capitalize"
+                >
+                  {cat.label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            {faqCategories.map((cat) => (
+              <TabsContent value={cat.label} key={cat.label}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                  {cat.questions.map((question, index) => (
+                    <Button
+                      key={index}
+                      variant="outline"
+                      className="justify-start h-auto p-3 text-left"
+                      onClick={() => handleQuickQuestion(question)}
+                    >
+                      {question}
+                    </Button>
+                  ))}
+                </div>
+              </TabsContent>
+            ))}
+          </Tabs>
+        </div>
       </div>
     </div>
   );
 };
+export {};
+
