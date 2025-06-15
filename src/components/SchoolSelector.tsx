@@ -40,7 +40,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [selectedSchool, setSelectedSchool] = useState<School | null>(null);
   const [showInsights, setShowInsights] = useState(false);
-  const [subjectFilter, setSubjectFilter] = useState("All");
+  const [subjectFilter, setSubjectFilter] = useState('All');
 
   const cities: Record<string, City> = {
     paris: {
@@ -655,17 +655,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     }
   };
 
-  // 1. Gather all unique subjects from all cities/schools
-  const allSubjectsSet = new Set<string>();
-  Object.values(cities).forEach(city => {
-    city.schools.forEach(school => {
-      if (Array.isArray(school.programs)) {
-        school.programs.forEach(subject => allSubjectsSet.add(subject));
-      }
-    });
-  });
-  const allSubjects = Array.from(allSubjectsSet).sort();
-
   if (selectedSchool) {
     return (
       <div className="max-w-6xl mx-auto">
@@ -763,9 +752,18 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
   if (selectedCity && cities[selectedCity]) {
     const cityData = cities[selectedCity];
 
-    // 2. Filter schools according to selected subject
+    // Get unique subjects based ONLY on schools in this city
+    const citySubjectsSet = new Set<string>();
+    cityData.schools.forEach((school) => {
+      if (Array.isArray(school.programs)) {
+        school.programs.forEach((subj) => citySubjectsSet.add(subj));
+      }
+    });
+    const citySubjects = Array.from(citySubjectsSet).sort();
+
+    // Adjust filtering logic: use the locally scoped citySubjects for the dropdown
     const filteredSchools =
-      subjectFilter === "All"
+      subjectFilter === 'All'
         ? cityData.schools
         : cityData.schools.filter((school) =>
             school.programs.some((prog) => prog === subjectFilter)
@@ -780,21 +778,23 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           <h1 className="text-2xl font-bold text-gray-900">{cityData.name} - Schools & Local Insights</h1>
         </div>
 
-        {/* NEW: Filter by Subject */}
-        <div className="mb-6 flex flex-col md:flex-row items-center gap-4">
-          <label htmlFor="subject-filter" className="font-medium text-gray-700">Filter by Subject:</label>
-          <select
-            id="subject-filter"
-            className="border rounded px-2 py-2 text-sm md:w-64 w-full focus:outline-none"
-            value={subjectFilter}
-            onChange={(e) => setSubjectFilter(e.target.value)}
-          >
-            <option value="All">All Subjects</option>
-            {allSubjects.map(subject => (
-              <option key={subject} value={subject}>{subject}</option>
-            ))}
-          </select>
-        </div>
+        {/* City-specific Subject Filter */}
+        {citySubjects.length > 1 && (
+          <div className="mb-6 flex flex-col md:flex-row items-center gap-4">
+            <label htmlFor="subject-filter" className="font-medium text-gray-700">Filter by Subject:</label>
+            <select
+              id="subject-filter"
+              className="border rounded px-2 py-2 text-sm md:w-64 w-full focus:outline-none"
+              value={subjectFilter}
+              onChange={(e) => setSubjectFilter(e.target.value)}
+            >
+              <option value="All">All Subjects</option>
+              {citySubjects.map(subject => (
+                <option key={subject} value={subject}>{subject}</option>
+              ))}
+            </select>
+          </div>
+        )}
 
         {/* Local Insights Section */}
         <Card className="mb-6 bg-gradient-to-r from-purple-50 to-blue-50">
@@ -892,7 +892,9 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
               </Card>
             ))
           ) : (
-            <div className="col-span-full text-gray-500 text-center">No schools found for this subject in {cityData.name}.</div>
+            <div className="col-span-full text-gray-500 text-center">
+              No schools found for this subject in {cityData.name}.
+            </div>
           )}
         </div>
 
