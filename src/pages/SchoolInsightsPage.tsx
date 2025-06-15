@@ -89,6 +89,36 @@ const schools: School[] = [
       "PhD: Research doctorates via constituent schools"
     ],
     website: "https://psl.eu/",
+    admissionProcess: [
+      "Apply via university or school portal (depending on program).",
+      "Highly selective entry especially for CPES Bachelor.",
+      "English or French language required (program-dependent).",
+      "Deadlines vary by program."
+    ],
+    languageRequirements: [
+      "English for CPES Bachelor.",
+      "French or English for Masters, depending on program.",
+      "Language certificate (TOEFL/IELTS/TCF/DELF) as requested."
+    ],
+    supportAndFeatures: [
+      "Global exchange network (Cambridge, UCL, Berkeley)",
+      "Student housing, cultural activities, research opportunities"
+    ],
+    tuition: "€170–€601 (bachelor/master, mostly public rate). Private programs vary.",
+    ranking: "THE/Shanghai #1 France, top-50 global",
+    applicationDeadlines: [
+      { label: "CPES Bachelor", deadline: "January" },
+      { label: "Masters/PhD", deadline: "Check program; varies Oct–Mar" }
+    ],
+    keyHighlights: [
+      "Top ranked French university; strong research.",
+      "Many English-taught masters.",
+      "Constituent elite schools (ENS, Dauphine, Mines etc)."
+    ],
+    contacts: [
+      { type: "Website", value: "https://psl.eu/" },
+      { type: "Contact", value: "contact@psl.eu" },
+    ],
   },
   {
     id: "neoma-paris",
@@ -105,6 +135,35 @@ const schools: School[] = [
       "Global Executive MBA, Part-Time MSc, Doctoral",
     ],
     website: "https://www.neoma-bs.com/en/",
+    admissionProcess: [
+      "Online application through NEOMA portal.",
+      "CV, personal statement, and interview required.",
+      "Specific requirements depend on program."
+    ],
+    languageRequirements: [
+      "English or French depending on program.",
+      "TOEFL/IELTS for English; TCF/DELF/DALF for French programs."
+    ],
+    supportAndFeatures: [
+      "HUB (international student support).",
+      "Startup incubator.",
+      "Visa support, scholarships."
+    ],
+    tuition: "€12,000–€17,500/year (MiM), varies by program.",
+    ranking: "FT, The Economist: Top European business schools.",
+    applicationDeadlines: [
+      { label: "MiM", deadline: "Rolling (until filled)" },
+      { label: "Other", deadline: "See program page" }
+    ],
+    keyHighlights: [
+      "Triple-accredited business school.",
+      "100+ startups/year from incubator.",
+      "Strong international community."
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.neoma-bs.com/en/" },
+      { type: "International Office", value: "hub@neoma-bs.fr" }
+    ],
   },
   {
     id: "telecom-paris",
@@ -120,6 +179,34 @@ const schools: School[] = [
       "PhD: Doctoral research in engineering fields",
     ],
     website: "https://www.telecom-paris.fr/",
+    admissionProcess: [
+      "Online application or through Campus France.",
+      "Competitive selection (file, interview).",
+      "Engineering track admissions (CPGE, equivalent qualification)."
+    ],
+    languageRequirements: [
+      "French B2 for most programs.",
+      "Some MSc taught in English (proof required, usually IELTS/TOEFL)."
+    ],
+    supportAndFeatures: [
+      "Strong scholarship opportunities (Eiffel, IMT, Erasmus+ etc).",
+      "International student office.",
+      "Dual degree & research mobility."
+    ],
+    tuition: "€2,770–€3,770/year (non-EU), lower for EU.",
+    ranking: "Top French engineering school (various rankings).",
+    applicationDeadlines: [
+      { label: "Most programs", deadline: "January–March" }
+    ],
+    keyHighlights: [
+      "~40% international students.",
+      "Renowned in digital, AI, telecoms.",
+      "Strong industry links."
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.telecom-paris.fr/" },
+      { type: "International Office", value: "internationalrelations@telecom-paris.fr" }
+    ],
   },
   {
     id: "escp",
@@ -135,6 +222,35 @@ const schools: School[] = [
       "MBA in International Management, Executive MBA, PhD"
     ],
     website: "https://escp.eu/",
+    admissionProcess: [
+      "Apply online to ESCP.",
+      "Motivation letter, CV, transcripts, and interview.",
+      "Language test (English or French depending on program)."
+    ],
+    languageRequirements: [
+      "English or French depending on program.",
+      "IELTS/TOEFL or TCF/DELF/DALF."
+    ],
+    supportAndFeatures: [
+      "Careers office, global alumni network.",
+      "Exchange programs.",
+      "International orientation."
+    ],
+    tuition: "€13,000–€22,350/year depending on program.",
+    ranking: "Global top business school (various rankings).",
+    applicationDeadlines: [
+      { label: "Bachelor", deadline: "Mid-January (main)" },
+      { label: "Master", deadline: "Various, check program" }
+    ],
+    keyHighlights: [
+      "6 campuses, multi-country tracks.",
+      "Excellent career outcomes.",
+      "98% placement after BSc."
+    ],
+    contacts: [
+      { type: "Website", value: "https://escp.eu/" },
+      { type: "Admissions", value: "admissions@escp.eu" }
+    ],
   },
   {
     id: "essec",
@@ -151,6 +267,35 @@ const schools: School[] = [
       "PhD in management"
     ],
     website: "https://www.essec.edu/",
+    admissionProcess: [
+      "Online application (BBA, MiM, Master, MBA programs).",
+      "Test scores required (GMAT/GRE/TAGE MAGE for some).",
+      "Motivation letter & interview."
+    ],
+    languageRequirements: [
+      "English for BBA (TOEFL/IELTS), French for some tracks.",
+      "Proof of language for MBA/Master."
+    ],
+    supportAndFeatures: [
+      "Global mobility programs, exchange partnerships.",
+      "Scholarships and housing support.",
+      "Career mentorship."
+    ],
+    tuition: "BBA: €14,000/year; Masters/MBA: €18,000–€24,000/year.",
+    ranking: "FT, QS, Economist: top management school.",
+    applicationDeadlines: [
+      { label: "BBA", deadline: "Mid-January" },
+      { label: "Other", deadline: "Varies (see program page)" }
+    ],
+    keyHighlights: [
+      "Strong international and internship focus.",
+      "Triple accredited business school.",
+      "Global alumni network."
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.essec.edu/" },
+      { type: "Admissions", value: "admissions@essec.edu" }
+    ],
   },
   {
     id: "centrale-lyon",
@@ -165,6 +310,34 @@ const schools: School[] = [
       "PhD & Research tracks in engineering"
     ],
     website: "https://www.ec-lyon.fr/",
+    admissionProcess: [
+      "Admission via CapECL, concours, or direct entry for international students.",
+      "Engineer program: After 2 years CPGE or equivalent.",
+      "Masters: Direct application (after BSc/engineering degree)."
+    ],
+    languageRequirements: [
+      "French B1–B2 for most programs.",
+      "Some masters in English (IELTS/TOEFL for proof)."
+    ],
+    supportAndFeatures: [
+      "20+ sports clubs and facilities.",
+      "Research funding and mobility opportunities.",
+      "Buddy/integration programs."
+    ],
+    tuition: "€601–€2,770/year for EU/EEA; higher for non-EU.",
+    ranking: "Leading French engineering grande école.",
+    applicationDeadlines: [
+      { label: "Engineer/Master", deadline: "Check website, varies" }
+    ],
+    keyHighlights: [
+      "Strong research output.",
+      "Integration and sports activities.",
+      "Dual-degree options."
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.ec-lyon.fr/" },
+      { type: "Admissions", value: "admissions@ec-lyon.fr" }
+    ],
   },
   {
     id: "insa-lyon",
@@ -180,6 +353,34 @@ const schools: School[] = [
       "PhD: via INSA/CTI-accredited doctoral schools"
     ],
     website: "https://www.insa-lyon.fr/",
+    admissionProcess: [
+      "Campus France Etudes en France or direct portal.",
+      "Selection based on academic criteria.",
+      "Interview for some tracks."
+    ],
+    languageRequirements: [
+      "French for most programs (B1/B2).",
+      "IBMMAE/Some MSc in English—TOEFL/IELTS required."
+    ],
+    supportAndFeatures: [
+      "International support office.",
+      "Double degrees, exchange programs.",
+      "Student associations and integration."
+    ],
+    tuition: "€601–€2,770/year (EU/EEA); international programs may be higher.",
+    ranking: "France's #1 public engineering school.",
+    applicationDeadlines: [
+      { label: "All programs", deadline: "Check website; varies (Spring most common)" }
+    ],
+    keyHighlights: [
+      "36 double degrees, wide exchange network.",
+      "30% international students.",
+      "Research and sports facilities."
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.insa-lyon.fr/" },
+      { type: "International Relations", value: "relint@insa-lyon.fr" }
+    ],
   },
   {
     id: "lumiere-lyon2",
@@ -195,6 +396,34 @@ const schools: School[] = [
       "Specialized (DUT, DU, Agrégation prep)"
     ],
     website: "https://www.univ-lumiere.fr/",
+    admissionProcess: [
+      "Bachelor: Parcoursup (French national portal).",
+      "Master/PhD: direct application on university website.",
+      "Research proposal for Doctorat required."
+    ],
+    languageRequirements: [
+      "French B2 (Bachelor); C1 (most Master's or research)."
+    ],
+    supportAndFeatures: [
+      "International student office.",
+      "Orientation weeks at start of semester.",
+      "Research and library resources."
+    ],
+    tuition: "€170–€270/year (EU/EEA), higher for non-EU.",
+    ranking: "Major French university (not globally ranked).",
+    applicationDeadlines: [
+      { label: "Bachelor", deadline: "Parcoursup Jan–Mar" },
+      { label: "Master/PhD", deadline: "Varies (see website)" }
+    ],
+    keyHighlights: [
+      "Strong in law, humanities & social science.",
+      "Large international community.",
+      "Accessible public tuition."
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.univ-lumiere.fr/" },
+      { type: "International", value: "incoming.mobility@univ-lyon2.fr" }
+    ],
   },
   {
     id: "insa-toulouse",
@@ -209,6 +438,33 @@ const schools: School[] = [
       "PhD in engineering and science fields"
     ],
     website: "https://www.insa-toulouse.fr/",
+    admissionProcess: [
+      "Online application (Etudes en France or INSA portal).",
+      "Academic record, motivation, and interview required for most tracks."
+    ],
+    languageRequirements: [
+      "French B1/B2 for most undergraduate programs.",
+      "Some MSc in English—proof of English required."
+    ],
+    supportAndFeatures: [
+      "International support; double degrees.",
+      "Erasmus exchange.",
+      "Campus housing, sports and cultural programs."
+    ],
+    tuition: "€601–€2,770/year (EU/EEA); higher for non-EU masters.",
+    ranking: "Nationally top-ranked engineering grande école.",
+    applicationDeadlines: [
+      { label: "All programs", deadline: "Spring (see website)" }
+    ],
+    keyHighlights: [
+      "23% international students.",
+      "Leading research and industry collaboration.",
+      "Vibrant student life."
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.insa-toulouse.fr/" },
+      { type: "International", value: "international@insa-toulouse.fr" }
+    ],
   },
   {
     id: "paul-sabatier",
@@ -223,6 +479,34 @@ const schools: School[] = [
       "Doctorat: STEM & interdisciplinary research"
     ],
     website: "https://www.univ-toulouse3.fr/",
+    admissionProcess: [
+      "Bachelor: Parcoursup (for French/EU/EEA); Etudes en France or direct university portal for international.",
+      "Master/Doctorat: direct application with research proposal/research CV."
+    ],
+    languageRequirements: [
+      "French B2 (most programs).",
+      "Some Master/PhD tracks in English—proof required."
+    ],
+    supportAndFeatures: [
+      "Scholarships for mobility.",
+      "Double degree/Erasmus partnerships.",
+      "Campus life: sports, societies, housing."
+    ],
+    tuition: "€3,000–€4,000/year (EU); €6,000+/yr for international/English.",
+    ranking: "QS #580 (2025), strong STEM reputation.",
+    applicationDeadlines: [
+      { label: "Bachelor", deadline: "Parcoursup (Jan–Mar)" },
+      { label: "Master/PhD", deadline: "Varies (see program)" }
+    ],
+    keyHighlights: [
+      "68 research labs.",
+      "STEM & interdisciplinary focus.",
+      "Major double degree options."
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.univ-toulouse3.fr/" },
+      { type: "International", value: "international@adm.ups-tlse.fr" }
+    ],
   },
 ];
 
