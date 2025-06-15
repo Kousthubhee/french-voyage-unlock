@@ -1,10 +1,10 @@
-
 import { useState } from "react";
 import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useNotifications } from "@/hooks/useNotifications";
+import { NotificationErrorBoundary } from "./NotificationErrorBoundary";
 
 interface ReminderButtonProps {
   onSet: (date: string) => void;
@@ -35,7 +35,7 @@ export const ReminderButton = ({ onSet, date }: ReminderButtonProps) => {
   };
 
   return (
-    <>
+    <NotificationErrorBoundary>
       <Button variant="outline" size="sm" className="flex items-center gap-1"
         onClick={() => setOpen(true)} aria-label="Set or edit reminder"
       >
@@ -67,6 +67,6 @@ export const ReminderButton = ({ onSet, date }: ReminderButtonProps) => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </>
+    </NotificationErrorBoundary>
   );
 }
