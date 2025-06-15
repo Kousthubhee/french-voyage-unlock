@@ -431,7 +431,7 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
         
         <div className="text-center mb-8">
           <PageTitle>
-            🎒 Pre-Arrival Checklist (Part 2)
+            🎒 Packing Assistant
           </PageTitle>
           <p className="text-base text-gray-600 font-calibri">
             Food, clothes, and cultural preparation
