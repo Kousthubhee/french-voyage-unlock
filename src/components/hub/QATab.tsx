@@ -2,7 +2,7 @@
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
-// Removed Share2 import
+import { Heart, MessageSquare } from 'lucide-react'; // <-- Properly import icons
 import { Input } from '../ui/input';
 import { QAPost, QAComment, QAReply } from './hubTypes';
 
