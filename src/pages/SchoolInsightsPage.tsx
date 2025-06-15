@@ -535,29 +535,28 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [subjectFilter, setSubjectFilter] = useState<string>("All");
 
-  // 1. Get all cities present in schools data
+  // All unique cities from the data
   const cityList = Array.from(new Set(schools.map((s) => s.city)));
 
-  // 2. When a city is selected, only show subjects available in that city
-  let citySchools = selectedCity
+  // Schools for selected city
+  const citySchools = selectedCity
     ? schools.filter((school) => school.city === selectedCity)
     : [];
 
+  // Subjects for selected city
   const availableSubjects = selectedCity
     ? Array.from(
         new Set(citySchools.flatMap((s) => s.subjects || []))
       ).sort()
     : [];
 
-  // 3. Filtered schools based on selected subject (if any)
+  // Schools to display (subject filter applied if needed)
   let displayedSchools = citySchools;
   if (subjectFilter !== "All" && selectedCity) {
     displayedSchools = citySchools.filter((school) =>
       (school.subjects || []).includes(subjectFilter)
     );
   }
-
-  // Remove all references to "level" filters.
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -584,7 +583,7 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
         ))}
       </div>
 
-      {/* Filter by Subject: Only if a city is selected and there is >1 subject */}
+      {/* Filter by Subject: ONLY IF a city is selected AND there is >1 subject */}
       {selectedCity && availableSubjects.length > 1 && (
         <div className="mb-6 flex flex-col md:flex-row items-center gap-4">
           <label htmlFor="subject-filter" className="font-medium text-gray-700">
@@ -606,7 +605,7 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
         </div>
       )}
 
-      {/* Insights Cards */}
+      {/* Insights Cards & Schools grid */}
       {selectedCity ? (
         <div>
           <h2 className="text-xl font-semibold text-gray-900 mb-4">
@@ -642,6 +641,7 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
           </div>
         </div>
       ) : (
+        // Local insights view for when no city selected
         <div className="text-gray-500 text-center">
           Select a city to explore school insights.
         </div>
