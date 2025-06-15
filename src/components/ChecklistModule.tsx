@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { SchoolSelector } from './SchoolSelector';
 import { ModuleContent } from './ModuleContent';
@@ -66,13 +67,19 @@ export const ChecklistModule = ({
         return;
       }
 
-      // Unlock the module by spending keys
-      const newProgress = {
-        ...userProgress,
-        keys: userProgress.keys - module.keysRequired,
-        unlockedModules: [...userProgress.unlockedModules, module.id]
-      };
-      setUserProgress(newProgress);
+      // Use functional state update to always get freshest progress
+      setUserProgress((prevProgress: typeof userProgress) => {
+        // If module already unlocked (could happen with stale state), don't double-deduct
+        if (prevProgress.unlockedModules.includes(module.id)) {
+          return prevProgress;
+        }
+        return {
+          ...prevProgress,
+          keys: prevProgress.keys - module.keysRequired,
+          unlockedModules: [...prevProgress.unlockedModules, module.id]
+        };
+      });
+
       toast({
         title: "New Module Unlocked",
         description: `You've unlocked "${module.title}" by spending ${module.keysRequired} key${module.keysRequired > 1 ? 's' : ''}!`,
@@ -90,14 +97,14 @@ export const ChecklistModule = ({
       'post-arrival': 'post-arrival',
       'integration': 'integration',
       'finance': 'finance-tracking',
-      'suggestions': 'suggestions', // <--- ADDED THIS LINE
+      'suggestions': 'suggestions',
     };
 
     if (pageMapping[module.id]) {
-      setUserProgress({
-        ...userProgress,
+      setUserProgress((prevProgress: typeof userProgress) => ({
+        ...prevProgress,
         currentPage: pageMapping[module.id]
-      });
+      }));
       return;
     }
 
