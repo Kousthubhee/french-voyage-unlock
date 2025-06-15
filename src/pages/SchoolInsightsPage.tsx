@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { CityCard } from "@/components/school-insights/CityCard";
+import { CityInsightsCard } from "@/components/school-insights/CityInsightsCard";
+import { InsightsDialog } from "@/components/school-insights/InsightsDialog";
 
 interface School {
   id: string;
@@ -531,9 +534,80 @@ interface SchoolInsightsPageProps {
   onBack: () => void;
 }
 
+const cityData = [
+  {
+    name: "Paris",
+    emoji: "🗼",
+    description: "The heart of France – rich history, fashion, and art.",
+    localInsights: [
+      {
+        title: "Public Transport",
+        description: "Metro, buses and trams.",
+        tips: [
+          "Get a Navigo card for unlimited public transport.",
+          "Lines 1 & 14 are automated and fast.",
+          "Avoid rush hour if possible.",
+        ],
+      },
+      {
+        title: "Student Life",
+        description: "Vibrant, international, with lots of events.",
+        tips: [
+          "Check out student bars around Latin Quarter.",
+          "Many museums offer free entry for students.",
+        ],
+      },
+    ],
+    transport: "Metro, RER, buses cover the city efficiently.",
+    famousPlaces: "Louvre, Eiffel Tower, Notre-Dame, Montmartre.",
+    sportsFacilities: "University gyms, running tracks along the Seine.",
+    studentLife: "International community, cultural events, night life.",
+    schoolsCount: schools.filter(s => s.city === "Paris").length,
+  },
+  {
+    name: "Lyon",
+    emoji: "🦁",
+    description: "France’s culinary capital and student city.",
+    localInsights: [
+      {
+        title: "Local Cuisine",
+        description: "Try out the famous 'bouchons'.",
+        tips: [
+          "Don’t miss quenelles and praline tarts.",
+          "Explore Croix-Rousse for hidden gems.",
+        ],
+      },
+    ],
+    transport: "Metro, bus, tramways and funicular.",
+    famousPlaces: "Basilica of Notre-Dame de Fourvière, Parc de la Tête d'Or.",
+    sportsFacilities: "University sports centers, Rhône river paths.",
+    studentLife: "Vibrant nightlife, student associations.",
+    schoolsCount: schools.filter(s => s.city === "Lyon").length,
+  },
+  // ... fill in similar cityData objects for other cities as desired ...
+];
+
+// fallback if cityData entry not found
+function getCityDetails(cityName: string) {
+  return (
+    cityData.find(c => c.name === cityName) || {
+      name: cityName,
+      emoji: "",
+      description: "",
+      localInsights: [],
+      transport: "Local buses and trams available.",
+      famousPlaces: "",
+      sportsFacilities: "",
+      studentLife: "",
+      schoolsCount: schools.filter(s => s.city === cityName).length,
+    }
+  );
+}
+
 export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [subjectFilter, setSubjectFilter] = useState<string>("All");
+  const [showCityInsights, setShowCityInsights] = useState(false);
 
   // All unique cities from the data
   const cityList = Array.from(new Set(schools.map((s) => s.city)));
@@ -558,6 +632,8 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
     );
   }
 
+  const cityDetails = selectedCity ? getCityDetails(selectedCity) : null;
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="flex items-center mb-6">
@@ -567,21 +643,51 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
         <h1 className="text-2xl font-bold text-gray-900">School Insights</h1>
       </div>
 
-      {/* City selection */}
-      <div className="mb-6 flex gap-3 flex-wrap">
-        {cityList.map((city) => (
-          <Button
-            key={city}
-            variant={selectedCity === city ? "default" : "outline"}
-            onClick={() => {
-              setSelectedCity(city);
-              setSubjectFilter("All");
-            }}
-          >
-            {city}
-          </Button>
-        ))}
-      </div>
+      {/* Grid Card view for city selection */}
+      {!selectedCity && (
+        <div>
+          <h2 className="text-lg font-semibold mb-3 text-gray-800">Explore by City</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mb-6">
+            {cityList.map((city) => {
+              const cityDef = getCityDetails(city);
+              return (
+                <CityCard
+                  key={city}
+                  name={cityDef.name}
+                  emoji={cityDef.emoji}
+                  description={cityDef.description}
+                  schoolsCount={cityDef.schoolsCount}
+                  onClick={() => setSelectedCity(city)}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* City Insights Card & Dialog */}
+      {selectedCity && (
+        <div className="mb-4">
+          <CityInsightsCard
+            cityName={cityDetails.name}
+            transport={cityDetails.transport}
+            famousPlaces={cityDetails.famousPlaces}
+            sportsFacilities={cityDetails.sportsFacilities}
+            studentLife={cityDetails.studentLife}
+            onShowAll={() => setShowCityInsights(true)}
+          />
+          <InsightsDialog
+            open={showCityInsights}
+            onOpenChange={setShowCityInsights}
+            cityName={cityDetails.name}
+            localInsights={cityDetails.localInsights}
+            transport={cityDetails.transport}
+            famousPlaces={cityDetails.famousPlaces}
+            sportsFacilities={cityDetails.sportsFacilities}
+            studentLife={cityDetails.studentLife}
+          />
+        </div>
+      )}
 
       {/* Filter by Subject: ONLY IF a city is selected AND there is >1 subject */}
       {selectedCity && availableSubjects.length > 1 && (
