@@ -7,6 +7,11 @@ import { CityInsightsCard } from "@/components/school-insights/CityInsightsCard"
 import { InsightsDialog } from "@/components/school-insights/InsightsDialog";
 import { SchoolDetail } from "@/components/school-insights/SchoolDetail";
 
+// FIX: Add missing props interface
+interface SchoolInsightsPageProps {
+  onBack: () => void;
+}
+
 interface School {
   id: string;
   name: string;
