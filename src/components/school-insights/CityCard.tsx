@@ -1,4 +1,3 @@
-
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -12,7 +11,14 @@ interface CityCardProps {
   onClick: () => void;
 }
 
-export function CityCard({ name, emoji, description, schoolsCount, onClick }: CityCardProps) {
+export function CityCard({
+  name,
+  emoji,
+  description,
+  schoolsCount,
+  onClick,
+  localInsights,
+}: CityCardProps & { localInsights?: { title: string; description: string; tips: string[] }[] }) {
   return (
     <Card className="cursor-pointer hover:shadow-lg transition-shadow" onClick={onClick}>
       <CardHeader className="pb-2">
@@ -38,9 +44,12 @@ export function CityCard({ name, emoji, description, schoolsCount, onClick }: Ci
           <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
             {schoolsCount} Schools
           </span>
-          <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
-            Local Tips
-          </span>
+          {/* Show tip badge only if local insights */}
+          {(localInsights && localInsights.length > 0) && (
+            <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
+              Local Tips
+            </span>
+          )}
         </div>
       </CardContent>
     </Card>

@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { CityCard } from "@/components/school-insights/CityCard";
 import { CityInsightsCard } from "@/components/school-insights/CityInsightsCard";
 import { InsightsDialog } from "@/components/school-insights/InsightsDialog";
+import { SchoolDetail } from "@/components/school-insights/SchoolDetail";
 
 interface School {
   id: string;
@@ -751,6 +752,9 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
   const [subjectFilter, setSubjectFilter] = useState<string>("All");
   const [showCityInsights, setShowCityInsights] = useState(false);
 
+  // NEW: Track selected school for detail modal/page
+  const [selectedSchool, setSelectedSchool] = useState<any | null>(null);
+
   // All unique cities from the data
   const cityList = Array.from(new Set(schools.map((s) => s.city)));
 
@@ -776,13 +780,36 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
 
   const cityDetails = selectedCity ? getCityDetails(selectedCity) : null;
 
+  // School details view: show only detail, with a back button to city
+  if (selectedSchool) {
+    return (
+      <SchoolDetail
+        school={selectedSchool}
+        onBack={() => setSelectedSchool(null)}
+      />
+    );
+  }
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="flex items-center mb-6">
-        <Button variant="ghost" onClick={onBack} className="mr-4">
-          <ArrowLeft className="h-4 w-4 mr-2" /> Back to Checklist
-        </Button>
-        <h1 className="text-2xl font-bold text-gray-900">School Insights</h1>
+        {/* Only show Checklist back button when in city selection view */}
+        {!selectedCity ? (
+          <>
+            <Button variant="ghost" onClick={onBack} className="mr-4">
+              <ArrowLeft className="h-4 w-4 mr-2" /> Back to Checklist
+            </Button>
+            <h1 className="text-2xl font-bold text-gray-900">School Insights</h1>
+          </>
+        ) : (
+          <>
+            {/* In city view or school grid, show Back to Cities */}
+            <Button variant="ghost" onClick={() => setSelectedCity(null)} className="mr-4">
+              <ArrowLeft className="h-4 w-4 mr-2" /> Back to Cities
+            </Button>
+            <h1 className="text-2xl font-bold text-gray-900">{selectedCity} – Schools & Info</h1>
+          </>
+        )}
       </div>
 
       {/* Grid Card view for city selection */}
@@ -800,6 +827,7 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
                   description={cityDef.description}
                   schoolsCount={cityDef.schoolsCount}
                   onClick={() => setSelectedCity(city)}
+                  localInsights={cityDef.localInsights}
                 />
               );
             })}
@@ -862,7 +890,11 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedSchools.length > 0 ? (
               displayedSchools.map((school) => (
-                <Card key={school.id}>
+                <Card
+                  key={school.id}
+                  className="cursor-pointer hover:shadow-lg transition-shadow"
+                  onClick={() => setSelectedSchool(school)}
+                >
                   <CardContent className="p-6">
                     <h3 className="text-lg font-semibold text-gray-900">
                       {school.name}
