@@ -1,12 +1,56 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, CheckCircle, ShoppingBag, Utensils, BookOpen, Filter, ChefHat, Cloud, Users } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Filter, ChefHat, Cloud, Users, CircleDot } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PageTitle } from '@/components/PageTitle';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import confetti from 'canvas-confetti';
 import { useToast } from '@/hooks/use-toast';
+import { Progress } from "@/components/ui/progress";
+
+// Unsplash placeholder city images by name
+const cityImages: Record<string, string> = {
+  Paris: "https://images.unsplash.com/photo-1492321936769-b49830bc1d1e?auto=format&fit=crop&w=600&q=80",
+  Lyon: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&fit=crop&w=600&q=80",
+  Marseille: "https://images.unsplash.com/photo-1517022812141-23620dba5c23?auto=format&fit=crop&w=600&q=80",
+  Toulouse: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=600&q=80",
+  Nice: "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=600&q=80",
+  Nantes: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?auto=format&fit=crop&w=600&q=80",
+  Strasbourg: "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=600&q=80",
+  Montpellier: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&fit=crop&w=600&q=80",
+  Rouen: "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=600&q=80",
+  Reims: "https://images.unsplash.com/photo-1492321936769-b49830bc1d1e?auto=format&fit=crop&w=600&q=80",
+  Lille: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=600&q=80",
+  Bordeaux: "https://images.unsplash.com/photo-1517022812141-23620dba5c23?auto=format&fit=crop&w=600&q=80",
+  Grenoble: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?auto=format&fit=crop&w=600&q=80",
+};
+
+const tipsByCity: Record<string, string[]> = {
+  Paris: [
+    "The metro is fast and affordable—get a Navigo card for convenience.",
+    "Bi-weekly markets offer fresh and budget-friendly produce.",
+    "Sunday is quiet; most stores are closed.",
+  ],
+  Lyon: [
+    "Try local 'bouchons' for authentic Lyonnaise food.",
+    "The Fête des Lumières is a must-see winter event.",
+    "Carry a reusable bag for groceries; stores may charge for bags.",
+  ],
+  Marseille: [
+    "Enjoy local seafood at the Vieux Port.",
+    "Sun protection is key! Summers are hot and bright.",
+    "Markets sell great spices for Mediterranean cooking.",
+  ],
+  // ...repeat or add more tips for other cities
+  Default: [
+    "Buy essential toiletries after arrival for lighter baggage.",
+    "A compact umbrella is useful anywhere in France.",
+    "Many student clubs exist—join one to make new friends.",
+    "Get a SIM card at the airport for instant connectivity.",
+    "Always keep passport copies in your suitcase and digitally.",
+  ]
+};
 
 interface PreArrival2PageProps {
   onBack: () => void;
@@ -18,9 +62,10 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>('Paris');
   const [justCompleted, setJustCompleted] = useState(false);
+  const [tipIndex, setTipIndex] = useState(0);
+  const [carouselPaused, setCarouselPaused] = useState(false);
 
   const cities = ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Montpellier', 'Rouen', 'Reims', 'Lille', 'Bordeaux', 'Grenoble'];
-
   const cityData = {
     'Paris': {
       food: {
@@ -454,8 +499,24 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
 
   const { toast } = useToast();
 
+  // Helper - total checklist steps for percent
+  const checklistSteps = 12;
+  const progressPercent = Math.min(100, Math.round((completedSteps.length / checklistSteps) * 100));
+
+  // City-appropriate tips fallback logic
+  const cityTips = tipsByCity[selectedCity] || tipsByCity.Default;
+
+  // Packing Tips Carousel logic (auto-rotate every 6s unless hovered)
+  useEffect(() => {
+    if (carouselPaused) return;
+    const id = setInterval(() => {
+      setTipIndex(ix => (ix + 1) % cityTips.length);
+    }, 6000);
+    return () => clearInterval(id);
+  }, [carouselPaused, cityTips.length]);
+
   // Celebrate with confetti and toast
-  const allStepsCompleted = completedSteps.length >= 12; // Minimum steps to complete
+  const allStepsCompleted = completedSteps.length >= checklistSteps;
 
   // Celebrate when all steps are just now completed
   useEffect(() => {
@@ -481,6 +542,30 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
   // Make cards and checklists easier to scroll on mobile
   return (
     <div className="max-w-4xl mx-auto px-2 sm:px-4">
+      {/* Progress Bar */}
+      <div className="mb-2">
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-medium text-gray-700">Progress</span>
+          <Progress className="flex-1 h-3 rounded bg-gray-100" value={progressPercent} />
+          <span className="text-xs font-semibold tabular-nums text-blue-600 w-10 text-right">{progressPercent}%</span>
+        </div>
+      </div>
+
+      {/* Packing Tips Carousel */}
+      <div
+        className="mb-3 select-none cursor-pointer transition-all"
+        onMouseEnter={() => setCarouselPaused(true)}
+        onMouseLeave={() => setCarouselPaused(false)}
+        tabIndex={0}
+        aria-label="Packing Tip"
+      >
+        <Card className="bg-yellow-50 flex items-center px-3 py-2 border-yellow-200 animate-fade-in">
+          <CircleDot className="h-6 w-6 text-yellow-400 mr-2" />
+          <span className="text-yellow-800 text-[15px] font-medium">{cityTips[tipIndex]}</span>
+        </Card>
+      </div>
+
+      {/* Back/Title/Header with City Image/Icon */}
       <div className="mb-6">
         <Button 
           variant="outline" 
