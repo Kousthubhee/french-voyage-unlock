@@ -35,6 +35,19 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
     );
   };
 
+  // Personalized guidance detection:
+  const personalizedDocs = (profile: any) => {
+    const alerts: string[] = [];
+    if ((profile.age && Number(profile.age) >= 23)) {
+      alerts.push("You are 23 or older, so extra experience and/or gap year documentation may be required.");
+    }
+    if (profile.workExperience && profile.workExperience.trim() && profile.workExperience.trim().toLowerCase() !== 'n/a') {
+      alerts.push("You reported work experience, so supporting documents are required for some steps.");
+    }
+    return alerts;
+  };
+  const personalizationAlerts = personalizedDocs(profile);
+
   // IMPORTANT LOGIC: Based on profile, adjust document lists.
   const checklistItems = [
     {
@@ -182,6 +195,19 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
           <p className="text-base text-gray-600 font-calibri">
             Campus France, VFS, and essential preparations
           </p>
+          {personalizationAlerts.length > 0 && (
+            <div className="mx-auto max-w-xl mt-4 mb-2 bg-blue-50 border border-blue-300 text-blue-900 text-sm rounded-lg p-3">
+              <div className="font-semibold mb-1 flex items-center">
+                <Info className="inline h-4 w-4 mr-2 text-blue-500" />
+                Personalized Guidance
+              </div>
+              <ul className="list-disc ml-5">
+                {personalizationAlerts.map((alert, i) => (
+                  <li key={i}>{alert}</li>
+                ))}
+              </ul>
+            </div>
+          )}
           {isCompleted && (
             <div className="mt-4 bg-green-100 p-3 rounded-lg">
               <div className="flex items-center justify-center">
@@ -198,7 +224,23 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
           const isStepCompleted = completedSteps.includes(item.id);
           const isOpen = openSections.includes(item.id);
           const isVisaStep = item.id === "vfs";
-          
+
+          // Identify if extra documents were shown due to age/experience
+          let extraDocs: string[] = [];
+          if (item.documents.some((d: string) => d.toLowerCase().includes("experience letter"))) {
+            if (
+              (profile.age && Number(profile.age) >= 23) ||
+              (profile.workExperience && profile.workExperience.trim() && profile.workExperience.trim().toLowerCase() !== 'n/a')
+            ) {
+              extraDocs.push("Experience Letter");
+            }
+          }
+          if (item.documents.some((d: string) => d.toLowerCase().includes("gap year justification"))) {
+            if (profile.age && Number(profile.age) >= 23) {
+              extraDocs.push("Gap year justification");
+            }
+          }
+
           return (
             <Card key={index} className={`border-l-4 border-l-blue-500 ${isStepCompleted ? 'ring-2 ring-green-500' : ''}`}>
               <CardHeader className="pb-3">
@@ -214,6 +256,14 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
                     <div className="flex-1">
                       <CardTitle className="text-lg">{item.title}</CardTitle>
                       <p className="text-gray-600 mt-1">{item.description}</p>
+                      {extraDocs.length > 0 && (
+                        <div className="flex flex-wrap items-center gap-2 mt-2">
+                          <span className="inline-flex items-center px-3 py-0.5 bg-yellow-50 border border-yellow-300 rounded-full text-xs text-yellow-800 font-medium">
+                            Personalized: Requires {extraDocs.join(", ")}
+                          </span>
+                          <span className="text-xs text-blue-500">(Based on your profile)</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className={`px-3 py-1 rounded-full text-xs font-medium ${
@@ -234,7 +284,6 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
                     <Calendar className="h-4 w-4 mr-2" />
                     Timeline: {item.timeline}
                   </div>
-
                   <Collapsible 
                     open={isOpen} 
                     onOpenChange={() => toggleSection(item.id)}
@@ -257,11 +306,13 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
                             <li key={docIndex} className="text-sm text-blue-800 flex items-start">
                               <span className="mr-2">•</span>
                               {doc}
+                              {extraDocs.includes(doc.split(" (")[0]) && (
+                                <span className="ml-2 px-2 inline rounded bg-yellow-100 text-yellow-700 text-xs font-medium">Personalized</span>
+                              )}
                             </li>
                           ))}
                         </ul>
                       </div>
-
                       <div className="bg-green-50 p-4 rounded-lg">
                         <h4 className="font-semibold text-green-900 mb-2">🔄 Process:</h4>
                         <ol className="space-y-1">
