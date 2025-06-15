@@ -1,3 +1,4 @@
+
 import { useState, useEffect, createContext, useContext } from "react";
 
 // Notification type definition
@@ -46,7 +47,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) setNotifications(JSON.parse(stored));
   }, []);
-  
+
   // Save any changes
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(notifications));
@@ -100,7 +101,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
                 message:
                   offsetDays === 0
                     ? "You set a reminder for today."
-                    : `Reminder in ${offsetDays} days.`,
+                    : `Reminder in ${offsetDays} day${offsetDays === 1 ? "" : "s"}.`,
                 time: Date.now(),
                 read: false,
                 reminderDate: date,
@@ -137,3 +138,4 @@ export function useNotifications() {
 }
 
 export { getTimeAgo };
+
