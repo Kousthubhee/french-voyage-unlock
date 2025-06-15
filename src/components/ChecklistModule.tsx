@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { SchoolSelector } from './SchoolSelector';
 import { ModuleContent } from './ModuleContent';
@@ -71,23 +70,7 @@ export const ChecklistModule = ({
         if (prevProgress.unlockedModules.includes(module.id)) {
           return prevProgress;
         }
-        return {
-          ...prevProgress,
-          keys: prevProgress.keys - module.keysRequired,
-          unlockedModules: [...prevProgress.unlockedModules, module.id]
-        };
-      });
-
-      toast({
-        title: "New Module Unlocked",
-        description: `You've unlocked "${module.title}" by spending ${module.keysRequired} key${module.keysRequired > 1 ? 's' : ''}!`,
-        variant: "default",
-      });
-
-      // After unlocking, immediately open this module/page!
-      // Delay slightly to ensure state is updated before navigation
-      setTimeout(() => {
-        // mapping for module to page route
+        // By default, also set currentPage so routing happens immediately
         const pageMapping: { [key: string]: string } = {
           'school': 'school-insights',
           'pre-arrival-1': 'pre-arrival-1',
@@ -97,15 +80,21 @@ export const ChecklistModule = ({
           'finance': 'finance-tracking',
           'suggestions': 'suggestions',
         };
-        if (pageMapping[module.id]) {
-          setUserProgress((prevProgress: typeof userProgress) => ({
-            ...prevProgress,
-            currentPage: pageMapping[module.id]
-          }));
-        } else {
-          setSelectedModule(module);
-        }
-      }, 100); // small delay so keys are deducted before navigation
+        return {
+          ...prevProgress,
+          keys: prevProgress.keys - module.keysRequired,
+          unlockedModules: [...prevProgress.unlockedModules, module.id],
+          currentPage: pageMapping[module.id] || prevProgress.currentPage,
+        };
+      });
+
+      toast({
+        title: "New Module Unlocked",
+        description: `You've unlocked "${module.title}" by spending ${module.keysRequired} key${module.keysRequired > 1 ? 's' : ''}!`,
+        variant: "default",
+      });
+
+      // Don't do any "open module" here—let parent re-routing take effect
       return;
     }
 
