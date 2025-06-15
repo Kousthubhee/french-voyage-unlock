@@ -750,6 +750,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
 
   if (selectedCity && cities[selectedCity]) {
     const cityData = cities[selectedCity];
+
     return (
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center mb-6">
@@ -802,47 +803,61 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
         </Card>
 
         {/* Schools Section */}
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Schools in {cityData.name}</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          Schools in {cityData.name}
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cityData.schools.map((school) => (
-            <Card key={school.id} className="cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105" onClick={() => setSelectedSchool(school)}>
-              <CardContent className="p-6 break-words">
-                <div className="text-center mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900">{school.name}</h3>
-                  <p className="text-sm text-gray-600 mt-1 break-words">{school.description}</p>
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-center text-sm">
-                    <MapPin className="h-4 w-4 text-gray-400 mr-2" />
-                    <span>{school.location}</span>
+          {Array.isArray(cityData.schools) && cityData.schools.length > 0 ? (
+            cityData.schools.map((school) => (
+              <Card
+                key={school.id}
+                className="cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105"
+                onClick={() => setSelectedSchool(school)}
+              >
+                <CardContent className="p-6 break-words">
+                  <div className="text-center mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">{school.name}</h3>
+                    <p className="text-sm text-gray-600 mt-1 break-words">{school.description}</p>
                   </div>
-                  {school.ranking && (
+                  <div className="space-y-3">
                     <div className="flex items-center text-sm">
-                      <Building2 className="h-4 w-4 text-gray-400 mr-2" />
-                      <span className="text-green-600 font-medium">{school.ranking}</span>
+                      <MapPin className="h-4 w-4 text-gray-400 mr-2" />
+                      <span>{school.location}</span>
                     </div>
-                  )}
-                  {school.tuition && (
-                    <div className="flex items-center text-sm">
-                      <Users className="h-4 w-4 text-gray-400 mr-2" />
-                      <span>{school.tuition}</span>
-                    </div>
-                  )}
-                </div>
-                <div className="mt-4">
-                  <div className="text-xs text-gray-500 mb-2">Programs Offered:</div>
-                  <div className="flex flex-wrap gap-1">
-                    {school.programs.map((program) => (
-                      <span key={program} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                        {program}
-                      </span>
-                    ))}
+                    {school.ranking && (
+                      <div className="flex items-center text-sm">
+                        <Building2 className="h-4 w-4 text-gray-400 mr-2" />
+                        <span className="text-green-600 font-medium">{school.ranking}</span>
+                      </div>
+                    )}
+                    {school.tuition && (
+                      <div className="flex items-center text-sm">
+                        <Users className="h-4 w-4 text-gray-400 mr-2" />
+                        <span>{school.tuition}</span>
+                      </div>
+                    )}
                   </div>
-                </div>
-                <Button className="w-full mt-4" size="sm">View Details</Button>
-              </CardContent>
-            </Card>
-          ))}
+                  <div className="mt-4">
+                    <div className="text-xs text-gray-500 mb-2">Programs Offered:</div>
+                    <div className="flex flex-wrap gap-1">
+                      {Array.isArray(school.programs) && school.programs.length > 0 ? (
+                        school.programs.map((program) => (
+                          <span key={program} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                            {program}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-xs text-gray-500">No programs listed</span>
+                      )}
+                    </div>
+                  </div>
+                  <Button className="w-full mt-4" size="sm">View Details</Button>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <div className="col-span-full text-gray-500 text-center">No schools found for this city.</div>
+          )}
         </div>
 
         {/* Local Insights Modal */}
