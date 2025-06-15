@@ -200,10 +200,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           title: "Culture & Events",
           description: "Experience Rouen's rich history and events",
           tips: [
-            "Attend Jeanne d’Arc Festival (May 31, 2025) for parades and markets",
+            "Attend Jeanne d'Arc Festival (May 31, 2025) for parades and markets",
             "Explore the medieval old town—Rue du Gros-Horloge has €7-10 crêperies",
             "Le Marignan bar near the cathedral offers €3 drinks on Thursdays",
-            "Visit Cathédrale Notre-Dame and Jeanne d’Arc Tower"
+            "Visit Cathédrale Notre-Dame and Jeanne d'Arc Tower"
           ]
         },
         {
@@ -211,7 +211,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           description: "Find spots for sports and relaxation",
           tips: [
             "Book badminton courts at Gymnase Saint-Exupéry via local clubs",
-            "Jardins de l’Hôtel de Ville for informal cricket with expat groups—rugby is more popular",
+            "Jardins de l'Hôtel de Ville for informal cricket with expat groups—rugby is more popular",
             "Relax at Parc de Grammont with trails",
             "Must-visit: Musée des Beaux-Arts for cultural outings"
           ]
@@ -244,8 +244,8 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           description: "Immerse in the heart of the Champagne region",
           tips: [
             "Visit champagne houses like Pommery for student tours (€10-15)",
-            "Attend Jeanne d’Arc Festival (May 31, 2025) for parades",
-            "Enjoy €10 meals at Place Drouet-d’Erlon brasseries",
+            "Attend Jeanne d'Arc Festival (May 31, 2025) for parades",
+            "Enjoy €10 meals at Place Drouet-d'Erlon brasseries",
             "Must-visit: Cathédrale Notre-Dame de Reims, Palais du Tau"
           ]
         },
@@ -255,7 +255,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           tips: [
             "Book badminton courts at Gymnase Thiolettes via university",
             "Parc de Champagne for informal cricket with expat groups",
-            "Relax at Parc de la Patte d’Oie with green spaces",
+            "Relax at Parc de la Patte d'Oie with green spaces",
             "Watch Stade de Reims matches—student tickets from €10"
           ]
         }
@@ -826,13 +826,18 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {Object.entries(cities).map(([cityKey, city]) => (
-          <Card key={cityKey} className="cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105" onClick={() => setSelectedCity(cityKey)}>
+          <Card
+            key={cityKey}
+            className="cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 bg-slate-50"
+            onClick={() => setSelectedCity(cityKey)}
+          >
             <CardContent className="p-6">
-              <div className="h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg mb-4 flex items-center justify-center">
-                <div className="text-xl font-bold text-white">{city.name}</div>
+              <div className="h-32 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg mb-4 flex items-center justify-center">
+                <span className="text-xl font-bold text-gray-800 text-center w-full">{city.name}</span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{city.name}</h3>
-              <p className="text-sm text-gray-600 mb-4">{city.description}</p>
+              {/* Removed 'FR' and centered city name visually */}
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center w-full">{city.name}</h3>
+              <p className="text-sm text-gray-600 mb-4 text-center">{city.description}</p>
               <div className="flex items-center justify-between">
                 <div className="flex gap-2">
                   <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">{city.schools.length} Schools</span>
