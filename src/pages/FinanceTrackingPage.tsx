@@ -70,6 +70,49 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
   const [newCatName, setNewCatName] = useState("");
   const [newCatBudget, setNewCatBudget] = useState(50);
 
+  // ---- BEGIN MOCK DATA ----
+  const discountCards = [
+    {
+      name: "ISIC Student Card",
+      expiry: "2025-06-01",
+      savings: "€15",
+      status: "Active",
+    },
+    {
+      name: "University Cafeteria Card",
+      expiry: "2024-12-31",
+      savings: "€50",
+      status: "Pending",
+    },
+  ];
+
+  const subscriptions = [
+    {
+      name: "Netflix",
+      amount: 9.99,
+      nextBilling: "2024-07-10",
+    },
+    {
+      name: "Spotify",
+      amount: 4.99,
+      nextBilling: "2024-06-20",
+    },
+  ];
+
+  const cards = [
+    {
+      name: "Visa Classic",
+      type: "Debit",
+      balance: 420,
+    },
+    {
+      name: "Mastercard Student",
+      type: "Credit",
+      balance: -15,
+    },
+  ];
+  // ---- END MOCK DATA ----
+
   return (
     <div className="max-w-6xl mx-auto animate-fade-in">
       <div className="mb-6">
