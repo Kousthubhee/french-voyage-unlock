@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { ArrowLeft, MapPin, Users, BookOpen, Info } from 'lucide-react';
+import { ArrowLeft, MapPin, Users, BookOpen, Info, Map, Star, Compare, Link } from 'lucide-react';
 import {
   Select,
   SelectTrigger,
@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { citiesData, School, City } from '@/data/schoolsData';
+import { CityMap } from "@/components/CityMap";
 
 // Helper to extract level from program name
 function extractCourseLevel(program: string): string {
@@ -24,6 +25,17 @@ function extractCourseLevel(program: string): string {
   if (lower.startsWith('license') || lower.startsWith('licence')) return "Bachelors";
   return "Other";
 }
+
+// --- Add city coordinates & demo facts. Real data can be plugged for each city later ---
+const cityMeta: Record<string, { coords: [number, number], facts: { living: string, students: string, district: string } }> = {
+  "paris":    { coords: [2.3522, 48.8566], facts: { living: "€1200/mo", students: "700k", district: "Latin Quarter" }},
+  "lyon":     { coords: [4.8357, 45.7640], facts: { living: "€900/mo", students: "175k", district: "Vieux Lyon" }},
+  "toulouse": { coords: [1.4442, 43.6047], facts: { living: "€850/mo", students: "120k", district: "Saint-Cyprien" }},
+  "bordeaux": { coords: [-0.5792, 44.8378], facts: { living: "€950/mo", students: "88k", district: "Chartrons" }},
+  "lille":    { coords: [3.0573, 50.6292], facts: { living: "€800/mo", students: "110k", district: "Wazemmes" }},
+  "strasbourg": { coords: [7.7521,48.5734], facts: { living: "€850/mo", students: "80k", district: "Neudorf" }},
+  // ... more as needed
+};
 
 export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
@@ -83,6 +95,18 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
       if (sch) return sch;
     }
     return undefined;
+  };
+
+  // --- School comparison state & logic ---
+  const [compareSchools, setCompareSchools] = useState<string[]>([]);
+  const maxCompare = 3;
+
+  const toggleCompare = (schoolId: string) => {
+    setCompareSchools(prev => 
+      prev.includes(schoolId)
+        ? prev.filter(id => id !== schoolId)
+        : prev.length < maxCompare ? [...prev, schoolId] : prev
+    );
   };
 
   // Detailed School View
@@ -243,6 +267,7 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
   // City-Specific View with Schools and Local Insights (add two-level filter here)
   if (selectedCity && citiesData[selectedCity]) {
     const cityData = citiesData[selectedCity];
+    const meta = cityMeta[selectedCity] || { coords: [2.35, 48.85], facts: { living: "€900/mo", students: "n/a", district: "Central" }};
 
     // All schools in this city filtered by courseLevel and program
     const filteredSchools = filterSchools(cityData.schools);
@@ -260,6 +285,21 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
       courseLevelFilter === 'all'
         ? Object.values(cityProgramsByLevel).flatMap(set => Array.from(set)).sort()
         : Array.from(cityProgramsByLevel[courseLevelFilter] || []).sort();
+
+    // Find school with most unique programs (unique offering highlight)
+    let uniquePrograms: Record<string, number> = {};
+    cityData.schools.forEach(sch => {
+      sch.programs.forEach(prog => {
+        uniquePrograms[prog] = (uniquePrograms[prog] || 0) + 1;
+      });
+    });
+    // Find "most unique" schools (with largest number of rare programs)
+    const schoolUniqueScore = (school: School) =>
+      school.programs.reduce((sum, prog) => sum + (uniquePrograms[prog] === 1 ? 1 : 0), 0);
+    const maxUniq = Math.max(...cityData.schools.map(schoolUniqueScore));
+
+    // For comparison modal:
+    const compareData = cityData.schools.filter(s => compareSchools.includes(s.id));
 
     return (
       <div className="max-w-6xl mx-auto">
@@ -312,7 +352,38 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
           </div>
         </div>
 
-        {/* Local Insights Section */}
+        {/* Local Data, Map, Compare bar */}
+        <div className="flex flex-wrap items-center gap-8 mb-8">
+          <div className="flex items-center gap-6 flex-1 min-w-[220px]">
+            <div>
+              <span className="font-medium text-sm text-primary flex gap-2 items-center"><Users size={14} /> Students</span>
+              <div className="mb-1 text-base">{meta.facts.students}</div>
+            </div>
+            <div>
+              <span className="font-medium text-sm text-green-700 flex gap-2 items-center"><Map size={14} /> Main student area</span>
+              <div className="mb-1 text-base">{meta.facts.district}</div>
+            </div>
+            <div>
+              <span className="font-medium text-sm text-blue-700 flex gap-2 items-center"><BookOpen size={14} /> Living Cost</span>
+              <div className="mb-1 text-base">{meta.facts.living}</div>
+            </div>
+          </div>
+          <div className="w-52 shrink-0 min-w-[180px]">
+            <CityMap longitude={meta.coords[0]} latitude={meta.coords[1]} />
+          </div>
+          <div>
+            <button
+              className={`bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded shadow transition disabled:bg-purple-400`}
+              disabled={compareSchools.length < 2}
+              onClick={() => document.getElementById("compare-modal")?.classList.remove("hidden")}
+            >
+              <Compare className="inline h-4 w-4 mr-2 -mt-1" />
+              Compare ({compareSchools.length})
+            </button>
+          </div>
+        </div>
+
+        {/* Local Insights Section with actionable links */}
         <Card className="mb-6">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
@@ -328,8 +399,37 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {cityData.localInsights.map((insight, index) => (
                 <div key={index} className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-gray-900 mb-2">{insight.title}</h3>
-                  <p className="text-sm text-gray-600">{insight.description}</p>
+                  <h3 className="font-semibold text-gray-900 mb-2 flex gap-2 items-center">
+                    {/* Use icons for specific categories */}
+                    {insight.title.includes("Transport") ? <Map className="inline h-4 w-4 text-blue-500" /> : null}
+                    {insight.title.includes("Culture") || insight.title.includes("Life") ? <Star className="inline h-4 w-4 text-yellow-500" /> : null}
+                    {insight.title.includes("Recreation") ? <Users className="inline h-4 w-4 text-green-600" /> : null}
+                    {insight.title}
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    {insight.description}
+                  </p>
+                  {/* Actionable tips: linkify URLs and app names */}
+                  <ul className="mt-2 space-y-1">
+                    {insight.tips
+                      ?.slice(0, 2)
+                      .map((tip, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm">
+                          <span className="text-blue-400">•</span>
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: tip
+                                .replace(/((https?:\/\/|www\.)\S+)/g, url =>
+                                  `<a href="${url.startsWith("http") ? url : "https://"+url}" target="_blank" class="underline text-blue-600">${url}</a>`
+                                )
+                                .replace(/(\w+ app)/gi, match =>
+                                  `<span class="bg-purple-100 text-purple-800 px-1 rounded">${match}</span>`
+                                )
+                            }}
+                          />
+                        </li>
+                      ))}
+                  </ul>
                 </div>
               ))}
             </div>
@@ -339,54 +439,125 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredSchools.length === 0 ? (
             <div className="col-span-3 text-center py-8 text-gray-500">No schools found for selected filters.</div>
-          ) : filteredSchools.map((school, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow" onClick={() => setSelectedSchool(school)}>
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-lg">{school.name}</CardTitle>
-                    <div className="flex items-center text-gray-600 mt-1">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      {school.location}
+          ) : filteredSchools.map((school, index) => {
+            // Highlight if this school has rare/unique programs
+            const isUnique = schoolUniqueScore(school) === maxUniq && maxUniq > 0;
+
+            return (
+              <Card
+                key={school.id}
+                className={`relative hover:shadow-lg transition-shadow ${compareSchools.includes(school.id) ? "outline outline-purple-600 ring-2" : ""}`}
+                onClick={() => setSelectedSchool(school)}
+              >
+                {/* Unique badge */}
+                {isUnique && (
+                  <div className="absolute top-2 right-2 z-10">
+                    <span className="inline-flex items-center gap-1 bg-yellow-400/90 text-yellow-900 px-2 py-0.5 rounded-full text-xs font-semibold shadow">
+                      <Star className="h-3 w-3" /> Unique!
+                    </span>
+                  </div>
+                )}
+                {/* Compare checkbox */}
+                <input
+                  type="checkbox"
+                  checked={compareSchools.includes(school.id)}
+                  onClick={e => e.stopPropagation()}
+                  onChange={e => {
+                    e.stopPropagation();
+                    toggleCompare(school.id);
+                  }}
+                  className="absolute left-2 top-2 h-5 w-5 accent-purple-600 rounded border border-purple-400 bg-white shadow"
+                  title="Select for comparison"
+                />
+
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <CardTitle className="text-lg flex gap-2 items-center">
+                        {school.name}
+                      </CardTitle>
+                      <div className="flex items-center text-gray-600 mt-1">
+                        <Map className="h-4 w-4 mr-1" />
+                        {school.location}
+                      </div>
+                    </div>
+                    <div>
+                      {school.website && (
+                        <a href={school.website} target="_blank" rel="noopener noreferrer" className="inline-block text-blue-500 hover:text-blue-700" onClick={e => e.stopPropagation()}>
+                          <Link className="inline w-5 h-5" />
+                        </a>
+                      )}
                     </div>
                   </div>
-                  <div>
-                    {school.website && (
-                      <a href={school.website} target="_blank" rel="noopener noreferrer" className="inline-block text-blue-500 hover:text-blue-700" onClick={e => e.stopPropagation()}>
-                        <svg className="inline w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M10 6h8m0 0v8m0-8l-8 8" />
-                        </svg>
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 mb-4">{school.description}</p>
-                <div className="space-y-3">
-                  <div className="flex items-center">
-                    <Users className="h-4 w-4 mr-2 text-blue-600" />
-                    <span className="text-sm">{school.tuition || 'Contact for details'}</span>
-                  </div>
-                  <div>
-                    <div className="flex items-center mb-2">
-                      <BookOpen className="h-4 w-4 mr-2 text-green-600" />
-                      <span className="text-sm font-medium">Programs:</span>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4">{school.description}</p>
+                  <div className="space-y-3">
+                    <div className="flex items-center">
+                      <Users className="h-4 w-4 mr-2 text-blue-600" />
+                      <span className="text-sm">{school.tuition || 'Contact for details'}</span>
                     </div>
-                    <div className="flex flex-wrap gap-1">
-                      {school.programs.map((program, idx) => (
-                        <span key={idx} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                          {program}
-                        </span>
-                      ))}
+                    <div>
+                      <div className="flex items-center mb-2">
+                        <BookOpen className="h-4 w-4 mr-2 text-green-600" />
+                        <span className="text-sm font-medium">Programs:</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {school.programs.map((program, idx) => (
+                          <span key={idx} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                            {program}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <Button className="w-full mt-4">View Details</Button>
-              </CardContent>
-            </Card>
-          ))}
+                  <Button className="w-full mt-4">View Details</Button>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
+
+        {/* --- School Comparison Modal --- */}
+        <div
+          id="compare-modal"
+          className="fixed hidden top-0 left-0 z-50 w-full h-full bg-black/40 backdrop-blur-sm flex items-center justify-center"
+          onClick={e => (e.target as any).id === "compare-modal" && e.currentTarget.classList.add("hidden")}
+        >
+          <div className="bg-white rounded-lg p-6 w-full max-w-2xl shadow-lg relative animate-fade-in">
+            <button className="absolute top-3 right-4 text-gray-500 hover:text-gray-700" onClick={() => document.getElementById("compare-modal")?.classList.add("hidden")}>
+              ×
+            </button>
+            <h3 className="text-xl font-bold mb-4 flex gap-2 items-center"><Compare /> Compare Schools</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full border text-sm">
+                <thead>
+                  <tr>
+                    <th className="bg-gray-100 border px-3 py-2">School</th>
+                    <th className="bg-gray-100 border px-3 py-2">Location</th>
+                    <th className="bg-gray-100 border px-3 py-2">Programs</th>
+                    <th className="bg-gray-100 border px-3 py-2">Tuition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {compareData.map(s => (
+                    <tr key={s.id}>
+                      <td className="border px-3 py-2 font-semibold">{s.name}</td>
+                      <td className="border px-3 py-2">{s.location}</td>
+                      <td className="border px-3 py-2">
+                        {s.programs.map((prog, pi) => (
+                          <span key={pi} className="inline-block bg-blue-100 text-blue-800 px-2 py-0.5 rounded mr-1 mb-1">{prog}</span>
+                        ))}
+                      </td>
+                      <td className="border px-3 py-2">{s.tuition || "?"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
         {/* Local Insights Modal */}
         <Dialog open={showInsights} onOpenChange={setShowInsights}>
           <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
