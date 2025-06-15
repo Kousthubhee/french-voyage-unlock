@@ -899,7 +899,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
         </div>
 
         {/* Local Insights Modal */}
-        <Dialog open={showInsights} onOpenChange={setShowInsights}>
+        <Dialog open={showInsights} onOpenChange={setShowInsights} key={cityData.name}>
           <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Local Insights for {cityData.name}</DialogTitle>
