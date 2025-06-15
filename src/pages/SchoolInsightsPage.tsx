@@ -178,6 +178,54 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
+        title: "Transport",
+        description: "Navigo pass (metro/RER/tram/bus). The new Adidas Arena (Porte de la Chapelle) improved bike and walking access.",
+        tips: [
+          "Use the Navigo pass for all forms of city transport.",
+          "Adidas Arena and surrounding upgrades make biking and walking easier.",
+          "Plan your commute with RATP and city bike maps.",
+          "Check lyoncampus.com for student travel advice."
+        ],
+      },
+      {
+        title: "Sports Venues",
+        description: "PSG at Parc des Princes, Stade Charlety and Jean Bouin, gym facilities managed by CROUS.",
+        tips: [
+          "CROUS gyms offer affordable student memberships.",
+          "Attend PSG games at Parc des Princes for an iconic sports experience.",
+          "Stade Charlety and Jean Bouin host regular student events."
+        ],
+      },
+      {
+        title: "Landmarks",
+        description: "Eiffel Tower, Louvre, Montmartre, Notre-Dame, Luxembourg Gardens.",
+        tips: [
+          "Explore iconic sites—most within easy metro reach.",
+          "Free entry to many museums for under‑26s (EU residents).",
+          "Check tripadvisor.com for more landmark suggestions.",
+          "Take a stroll through Luxembourg Gardens for a local experience."
+        ],
+      },
+      {
+        title: "Festivals & Events",
+        description: "Bastille Day (July 14): parade & fireworks; Fête de la Musique (June 21, free concerts); Festival d’Automne (Sept–Dec); Chinese New Year (Chinatown), Montmartre Scallop Festival, Taste of Paris.",
+        tips: [
+          "Don’t miss Bastille Day fireworks and the military parade.",
+          "Fête de la Musique offers citywide free concerts.",
+          "Look up festival dates on parisinfo.com and bestofniceblog.com.",
+          "Try Taste of Paris for food lovers at the Grand Palais."
+        ],
+      },
+      {
+        title: "Student Tips",
+        description: "Under‑26s get free museum entry; Seine beaches to stay post-Olympics.",
+        tips: [
+          "Bring ID proving age for free or reduced museum entry.",
+          "Visit the city’s pop-up Seine beaches during summer.",
+          "campinglebrevedent.com and rouen.fr have more info for students."
+        ]
+      },
+      {
         title: "Cost of Living",
         description: "Paris is world-famous—but expensive!",
         tips: [
@@ -283,11 +331,54 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
+        title: "Transport",
+        description: "TCL network—metro/tram/bus; Vélo’v bike-share. Student pass 'Campus' ~€31.80/mo under 28 yrs.",
+        tips: [
+          "Apply for the Campus student pass for major savings.",
+          "Vélo’v bikes are everywhere and affordable for students.",
+          "Find more details on erasmusu.com, welcome.univ-lyon2.fr."
+        ]
+      },
+      {
+        title: "Sports Facilities",
+        description: "Stade de Gerland, Patinoire Charlemagne, CROUS gyms, INSA sports complex.",
+        tips: [
+          "CROUS gyms and INSA facilities accept all students.",
+          "Try ice skating at Patinoire Charlemagne.",
+          "rouen.fr often lists local sports events."
+        ]
+      },
+      {
+        title: "Landmarks",
+        description: "Fourvière Basilica, Parc de la Tête d'Or, Old Lyon.",
+        tips: [
+          "Parc de la Tête d'Or is a top picnic and jogging spot.",
+          "Old Lyon is UNESCO listed and perfect for sightseeing."
+        ]
+      },
+      {
+        title: "Festivals & Events",
+        description: "Fête des Lumières (Dec); Nuits de Fourvière (June–July); Street Food Fest (June), Quais du Polar (April), Biennale de la Danse, Beer Festival.",
+        tips: [
+          "Fête des Lumières is Lyon’s most famous winter festival—book early.",
+          "Look out for open-air dance and food festivals in summer.",
+          "Info at ricksteves.com and rouen.fr."
+        ]
+      },
+      {
+        title: "Student Life",
+        description: "Lyon Campus/COS discount cards offer cultural access.",
+        tips: [
+          "Get a COS card for discounts at cinemas, museums, and theaters.",
+          "umkc-sa.terradotta.com and ucly.fr list student benefits."
+        ]
+      },
+      {
         title: "Food & Student Life",
         description: "Lyon is renowned for its cuisine and vibrant student activity.",
         tips: [
           "Try a local 'bouchon' for authentic Lyonnaise food.",
-          "Student discounts galore: public bikes, opera, and cinema.",
+          "Student discounts galore: public bikes, opera, and cinema."
         ],
       },
     ],
@@ -377,11 +468,52 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
+        title: "Transport",
+        description: "Tisséo metro/tram/bus; monthly student pass ~€28.20–€29.",
+        tips: [
+          "Tisséo student pass covers all city transport modes.",
+          "Apply for the student rate online in advance.",
+          "Find schedule and price info on erasmusu.com."
+        ],
+      },
+      {
+        title: "Sports Facilities",
+        description: "Stade Toulousain (rugby), rowing clubs, tennis, ISAE‑Supaero gym.",
+        tips: [
+          "Stade Toulousain is Europe’s most famous rugby club.",
+          "Many student clubs offer tryouts at the start of each semester."
+        ],
+      },
+      {
+        title: "Landmarks",
+        description: "Capitole, Canal du Midi, Cité de l’Espace.",
+        tips: [
+          "Canal du Midi is great for biking or picnicking.",
+          "Cité de l’Espace offers student rates for science lovers."
+        ],
+      },
+      {
+        title: "Festivals",
+        description: "Rio Loco (June), Flamenco (March), Inox (May), Fórum de l’Image (April), Marathon des Mots (June), Cinespaña (Oct).",
+        tips: [
+          "Check happy.rentals for festival updates.",
+          "Open-air festivals are common in summer."
+        ]
+      },
+      {
+        title: "Student Life",
+        description: "Ranked top student city; vibrant cultural events and open-air summer life.",
+        tips: [
+          "Join student associations for event updates.",
+          "Don’t miss Toulouse Plages in summer."
+        ],
+      },
+      {
         title: "Aerospace City",
         description: "Known for Airbus, Cité de l'Espace & student life.",
         tips: [
           "Save on rent by sharing a 'coloc' (shared flat) near Rangueil.",
-          "Check out the summer Toulouse Plages by the river!",
+          "Check out the summer Toulouse Plages by the river!"
         ],
       },
     ],
@@ -458,11 +590,51 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
+        title: "Transport",
+        description: "MyAstuce pass; buses, 2 tram lines, TEOR, bike-sharing.",
+        tips: [
+          "MyAstuce pass covers almost all transport in Rouen.",
+          "Bike-sharing is affordable for students."
+        ]
+      },
+      {
+        title: "Sports Facilities",
+        description: "Kindarena, cricket and badminton clubs.",
+        tips: [
+          "Sign up early for university sports teams.",
+          "Kindarena is the home of Rouen’s top events."
+        ]
+      },
+      {
+        title: "Landmarks",
+        description: "Notre-Dame Cathedral, Gros‑Horloge, Joan of Arc Museum, Musée des Beaux-Arts.",
+        tips: [
+          "Historic center: discover museums and medieval sites.",
+          "Many landmarks are free or discounted for students."
+        ]
+      },
+      {
+        title: "Festivals & Events",
+        description: "Fêtes Jeanne d’Arc (May 29–31): medieval parades & fire spectacle; Foire Saint‑Romain (Oct–Nov); Literary, comic and music festivals.",
+        tips: [
+          "Fêtes Jeanne d’Arc and Foire Saint‑Romain are major annual events.",
+          "Check medievalesderouen.fr for festival details."
+        ]
+      },
+      {
+        title: "Student Culture",
+        description: "Rouen Pass grants free transit and entry; CROUS meals ~€3.30.",
+        tips: [
+          "Apply for the Rouen Pass for transport and cultural perks.",
+          "CROUS restaurants offer balanced meals on a student budget."
+        ]
+      },
+      {
         title: "Student Budgeting",
         description: "Rouen is affordable for food and housing.",
         tips: [
           "Weekly markets offer fresh produce at great prices.",
-          "Historic center: lots of free and low-cost museums.",
+          "Historic center: lots of free and low-cost museums."
         ],
       },
     ],
@@ -539,11 +711,40 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
+        title: "Transport",
+        description: "Citura trams & buses.",
+        tips: [
+          "Use the Citura app for route maps and student discounts."
+        ]
+      },
+      {
+        title: "Sports Facilities",
+        description: "CREPS center, local cricket & basketball clubs.",
+        tips: [
+          "Join CREPS for multi-sport opportunities."
+        ]
+      },
+      {
+        title: "Landmarks",
+        description: "Reims Cathedral, Palace of Tau, champagne maisons.",
+        tips: [
+          "Reims Cathedral is a must-see; discounts for students."
+        ]
+      },
+      {
+        title: "Festivals & Events",
+        description: "Champagne tasting events (spring/fall); Sciences Po forums; student cultural fairs and concerts.",
+        tips: [
+          "Many Champagne houses offer tours and student rates.",
+          "Student cultural fairs are held each term."
+        ]
+      },
+      {
         title: "Champagne Life",
         description: "City surrounded by world-famous vineyards.",
         tips: [
           "Visit champagne houses—many have student discounts.",
-          "The city is very bike-friendly.",
+          "The city is very bike-friendly."
         ],
       },
     ],
@@ -608,11 +809,51 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
+        title: "Transport",
+        description: "Transpole metro/tram + rapidly expanding bike lanes.",
+        tips: [
+          "Use TER cards for regional student discounts.",
+          "Metro and tram lines run until after midnight on weekends."
+        ]
+      },
+      {
+        title: "Sports Facilities",
+        description: "Padel, futsal, basketball, CROUS gyms.",
+        tips: [
+          "CROUS gym access is part of most university offers.",
+          "Try local padel and futsal leagues to meet people."
+        ],
+      },
+      {
+        title: "Landmarks",
+        description: "Grand Place, Palais des Beaux-Arts, Wazemmes market.",
+        tips: [
+          "Visit the Sunday Wazemmes market for local street food.",
+          "Many landmarks have student rates."
+        ]
+      },
+      {
+        title: "Festivals",
+        description: "Braderie de Lille (Sept), lille3000 'Fiesta' (Apr–Nov), SFAP (June).",
+        tips: [
+          "Braderie de Lille is Europe’s largest flea market.",
+          "lille3000 transforms the city with art and lights."
+        ]
+      },
+      {
+        title: "Student Scene",
+        description: "Youthful nightlife, cross-border culture.",
+        tips: [
+          "Lille is famous for its student bars and cafés.",
+          "Cross the border to Belgium for quick trips."
+        ]
+      },
+      {
         title: "Flea Markets & Nightlife",
         description: "Don’t miss the Braderie de Lille or busy student bars.",
         tips: [
           "‘Vieux Lille’ district full of lively cafés.",
-          "Public transport: TER cards for regional discounts.",
+          "Public transport: TER cards for regional discounts."
         ],
       },
     ],
@@ -667,11 +908,40 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
+        title: "Transport",
+        description: "CTS tram – cross-border into Germany; bike lanes.",
+        tips: [
+          "Get the CTS youth card for travel savings."
+        ],
+      },
+      {
+        title: "Sports Facilities",
+        description: "CROUS gym, rowing, roller/BMX, tennis clubs.",
+        tips: [
+          "Try biking and roller events crossing the Rhine."
+        ],
+      },
+      {
+        title: "Landmarks",
+        description: "Strasbourg Cathedral, Petite France, European Parliament.",
+        tips: [
+          "Visit Petite France for historic walks along the water."
+        ],
+      },
+      {
+        title: "Festivals & Events",
+        description: "EUCOR Tour bike race (June), tennis tournament, Christmas market (Dec); rich museum, opera, cultural scene.",
+        tips: [
+          "Strasbourg’s Christmas market is one of Europe’s biggest.",
+          "Join student associations for event discounts."
+        ],
+      },
+      {
         title: "Cross-Border Life",
         description: "Trams cross the border to Germany! Experience EU culture.",
         tips: [
           "Get the CTS youth card for travel savings.",
-          "Christmas Market is magical every winter.",
+          "Christmas Market is magical every winter."
         ],
       },
     ],
@@ -737,11 +1007,41 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
+        title: "Transport",
+        description: "TBM tram & bus; very walkable.",
+        tips: [
+          "Walking and cycling are the best ways to explore the city.",
+          "Use the TBM app for route planning."
+        ]
+      },
+      {
+        title: "Sports Facilities",
+        description: "Rugby fields, university gyms, tennis, Darwin hall.",
+        tips: [
+          "Darwin hall hosts multi-sport and climbing events.",
+          "Try public rowing along the Garonne river."
+        ]
+      },
+      {
+        title: "Landmarks",
+        description: "Place de la Bourse, Garonne riverside, Darwin eco-hub.",
+        tips: [
+          "Stroll along the Garonne for weekend markets."
+        ]
+      },
+      {
+        title: "Festivals",
+        description: "Darwin events, wine fairs, regular student social nights.",
+        tips: [
+          "Check university social media for the latest parties."
+        ]
+      },
+      {
         title: "Urban Beaches",
         description: "Cycling & picnics along the Garonne River embankments.",
         tips: [
           "Darwin hall has student-friendly coworking and cheap meals.",
-          "Vineyard visits accessible on public tram.",
+          "Vineyard visits accessible on public tram."
         ],
       },
     ],
@@ -783,11 +1083,41 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
+        title: "Transport",
+        description: "Ligne d’Azur tram & buses.",
+        tips: [
+          "Travel early for free/cheap beach chair access before 10am."
+        ]
+      },
+      {
+        title: "Sports Facilities",
+        description: "Beach volleyball, climbing, cycling, water sports.",
+        tips: [
+          "Nice offers student rates at most private gyms.",
+          "Enjoy sea sports—gear rental is often discounted with a student card."
+        ]
+      },
+      {
+        title: "Landmarks",
+        description: "Promenade des Anglais, Castle Hill, Old Town.",
+        tips: [
+          "Promenade des Anglais is lively day and night."
+        ]
+      },
+      {
+        title: "Festivals",
+        description: "Nice Carnival (Feb 12–Mar 2, 2025); LGBTQ+ Queernaval (Feb 15, Feb 28); Nice Jazz Festival (July); Ironman (June); Marathon Alpes–Maritimes, Christmas events.",
+        tips: [
+          "Carnival parades are free for students with ID.",
+          "Find more details at happy.rentals, nicecarnaval.com, explorenicecotedazur.com."
+        ]
+      },
+      {
         title: "Beach & Festivals",
         description: "Study under the sun: from the Old Town to the Promenade des Anglais.",
         tips: [
           "Carnaval de Nice is a must in February.",
-          "Public beach chairs are free for students before 10am.",
+          "Public beach chairs are free for students before 10am."
         ],
       },
     ],
@@ -852,14 +1182,46 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
+        title: "Transport",
+        description: "RTM metro/tram/bus; ferry to Frioul Islands ~€5.",
+        tips: [
+          "Take the ferry to Frioul Islands for a fun weekend trip.",
+          "RTM student discounts for all transport lines available."
+        ]
+      },
+      {
+        title: "Sports Facilities",
+        description: "Sailing, hiking in Calanques, beach workouts, campus gyms.",
+        tips: [
+          "Calanques park is free and perfect for hiking, swimming.",
+          "Student groups offer sea sports throughout the year."
+        ]
+      },
+      {
+        title: "Landmarks",
+        description: "Vieux‑Port, Notre‑Dame de la Garde, Parc Borély, Calanques.",
+        tips: [
+          "Climb to Notre‑Dame de la Garde for panoramic city views.",
+          "Vieux-Port is Marseille’s social hub."
+        ]
+      },
+      {
+        title: "Festivals & Events",
+        description: "Maritime celebrations, multicultural street markets, summer concerts, Marseille‑Cassis race.",
+        tips: [
+          "Street markets sell local food and crafts year-round.",
+          "Look for free concerts in the Old Port in July & August."
+        ]
+      },
+      {
         title: "Multicultural City",
         description: "Enjoy Mediterranean food, local music, and world-class beaches.",
         tips: [
           "Vieux-Port is student nightlife central.",
-          "Take a ferry to Frioul Islands for 5€!",
+          "Take a ferry to Frioul Islands for 5€!"
         ],
       },
-    ],
+    ]
   }
 };
 
