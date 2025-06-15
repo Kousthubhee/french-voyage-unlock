@@ -1,3 +1,4 @@
+
 import { ChecklistModule } from '@/components/ChecklistModule';
 import { QAPage } from '@/components/QAPage';
 import { HubPage } from '@/components/HubPage';
@@ -28,6 +29,16 @@ interface MainRouterProps {
   selectedSchool: any;
   setSelectedSchool: (school: any) => void;
   handleProgressUpdate: (prog: any) => void;
+  profile: {
+    name: string;
+    email: string;
+    about: string;
+    memberSince: string;
+    photo: string;
+    age: string;
+    prevEducation: string;
+    workExperience: string;
+  };
 }
 
 export function MainRouter({
@@ -39,6 +50,7 @@ export function MainRouter({
   selectedSchool,
   setSelectedSchool,
   handleProgressUpdate,
+  profile,
 }: MainRouterProps) {
   if (selectedSchool) {
     return (
@@ -75,6 +87,7 @@ export function MainRouter({
             setCurrentPage('checklist');
           }}
           isCompleted={userProgress.completedModules.includes('pre-arrival-1')}
+          profile={profile}
         />
       );
     case 'pre-arrival-2':
@@ -91,6 +104,7 @@ export function MainRouter({
             setCurrentPage('checklist');
           }}
           isCompleted={userProgress.completedModules.includes('pre-arrival-2')}
+          profile={profile}
         />
       );
     case 'post-arrival':
@@ -163,3 +177,4 @@ export function MainRouter({
       );
   }
 }
+

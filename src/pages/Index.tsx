@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
@@ -89,6 +90,7 @@ const Index = () => {
                   selectedSchool={selectedSchool}
                   setSelectedSchool={setSelectedSchool}
                   handleProgressUpdate={handleProgressUpdate}
+                  profile={profile}
                 />
               )}
             </div>
@@ -139,3 +141,4 @@ const Index = () => {
 };
 
 export default Index;
+
