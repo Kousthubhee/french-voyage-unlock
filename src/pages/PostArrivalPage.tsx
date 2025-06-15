@@ -1,11 +1,10 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, CheckCircle, CreditCard, Home, Shield, FileText, Info } from 'lucide-react';
 import { ReminderButton } from "@/components/ReminderButton";
 import { PageTitle } from "@/components/PageTitle";
-import { PostArrivalTaskAccordion } from '@/components/PostArrivalTaskAccordion';
+import { PostArrivalTaskCards } from '@/components/PostArrivalTaskCards';
 import confetti from "canvas-confetti";
 import { useToast } from "@/hooks/use-toast";
 
@@ -28,9 +27,9 @@ const tasks = [
     id: 'bank-account',
     title: "Open Bank Account",
     description: "Required for rent, CAF, and daily transactions",
-    icon: <CreditCard className="inline h-5 w-5 text-blue-700" />,
+    icon: <span className="inline text-blue-700">📄</span>,
     timeline: "Within first week",
-    priority: "urgent",
+    priority: "urgent" as const,
     steps: [
       { id: "bank-1", description: "Choose a French bank." },
       { id: "bank-2", description: "Book an appointment (optional) or walk in with your documents." },
@@ -65,9 +64,9 @@ const tasks = [
     id: 'social-security',
     title: "Apply for Social Security Number",
     description: "Essential for healthcare and official procedures",
-    icon: <Shield className="inline h-5 w-5 text-green-700" />,
+    icon: <span className="inline text-green-700">🆔</span>,
     timeline: "Within first 2 weeks",
-    priority: "urgent",
+    priority: "urgent" as const,
     steps: [
       { id: "ssn-1", description: "Create Ameli account and register online." },
       { id: "ssn-2", description: "Upload passport, visa, birth certificate (translated), and university attestation." },
@@ -100,9 +99,9 @@ const tasks = [
     id: 'health-insurance',
     title: "Register for Health Insurance",
     description: "Student health insurance (LMDE, SMERRA, or public)",
-    icon: <Shield className="inline h-5 w-5 text-indigo-600" />,
+    icon: <span className="inline text-indigo-600">🛡️</span>,
     timeline: "Within first month",
-    priority: "high",
+    priority: "high" as const,
     steps: [
       { id: "ins-1", description: "Choose mutual/complémentaire health insurance (LMDE, SMERRA, etc.)" },
       { id: "ins-2", description: "Register using your Numéro de Sécurité Sociale from Ameli." },
@@ -134,9 +133,9 @@ const tasks = [
     id: 'caf',
     title: "Apply for CAF (Housing Allowance)",
     description: "Financial assistance for accommodation costs",
-    icon: <Home className="inline h-5 w-5 text-orange-700" />,
+    icon: <span className="inline text-orange-700">🏠</span>,
     timeline: "After securing accommodation",
-    priority: "high",
+    priority: "high" as const,
     steps: [
       { id: "caf-1", description: "Secure a rental contract." },
       { id: "caf-2", description: "Collect your RIB from your French bank." },
@@ -245,7 +244,10 @@ export const PostArrivalPage = ({ onBack, onComplete, isCompleted }: PostArrival
 
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-4">🚨 Urgent Official Processes</h2>
-        <PostArrivalTaskAccordion
+        <div className="bg-blue-50 rounded-xl p-3 mb-4 text-gray-700 text-sm">
+          Complete the official steps below in order for a smooth start. Mark each process complete to track your progress!
+        </div>
+        <PostArrivalTaskCards
           tasks={tasks}
           completedSteps={completedSteps}
           setCompletedSteps={setCompletedSteps}
