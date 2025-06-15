@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { ArrowLeft, MapPin, Users, BookOpen, Info, Map, Star, Compare, Link } from 'lucide-react';
+import { ArrowLeft, MapPin, Users, BookOpen, Info, Map, Star, Scale, Link } from 'lucide-react';
 import {
   Select,
   SelectTrigger,
@@ -377,7 +377,7 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
               disabled={compareSchools.length < 2}
               onClick={() => document.getElementById("compare-modal")?.classList.remove("hidden")}
             >
-              <Compare className="inline h-4 w-4 mr-2 -mt-1" />
+              <Scale className="inline h-4 w-4 mr-2 -mt-1" />
               Compare ({compareSchools.length})
             </button>
           </div>
@@ -528,7 +528,7 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
             <button className="absolute top-3 right-4 text-gray-500 hover:text-gray-700" onClick={() => document.getElementById("compare-modal")?.classList.add("hidden")}>
               ×
             </button>
-            <h3 className="text-xl font-bold mb-4 flex gap-2 items-center"><Compare /> Compare Schools</h3>
+            <h3 className="text-xl font-bold mb-4 flex gap-2 items-center"><Scale /> Compare Schools</h3>
             <div className="overflow-x-auto">
               <table className="w-full border text-sm">
                 <thead>
