@@ -619,28 +619,47 @@ const cityData = [
     description: "The heart of France – rich history, fashion, and art.",
     localInsights: [
       {
-        title: "Public Transport",
-        description: "Metro, buses and trams.",
+        title: "Transport",
+        description:
+          "Robust metro, RER, buses with discounted Navigo Imagine R card for students under 26. Cycling: bike lanes, Vélib’, surpassing car commutes.",
         tips: [
-          "Get a Navigo card for unlimited public transport.",
-          "Lines 1 & 14 are automated and fast.",
-          "Avoid rush hour if possible.",
+          "Get the Navigo Imagine R card for unlimited public transport if you are under 26.",
+          "Metro lines 1 & 14 are automated and fastest during peak times.",
+          "Vélib' bike-sharing is now safer thanks to extra bike lanes.",
+        ],
+      },
+      {
+        title: "Sports",
+        description:
+          "Free city-run football pitches, rugby fields, athletic tracks; university sports complexes (~60-100 activities).",
+        tips: [
+          "University sports complexes offer a wide range of activities.",
+          "City football, rugby and athletics pitches are free for students.",
+          "Summer and festivals like Paris 2024’s legacy sports parks add unique events.",
         ],
       },
       {
         title: "Student Life",
-        description: "Vibrant, international, with lots of events.",
+        description:
+          "Great Erasmus/student community life, coliving options, cultural events—bonjour/merci etiquette matters!",
         tips: [
-          "Check out student bars around Latin Quarter.",
-          "Many museums offer free entry for students.",
+          "Student association bars in the Latin Quarter are popular and budget-friendly.",
+          "Museums: Louvre, musée d’Orsay, etc. offer free or reduced entry for students.",
+          "Learning 'bonjour' and 'merci' goes a long way!",
         ],
+      },
+      {
+        title: "Nearby Landmarks",
+        description:
+          "World-class museums (Louvre, musée d’Orsay), parks, and major events (Stade de France, aquatic centre).",
+        tips: ["Always check for student discounts at major attractions and events."],
       },
     ],
     transport: "Metro, RER, buses cover the city efficiently.",
     famousPlaces: "Louvre, Eiffel Tower, Notre-Dame, Montmartre.",
     sportsFacilities: "University gyms, running tracks along the Seine.",
     studentLife: "International community, cultural events, night life.",
-    schoolsCount: schools.filter(s => s.city === "Paris").length,
+    schoolsCount: schools.filter((s) => s.city === "Paris").length,
   },
   {
     name: "Lyon",
@@ -648,11 +667,35 @@ const cityData = [
     description: "France’s culinary capital and student city.",
     localInsights: [
       {
-        title: "Local Cuisine",
-        description: "Try out the famous 'bouchons'.",
+        title: "Transport",
+        description: "Efficient TCL metro, trams, buses, plus Velo’v bike-sharing.",
         tips: [
-          "Don’t miss quenelles and praline tarts.",
-          "Explore Croix-Rousse for hidden gems.",
+          "Use the TCL app to plan multi-modal journeys.",
+          "Velo’v is the best way to navigate the inner city and cost-effective for students.",
+        ],
+      },
+      {
+        title: "Green & Sporty",
+        description: "Over 200 sports offered; 200 km of trails, parks, riversides for outdoor activities.",
+        tips: [
+          "Jog or cycle along the Rhône/Saône riverfronts for great views.",
+          "Check out student discounts for gyms and sports centers via LyonCampus.com.",
+        ],
+      },
+      {
+        title: "Campus Life",
+        description:
+          "Institutions like INSA & Centrale Lyon offer tailored student support, sports centres, cafeteria, wellness.",
+        tips: [
+          "Join a student association for instant local friends and tips.",
+          "Student wellness coordinators and subsidized cafeterias help new arrivals.",
+        ],
+      },
+      {
+        title: "Nearby/Excursions",
+        description: "Rhône/Saône riverfronts, regional Beaujolais vineyards, Alpine gateway.",
+        tips: [
+          "Plan weekend trips to Beaujolais or take short train rides to the Alps for snow sports.",
         ],
       },
     ],
@@ -660,29 +703,97 @@ const cityData = [
     famousPlaces: "Basilica of Notre-Dame de Fourvière, Parc de la Tête d'Or.",
     sportsFacilities: "University sports centers, Rhône river paths.",
     studentLife: "Vibrant nightlife, student associations.",
-    schoolsCount: schools.filter(s => s.city === "Lyon").length,
+    schoolsCount: schools.filter((s) => s.city === "Lyon").length,
   },
   {
     name: "Cergy",
     emoji: "🌳",
     description: "Modern city in Paris' green belt, lively student hub.",
-    localInsights: [],
+    localInsights: [
+      {
+        title: "Campus",
+        description: "Green campus of CY Tech, served by RER A and buses 25 min from Paris center.",
+        tips: [
+          "RER A runs late into the evening—great for exploring Paris or late-night returns.",
+          "Use buses for cheap access to Port Cergy or leisure island.",
+        ],
+      },
+      {
+        title: "Student Life",
+        description: "University residences, libraries, cafeterias, and 47 student associations.",
+        tips: [
+          "Join clubs at the university center—most offer free trial events.",
+          "CYU’s cafeterias serve affordable, filling meals (RU Cergy).",
+        ],
+      },
+      {
+        title: "Sports Facilities",
+        description: "273 public/open and campus facilities, including sailing, kayaking, ice-hockey (Aren’Ice arena).",
+        tips: [
+          "Try watersports on the lake or join student sailing/kayak clubs for discounted lessons.",
+          "Aren’Ice hosts student nights for ice skating and hockey games.",
+        ],
+      },
+      {
+        title: "Nearby Attractions",
+        description: "Leisure lake, parks, Port Cergy terraces, concerts, and cinemas.",
+        tips: [
+          "Port Cergy is perfect for riverside walks and concerts in spring/summer.",
+          "Check the local cinema for French-language deals and VO (original version) film nights.",
+        ],
+      },
+    ],
     transport: "RER A, bus lines; direct train to Paris.",
     famousPlaces: "Axe Majeur, marina, leisure island.",
     sportsFacilities: "Base de loisirs, rowing, swimming.",
     studentLife: "Student festivals, bars, affordable housing.",
-    schoolsCount: schools.filter(s => s.city === "Cergy").length,
+    schoolsCount: schools.filter((s) => s.city === "Cergy").length,
   },
   {
     name: "Toulouse",
     emoji: "🛩️",
     description: "The pink city—known for aerospace and warm climate.",
-    localInsights: [],
+    localInsights: [
+      {
+        title: "Transport",
+        description: "Affordable city movement with Tisséo network.",
+        tips: [
+          "Tisséo network covers metro, tram, buses (Pastel card ~€10/mo for under‑26).",
+          "VélôToulouse bike-sharing is great, and bike lanes expand to INSA and major campuses.",
+        ],
+      },
+      {
+        title: "Cycling & Connectivity",
+        description: "Easy city cycling options.",
+        tips: [
+          "Bike lanes improve every year—try cycling to campus.",
+          "Combine VélôToulouse rental bikes with tram for flexible commutes!",
+        ],
+      },
+      {
+        title: "Student Life",
+        description: "France’s #1 student city and social scene.",
+        tips: [
+          "Ranked France’s #1 student city for student life.",
+          "Vibrant nightlife, 130k+ students, and affordable housing.",
+          "Try Cartoucherie food halls for budget-friendly eats with friends.",
+        ],
+      },
+      {
+        title: "Sports & Heritage",
+        description: "City is rugby capital, rich history & nature.",
+        tips: [
+          "Rich heritage along Canal du Midi, with Romanesque basilica and beautiful riverside walks.",
+          "Stade Toulousain (rugby) and local football teams offer discounted student tickets.",
+          "Don’t miss matches at Stade Municipal and exploring the city’s riverside parks.",
+        ],
+      },
+    ],
     transport: "Metro, tram, bus.",
     famousPlaces: "Capitole, Canal du Midi, Cité de l'Espace.",
     sportsFacilities: "Stadium de Toulouse, parks along Garonne.",
     studentLife: "Cafés, rugby games, summer festivals.",
-    schoolsCount: schools.filter(s => s.city === "Toulouse").length,
+    schoolsCount: schools.filter((s) => s.city === "Toulouse").length,
   },
   {
     name: "Rouen",
@@ -693,7 +804,7 @@ const cityData = [
     famousPlaces: "Rouen Cathedral, Gros-Horloge.",
     sportsFacilities: "Kindarena, Seine river walks.",
     studentLife: "Student parties, riverside bars.",
-    schoolsCount: schools.filter(s => s.city === "Rouen").length,
+    schoolsCount: schools.filter((s) => s.city === "Rouen").length,
   },
   {
     name: "Reims",
@@ -704,7 +815,7 @@ const cityData = [
     famousPlaces: "Reims Cathedral, Champagne cellars.",
     sportsFacilities: "Stade Auguste Delaune, local gyms.",
     studentLife: "Festivals, cellar tours, city squares.",
-    schoolsCount: schools.filter(s => s.city === "Reims").length,
+    schoolsCount: schools.filter((s) => s.city === "Reims").length,
   },
   {
     name: "Lille",
@@ -715,7 +826,7 @@ const cityData = [
     famousPlaces: "Grand Place, Vieux Lille.",
     sportsFacilities: "Stade Pierre-Mauroy, parks.",
     studentLife: "Nightlife, international students, cheap eats.",
-    schoolsCount: schools.filter(s => s.city === "Lille").length,
+    schoolsCount: schools.filter((s) => s.city === "Lille").length,
   },
   {
     name: "Strasbourg",
@@ -726,7 +837,7 @@ const cityData = [
     famousPlaces: "Petite France, Cathedral, EU Parliament.",
     sportsFacilities: "Stade de la Meinau, Rhenus.",
     studentLife: "Christmas market, cross-border events.",
-    schoolsCount: schools.filter(s => s.city === "Strasbourg").length,
+    schoolsCount: schools.filter((s) => s.city === "Strasbourg").length,
   },
   {
     name: "Bordeaux",
@@ -737,7 +848,7 @@ const cityData = [
     famousPlaces: "Place de la Bourse, Cité du Vin.",
     sportsFacilities: "Matmut Atlantique stadium.",
     studentLife: "River festivals, food markets.",
-    schoolsCount: schools.filter(s => s.city === "Bordeaux").length,
+    schoolsCount: schools.filter((s) => s.city === "Bordeaux").length,
   },
   {
     name: "Nice",
@@ -748,7 +859,7 @@ const cityData = [
     famousPlaces: "Promenade des Anglais, Vieux Nice.",
     sportsFacilities: "Beach sports, Stade Allianz Riviera.",
     studentLife: "Seafood, nightlife, international vibe.",
-    schoolsCount: schools.filter(s => s.city === "Nice").length,
+    schoolsCount: schools.filter((s) => s.city === "Nice").length,
   },
   {
     name: "Sophia Antipolis",
@@ -759,7 +870,7 @@ const cityData = [
     famousPlaces: "Tech business hubs, close to Antibes beaches.",
     sportsFacilities: "Campus sports, cycling trails.",
     studentLife: "Research, green spaces, student cafés.",
-    schoolsCount: schools.filter(s => s.city === "Sophia Antipolis").length,
+    schoolsCount: schools.filter((s) => s.city === "Sophia Antipolis").length,
   },
   {
     name: "Marseille",
@@ -770,7 +881,7 @@ const cityData = [
     famousPlaces: "Vieux-Port, Notre-Dame de la Garde.",
     sportsFacilities: "Vélodrome stadium, coastal runs.",
     studentLife: "Diverse cuisine, concerts, seaside venues.",
-    schoolsCount: schools.filter(s => s.city === "Marseille").length,
+    schoolsCount: schools.filter((s) => s.city === "Marseille").length,
   },
   {
     name: "Grenoble",
@@ -781,7 +892,7 @@ const cityData = [
     famousPlaces: "Bastille, cable car, Isère river.",
     sportsFacilities: "Ski, mountain sports, stadium.",
     studentLife: "Ski trips, tech events, outdoor life.",
-    schoolsCount: schools.filter(s => s.city === "Grenoble").length,
+    schoolsCount: schools.filter((s) => s.city === "Grenoble").length,
   },
   {
     name: "Nantes",
@@ -792,7 +903,7 @@ const cityData = [
     famousPlaces: "Château des Ducs, Machines de l’Île.",
     sportsFacilities: "Stade de la Beaujoire, riverside parks.",
     studentLife: "Festivals, clubs, local food.",
-    schoolsCount: schools.filter(s => s.city === "Nantes").length,
+    schoolsCount: schools.filter((s) => s.city === "Nantes").length,
   },
   {
     name: "La Rochelle",
@@ -803,7 +914,7 @@ const cityData = [
     famousPlaces: "Old Port, towers, Aquarium.",
     sportsFacilities: "Water sports, yachting, cycling.",
     studentLife: "Seafood, beach, student nights.",
-    schoolsCount: schools.filter(s => s.city === "La Rochelle").length,
+    schoolsCount: schools.filter((s) => s.city === "La Rochelle").length,
   },
 ];
 
