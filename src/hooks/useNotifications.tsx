@@ -1,4 +1,3 @@
-
 import { useState, useEffect, createContext, useContext } from "react";
 
 // Notification type definition
@@ -39,7 +38,10 @@ const NotificationContext = createContext<null | {
 const STORAGE_KEY = "pasS2Kampus.notifications";
 const REMINDER_WINDOWS_DAYS = [0, 3];
 
+console.log("NotificationProvider is loaded");
+
 export function NotificationProvider({ children }: { children: React.ReactNode }) {
+  console.log("NotificationProvider is rendering");
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
   // Load from localStorage on mount
@@ -138,4 +140,3 @@ export function useNotifications() {
 }
 
 export { getTimeAgo };
-
