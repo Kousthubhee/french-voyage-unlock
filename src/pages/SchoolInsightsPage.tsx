@@ -49,9 +49,16 @@ const schools: School[] = [
     id: "hec-paris",
     name: "HEC Paris",
     city: "Paris",
-    description: "Top global business school",
+    description: "Top global business school. Triple-accredited: EQUIS, AACSB, AMBA. Global Rankings: FT European Business School top 2–3; FT MiM #1 Europe; MSc Finance #1 worldwide.",
     levels: ["Graduate"],
-    subjects: ["MBA", "Grande École"],
+    subjects: [
+      "Grande École – MiM",
+      "MBA",
+      "Executive MBA",
+      "Trium EMBA",
+      "MSc (various)",
+      "PhD",
+    ],
     website: "https://www.hec.edu/",
   },
   {
@@ -67,9 +74,14 @@ const schools: School[] = [
     id: "sciencespo-paris",
     name: "Sciences Po Paris",
     city: "Paris",
-    description: "Political science, international affairs",
+    description: "Political science, international affairs. Top 50 global, Top EU political science. Highly selective Bachelor’s & Master’s programs; Paris and international campuses.",
     levels: ["Undergraduate", "Graduate"],
-    subjects: ["Politics", "International Affairs"],
+    subjects: [
+      "Bachelor’s (College Universitaire)",
+      "Master’s (multiple schools)",
+      "One-Year Master’s",
+      "PhD"
+    ],
     website: "https://www.sciencespo.fr/",
   },
   {
