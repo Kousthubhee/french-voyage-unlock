@@ -487,7 +487,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           tips: [
             "RTM metro, trams, and buses (€30/month student pass) via RTM app",
             "Ferries to Frioul islands (€5) via RTM",
-            "FlixBus to Nice, Paris, etc. (from €9) via FlixBus app from Saint Charles",
+            "FlixBus to Saint Charles, Nice, etc. (from €9) via FlixBus app from Saint Charles",
             "SNCF trains to Paris in 3 hours via SNCF Connect app"
           ]
         },
@@ -905,22 +905,28 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
               <DialogTitle>Local Insights for {cityData.name}</DialogTitle>
             </DialogHeader>
             <div className="space-y-6">
-              {cityData.localInsights.map((insight, index) => (
-                <Card key={index}>
-                  <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{insight.title}</h3>
-                    <p className="text-gray-600 mb-4">{insight.description}</p>
-                    <ul className="space-y-2">
-                      {insight.tips.map((tip, tipIndex) => (
-                        <li key={tipIndex} className="flex items-start">
-                          <span className="text-blue-500 mr-2">•</span>
-                          <span className="text-sm text-gray-700">{tip}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
+              {cityData.localInsights && cityData.localInsights.length > 0 ? (
+                cityData.localInsights.map((insight, index) => (
+                  <Card key={index}>
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{insight.title}</h3>
+                      <p className="text-gray-600 mb-4">{insight.description}</p>
+                      <ul className="space-y-2">
+                        {insight.tips.map((tip, tipIndex) => (
+                          <li key={tipIndex} className="flex items-start">
+                            <span className="text-blue-500 mr-2">•</span>
+                            <span className="text-sm text-gray-700">{tip}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div className="text-center text-gray-500 py-8">
+                  No local tips available for this city yet.
+                </div>
+              )}
             </div>
           </DialogContent>
         </Dialog>
