@@ -25,6 +25,11 @@ type School = {
     email?: string;
     phone?: string;
   };
+  // NEW optional fields for detail
+  transport?: string;
+  famousPlaces?: string;
+  sportsFacilities?: string;
+  studentLife?: string;
 };
 
 type LocalInsight = {
@@ -48,50 +53,28 @@ const citiesData: Record<string, City> = {
     description: "Over 40 universities and Grandes Écoles, including top ones like Sorbonne, PSL, Sciences Po, Polytechnique, and more.",
     schools: [
       {
+        id: "sorbonne",
+        name: "Sorbonne University",
+        description: "Top-ranked public university in arts and sciences.",
+        location: "Paris",
+        programs: ["Humanities", "Science", "Medicine", "Law"],
+        website: "https://www.sorbonne-universite.fr",
+        transport: "Navigo pass (metro, bus, RER, tram)",
+        famousPlaces: "Eiffel Tower, Louvre, Montmartre, Notre-Dame",
+        sportsFacilities: "CROUS gyms, Stade Charlety, Jean Bouin stadium",
+        studentLife: "Vibrant culture, student discounts, international events",
+      },
+      {
         id: "psl",
         name: "Université PSL",
-        description: "A top multi-institution university: physics, social science, arts, and more.",
+        description: "Paris Sciences et Lettres, elite research university.",
         location: "Paris",
-        tuition: "€200–€5,000/year",
-        programs: ["Bachelors", "Masters", "PhD"],
-        website: "https://psl.eu",
-        contact: { email: "admissions@psl.eu", phone: "+33 1 85 76 08 70" }
-      },
-      {
-        id: "paris-sorbonne",
-        name: "Sorbonne University",
-        description: "World-leading institution for humanities, sciences, and medicine.",
-        location: "Paris",
-        tuition: "€277–€4,000/year",
-        programs: ["Bachelors", "Masters", "PhD"],
-        website: "https://www.sorbonne-universite.fr",
-      },
-      {
-        id: "sciences-po-paris",
-        name: "Sciences Po Paris",
-        description: "Elite school of political science and international relations.",
-        location: "Paris",
-        tuition: "€0–€13,000/year",
-        programs: ["Bachelors", "Masters"],
-        website: "https://www.sciencespo.fr",
-      },
-      {
-        id: "polytechnique-paris",
-        name: "École Polytechnique",
-        description: "Top French engineering and science Grande École.",
-        location: "Palaiseau, Paris area",
-        tuition: "€13,000/year",
-        programs: ["Engineering", "Masters", "PhD"],
-        website: "https://www.polytechnique.edu",
-      },
-      {
-        id: "american-paris",
-        name: "American University of Paris",
-        description: "Private liberal arts university with US-style degrees.",
-        location: "Paris",
-        tuition: "$38,000/year",
-        programs: ["Bachelors", "Masters"],
-        website: "https://www.aup.edu",
+        programs: ["Physics", "Economics", "Humanities", "Math"],
+        website: "https://www.psl.eu",
+        transport: "Navigo pass (metro, bus, RER, tram)",
+        famousPlaces: "Eiffel Tower, Louvre, Montmartre, Notre-Dame",
+        sportsFacilities: "CROUS gyms, Stade Charlety, Jean Bouin stadium",
+        studentLife: "Vibrant culture, student discounts, international events",
       }
     ],
     localInsights: [
@@ -105,38 +88,34 @@ const citiesData: Record<string, City> = {
       }
     ]
   },
-
   lyon: {
     name: "Lyon",
     emoji: "🦁",
-    description: "Major public universities & Grandes Écoles; vibrant student city.",
+    description: "Key public universities & Grandes Écoles; vibrant student city.",
     schools: [
       {
-        id: "ens-lyon",
-        name: "ENS de Lyon",
-        description: "Prestigious teacher/research training school.",
+        id: "lyon1",
+        name: "Université Claude Bernard Lyon 1",
+        description: "Major public university for science and medicine.",
         location: "Lyon",
-        tuition: "€243–€601/year",
-        programs: ["Masters", "PhD"],
-        website: "https://www.ens-lyon.fr",
-      },
-      {
-        id: "insa-lyon",
-        name: "INSA Lyon",
-        description: "Top engineering and applied science Grande École.",
-        location: "Villeurbanne, Lyon",
-        tuition: "€601/year",
-        programs: ["Engineering", "Masters"],
-        website: "https://www.insa-lyon.fr",
+        programs: ["Biology", "Engineering", "Pharmacy", "Sports Science"],
+        website: "https://www.univ-lyon1.fr",
+        transport: "TCL metro/tram/bus, Vélo'v bikes",
+        famousPlaces: "Basilica of Notre-Dame de Fourvière, Parc de la Tête d'Or",
+        sportsFacilities: "Stade de Gerland, Campus INSA sports complex",
+        studentLife: "Renowned for food, affordable housing, vibrant riverfront",
       },
       {
         id: "emlyon",
         name: "emlyon business school",
-        description: "Famous business school focused on entrepreneurship.",
-        location: "Écully, Lyon",
-        tuition: "€16,900/year",
-        programs: ["MSc Management", "MBA"],
+        description: "Prestigious private business school with international outlook.",
+        location: "Lyon",
+        programs: ["Business", "Management", "Entrepreneurship"],
         website: "https://www.em-lyon.com",
+        transport: "TCL metro/tram/bus, Vélo'v bikes",
+        famousPlaces: "Basilica of Notre-Dame de Fourvière, Parc de la Tête d'Or",
+        sportsFacilities: "Stade de Gerland, Campus INSA sports complex",
+        studentLife: "Renowned for food, affordable housing, vibrant riverfront",
       }
     ],
     localInsights: [
@@ -150,38 +129,34 @@ const citiesData: Record<string, City> = {
       }
     ]
   },
-
   toulouse: {
     name: "Toulouse",
     emoji: "🚀",
     description: "Major aerospace and tech hub, home to leading universities.",
     schools: [
       {
-        id: "ut3",
-        name: "Toulouse III – Paul Sabatier University",
-        description: "Specialized in science, health, engineering, and sports.",
+        id: "toulouse1",
+        name: "Toulouse 1 Capitole University",
+        description: "Specialized in law, economics, management.",
         location: "Toulouse",
-        tuition: "€170–€601/year",
-        programs: ["Bachelors", "Masters", "PhD"],
-        website: "https://www.univ-tlse3.fr",
+        programs: ["Law", "Political Science", "Economics", "Business"],
+        website: "https://www.ut-capitole.fr",
+        transport: "Tisséo network (metro, tram, bus)",
+        famousPlaces: "Capitole de Toulouse, Canal du Midi, Cité de l'espace",
+        sportsFacilities: "Stade Toulousain, ISAE SUPAERO sports hall",
+        studentLife: "Strong aerospace culture, lots of green space, student clubs",
       },
       {
-        id: "tse",
-        name: "Toulouse School of Economics",
-        description: "Renowned for economics research and teaching.",
+        id: "isep-supaero",
+        name: "ISAE-SUPAERO",
+        description: "Premier aerospace engineering school.",
         location: "Toulouse",
-        tuition: "€243–€400/year",
-        programs: ["Bachelors", "Masters", "PhD"],
-        website: "https://www.tse-fr.eu",
-      },
-      {
-        id: "isae-supaero",
-        name: "Institut Supérieur de l'Aéronautique et de l'Espace (ISAE‑Supaero)",
-        description: "Europe’s leading aerospace engineering school.",
-        location: "Toulouse",
-        tuition: "€14,000/year",
-        programs: ["Aerospace Engineering", "Masters", "PhD"],
+        programs: ["Aerospace Engineering", "Mechanical Systems", "AI and Robotics"],
         website: "https://www.isae-supaero.fr",
+        transport: "Tisséo network (metro, tram, bus)",
+        famousPlaces: "Capitole de Toulouse, Canal du Midi, Cité de l'espace",
+        sportsFacilities: "Stade Toulousain, ISAE SUPAERO sports hall",
+        studentLife: "Strong aerospace culture, lots of green space, student clubs",
       }
     ],
     localInsights: [
@@ -195,7 +170,6 @@ const citiesData: Record<string, City> = {
       }
     ]
   },
-
   rouen: {
     name: "Rouen",
     emoji: "🏰",
@@ -204,20 +178,26 @@ const citiesData: Record<string, City> = {
       {
         id: "rouen-univ",
         name: "Université de Rouen Normandie",
-        description: "Main public university in Normandy region.",
+        description: "Public university with strong science and humanities programs.",
         location: "Rouen",
-        tuition: "€170–€601/year",
-        programs: ["Bachelors", "Masters", "PhD"],
+        programs: ["Literature", "Science", "Engineering", "Nursing"],
         website: "https://www.univ-rouen.fr",
+        transport: "MyAstuce card for bus/metro/tram",
+        famousPlaces: "Rouen Cathedral, Gros-Horloge, Joan of Arc Museum",
+        sportsFacilities: "Kindarena, Local cricket and badminton clubs",
+        studentLife: "Historical ambiance, modern student hubs, affordable rent",
       },
       {
         id: "neoma-rouen",
-        name: "NEOMA Business School (Rouen campus)",
-        description: "International BBA, business & management programs.",
+        name: "NEOMA Business School (Rouen Campus)",
+        description: "Top French business school with international focus.",
         location: "Rouen",
-        tuition: "€13,000/year",
-        programs: ["PGE", "MSc", "BBA"],
+        programs: ["Business", "Finance", "Marketing", "Luxury Management"],
         website: "https://www.neoma-bs.com",
+        transport: "MyAstuce card for bus/metro/tram",
+        famousPlaces: "Rouen Cathedral, Gros-Horloge, Joan of Arc Museum",
+        sportsFacilities: "Kindarena, Local cricket and badminton clubs",
+        studentLife: "Historical ambiance, modern student hubs, affordable rent",
       }
     ],
     localInsights: [
@@ -231,7 +211,6 @@ const citiesData: Record<string, City> = {
       }
     ]
   },
-
   reims: {
     name: "Reims",
     emoji: "🍾",
@@ -239,21 +218,27 @@ const citiesData: Record<string, City> = {
     schools: [
       {
         id: "urca",
-        name: "University of Reims Champagne-Ardenne (URCA)",
-        description: "Major regional public university.",
+        name: "Université de Reims Champagne-Ardenne",
+        description: "Multidisciplinary public university.",
         location: "Reims",
-        tuition: "€170–€601/year",
-        programs: ["Bachelors", "Masters", "PhD"],
+        programs: ["Medicine", "Biology", "Law", "Humanities"],
         website: "https://www.univ-reims.fr",
+        transport: "Citura bus & tram system",
+        famousPlaces: "Reims Cathedral, Champagne Houses, Palace of Tau",
+        sportsFacilities: "CREPS sports center, local cricket/basketball clubs",
+        studentLife: "Champagne region charm, active Erasmus student groups",
       },
       {
         id: "neoma-reims",
-        name: "NEOMA Business School (Reims campus)",
-        description: "Leading business school with international focus.",
+        name: "NEOMA Business School (Reims Campus)",
+        description: "Renowned business school with global reach.",
         location: "Reims",
-        tuition: "€13,000/year",
-        programs: ["BBA", "MSc"],
+        programs: ["International Business", "Marketing", "Finance"],
         website: "https://www.neoma-bs.com",
+        transport: "Citura bus & tram system",
+        famousPlaces: "Reims Cathedral, Champagne Houses, Palace of Tau",
+        sportsFacilities: "CREPS sports center, local cricket/basketball clubs",
+        studentLife: "Champagne region charm, active Erasmus student groups",
       }
     ],
     localInsights: [
@@ -267,7 +252,6 @@ const citiesData: Record<string, City> = {
       }
     ]
   },
-
   lille: {
     name: "Lille",
     emoji: "🌧️",
@@ -303,7 +287,6 @@ const citiesData: Record<string, City> = {
       }
     ]
   },
-
   strasbourg: {
     name: "Strasbourg",
     emoji: "🌉",
@@ -339,7 +322,6 @@ const citiesData: Record<string, City> = {
       }
     ]
   },
-
   bordeaux: {
     name: "Bordeaux",
     emoji: "🍇",
@@ -375,7 +357,6 @@ const citiesData: Record<string, City> = {
       }
     ]
   },
-
   nice: {
     name: "Nice",
     emoji: "🌞",
@@ -411,7 +392,6 @@ const citiesData: Record<string, City> = {
       }
     ]
   },
-
   marseille: {
     name: "Marseille",
     emoji: "⛵",
@@ -552,6 +532,42 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
               </a>
             )}
           </div>
+        </div>
+
+        {/* Add new info fields for richer presentation */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          {selectedSchool.transport && (
+            <Card>
+              <CardContent className="p-6">
+                <h2 className="font-semibold text-gray-800 text-lg mb-3">🚆 Transport</h2>
+                <p className="text-gray-700">{selectedSchool.transport}</p>
+              </CardContent>
+            </Card>
+          )}
+          {selectedSchool.famousPlaces && (
+            <Card>
+              <CardContent className="p-6">
+                <h2 className="font-semibold text-gray-800 text-lg mb-3">🏛️ Nearby Landmarks</h2>
+                <p className="text-gray-700">{selectedSchool.famousPlaces}</p>
+              </CardContent>
+            </Card>
+          )}
+          {selectedSchool.sportsFacilities && (
+            <Card>
+              <CardContent className="p-6">
+                <h2 className="font-semibold text-gray-800 text-lg mb-3">🏟️ Sports Facilities</h2>
+                <p className="text-gray-700">{selectedSchool.sportsFacilities}</p>
+              </CardContent>
+            </Card>
+          )}
+          {selectedSchool.studentLife && (
+            <Card>
+              <CardContent className="p-6">
+                <h2 className="font-semibold text-gray-800 text-lg mb-3">🎋 Student Life</h2>
+                <p className="text-gray-700">{selectedSchool.studentLife}</p>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
