@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FrenchIntegrationModuleCardProps {
-  icon: React.ReactNode;
+  icon: React.ComponentType<{ className?: string; size?: number }>;
   title: string;
   topicCount: number;
   description: string;
@@ -12,7 +12,7 @@ interface FrenchIntegrationModuleCardProps {
 }
 
 const FrenchIntegrationModuleCard: React.FC<FrenchIntegrationModuleCardProps> = ({
-  icon,
+  icon: Icon,
   title,
   topicCount,
   description,
@@ -30,7 +30,7 @@ const FrenchIntegrationModuleCard: React.FC<FrenchIntegrationModuleCardProps> = 
   >
     <div className="flex justify-center items-center w-full pt-8">
       <div className="bg-blue-50 rounded-xl w-20 h-20 flex items-center justify-center mb-5">
-        <span className="text-[2.1rem] text-gray-700">{icon}</span>
+        <Icon className="text-[2.1rem] text-gray-700" size={34} />
       </div>
     </div>
     <div className="flex-1 flex flex-col px-6 pb-5 gap-2">
