@@ -12,6 +12,9 @@ interface School {
   ranking?: string;
   tuition?: string;
   programs: string[];
+  website?: string;
+  admissionProcess?: string[];
+  keyHighlights?: string[];
 }
 
 interface LocalInsight {
@@ -102,11 +105,67 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
       sportsFacilities: 'Gerland sports complex, Tony Garnier arena',
       studentLife: 'Gastronomic capital, student bars, cultural events',
       schools: [
-        { id: 'centrale-lyon', name: 'École Centrale de Lyon', description: 'Engineering and applied sciences', location: 'Lyon', programs: ['Engineering'] },
-        { id: 'insa-lyon', name: 'INSA Lyon', description: 'Public engineering school', location: 'Lyon', programs: ['Engineering'] },
-        { id: 'claude-bernard', name: 'Université Claude Bernard Lyon 1', description: 'Sciences and medicine', location: 'Lyon', programs: ['Medicine', 'Science'] },
-        { id: 'em-lyon', name: 'EM Lyon Business School', description: 'Prestigious business Grande École', location: 'Lyon', programs: ['MBA', 'MSc'] },
-        { id: 'lumiere-lyon2', name: 'Université Lumière Lyon 2', description: 'Social sciences and arts', location: 'Lyon', programs: ['Arts', 'Social Sciences'] }
+        {
+          id: 'centrale-lyon',
+          name: 'École Centrale de Lyon',
+          description: 'Engineering and applied sciences',
+          location: 'Lyon',
+          programs: ['Engineering']
+        },
+        {
+          id: 'insa-lyon',
+          name: 'INSA Lyon',
+          description: 'Public engineering school',
+          location: 'Lyon',
+          programs: ['Engineering']
+        },
+        {
+          id: 'claude-bernard',
+          name: 'Université Claude Bernard Lyon 1',
+          description: 'Official Website (International): Offers English-taught Bachelors & Masters in sciences, health, engineering',
+          location: 'Lyon',
+          website: "https://www.univ-lyon1.fr/",
+          tuition: "€486–7,540/yr (varies by program)",
+          programs: [
+            'Biology', 'Physics', 'Engineering', 'Biotechnology', 'Nanoscience', 'Acoustics', 'Health (Medicine, Dentistry, Pharmacy)'
+          ],
+          admissionProcess: [
+            "Erasmus/applicants via online forms",
+            "Requires Baccalauréat or equivalent",
+            "English or French proficiency depending on program"
+          ],
+          keyHighlights: [
+            "38,000+ students",
+            "Strong research output—155k+ papers, 4.3M citations"
+          ]
+        },
+        {
+          id: 'em-lyon',
+          name: 'EM Lyon Business School',
+          description: 'Multiple 1–2 year English-delivered MSc/Grande École, plus MBAs and advanced masters',
+          location: 'Lyon',
+          website: "https://masters.em-lyon.com/",
+          tuition: "Varies: MSc/Grande École €16k–25k/yr, MBA higher",
+          programs: [
+            'Master in Management', 'MSc in Data', 'MSc in Strategy', 'MSc in Finance', 'MBA', 'Executive MBA', 'Advanced Masters in Digital Strategy'
+          ],
+          admissionProcess: [
+            "International entry requires Bachelor’s + test/interview",
+            "MiM intake Oct–Jun",
+            "English proficiency (B2+), GMAT/GRE optional",
+            "MBA applicants must have work experience"
+          ],
+          keyHighlights: [
+            "Acceptance ~40%, selective programs"
+          ]
+        },
+        {
+          id: 'lumiere-lyon2',
+          name: 'Université Lumière Lyon 2',
+          description: 'Social sciences and arts',
+          location: 'Lyon',
+          programs: ['Arts', 'Social Sciences']
+        }
       ],
       localInsights: [
         {
@@ -196,10 +255,47 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
       sportsFacilities: 'Kindarena sports hall, Robert Diochon stadium',
       studentLife: 'Medieval architecture, Seine riverside, Norman cuisine',
       schools: [
-        { id: 'neoma-rouen', name: 'NEOMA Business School (Main campus)', description: 'PGE, MSc, BBA programs', location: 'Rouen', programs: ['PGE', 'MSc', 'BBA'] },
-        { id: 'insa-rouen', name: 'INSA Rouen Normandie', description: 'Engineering across multiple domains', location: 'Rouen', programs: ['Engineering'] },
-        { id: 'rouen-univ', name: 'Université de Rouen Normandie', description: 'Comprehensive university', location: 'Rouen', programs: ['Various'] },
-        { id: 'esigelec', name: 'ESIGELEC Rouen', description: 'Electronics and digital tech', location: 'Rouen', programs: ['Engineering'] }
+        {
+          id: 'neoma-rouen',
+          name: 'NEOMA Business School (Main campus)',
+          description: 'PGE, MSc, BBA programs',
+          location: 'Rouen',
+          programs: ['PGE', 'MSc', 'BBA']
+        },
+        {
+          id: 'insa-rouen',
+          name: 'INSA Rouen Normandie',
+          description: 'Engineering across multiple domains',
+          location: 'Rouen',
+          programs: ['Engineering']
+        },
+        {
+          id: 'rouen-univ',
+          name: 'Université de Rouen Normandie',
+          description: "Offers 100+ programs including faculties, IUTs, ESITech Engineering",
+          location: 'Rouen',
+          website: "https://www.univ-rouen.fr/",
+          tuition: "Public: ~€243–601/year (licence/master); some engineering higher",
+          programs: [
+            "Law", "Health", "Sciences", "Engineering", "Preparatory French Language (for int'l students)", "Social Sciences", "Arts"
+          ],
+          admissionProcess: [
+            "Requires Baccalauréat or equivalent and French B2 level",
+            "Application via DAP and eCandidat for L2/M2 entry"
+          ],
+          keyHighlights: [
+            "~34,000 students",
+            "38 research units",
+            "Active international partnerships in 40+ countries"
+          ]
+        },
+        {
+          id: 'esigelec',
+          name: 'ESIGELEC Rouen',
+          description: 'Electronics and digital tech',
+          location: 'Rouen',
+          programs: ['Engineering']
+        }
       ],
       localInsights: [
         {
@@ -242,10 +338,57 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
       sportsFacilities: 'Stade Auguste-Delaune, René Tys sports complex',
       studentLife: 'Champagne capital, historic center, student-friendly',
       schools: [
-        { id: 'neoma-reims', name: 'NEOMA Business School (Reims)', description: 'Core business programs', location: 'Reims', programs: ['Business', 'MBA', 'MSc'] },
-        { id: 'sciencespo-reims', name: 'Sciences Po Campus Reims', description: 'International program focus', location: 'Reims', programs: ['Politics', 'Global Affairs'] },
-        { id: 'reims-univ', name: 'Université de Reims Champagne-Ardenne', description: 'Regional public university', location: 'Reims', programs: ['Various'] },
-        { id: 'esiec', name: 'ESIEC Reims', description: 'Packaging and digital engineering', location: 'Reims', programs: ['Engineering'] }
+        {
+          id: 'neoma-reims',
+          name: 'NEOMA Business School (Reims)',
+          description: 'Core business programs',
+          location: 'Reims',
+          programs: ['Business', 'MBA', 'MSc']
+        },
+        {
+          id: 'sciencespo-reims',
+          name: 'Sciences Po Campus Reims',
+          description: 'International program focus',
+          location: 'Reims',
+          programs: ['Politics', 'Global Affairs']
+        },
+        {
+          id: 'reims-univ',
+          name: 'Université de Reims Champagne-Ardenne (URCA)',
+          description: "European public university with DAP/Etudes en France application procedure; limited international intake by program",
+          location: 'Reims',
+          website: "https://www.univ-reims.fr/",
+          tuition: "Public: ~€170–601/year (licence/master), €601 for engineering",
+          programs: [
+            "Licence", "Masters (incl. Health, Agri)", "Engineering via ESIREIMS (packaging, urban engineering, environmental)"
+          ],
+          admissionProcess: [
+            "Requires Baccalauréat/equivalent and French B2",
+            "Application through Etudes en France portal",
+            "Engineering via file + interview or concours"
+          ],
+          keyHighlights: [
+            "Scholarships available",
+            "URCA is research-active with doctoral paths"
+          ]
+        },
+        {
+          id: 'esiec',
+          name: "ESIEC Reims (École d’Ingénieurs de Reims)",
+          description: "Integrated into URCA; engineering school founded 1981; specialized in Packaging/Conditioning, Environmental & Urban Engineering",
+          location: "Reims",
+          website: "https://www.univ-reims.fr/esireims/",
+          tuition: "Public ~€601/year (engineering track)",
+          programs: ["Packaging Engineering", "Environmental Engineering", "Urban Engineering"],
+          admissionProcess: [
+            "Application dossier + interview",
+            "Concours for CPGE applicants",
+            "English/French proficiency recommended"
+          ],
+          keyHighlights: [
+            "CTI accredited; small selective classes with technical focus"
+          ]
+        }
       ],
       localInsights: [
         {
@@ -288,11 +431,103 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
       sportsFacilities: 'Stade Pierre-Mauroy, Lille Métropole sports complex',
       studentLife: 'Flemish influence, student district, Braderie festival',
       schools: [
-        { id: 'lille-univ', name: 'Université de Lille', description: 'Large multidisciplinary public university', location: 'Lille', programs: ['Various'] },
-        { id: 'edhec-lille', name: 'EDHEC Business School', description: 'Top 5 French business school', location: 'Lille', programs: ['MBA', 'MSc', 'Finance'] },
-        { id: 'centrale-lille', name: 'École Centrale de Lille', description: 'Elite engineering school', location: 'Lille', programs: ['Engineering'] },
-        { id: 'ieseg', name: 'IESEG School of Management', description: 'AACSB-accredited Grande École', location: 'Lille', programs: ['Management', 'MSc'] },
-        { id: 'hei', name: 'HEI – Hautes Études d\'Ingénieur', description: 'Private engineering school', location: 'Lille', programs: ['Engineering'] }
+        {
+          id: 'lille-univ',
+          name: 'Université de Lille',
+          description: "Offers full French & English diplomas across 13 fields",
+          location: 'Lille',
+          website: "https://international.univ-lille.fr/",
+          tuition: "Public fees ~€170–601/year (licence/master), €601 for engineering",
+          programs: [
+            "Arts", "Sciences", "Social Sciences", "Engineering", "Health", "Law", "Mathematics", "Informatics", "Economics", "Languages", "Psychology"
+          ],
+          admissionProcess: [
+            "Online application",
+            "International admissions require transcripts, motivation, language proficiency (French B1/B2, some English degrees)",
+          ],
+          keyHighlights: [
+            "Robust international offerings with strong exchange networks"
+          ]
+        },
+        {
+          id: 'edhec-lille',
+          name: 'EDHEC Business School (Lille Campus)',
+          description: "Full range—BBA (4-yr), MiM Grande École, 13 MSc, MBA/PhD/Exec",
+          location: "Lille",
+          website: "https://www.edhec.edu/",
+          tuition: "BBA €11,500/yr, MSc/Grande École ~€16,000–26,000/yr, MBA higher",
+          programs: [
+            "International BBA", "Grande École", "MSc in Finance", "MSc in Data", "MSc in Strategy", "MBA", "Executive Programs", "PhD in Finance"
+          ],
+          admissionProcess: [
+            "BBA via Parcoursup; requires baccalauréat/equiv., transcripts, English proficiency, personality test",
+            "Masters require Bachelor's + file/interview; Grande École via AST/concours"
+          ],
+          keyHighlights: [
+            "Apprenticeships from 3rd year",
+            "Strong incubator and entrepreneurial ecosystem"
+          ]
+        },
+        {
+          id: 'centrale-lille',
+          name: "École Centrale de Lille",
+          description: "5‑year engineering degree via concours (CPGE); strong in general engineering and research; requires preparatory route",
+          location: "Lille",
+          website: "https://www.ec-lille.fr/",
+          tuition: "Public ~€1,000/yr (French programs); English-taught ~€2,000/yr",
+          programs: [
+            "Ingénieur Centralien (Graduate Engineer, 5 years)", "MSc", "PhD", "Mastères Spécialisés", "MOOCs"
+          ],
+          admissionProcess: [
+            "Through CPGE concours, CASTing or TIME double-degree",
+            "Requires strong academic records and exam success"
+          ],
+          keyHighlights: [
+            "1,300 engineering students",
+            "Strong intl. mobility (18% international)",
+            "CTI & EUR‑ACE accredited, broad partnership networks"
+          ]
+        },
+        {
+          id: 'ieseg',
+          name: 'IÉSEG School of Management',
+          description: "Triple-accredited business school (Lille/Paris) offering BBA, MiM, MSc, and exec programs",
+          location: "Lille",
+          website: "https://www.ieseg.fr/",
+          tuition: "Bachelor ~€14,230/year (2025–26), Masters €13,000–14,000/yr",
+          programs: [
+            "Grande École Program (MiM)", "Bachelor in International Business", "Bachelor in Management & Tech Design",
+            "Specialized Masters (e.g., Fashion Mgmt, Finance, AI, Cybersecurity)"
+          ],
+          admissionProcess: [
+            "Grande École/Bachelor: High school diploma, academic records, English/French test",
+            "Masters: Bachelor, transcripts, CV, motivation, English >=IELTS 6.5/TOEFL 85"
+          ],
+          keyHighlights: [
+            "Triple-accredited (AACSB, AMBA, EQUIS)",
+            "7,500 students, 2,500 internationals/yr, 300+ university partners",
+            "7.6% acceptance rate; scholarships available"
+          ]
+        },
+        {
+          id: 'hei',
+          name: "HEI – Hautes Études d'Ingénieur",
+          description: "Grande École offering 5-year engineering diplomas specialized in mechanics and electrical engineering; admissions via Parcoursup or CPGE.",
+          location: "Lille",
+          website: "https://www.junia.com/",
+          tuition: "Private: ~€3,850–8,550/year",
+          programs: [
+            "Generalist Engineering Degree (5 years)", "Preparatory Cycle", "Mechanics", "Electrical Engineering"
+          ],
+          admissionProcess: [
+            "Post-Bac: Baccalauréat (S) and Concours Puissance 11",
+            "L3 Entry: CPGE + FESIC-Prépa exam"
+          ],
+          keyHighlights: [
+            "CTI-accredited",
+            "Sports via FFSU, student media, access to Lille Catholic University facilities"
+          ]
+        }
       ],
       localInsights: [
         {
@@ -671,6 +906,16 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
             <MapPin className="h-4 w-4 mr-2" />
             {selectedSchool.location}
           </div>
+          {selectedSchool.website && (
+            <a
+              href={selectedSchool.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-2 text-blue-200 underline hover:text-blue-400"
+            >
+              Official Website
+            </a>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -686,30 +931,45 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
             </CardContent>
           </Card>
 
-          <Card>
-            <CardContent className="p-4">
-              <h2 className="font-semibold text-gray-800 text-md mb-2">📅 Tuition & Fees</h2>
-              <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
-                <li>Application fee: €100–200</li>
-                <li>Living expenses: €800–1,200/month</li>
-                <li>Books & materials: €500–800/year</li>
-              </ul>
-            </CardContent>
-          </Card>
+          {selectedSchool.tuition && (
+            <Card>
+              <CardContent className="p-4">
+                <h2 className="font-semibold text-gray-800 text-md mb-2">📅 Tuition & Fees</h2>
+                <div className="text-sm text-gray-700">{selectedSchool.tuition}</div>
+                <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1 mt-2">
+                  <li>Application fee: €100–200</li>
+                  <li>Living expenses: €800–1,200/month</li>
+                  <li>Books & materials: €500–800/year</li>
+                </ul>
+              </CardContent>
+            </Card>
+          )}
 
-          <Card>
-            <CardContent className="p-4">
-              <h2 className="font-semibold text-gray-800 text-md mb-2">🌐 Admission Requirements</h2>
-              <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
-                <li>Bachelor's degree (any field)</li>
-                <li>GMAT/GRE scores</li>
-                <li>English proficiency (TOEFL/IELTS)</li>
-                <li>Personal statement</li>
-                <li>2–3 recommendation letters</li>
-                <li>Work experience (preferred)</li>
-              </ul>
-            </CardContent>
-          </Card>
+          {selectedSchool.admissionProcess && (
+            <Card>
+              <CardContent className="p-4">
+                <h2 className="font-semibold text-gray-800 text-md mb-2">🌐 Admission Requirements</h2>
+                <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
+                  {selectedSchool.admissionProcess.map((line, idx) => (
+                    <li key={idx}>{line}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )}
+
+          {selectedSchool.keyHighlights && (
+            <Card>
+              <CardContent className="p-4">
+                <h2 className="font-semibold text-gray-800 text-md mb-2">✨ Key Highlights</h2>
+                <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
+                  {selectedSchool.keyHighlights.map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )}
 
           <Card>
             <CardContent className="p-4">
