@@ -1,4 +1,7 @@
 
+// ADDED: Top of file log
+console.log("[App.tsx] TOP OF FILE");
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
