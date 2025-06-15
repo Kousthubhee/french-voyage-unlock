@@ -1,5 +1,5 @@
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import React from "react";
 
@@ -24,11 +24,17 @@ export function InsightsDialog({
   sportsFacilities,
   studentLife,
 }: InsightsDialogProps) {
+  // Debug: log the tips received
+  console.log("[InsightsDialog] localInsights for", cityName, localInsights);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Local Insights for {cityName}</DialogTitle>
+          <DialogDescription>
+            Student-sourced tips and suggestions to thrive in {cityName}!
+          </DialogDescription>
         </DialogHeader>
         {/* --- Only show Local Insights tips section in Dialog --- */}
         <div className="space-y-6">
@@ -59,3 +65,4 @@ export function InsightsDialog({
     </Dialog>
   );
 }
+
