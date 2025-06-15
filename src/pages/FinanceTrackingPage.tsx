@@ -150,8 +150,10 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
           <TabsTrigger value="expenses">Expenses</TabsTrigger>
           <TabsTrigger value="cards">Cards</TabsTrigger>
           <TabsTrigger value="loans">Loans</TabsTrigger>
-          <TabsTrigger value="emergency">Emergency</TabsTrigger>
-          <TabsTrigger value="discounts">Discounts</TabsTrigger>
+          {/* Removed Emergency */}
+          {/* <TabsTrigger value="emergency">Emergency</TabsTrigger> */}
+          {/* Removed Discounts */}
+          {/* <TabsTrigger value="discounts">Discounts</TabsTrigger> */}
           <TabsTrigger value="currency">Currency</TabsTrigger>
           <TabsTrigger value="bills">Bill Split</TabsTrigger>
           <TabsTrigger value="subscriptions">Subscriptions</TabsTrigger>
@@ -388,38 +390,6 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
           </Card>
         </TabsContent>
 
-        <TabsContent value="discounts" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Student Discount Cards</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {discountCards.map((card, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
-                    <div>
-                      <h4 className="font-medium">{card.name}</h4>
-                      <p className="text-sm text-gray-600">Expires: {card.expiry}</p>
-                      <p className="text-sm text-green-600">Saved: {card.savings}</p>
-                    </div>
-                    <div className="text-right">
-                      <span className={`px-2 py-1 rounded text-xs ${
-                        card.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {card.status}
-                      </span>
-                      {card.status === 'Pending' && (
-                        <Button size="sm" className="ml-2">Apply</Button>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                <Button variant="outline" className="w-full">+ Add New Discount Card</Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
         <TabsContent value="subscriptions" className="space-y-6">
           <Card>
             <CardHeader>
@@ -489,52 +459,6 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
               <div className="text-center">
                 <p className="text-xs text-gray-500">Rates updated every 15 minutes</p>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="emergency" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Emergency Fund Builder</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600">€{emergencyFund}</div>
-                <p className="text-gray-600">of €{emergencyTarget} goal</p>
-                <Progress value={(emergencyFund / emergencyTarget) * 100} className="mt-4" />
-                <p className="text-sm text-gray-500 mt-2">
-                  {Math.round((emergencyFund / emergencyTarget) * 100)}% completed
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium">Add to Emergency Fund</label>
-                  <Input type="number" placeholder="Amount (€)" className="mt-1" />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Update Target</label>
-                  <Input 
-                    type="number" 
-                    value={emergencyTarget}
-                    onChange={(e) => setEmergencyTarget(Number(e.target.value))}
-                    className="mt-1" 
-                  />
-                </div>
-              </div>
-              <Button className="w-full">Add Savings</Button>
-              
-              <Card className="bg-blue-50">
-                <CardContent className="p-4">
-                  <h4 className="font-medium text-blue-900 mb-2">💡 Emergency Fund Tips</h4>
-                  <ul className="text-sm text-blue-800 space-y-1">
-                    <li>• Aim for 3-6 months of expenses</li>
-                    <li>• Keep funds easily accessible</li>
-                    <li>• Use high-yield savings account</li>
-                    <li>• Automate monthly contributions</li>
-                  </ul>
-                </CardContent>
-              </Card>
             </CardContent>
           </Card>
         </TabsContent>
