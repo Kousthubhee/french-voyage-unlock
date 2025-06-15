@@ -47,6 +47,10 @@ type City = {
   name: string;
   emoji?: string;
   description: string;
+  transport: string;
+  famousPlaces: string;
+  sportsFacilities: string;
+  studentLife: string;
   schools: School[];
   localInsights: LocalInsight[];
 };
@@ -57,6 +61,10 @@ const citiesData: Record<string, City> = {
     emoji: "🗼",
     description:
       "Over 40 universities and Grandes Écoles, including top ones like Sorbonne, PSL, Sciences Po, Polytechnique, and more.",
+    transport: "Navigo pass (metro, bus, RER, tram)",
+    famousPlaces: "Eiffel Tower, Louvre, Montmartre, Notre-Dame",
+    sportsFacilities: "CROUS gyms, Stade Charlety, Jean Bouin stadium",
+    studentLife: "Vibrant culture, student discounts, international events",
     schools: [
       {
         id: "sorbonne",
@@ -183,6 +191,10 @@ const citiesData: Record<string, City> = {
     name: "Lyon",
     emoji: "🦁",
     description: "Key public universities & Grandes Écoles; vibrant student city.",
+    transport: "TCL metro/tram/bus, Vélo'v bikes",
+    famousPlaces: "Basilica of Notre-Dame de Fourvière, Parc de la Tête d'Or",
+    sportsFacilities: "Stade de Gerland, Campus INSA sports complex",
+    studentLife: "Renowned for food, affordable housing, vibrant riverfront",
     schools: [
       {
         id: "lyon1",
@@ -285,6 +297,10 @@ const citiesData: Record<string, City> = {
     emoji: "🚀",
     description:
       "Major aerospace and tech hub, home to leading universities.",
+    transport: "Tisséo network (metro, tram, bus)",
+    famousPlaces: "Capitole de Toulouse, Canal du Midi, Cité de l'espace",
+    sportsFacilities: "Stade Toulousain, ISAE SUPAERO sports hall",
+    studentLife: "Strong aerospace culture, lots of green space, student clubs",
     schools: [
       {
         id: "ut1",
@@ -374,6 +390,10 @@ const citiesData: Record<string, City> = {
     name: "Rouen",
     emoji: "🏰",
     description: "Historic city with modern universities and vibrant cultural scene.",
+    transport: "MyAstuce card for bus/metro/tram",
+    famousPlaces: "Rouen Cathedral, Gros-Horloge, Joan of Arc Museum",
+    sportsFacilities: "Kindarena, Local cricket and badminton clubs",
+    studentLife: "Historical ambiance, modern student hubs, affordable rent",
     schools: [
       {
         id: "rouen-univ",
@@ -451,6 +471,10 @@ const citiesData: Record<string, City> = {
     name: "Reims",
     emoji: "🍾",
     description: "Champagne region’s capital with strong universities.",
+    transport: "Citura bus & tram system",
+    famousPlaces: "Reims Cathedral, Champagne Houses, Palace of Tau",
+    sportsFacilities: "CREPS sports center, local cricket/basketball clubs",
+    studentLife: "Champagne region charm, active Erasmus student groups",
     schools: [
       {
         id: "urca",
@@ -528,6 +552,10 @@ const citiesData: Record<string, City> = {
     name: "Lille",
     emoji: "🌧️",
     description: "Northern hub for business, engineering, and vibrant student life.",
+    transport: "Transpole metro/tram system",
+    famousPlaces: "Grand Place, Palais des Beaux-Arts",
+    sportsFacilities: "CROUS gyms, football/rugby fields",
+    studentLife: "Young crowd, proximity to Belgium",
     schools: [
       {
         id: "skema-lille",
@@ -594,6 +622,10 @@ const citiesData: Record<string, City> = {
     emoji: "🌉",
     description:
       "Central European location; diverse and international universities.",
+    transport: "CTS network, trams crossing into Germany",
+    famousPlaces: "Cathedral, Petite France, European Parliament",
+    sportsFacilities: "CROUS gym, Rhine stadium",
+    studentLife: "Cultural capital, multilingual student community",
     schools: [
       {
         id: "em-strasbourg",
@@ -649,6 +681,10 @@ const citiesData: Record<string, City> = {
     emoji: "🍇",
     description:
       "Wine capital with strong science and business universities.",
+    transport: "TBM trams and bus network",
+    famousPlaces: "Place de la Bourse, Garonne Riverwalk",
+    sportsFacilities: "Darwin hall, public rowing & tennis courts",
+    studentLife: "Wine and surf, historic downtown life",
     schools: [
       {
         id: "sciencespo-bordeaux",
@@ -715,6 +751,10 @@ const citiesData: Record<string, City> = {
     emoji: "🌞",
     description:
       "Mediterranean city, mild weather and cosmopolitan schools.",
+    transport: "Tramway + Ligne d’Azur buses",
+    famousPlaces: "Promenade des Anglais, Castle Hill, Old Town",
+    sportsFacilities: "Sea sports, climbing gyms, campus courts",
+    studentLife: "Sunny climate, beachside student life",
     schools: [
       {
         id: "uca-nice",
@@ -756,6 +796,10 @@ const citiesData: Record<string, City> = {
     name: "Marseille",
     emoji: "⛵",
     description: "Major port city; most universities under Aix‑Marseille University umbrella.",
+    transport: "RTM metro, tram, and buses",
+    famousPlaces: "Old Port, Calanques, Notre-Dame de la Garde",
+    sportsFacilities: "Campus sports centers, sea-side sports",
+    studentLife: "Diverse city, beach culture, Mediterranean food",
     schools: [
       {
         id: "amu",
