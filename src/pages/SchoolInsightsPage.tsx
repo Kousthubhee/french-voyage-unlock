@@ -50,15 +50,15 @@ const citiesData: Record<string, City> = {
   paris: {
     name: "Paris",
     emoji: "🗼",
-    description: "Over 40 universities and Grandes Écoles, including top ones like Sorbonne, PSL, Sciences Po, Polytechnique, and more.",
+    description:
+      "Over 40 universities and Grandes Écoles, including top ones like Sorbonne, PSL, Sciences Po, Polytechnique, and more.",
     schools: [
       {
         id: "sorbonne",
         name: "Sorbonne University",
-        description: "Top-ranked public university in arts and sciences.",
-        location: "Paris",
         programs: ["Humanities", "Science", "Medicine", "Law"],
         website: "https://www.sorbonne-universite.fr",
+        description: "Top-ranked public university in arts and sciences",
         transport: "Navigo pass (metro, bus, RER, tram)",
         famousPlaces: "Eiffel Tower, Louvre, Montmartre, Notre-Dame",
         sportsFacilities: "CROUS gyms, Stade Charlety, Jean Bouin stadium",
@@ -67,14 +67,91 @@ const citiesData: Record<string, City> = {
       {
         id: "psl",
         name: "Université PSL",
-        description: "Paris Sciences et Lettres, elite research university.",
-        location: "Paris",
         programs: ["Physics", "Economics", "Humanities", "Math"],
         website: "https://www.psl.eu",
+        description: "Paris Sciences et Lettres, elite research university.",
         transport: "Navigo pass (metro, bus, RER, tram)",
         famousPlaces: "Eiffel Tower, Louvre, Montmartre, Notre-Dame",
         sportsFacilities: "CROUS gyms, Stade Charlety, Jean Bouin stadium",
         studentLife: "Vibrant culture, student discounts, international events",
+      },
+      {
+        id: "sciencespo-paris",
+        name: "Sciences Po Paris",
+        programs: ["Bachelors", "Masters"],
+        website: "https://www.sciencespo.fr",
+        description: "Elite school of political science and international relations.",
+        transport: "Navigo pass (metro, bus, RER, tram)",
+        famousPlaces: "Eiffel Tower, Louvre, Montmartre, Notre-Dame",
+        sportsFacilities: "CROUS gyms, Stade Charlety, Jean Bouin stadium",
+        studentLife: "Vibrant culture, student discounts, international events",
+      },
+      {
+        id: "polytechnique",
+        name: "École Polytechnique",
+        programs: ["Engineering", "Masters", "PhD"],
+        website: "https://www.polytechnique.edu",
+        description: "Top French engineering and science Grande École.",
+        transport: "Navigo pass (metro, bus, RER, tram)",
+        famousPlaces: "Eiffel Tower, Louvre, Montmartre, Notre-Dame",
+        sportsFacilities: "CROUS gyms, Stade Charlety, Jean Bouin stadium",
+        studentLife: "Vibrant culture, student discounts, international events",
+      },
+      {
+        id: "aup",
+        name: "American University of Paris",
+        programs: ["Bachelors", "Masters"],
+        website: "https://www.aup.edu",
+        description:
+          "Private liberal arts university with US-style degrees.",
+        transport: "Navigo pass (metro, bus, RER, tram)",
+        famousPlaces: "Eiffel Tower, Louvre, Montmartre, Notre-Dame",
+        sportsFacilities: "CROUS gyms, Stade Charlety, Jean Bouin stadium",
+        studentLife: "Vibrant culture, student discounts, international events",
+      },
+      {
+        id: "paris-cite",
+        name: "Université Paris Cité",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://u-paris.fr",
+        description: "Comprehensive public university formed from Paris Diderot and Descartes.",
+        transport: "Navigo pass (metro, bus, RER, tram)",
+        famousPlaces: "Eiffel Tower, Montparnasse Tower",
+        sportsFacilities: "University sports complex, public arenas",
+        studentLife: "Central campuses, active student clubs",
+      },
+      {
+        id: "panth-sorbonne",
+        name: "Université Paris 1 Panthéon-Sorbonne",
+        programs: ["Law", "Humanities", "Economics"],
+        website: "https://www.pantheonsorbonne.fr",
+        description: "Top public university for humanities and social sciences.",
+        transport: "RATP metro lines 1, 4, 7, 10",
+        famousPlaces: "Sorbonne, Luxembourg Gardens",
+        sportsFacilities: "Stade Sébastien Charléty, CROUS gym",
+        studentLife: "Lively Left Bank student atmosphere",
+      },
+      {
+        id: "paris-nanterre",
+        name: "Université Paris Nanterre",
+        programs: ["Law", "Psychology", "Social Sciences"],
+        website: "https://www.parisnanterre.fr",
+        description: "Large public university with a strong law and humanities focus.",
+        transport: "RER A line to Nanterre Université",
+        famousPlaces: "La Défense, Nanterre Theatre",
+        sportsFacilities: "On-campus sports halls and running track",
+        studentLife: "Vibrant campus, known for political activism",
+      },
+      {
+        id: "paris-saclay",
+        name: "Université Paris-Saclay",
+        programs: ["Science", "Engineering", "Medicine", "PhD"],
+        website: "https://www.universite-paris-saclay.fr",
+        description: "Top-ranked research university with international prestige.",
+        transport: "RER B + university shuttles",
+        famousPlaces: "Orsay Valley, Plateau de Saclay",
+        sportsFacilities: "Advanced sports and lab facilities",
+        studentLife: "International research and STEM culture",
       }
     ],
     localInsights: [
@@ -83,10 +160,10 @@ const citiesData: Record<string, City> = {
         description: "Paris is world-famous—but expensive!",
         tips: [
           "Use Navigo pass for affordable transport.",
-          "Many museums are free for students under 26."
-        ]
-      }
-    ]
+          "Many museums are free for students under 26.",
+        ],
+      },
+    ],
   },
   lyon: {
     name: "Lyon",
@@ -96,10 +173,9 @@ const citiesData: Record<string, City> = {
       {
         id: "lyon1",
         name: "Université Claude Bernard Lyon 1",
-        description: "Major public university for science and medicine.",
-        location: "Lyon",
         programs: ["Biology", "Engineering", "Pharmacy", "Sports Science"],
         website: "https://www.univ-lyon1.fr",
+        description: "Major public university for science and medicine",
         transport: "TCL metro/tram/bus, Vélo'v bikes",
         famousPlaces: "Basilica of Notre-Dame de Fourvière, Parc de la Tête d'Or",
         sportsFacilities: "Stade de Gerland, Campus INSA sports complex",
@@ -108,14 +184,68 @@ const citiesData: Record<string, City> = {
       {
         id: "emlyon",
         name: "emlyon business school",
-        description: "Prestigious private business school with international outlook.",
-        location: "Lyon",
         programs: ["Business", "Management", "Entrepreneurship"],
         website: "https://www.em-lyon.com",
+        description: "Prestigious private business school with international outlook",
         transport: "TCL metro/tram/bus, Vélo'v bikes",
         famousPlaces: "Basilica of Notre-Dame de Fourvière, Parc de la Tête d'Or",
         sportsFacilities: "Stade de Gerland, Campus INSA sports complex",
         studentLife: "Renowned for food, affordable housing, vibrant riverfront",
+      },
+      {
+        id: "insa-lyon",
+        name: "INSA Lyon",
+        programs: ["Engineering", "Masters"],
+        website: "https://www.insa-lyon.fr",
+        description: "Top engineering and applied science Grande École.",
+        transport: "TCL metro/tram/bus, Vélo'v bikes",
+        famousPlaces: "Basilica of Notre-Dame de Fourvière, Parc de la Tête d'Or",
+        sportsFacilities: "Stade de Gerland, Campus INSA sports complex",
+        studentLife: "Renowned for food, affordable housing, vibrant riverfront",
+      },
+      {
+        id: "lyon2",
+        name: "Université Lumière Lyon 2",
+        programs: ["Humanities", "Law", "Social Sciences"],
+        website: "https://www.univ-lyon2.fr",
+        description: "Public university focused on social sciences and arts.",
+        transport: "TCL metro/tram/bus, Vélo'v bikes",
+        famousPlaces: "Basilica of Notre-Dame de Fourvière, Parc de la Tête d'Or",
+        sportsFacilities: "Stade de Gerland, Campus INSA sports complex",
+        studentLife: "Renowned for food, affordable housing, vibrant riverfront",
+      },
+      {
+        id: "lyon3",
+        name: "Université Jean Moulin Lyon 3",
+        programs: ["Law", "Languages", "Business"],
+        website: "https://www.univ-lyon3.fr",
+        description: "Focuses on law, philosophy, and modern languages.",
+        transport: "TCL metro/tram/bus, Vélo’v",
+        famousPlaces: "Presqu’île, Croix-Rousse",
+        sportsFacilities: "Gymnasiums, riverside running paths",
+        studentLife: "Downtown campuses, many libraries",
+      },
+      {
+        id: "centrale-lyon",
+        name: "Centrale Lyon",
+        programs: ["Engineering", "Masters"],
+        website: "https://www.ec-lyon.fr",
+        description: "Top engineering Grande École in France.",
+        transport: "TER + TCL buses",
+        famousPlaces: "Techlid, Lyon Confluence",
+        sportsFacilities: "Engineering sports union, labs",
+        studentLife: "Focused, highly technical campus",
+      },
+      {
+        id: "sciencespo-lyon",
+        name: "Sciences Po Lyon",
+        programs: ["Political Science", "European Studies"],
+        website: "https://www.sciencespo-lyon.fr",
+        description: "Elite school for politics and international relations.",
+        transport: "TCL metro/tram/bus",
+        famousPlaces: "Tête d'Or Park, Saône riverbanks",
+        sportsFacilities: "University indoor courts, municipal fields",
+        studentLife: "Academic, globally connected environment",
       }
     ],
     localInsights: [
@@ -124,39 +254,82 @@ const citiesData: Record<string, City> = {
         description: "Lyon is renowned for its cuisine and vibrant student activity.",
         tips: [
           "Try a local 'bouchon' for authentic Lyonnaise food.",
-          "Student discounts galore: public bikes, opera, and cinema."
-        ]
-      }
-    ]
+          "Student discounts galore: public bikes, opera, and cinema.",
+        ],
+      },
+    ],
   },
   toulouse: {
     name: "Toulouse",
     emoji: "🚀",
-    description: "Major aerospace and tech hub, home to leading universities.",
+    description:
+      "Major aerospace and tech hub, home to leading universities.",
     schools: [
       {
-        id: "toulouse1",
+        id: "ut1",
         name: "Toulouse 1 Capitole University",
-        description: "Specialized in law, economics, management.",
-        location: "Toulouse",
         programs: ["Law", "Political Science", "Economics", "Business"],
         website: "https://www.ut-capitole.fr",
+        description: "Specialized in law, economics, management",
         transport: "Tisséo network (metro, tram, bus)",
         famousPlaces: "Capitole de Toulouse, Canal du Midi, Cité de l'espace",
         sportsFacilities: "Stade Toulousain, ISAE SUPAERO sports hall",
         studentLife: "Strong aerospace culture, lots of green space, student clubs",
       },
       {
-        id: "isep-supaero",
+        id: "isup-tlse",
         name: "ISAE-SUPAERO",
-        description: "Premier aerospace engineering school.",
-        location: "Toulouse",
-        programs: ["Aerospace Engineering", "Mechanical Systems", "AI and Robotics"],
+        programs: ["Aerospace Engineering", "Mechanical Systems", "AI and Robotics", "Masters", "PhD"],
         website: "https://www.isae-supaero.fr",
+        description: "Europe’s leading aerospace engineering school.",
         transport: "Tisséo network (metro, tram, bus)",
         famousPlaces: "Capitole de Toulouse, Canal du Midi, Cité de l'espace",
         sportsFacilities: "Stade Toulousain, ISAE SUPAERO sports hall",
         studentLife: "Strong aerospace culture, lots of green space, student clubs",
+      },
+      {
+        id: "tse-tlse",
+        name: "Toulouse School of Economics",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://www.tse-fr.eu",
+        description: "Renowned for economics research and teaching.",
+        transport: "Tisséo network (metro, tram, bus)",
+        famousPlaces: "Capitole de Toulouse, Canal du Midi, Cité de l'espace",
+        sportsFacilities: "Stade Toulousain, ISAE SUPAERO sports hall",
+        studentLife: "Strong aerospace culture, lots of green space, student clubs",
+      },
+      {
+        id: "enac",
+        name: "ENAC (École Nationale de l'Aviation Civile)",
+        programs: ["Aviation Engineering", "Masters", "PhD"],
+        website: "https://www.enac.fr",
+        description: "France’s top aviation and aerospace school.",
+        transport: "Tisséo metro/bus",
+        famousPlaces: "Cité de l’Espace, Garonne Riverwalk",
+        sportsFacilities: "On-campus sports airstrip and gyms",
+        studentLife: "Aviation-centered tech community",
+      },
+      {
+        id: "tbs",
+        name: "TBS Education",
+        programs: ["Bachelors", "MSc", "MBA"],
+        website: "https://www.tbs-education.com",
+        description: "Leading business school with AACSB, EQUIS accreditations.",
+        transport: "Tisséo metro, airport shuttle",
+        famousPlaces: "Place du Capitole",
+        sportsFacilities: "Rowing, tennis, student gyms",
+        studentLife: "Business meets rugby culture",
+      },
+      {
+        id: "utjj",
+        name: "Université Toulouse Jean Jaurès",
+        programs: ["Humanities", "Arts", "Language"],
+        website: "https://www.univ-tlse2.fr",
+        description: "Liberal arts and language university in Toulouse.",
+        transport: "Tisséo line A metro",
+        famousPlaces: "Saint-Cyprien, Patte d'Oie",
+        sportsFacilities: "Student gym, rec clubs",
+        studentLife: "Creative and diverse student environment",
       }
     ],
     localInsights: [
@@ -165,10 +338,10 @@ const citiesData: Record<string, City> = {
         description: "Known for Airbus, Cité de l'Espace & student life.",
         tips: [
           "Save on rent by sharing a 'coloc' (shared flat) near Rangueil.",
-          "Check out the summer Toulouse Plages by the river!"
-        ]
-      }
-    ]
+          "Check out the summer Toulouse Plages by the river!",
+        ],
+      },
+    ],
   },
   rouen: {
     name: "Rouen",
@@ -178,10 +351,9 @@ const citiesData: Record<string, City> = {
       {
         id: "rouen-univ",
         name: "Université de Rouen Normandie",
-        description: "Public university with strong science and humanities programs.",
-        location: "Rouen",
         programs: ["Literature", "Science", "Engineering", "Nursing"],
         website: "https://www.univ-rouen.fr",
+        description: "Public university with strong science and humanities programs.",
         transport: "MyAstuce card for bus/metro/tram",
         famousPlaces: "Rouen Cathedral, Gros-Horloge, Joan of Arc Museum",
         sportsFacilities: "Kindarena, Local cricket and badminton clubs",
@@ -190,14 +362,46 @@ const citiesData: Record<string, City> = {
       {
         id: "neoma-rouen",
         name: "NEOMA Business School (Rouen Campus)",
-        description: "Top French business school with international focus.",
-        location: "Rouen",
         programs: ["Business", "Finance", "Marketing", "Luxury Management"],
         website: "https://www.neoma-bs.com",
+        description: "Top French business school with international focus.",
         transport: "MyAstuce card for bus/metro/tram",
         famousPlaces: "Rouen Cathedral, Gros-Horloge, Joan of Arc Museum",
         sportsFacilities: "Kindarena, Local cricket and badminton clubs",
         studentLife: "Historical ambiance, modern student hubs, affordable rent",
+      },
+      {
+        id: "iae-rouen",
+        name: "IAE Rouen Normandie",
+        programs: ["Business", "Management"],
+        website: "https://iae.univ-rouen.fr",
+        description: "University-affiliated business school in Rouen.",
+        transport: "MyAstuce card for bus/metro/tram",
+        famousPlaces: "Rouen Cathedral, Gros-Horloge, Joan of Arc Museum",
+        sportsFacilities: "Kindarena, Local cricket and badminton clubs",
+        studentLife: "Historical ambiance, modern student hubs, affordable rent",
+      },
+      {
+        id: "esigelec-rouen",
+        name: "ESIGELEC Rouen",
+        programs: ["Engineering", "Embedded Systems", "Masters"],
+        website: "https://www.esigelec.fr",
+        description: "Grandes Écoles-level engineering institute.",
+        transport: "MyAstuce pass",
+        famousPlaces: "Rue du Gros Horloge",
+        sportsFacilities: "Tech-based labs and fitness centers",
+        studentLife: "Small city charm, high-tech training",
+      },
+      {
+        id: "esigelec",
+        name: "ESIGELEC",
+        programs: ["Engineering", "Digital Systems"],
+        website: "https://www.esigelec.fr",
+        description: "Noted school for embedded systems and electronics.",
+        transport: "MyAstuce tram line T4",
+        famousPlaces: "Seine riverbanks",
+        sportsFacilities: "Tech gym, university field",
+        studentLife: "STEM community in a quiet city",
       }
     ],
     localInsights: [
@@ -206,10 +410,10 @@ const citiesData: Record<string, City> = {
         description: "Rouen is affordable for food and housing.",
         tips: [
           "Weekly markets offer fresh produce at great prices.",
-          "Historic center: lots of free and low-cost museums."
-        ]
-      }
-    ]
+          "Historic center: lots of free and low-cost museums.",
+        ],
+      },
+    ],
   },
   reims: {
     name: "Reims",
@@ -219,10 +423,9 @@ const citiesData: Record<string, City> = {
       {
         id: "urca",
         name: "Université de Reims Champagne-Ardenne",
-        description: "Multidisciplinary public university.",
-        location: "Reims",
         programs: ["Medicine", "Biology", "Law", "Humanities"],
         website: "https://www.univ-reims.fr",
+        description: "Multidisciplinary public university.",
         transport: "Citura bus & tram system",
         famousPlaces: "Reims Cathedral, Champagne Houses, Palace of Tau",
         sportsFacilities: "CREPS sports center, local cricket/basketball clubs",
@@ -231,14 +434,46 @@ const citiesData: Record<string, City> = {
       {
         id: "neoma-reims",
         name: "NEOMA Business School (Reims Campus)",
-        description: "Renowned business school with global reach.",
-        location: "Reims",
         programs: ["International Business", "Marketing", "Finance"],
         website: "https://www.neoma-bs.com",
+        description: "Renowned business school with global reach.",
         transport: "Citura bus & tram system",
         famousPlaces: "Reims Cathedral, Champagne Houses, Palace of Tau",
         sportsFacilities: "CREPS sports center, local cricket/basketball clubs",
         studentLife: "Champagne region charm, active Erasmus student groups",
+      },
+      {
+        id: "sciencespo-reims",
+        name: "Sciences Po Reims",
+        programs: ["Political Science", "International Relations"],
+        website: "https://www.sciencespo.fr",
+        description: "Highly reputed political studies campus under Sciences Po.",
+        transport: "Citura bus & tram system",
+        famousPlaces: "Reims Cathedral, Champagne Houses, Palace of Tau",
+        sportsFacilities: "CREPS sports center, local cricket/basketball clubs",
+        studentLife: "Champagne region charm, active Erasmus student groups",
+      },
+      {
+        id: "esad-reims",
+        name: "Reims School of Art and Design",
+        programs: ["Design", "Visual Arts"],
+        website: "https://www.esad-reims.fr",
+        description: "Creative school focused on visual communication.",
+        transport: "Citura tram and bus",
+        famousPlaces: "Champagne caves, Carnegie Library",
+        sportsFacilities: "Art campus gym + shared city facilities",
+        studentLife: "Creative community, champagne culture",
+      },
+      {
+        id: "sciencespo-campus-reims",
+        name: "Sciences Po Campus de Reims",
+        programs: ["International Relations", "Political Science"],
+        website: "https://www.sciencespo.fr",
+        description: "English-taught BA programs in global affairs.",
+        transport: "Citura + walking distance to city center",
+        famousPlaces: "Reims Cathedral, Palais du Tau",
+        sportsFacilities: "Small gym, tennis courts",
+        studentLife: "International environment",
       }
     ],
     localInsights: [
@@ -247,10 +482,10 @@ const citiesData: Record<string, City> = {
         description: "City surrounded by world-famous vineyards.",
         tips: [
           "Visit champagne houses—many have student discounts.",
-          "The city is very bike-friendly."
-        ]
-      }
-    ]
+          "The city is very bike-friendly.",
+        ],
+      },
+    ],
   },
   lille: {
     name: "Lille",
@@ -258,22 +493,48 @@ const citiesData: Record<string, City> = {
     description: "Northern hub for business, engineering, and vibrant student life.",
     schools: [
       {
-        id: "lille-univ",
-        name: "University of Lille",
-        description: "One of France’s largest multidisciplinary universities.",
-        location: "Lille",
-        tuition: "€170–€601/year",
-        programs: ["Bachelors", "Masters", "PhD"],
-        website: "https://www.univ-lille.fr",
+        id: "skema-lille",
+        name: "SKEMA Business School (Lille)",
+        programs: ["Bachelors", "MSc", "MBA"],
+        website: "https://www.skema.edu",
+        description: "Prestigious business school with campuses worldwide.",
+        transport: "Transpole metro/tram system",
+        famousPlaces: "Grand Place, Palais des Beaux-Arts",
+        sportsFacilities: "CROUS gyms, football/rugby fields",
+        studentLife: "Young crowd, proximity to Belgium",
       },
       {
-        id: "edhec-lille",
-        name: "EDHEC Business School",
-        description: "Top business school best known for finance.",
-        location: "Lille",
-        tuition: "€15,000/year",
-        programs: ["MBA", "MSc", "Finance"],
-        website: "https://www.edhec.edu",
+        id: "lille-catho",
+        name: "Lille Catholic University",
+        programs: ["Bachelors", "Masters"],
+        website: "https://www.univ-catholille.fr",
+        description: "Private multidisciplinary university with strong research.",
+        transport: "Transpole metro/tram system",
+        famousPlaces: "Grand Place, Palais des Beaux-Arts",
+        sportsFacilities: "CROUS gyms, football/rugby fields",
+        studentLife: "Young crowd, lots of student discounts",
+      },
+      {
+        id: "ieseg-lille",
+        name: "IESEG School of Management",
+        programs: ["Bachelors", "MSc", "MBA"],
+        website: "https://www.ieseg.fr",
+        description: "Highly ranked business school with global links.",
+        transport: "Metro Line 1 – Lille Flandres",
+        famousPlaces: "Wazemmes market, Citadelle",
+        sportsFacilities: "Indoor fitness, basketball courts",
+        studentLife: "Business-focused, international outlook",
+      },
+      {
+        id: "isen-lille",
+        name: "ISEN Lille",
+        programs: ["Digital Engineering", "Telecom"],
+        website: "https://www.isen-lille.fr",
+        description: "Specialized digital/telecom school.",
+        transport: "Lille metro/tramway",
+        famousPlaces: "Grand Place, Rue Solférino",
+        sportsFacilities: "Robotics sports and competitions",
+        studentLife: "Digital innovation hotspot",
       }
     ],
     localInsights: [
@@ -282,33 +543,50 @@ const citiesData: Record<string, City> = {
         description: "Don’t miss the Braderie de Lille or busy student bars.",
         tips: [
           "‘Vieux Lille’ district full of lively cafés.",
-          "Public transport: TER cards for regional discounts."
-        ]
-      }
-    ]
+          "Public transport: TER cards for regional discounts.",
+        ],
+      },
+    ],
   },
   strasbourg: {
     name: "Strasbourg",
     emoji: "🌉",
-    description: "Central European location; diverse and international universities.",
+    description:
+      "Central European location; diverse and international universities.",
     schools: [
       {
-        id: "strasbourg-univ",
-        name: "University of Strasbourg",
-        description: "Historic university with top science and arts programs.",
-        location: "Strasbourg",
-        tuition: "€170–€601/year",
-        programs: ["Bachelors", "Masters", "PhD"],
-        website: "https://www.unistra.fr",
+        id: "em-strasbourg",
+        name: "EM Strasbourg Business School",
+        programs: ["Business", "Marketing", "Finance"],
+        website: "https://www.em-strasbourg.eu",
+        description:
+          "Only business school integrated into a public university in France.",
+        transport: "CTS network, trams crossing into Germany",
+        famousPlaces: "Cathedral, Petite France, European Parliament",
+        sportsFacilities: "CROUS gym, Rhine stadium",
+        studentLife: "Cultural capital, multilingual student community",
       },
       {
         id: "insa-strasbourg",
         name: "INSA Strasbourg",
-        description: "Engineering, architecture and design programs.",
-        location: "Strasbourg",
-        tuition: "€601/year",
-        programs: ["Engineering", "Masters"],
+        programs: ["Engineering", "Architecture", "Masters"],
         website: "https://www.insa-strasbourg.fr",
+        description: "Public Grande École in engineering and design.",
+        transport: "CTS tram network",
+        famousPlaces: "Cathedral, Petite France, Neustadt",
+        sportsFacilities: "University gym, indoor courts",
+        studentLife: "French-German culture, multilingual campus",
+      },
+      {
+        id: "sciencespo-strasbourg",
+        name: "Sciences Po Strasbourg",
+        programs: ["Political Science", "International Relations"],
+        website: "https://www.sciencespo-strasbourg.fr",
+        description: "Highly ranked political science school with EU focus.",
+        transport: "CTS tram network",
+        famousPlaces: "Cathedral, Petite France, Neustadt",
+        sportsFacilities: "University gym, indoor courts",
+        studentLife: "Near European Parliament, cross-border community",
       }
     ],
     localInsights: [
@@ -317,33 +595,60 @@ const citiesData: Record<string, City> = {
         description: "Trams cross the border to Germany! Experience EU culture.",
         tips: [
           "Get the CTS youth card for travel savings.",
-          "Christmas Market is magical every winter."
-        ]
-      }
-    ]
+          "Christmas Market is magical every winter.",
+        ],
+      },
+    ],
   },
   bordeaux: {
     name: "Bordeaux",
     emoji: "🍇",
-    description: "Wine capital with strong science and business universities.",
+    description:
+      "Wine capital with strong science and business universities.",
     schools: [
       {
-        id: "bordeaux-univ",
-        name: "University of Bordeaux",
-        description: "Research-intensive public university.",
-        location: "Bordeaux",
-        tuition: "€170–€601/year",
-        programs: ["Bachelors", "Masters", "PhD"],
-        website: "https://www.u-bordeaux.fr",
+        id: "sciencespo-bordeaux",
+        name: "Sciences Po Bordeaux",
+        programs: ["Political Science", "International Studies"],
+        website: "https://www.sciencespobordeaux.fr",
+        description: "Renowned for public administration and policy.",
+        transport: "TBM trams and bus network",
+        famousPlaces: "Place de la Bourse, Garonne Riverwalk",
+        sportsFacilities: "Darwin hall, public rowing & tennis courts",
+        studentLife: "Wine and surf, historic downtown life",
       },
       {
-        id: "kedge-bordeaux",
-        name: "KEDGE Business School",
-        description: "Top-tier business school, well-known internationally.",
-        location: "Bordeaux",
-        tuition: "€16,000/year",
-        programs: ["MBA", "MSc"],
-        website: "https://www.kedge.edu",
+        id: "bordeaux-montaigne",
+        name: "Bordeaux Montaigne University",
+        programs: ["Humanities", "Languages", "Journalism"],
+        website: "https://www.u-bordeaux-montaigne.fr",
+        description: "Public university with arts and language focus.",
+        transport: "TBM tram system",
+        famousPlaces: "Place de la Victoire, Darwin ecosystem",
+        sportsFacilities: "Public rowing docks, rugby fields",
+        studentLife: "Laid-back, riverfront energy",
+      },
+      {
+        id: "ensap-bordeaux",
+        name: "ENSAP Bordeaux",
+        programs: ["Architecture", "Urbanism"],
+        website: "https://www.bordeaux.archi.fr",
+        description: "Top public school for architecture and city planning.",
+        transport: "Tram A, B, C",
+        famousPlaces: "Stone Bridge, Bassins des Lumières",
+        sportsFacilities: "On-campus design labs + rec rooms",
+        studentLife: "Interdisciplinary creativity meets wine region",
+      },
+      {
+        id: "bordeaux-inp",
+        name: "Institut Polytechnique de Bordeaux",
+        programs: ["Engineering", "Computer Science"],
+        website: "https://www.bordeaux-inp.fr",
+        description: "Engineering cluster with several tech schools.",
+        transport: "Tram A, Bus 10",
+        famousPlaces: "Victoire Square, Pessac",
+        sportsFacilities: "Polytech fitness center",
+        studentLife: "Engineering and startup culture",
       }
     ],
     localInsights: [
@@ -352,33 +657,38 @@ const citiesData: Record<string, City> = {
         description: "Cycling & picnics along the Garonne River embankments.",
         tips: [
           "Darwin hall has student-friendly coworking and cheap meals.",
-          "Vineyard visits accessible on public tram."
-        ]
-      }
-    ]
+          "Vineyard visits accessible on public tram.",
+        ],
+      },
+    ],
   },
   nice: {
     name: "Nice",
     emoji: "🌞",
-    description: "Mediterranean city, mild weather and cosmopolitan schools.",
+    description:
+      "Mediterranean city, mild weather and cosmopolitan schools.",
     schools: [
       {
-        id: "uca",
+        id: "uca-nice",
         name: "Université Côte d’Azur",
-        description: "Alliance of institutions: strong in science & innovation.",
-        location: "Nice",
-        tuition: "€170–€601/year",
-        programs: ["Various"],
+        programs: ["Bachelors", "Masters", "PhD"],
         website: "https://univ-cotedazur.eu",
+        description: "Alliance of institutions: strong in science & innovation.",
+        transport: "Tramway + Ligne d’Azur buses",
+        famousPlaces: "Promenade des Anglais, Castle Hill, Old Town",
+        sportsFacilities: "Sea sports, climbing gyms, campus courts",
+        studentLife: "Sunny climate, beachside student life",
       },
       {
         id: "skema-nice",
         name: "SKEMA Business School",
-        description: "Top international business school.",
-        location: "Sophia Antipolis/Nice",
-        tuition: "€16,000/year",
         programs: ["BBA", "Masters", "MBA"],
         website: "https://www.skema.edu",
+        description: "Top-tier international business school in Sophia Antipolis.",
+        transport: "Tramway + Ligne d’Azur buses",
+        famousPlaces: "Promenade des Anglais, Castle Hill, Old Town",
+        sportsFacilities: "Cycling, paddle tennis, campus fitness",
+        studentLife: "Sunny climate, beachside student life",
       }
     ],
     localInsights: [
@@ -387,10 +697,10 @@ const citiesData: Record<string, City> = {
         description: "Study under the sun: from the Old Town to the Promenade des Anglais.",
         tips: [
           "Carnaval de Nice is a must in February.",
-          "Public beach chairs are free for students before 10am."
-        ]
-      }
-    ]
+          "Public beach chairs are free for students before 10am.",
+        ],
+      },
+    ],
   },
   marseille: {
     name: "Marseille",
@@ -400,20 +710,46 @@ const citiesData: Record<string, City> = {
       {
         id: "amu",
         name: "Aix-Marseille Université",
-        description: "France’s largest public university, spanning all major academic fields.",
-        location: "Marseille",
-        tuition: "€170–€601/year",
         programs: ["Bachelors", "Masters", "PhD"],
         website: "https://www.univ-amu.fr",
+        description: "France’s largest public university, spanning all major academic fields.",
+        transport: "RTM metro, tram, and buses",
+        famousPlaces: "Old Port, Calanques, Notre-Dame de la Garde",
+        sportsFacilities: "Campus sports centers, sea-side sports",
+        studentLife: "Diverse city, beach culture, Mediterranean food",
       },
       {
         id: "kedge-marseille",
-        name: "KEDGE Business School (Marseille campus)",
-        description: "Business, Management and International Trade programs.",
-        location: "Marseille",
-        tuition: "€16,000/year",
+        name: "KEDGE Business School (Marseille)",
         programs: ["MBA", "MSc"],
         website: "https://www.kedge.edu",
+        description: "Top business school, focus on sustainability and global trade.",
+        transport: "RTM metro, tram, and buses",
+        famousPlaces: "Old Port, Calanques, Notre-Dame de la Garde",
+        sportsFacilities: "Campus gyms, Calanques for hiking/swimming",
+        studentLife: "Lively port city, great food and music culture",
+      },
+      {
+        id: "polytech-marseille",
+        name: "Polytech Marseille",
+        programs: ["Engineering", "Applied Science"],
+        website: "https://polytech.univ-amu.fr",
+        description: "Engineering school under Aix-Marseille University.",
+        transport: "RTM bus/metro",
+        famousPlaces: "Parc Borély, Prado Beach",
+        sportsFacilities: "Tech training centers, open campus",
+        studentLife: "Tech meets Mediterranean chill",
+      },
+      {
+        id: "centrale-marseille",
+        name: "École Centrale de Marseille",
+        programs: ["Engineering", "Research Masters"],
+        website: "https://www.centrale-marseille.fr",
+        description: "Selective French Grande École in engineering.",
+        transport: "Bus 21/Metro M2",
+        famousPlaces: "Corniche Kennedy, Vieux-Port",
+        sportsFacilities: "Student sailing, gym and squash",
+        studentLife: "Innovation and sea breeze lifestyle",
       }
     ],
     localInsights: [
@@ -422,10 +758,10 @@ const citiesData: Record<string, City> = {
         description: "Enjoy Mediterranean food, local music, and world-class beaches.",
         tips: [
           "Vieux-Port is student nightlife central.",
-          "Take a ferry to Frioul Islands for 5€!"
-        ]
-      }
-    ]
+          "Take a ferry to Frioul Islands for 5€!",
+        ],
+      },
+    ],
   }
 };
 
