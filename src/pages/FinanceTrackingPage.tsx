@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -37,8 +38,6 @@ import { DiscountIntegration } from "@/components/finance/DiscountIntegration";
 import { GamificationBadges } from "@/components/finance/GamificationBadges";
 import { PrivacyControls } from "@/components/finance/PrivacyControls";
 import { QuickAddMobile } from "@/components/finance/QuickAddMobile";
-import { useFinanceData } from "@/hooks/useFinanceData";
-import { ExpenseTable } from "@/components/finance/ExpenseTable";
 
 interface FinanceTrackingPageProps {
   onBack: () => void;
@@ -47,71 +46,38 @@ interface FinanceTrackingPageProps {
 }
 
 export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: FinanceTrackingPageProps) => {
-  // Replace state budgeting with hook
-  const {
-    categories,
-    addCategory,
-    removeCategory,
-    expenses,
-    addExpense,
-    deleteExpense,
-    editExpense,
-    totalExpenses,
-  } = useFinanceData();
-
   const [selectedTab, setSelectedTab] = useState('dashboard');
   const [showAdvancedTools, setShowAdvancedTools] = useState(false);
   const [monthlyIncome, setMonthlyIncome] = useState(1200);
-  // Emergency fund (local)
+  const [totalExpenses, setTotalExpenses] = useState(850);
   const [emergencyFund, setEmergencyFund] = useState(320);
   const [emergencyTarget, setEmergencyTarget] = useState(500);
 
-  // Budget category adders
-  const [newCatName, setNewCatName] = useState("");
-  const [newCatBudget, setNewCatBudget] = useState(50);
-
-  // ---- BEGIN MOCK DATA ----
-  const discountCards = [
-    {
-      name: "ISIC Student Card",
-      expiry: "2025-06-01",
-      savings: "€15",
-      status: "Active",
-    },
-    {
-      name: "University Cafeteria Card",
-      expiry: "2024-12-31",
-      savings: "€50",
-      status: "Pending",
-    },
-  ];
-
-  const subscriptions = [
-    {
-      name: "Netflix",
-      amount: 9.99,
-      nextBilling: "2024-07-10",
-    },
-    {
-      name: "Spotify",
-      amount: 4.99,
-      nextBilling: "2024-06-20",
-    },
+  // Sample data
+  const budgetCategories = [
+    { name: 'Rent', budgeted: 600, spent: 600, color: 'bg-red-500' },
+    { name: 'Food', budgeted: 300, spent: 280, color: 'bg-orange-500' },
+    { name: 'Transport', budgeted: 75, spent: 85, color: 'bg-yellow-500' },
+    { name: 'Entertainment', budgeted: 100, spent: 120, color: 'bg-purple-500' },
   ];
 
   const cards = [
-    {
-      name: "Visa Classic",
-      type: "Debit",
-      balance: 420,
-    },
-    {
-      name: "Mastercard Student",
-      type: "Credit",
-      balance: -15,
-    },
+    { name: 'Navigo Card', balance: 75.40, type: 'Transport' },
+    { name: 'CROUS Card', balance: 45.80, type: 'Meals' },
+    { name: 'Bank Card', balance: 320.50, type: 'General' },
   ];
-  // ---- END MOCK DATA ----
+
+  const subscriptions = [
+    { name: 'Netflix', amount: 8.99, nextBilling: '2024-01-15', status: 'active' },
+    { name: 'Spotify', amount: 4.99, nextBilling: '2024-01-20', status: 'active' },
+    { name: 'Internet', amount: 29.99, nextBilling: '2024-01-05', status: 'active' },
+  ];
+
+  const discountCards = [
+    { name: 'ISIC Card', status: 'Active', expiry: '2024-12-31', savings: '€156' },
+    { name: 'Navigo Student', status: 'Active', expiry: '2024-08-31', savings: '€240' },
+    { name: 'CROUS Card', status: 'Pending', expiry: '-', savings: '€0' },
+  ];
 
   return (
     <div className="max-w-6xl mx-auto animate-fade-in">
@@ -173,6 +139,7 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
                 <p className="text-xs text-muted-foreground">This month</p>
               </CardContent>
             </Card>
+
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium flex items-center">
@@ -185,6 +152,7 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
                 <p className="text-xs text-muted-foreground">This month</p>
               </CardContent>
             </Card>
+
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium flex items-center">
@@ -198,6 +166,7 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
                 <p className="text-xs text-muted-foreground">Goal: €{emergencyTarget}</p>
               </CardContent>
             </Card>
+
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium flex items-center">
@@ -221,57 +190,25 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {categories.map((category, index) => {
-                    const spent = expenses.filter(e => e.category === category.name).reduce((sum, e) => sum + e.amount, 0);
-                    return (
-                      <div key={index} className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span>
-                            {category.name}{" "}
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="inline-block ml-2 px-2 py-1"
-                              onClick={() => removeCategory(category.name)}
-                            >Remove</Button>
-                          </span>
-                          <span>€{spent} / €{category.budgeted}</span>
-                        </div>
-                        <Progress value={(spent / category.budgeted) * 100} className="h-2" />
-                        {spent > category.budgeted && (
-                          <p className="text-xs text-red-600">Over budget by €{spent - category.budgeted}</p>
-                        )}
+                  {budgetCategories.map((category, index) => (
+                    <div key={index} className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>{category.name}</span>
+                        <span>€{category.spent} / €{category.budgeted}</span>
                       </div>
-                    );
-                  })}
-                  <div className="flex gap-2 mt-2">
-                    <Input
-                      placeholder="Category name"
-                      value={newCatName}
-                      onChange={e => setNewCatName(e.target.value)}
-                      className="flex-1"
-                    />
-                    <Input
-                      placeholder="Budget"
-                      type="number"
-                      value={newCatBudget}
-                      onChange={e => setNewCatBudget(Number(e.target.value))}
-                      className="w-24"
-                    />
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => {
-                        addCategory(newCatName, newCatBudget);
-                        setNewCatName(""); setNewCatBudget(50);
-                      }}
-                    >
-                      + Add Category
-                    </Button>
-                  </div>
+                      <Progress 
+                        value={(category.spent / category.budgeted) * 100} 
+                        className="h-2"
+                      />
+                      {category.spent > category.budgeted && (
+                        <p className="text-xs text-red-600">Over budget by €{category.spent - category.budgeted}</p>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
+
             <Card>
               <CardHeader>
                 <CardTitle>Quick Actions</CardTitle>
@@ -299,21 +236,28 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
             </Card>
           </div>
 
-          <Card className="mt-8">
-            <CardHeader>
-              <CardTitle>Track your Expenses</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ExpenseTable
-                expenses={expenses}
-                categories={categories}
-                onAdd={addExpense}
-                onEdit={editExpense}
-                onDelete={deleteExpense}
-              />
-            </CardContent>
-          </Card>
-
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {cards.map((card, index) => (
+              <Card key={index}>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center">
+                    <CreditCard className="h-4 w-4 mr-2" />
+                    {card.name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-xl font-bold">€{card.balance}</div>
+                  <p className="text-xs text-muted-foreground">{card.type}</p>
+                  {card.balance < 20 && (
+                    <Alert className="mt-2">
+                      <AlertTriangle className="h-4 w-4" />
+                      <AlertDescription className="text-xs">Low balance</AlertDescription>
+                    </Alert>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </TabsContent>
 
         <TabsContent value="budget" className="space-y-6">
@@ -340,11 +284,11 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
               
               <div className="space-y-3">
                 <h3 className="font-medium">Budget Categories</h3>
-                {categories.map((category, index) => (
+                {budgetCategories.map((category, index) => (
                   <div key={index} className="grid grid-cols-3 gap-3 items-center">
                     <span className="text-sm">{category.name}</span>
                     <Input type="number" placeholder="Budget" defaultValue={category.budgeted} />
-                    <span>€{expenses.filter(e => e.category === category.name).reduce((sum, e) => sum + e.amount, 0)}</span>
+                    <Input type="number" placeholder="Spent" defaultValue={category.spent} />
                   </div>
                 ))}
                 <Button variant="outline" size="sm">+ Add Category</Button>
