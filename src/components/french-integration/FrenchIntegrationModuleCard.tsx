@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FrenchIntegrationModuleCardProps {
-  icon: React.ComponentType<{ className?: string; size?: number }>;
+  icon: React.ComponentType<any>; // Accept anything (LucideProps etc)
   title: string;
   topicCount: number;
   description: string;
@@ -30,6 +30,7 @@ const FrenchIntegrationModuleCard: React.FC<FrenchIntegrationModuleCardProps> = 
   >
     <div className="flex justify-center items-center w-full pt-8">
       <div className="bg-blue-50 rounded-xl w-20 h-20 flex items-center justify-center mb-5">
+        {/* Pass correct Lucide icon props */}
         <Icon className="text-[2.1rem] text-gray-700" size={34} />
       </div>
     </div>

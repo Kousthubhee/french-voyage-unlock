@@ -1,10 +1,11 @@
 
+// Properly type icon for Lucide compatibility, but this file is unused based on your current import chain
 import React from "react";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FrenchIntegrationModuleCardProps {
-  icon: React.ReactNode;
+  icon: React.ComponentType<any>; // Accept anything, for Lucide icons
   title: string;
   topicCount: number;
   description: string;
@@ -12,7 +13,7 @@ interface FrenchIntegrationModuleCardProps {
 }
 
 export const FrenchIntegrationModuleCard: React.FC<FrenchIntegrationModuleCardProps> = ({
-  icon,
+  icon: Icon,
   title,
   topicCount,
   description,
@@ -20,7 +21,6 @@ export const FrenchIntegrationModuleCard: React.FC<FrenchIntegrationModuleCardPr
 }) => (
   <button
     className={cn(
-      // Main card appearance based on your reference image:
       "relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#e6ecf4] bg-[#f6faff] shadow-sm h-full w-full transition hover:shadow-md hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-indigo-400",
       "outline-none"
     )}
@@ -29,13 +29,11 @@ export const FrenchIntegrationModuleCard: React.FC<FrenchIntegrationModuleCardPr
     aria-label={`${title}: Start Learning`}
     type="button"
   >
-    {/* ICON */}
     <div className="flex justify-center items-center w-full pt-8">
       <div className="bg-blue-50 rounded-xl w-20 h-20 flex items-center justify-center mb-5">
-        <span className="text-[2.1rem] text-gray-700">{icon}</span>
+        <Icon className="text-[2.1rem] text-gray-700" size={34} />
       </div>
     </div>
-    {/* DETAILS */}
     <div className="flex-1 flex flex-col px-6 pb-5 gap-2">
       <span className="font-bold text-lg text-gray-900 mt-1 text-left">{title}</span>
       <span className="text-sm text-gray-600 text-left">{description}</span>

@@ -84,7 +84,8 @@ export const FrenchIntegrationPage = () => {
                     {
                       (() => {
                         const Icon = modulesMeta.find(m => m.key === expandedModuleKey)?.icon;
-                        return Icon ? <Icon className="h-8 w-8 text-gray-700" /> : null;
+                        // Only render Icon if defined, with Lucide props
+                        return Icon ? <Icon className="h-8 w-8 text-gray-700" size={32} /> : null;
                       })()
                     }
                   </span>
