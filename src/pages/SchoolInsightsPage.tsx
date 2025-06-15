@@ -1037,6 +1037,10 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
           onOpenChange={setShowInsights}
           cityName={cityData.name}
           localInsights={cityData.localInsights}
+          transport={cityData.transport}
+          famousPlaces={cityData.famousPlaces}
+          sportsFacilities={cityData.sportsFacilities}
+          studentLife={cityData.studentLife}
         />
       </div>
     );
