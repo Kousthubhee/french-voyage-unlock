@@ -55,10 +55,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     paris: {
       name: 'Paris',
       description: 'Capital city with top-tier schools in all domains',
-      transport: 'Navigo pass (metro, bus, RER, tram)',
-      famousPlaces: 'Eiffel Tower, Louvre, Montmartre, Notre-Dame',
-      sportsFacilities: 'CROUS gyms, Stade Charlety, Jean Bouin stadium',
-      studentLife: 'Vibrant culture, student discounts, international events',
+      transport: 'Robust metro, RER, buses with discounted Navigo Imagine R card for students under 26.',
+      famousPlaces: 'Eiffel Tower, Louvre, Montmartre, Notre-Dame, Stade de France, aquatic centre.',
+      sportsFacilities: 'Free city-run football pitches, rugby fields & athletic tracks; university sports complexes (~60–100 activities) across city/suburbs.',
+      studentLife: 'Great Erasmus/student community, coliving options, cultural events—“bonjour/merci” etiquette matters!',
       schools: [
         { id: 'sorbonne', name: 'Sorbonne University', description: 'Humanities, sciences, and medicine', location: 'Paris', programs: ['Humanities', 'Science', 'Medicine'] },
         { id: 'psl', name: 'PSL University', description: 'Includes ENS, Dauphine, Mines ParisTech', location: 'Paris', programs: ['Science', 'Economics', 'Engineering'] },
@@ -72,44 +72,89 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
       ],
       localInsights: [
         {
-          title: "Transportation",
-          description: "Navigate Paris efficiently with metro, buses, bikes, and intercity options",
+          title: "Transport",
+          description: "Citywide connectivity and affordable metro for students.",
           tips: [
-            "Get a Navigo card (€350/year student pass) via the Île-de-France Mobilités app for unlimited Métro, bus, and tram travel",
-            "Use Vélib' bikes through the Vélib' Métropole app for short trips",
-            "FlixBus connects to Lyon, Toulouse, and more from Paris-Bercy Seine—book via the FlixBus app (from €5)",
-            "SNCF TGV trains to other cities (e.g., Lyon in 2 hours) via SNCF Connect app"
+            "Robust metro, RER, and buses with discounted Navigo Imagine R card for students under 26.",
+            "Heavy investment in bike lanes & Vélib’—cycling commutes now outpace car usage.",
+            "Cycling tips: Vélib’ is easy to use and bike lanes are expanding rapidly.",
           ]
         },
         {
-          title: "Student Life & Culture",
-          description: "Paris blends historic charm with a vibrant student scene",
+          title: "Sports & Recreation",
+          description: "Sports facilities and citywide activities.",
           tips: [
-            "Hang out in the Latin Quarter for cheap eats like falafel (€6-8) at Rue Mouffetard",
-            "Join student associations (BDE) at your school for networking",
-            "Visit museums like the Louvre for free if you're an EU student under 26",
-            "Attend Fête de la Musique (June 21) for free concerts across the city"
+            "Free access to city-run football pitches, rugby fields & athletic tracks.",
+            "University sports complexes across city/suburbs (~60–100 activities) available for all students.",
+            "Check the Paris municipal website for the map of available fields.",
           ]
         },
         {
-          title: "Recreation & Sports",
-          description: "Find spots for sports and relaxation in the city",
+          title: "Student Life",
+          description: "Living, etiquette, events, and museums.",
           tips: [
-            "Book badminton courts at Gymnase Rosa Parks via Anybuddy",
-            "Informal cricket games at Bois de Vincennes with expat groups—football is more common",
-            "Relax or study at Parc des Buttes-Chaumont with scenic views",
-            "Explore must-visit spots like the Eiffel Tower, Notre-Dame, and Sacré-Cœur"
+            "Great Erasmus/student community life, active coliving options.",
+            "Cultural events take place year-round; etiquette tip: always say “bonjour/merci” in social settings.",
+            "World-class museums (Louvre, musée d’Orsay) are nearby, often free or discounted for students.",
+          ]
+        },
+        {
+          title: "Nearby & Legacy",
+          description: "Explore around Paris.",
+          tips: [
+            "Enjoy parks, major events (Paris 2024 legacy includes Stade de France and aquatic centre), and the city’s rich cultural heritage.",
+          ]
+        },
+      ]
+    },
+    cergy: {
+      name: 'Cergy',
+      description: "Modern city with a green campus, served by RER A and buses 25 min from Paris center.",
+      transport: "RER A and buses; green campus connected to Paris.",
+      famousPlaces: "Leisure lake, Port Cergy terraces, parks, cinemas.",
+      sportsFacilities: "273 public and campus sports facilities including sailing, kayaking, and the Aren’Ice arena.",
+      studentLife: "University residences, libraries, cafeterias and 47 associations for vibrant student life.",
+      schools: [
+        { id: 'centrale-cergy', name: 'École Centrale de Cergy', description: 'Engineering and applied sciences', location: 'Cergy', programs: ['Engineering'] },
+        { id: 'insa-cergy', name: 'INSA Cergy', description: 'Public engineering school', location: 'Cergy', programs: ['Engineering'] },
+        { id: 'claude-bernard', name: 'Université Claude Bernard Cergy', description: 'Sciences and medicine', location: 'Cergy', programs: ['Medicine', 'Science'] },
+        { id: 'em-cergy', name: 'EM Cergy Business School', description: 'Prestigious business Grande École', location: 'Cergy', programs: ['MBA', 'MSc'] },
+        { id: 'lumiere-cergy2', name: 'Université Lumière Cergy 2', description: 'Social sciences and arts', location: 'Cergy', programs: ['Arts', 'Social Sciences'] }
+      ],
+      localInsights: [
+        {
+          title: "Campus & Connectivity",
+          description: "Green campus with great links and local facilities.",
+          tips: [
+            "Green campus of CY Tech, served by RER A and buses (25 min from Paris center).",
+            "Public transport via RER A and local buses; plan your daily commutes with off-peak timings."
+          ]
+        },
+        {
+          title: "Student Life",
+          description: "Resources, associations, and campus vibes.",
+          tips: [
+            "University residences, libraries, cafeterias, and 47 student associations.",
+            "Get involved in clubs—it's a great way to meet new people."
+          ]
+        },
+        {
+          title: "Sports & Recreation",
+          description: "Cergy's awesome sports options.",
+          tips: [
+            "273 public/open and campus sports facilities, including sailing, water-skiing, kayaking, ice-hockey at Aren’Ice arena (3,000‑seat).",
+            "Explore leisure lake, parks, and the Port Cergy terraces for walks, concerts, and cinemas."
           ]
         }
       ]
     },
     lyon: {
       name: 'Lyon',
-      description: 'Hub of engineering, medicine, and business',
-      transport: 'TCL network (metro, tram, bus, funicular)',
-      famousPlaces: 'Vieux Lyon, Basilique Notre-Dame, Place Bellecour',
-      sportsFacilities: 'Gerland sports complex, Tony Garnier arena',
-      studentLife: 'Gastronomic capital, student bars, cultural events',
+      description: 'Culinary capital and a major student city.',
+      transport: "Efficient TCL metro/trams/buses plus Velo’v bike-sharing.",
+      famousPlaces: "Rhône/Saône riverfronts, Vieux Lyon, Beaujolais vineyards, Alpine gateway.",
+      sportsFacilities: "Over 200 sports offered; 200 km of trails, parks, and riversides.",
+      studentLife: "INSA & Centrale Lyon provide tailored support, sports centres, cafeterias, student wellness initiatives.",
       schools: [
         { id: 'centrale-lyon', name: 'École Centrale de Lyon', description: 'Engineering and applied sciences', location: 'Lyon', programs: ['Engineering'] },
         { id: 'insa-lyon', name: 'INSA Lyon', description: 'Public engineering school', location: 'Lyon', programs: ['Engineering'] },
@@ -119,44 +164,45 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
       ],
       localInsights: [
         {
-          title: "Transportation",
-          description: "Efficient public transport system in Lyon",
+          title: "Transport",
+          description: "Getting around Lyon and beyond.",
           tips: [
-            "TCL card (€35/month student pass) via TCL Compte Mobilité app covers metro, tram, and bus",
-            "Velo'v bike rentals through the Velo'v app—great for Presqu'île",
-            "FlixBus from Lyon Perrache to Paris, Toulouse, etc. (from €15) via FlixBus app",
-            "SNCF TGV to Paris in 2 hours—book via SNCF Connect app"
+            "Efficient TCL network (metro, trams, buses).",
+            "Velo’v bike-sharing for easy city movement.",
           ]
         },
         {
-          title: "Food & Culture",
-          description: "Lyon is the gastronomic capital of France",
+          title: "Green & Sporty",
+          description: "Active lifestyle and outdoor fun in Lyon.",
           tips: [
-            "Try Lyonnaise cuisine at bouchons like Le Café des Fédérations (€15 with student discounts)",
-            "Visit Les Halles de Lyon food market for local flavors",
-            "Attend Fête des Lumières (December 5-8)—volunteer for free access",
-            "Hang out at Les Berges du Rhône for cheap drinks and picnics"
+            "Over 200 sports are offered to students.",
+            "Enjoy 200 km of trails, parks, riversides for outdoor activities."
           ]
         },
         {
-          title: "Recreation & Sports",
-          description: "Explore parks and sports facilities in Lyon",
+          title: "Campus Life",
+          description: "How to thrive as a student in Lyon.",
           tips: [
-            "Book badminton courts at Gymnase Bellecombe via Anybuddy",
-            "Parc de la Tête d'Or for informal cricket with expat groups, or rugby",
-            "Relax at Parc de la Tête d'Or—enjoy fields, a lake, and a free zoo",
-            "Must-visit: Vieux Lyon, Basilique Notre-Dame de Fourvière"
+            "Institutions like INSA & Centrale Lyon offer tailored support.",
+            "Access to student wellness, cafeterias, and sports centres is robust."
+          ]
+        },
+        {
+          title: "Nearby Getaways",
+          description: "Enjoy Lyon’s surroundings.",
+          tips: [
+            "Explore the Rhône/Saône riverfronts, Beaujolais vineyards, and use Lyon as an Alpine gateway."
           ]
         }
       ]
     },
     toulouse: {
       name: 'Toulouse',
-      description: 'Leading aerospace and tech education hub',
-      transport: 'Tisséo network (metro, tram, bus)',
-      famousPlaces: 'Capitole, Basilique Saint-Sernin, Canal du Midi',
-      sportsFacilities: 'Stadium de Toulouse, CREPS sports center',
-      studentLife: 'La Ville Rose, aerospace industry, sunny climate',
+      description: '“La Ville Rose”—France’s #1 student city for student life, tech, and aerospace.',
+      transport: "Tisséo network (metro, tram, buses) and Pastel card (~€10/mo for under‑26).",
+      famousPlaces: "Canal du Midi, Capitole, Toulouse FC, Stade Toulousain.",
+      sportsFacilities: "Rugby capital with stadiums, cartoucherie food halls, vibrant cycling infrastructure.",
+      studentLife: "Vibrant nightlife, 130k+ students, affordable housing, food halls.",
       schools: [
         { id: 'supaero', name: 'ISAE-SUPAERO', description: 'Top aerospace engineering school', location: 'Toulouse', programs: ['Aerospace Engineering'] },
         { id: 'insa-toulouse', name: 'INSA Toulouse', description: 'Public engineering school', location: 'Toulouse', programs: ['Engineering'] },
@@ -166,33 +212,28 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
       ],
       localInsights: [
         {
-          title: "Transportation",
-          description: "Get around Toulouse with ease",
+          title: "Transport & Cycling",
+          description: "Easy, affordable city movement.",
           tips: [
-            "Tisséo metro, trams, and buses (€15/month student pass) via Tisséo Collectivités app",
-            "VélôToulouse bikes through the VélôToulouse app—perfect for flat terrain",
-            "FlixBus to Bordeaux, Paris, etc. (from €9) via FlixBus app from 33 Avenue Champlain",
-            "SNCF TGV to Paris in 4 hours via SNCF Connect app"
+            "Tisséo network: metro, trams, buses + Pastel card (~€10/mo for under‑26).",
+            "VélôToulouse bike-sharing works great with expanding bike lanes to major campuses.",
           ]
         },
         {
-          title: "Aerospace & Lifestyle",
-          description: "Toulouse is a hub for aerospace with a sunny vibe",
+          title: "Student Life",
+          description: "Why students love Toulouse.",
           tips: [
-            "Visit Cité de l'Espace for aerospace inspiration",
-            "Network with Airbus professionals for internships",
-            "Enjoy Toulouse Plages (July-August) for free riverbank events",
-            "Hang out at Place Saint-Pierre for €2 beers at Le Saint des Seins"
+            "Ranked France’s #1 student city.",
+            "Vibrant nightlife, 130k+ students, affordable housing.",
+            "Great food halls like Cartoucherie nourish student budgets."
           ]
         },
         {
-          title: "Recreation & Sports",
-          description: "Find spots for sports and relaxation",
+          title: "Sports & Heritage",
+          description: "Popular sports and sightseeing.",
           tips: [
-            "Book badminton courts at Gymnase Saint-Sernin via Anybuddy",
-            "Prairie des Filtres for informal cricket with expat groups—football is more common",
-            "Relax at Jardin des Plantes with open spaces",
-            "Must-visit: Basilique de Saint-Sernin, Place du Capitole"
+            "City is rugby capital—Stade Toulousain, Toulouse FC (football), Stade Municipal.",
+            "Rich heritage along Canal du Midi, with Romanesque basilica and beautiful riverside walks."
           ]
         }
       ]
