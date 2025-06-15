@@ -875,7 +875,7 @@ export const FrenchIntegrationPage = () => {
   const handleBack = () => setExpandedModuleKey(null);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-[#e3f0fe] to-[#f6faff] transition-colors">
+    <div className="min-h-screen w-full bg-white transition-colors">
       <div className="max-w-5xl mx-auto px-2 md:px-7 py-6 md:py-9">
         {/* Title and Action Buttons, centered */}
         <div className="mb-10 flex flex-col items-center w-full">
@@ -939,14 +939,14 @@ export const FrenchIntegrationPage = () => {
         ) : (
           // EXPANDED MODULE
           <div className="mb-10 animate-fade-in">
-            <Button variant="ghost" size="sm" className="mb-3 flex items-center" onClick={handleBack}>
+            <Button variant="ghost" size="sm" className="mb-3 flex items-center" onClick={() => setExpandedModuleKey(null)}>
               <span className="mr-2">
                 <span className="inline-block rotate-180"><ArrowRight className="h-4 w-4" /></span>
               </span>
               Back to Modules
             </Button>
             <Card className="mb-4">
-              <CardContent className="pt-8 pb-6 px-7">
+              <div className="rounded-t-2xl bg-gradient-to-br from-[#e3f0fe] to-[#f6faff] px-7 pt-8 pb-6 border-b border-[#e6ecf4]">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-2xl text-gray-700">
                     {modulesMeta.find(m => m.key === expandedModuleKey)?.icon}
@@ -956,10 +956,12 @@ export const FrenchIntegrationPage = () => {
                     {modulesMeta.find(m => m.key === expandedModuleKey)?.topicCount} topics
                   </span>
                 </div>
-                <div className="text-gray-600 mb-4">
+                <div className="text-gray-600">
                   {modulesMeta.find(m => m.key === expandedModuleKey)?.description}
                 </div>
-                <ol className="space-y-4 mt-7">
+              </div>
+              <CardContent className="pt-7 pb-6 px-7">
+                <ol className="space-y-4 mt-1">
                   {(allTopics[expandedModuleKey] || []).map((topic, idx) => (
                     <li key={topic.title} className="border-l-4 pl-4 border-gray-200">
                       <div className="flex items-baseline gap-2 mb-1">
