@@ -706,35 +706,6 @@ export const FinanceTrackingPage = ({ onBack, onComplete, isCompleted }: Finance
 
       <QuickAddMobile />
 
-      <div className="mt-8 flex flex-col items-center">
-        <Button
-          onClick={() => setShowAdvancedTools((s) => !s)}
-          variant="outline"
-          className="mb-3"
-          aria-expanded={showAdvancedTools}
-        >
-          {showAdvancedTools ? "Hide" : "Show"} Advanced Tools & Insights
-        </Button>
-
-        {showAdvancedTools && (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
-            <CustomCategories />
-            <RecurringSetup />
-            <AnalyticsCharts />
-            <AlertsSettings />
-            <CSVImportExport />
-            <SnapshotReport />
-            <CurrencyLiveRates />
-            <BillReminders />
-            <SavingsGoals />
-            <PartTimeJobLog />
-            <DiscountIntegration />
-            <GamificationBadges />
-            <PrivacyControls />
-          </div>
-        )}
-      </div>
-
       {!isCompleted && (
         <Card className="mt-8 bg-green-50 border-green-200">
           <CardContent className="p-6 text-center">
