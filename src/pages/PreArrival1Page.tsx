@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -5,22 +6,28 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { ArrowLeft, CheckCircle, Calendar, ChevronDown, FileText, Clock, Info } from 'lucide-react';
 import { ReminderButton } from "@/components/ReminderButton";
 import { VisaSchedulerDialog } from "@/components/VisaSchedulerDialog";
-import { useState as useProfileState, useEffect } from 'react';
 import { PageTitle } from "@/components/PageTitle";
+
+interface ProfileType {
+  name: string;
+  email: string;
+  about: string;
+  memberSince: string;
+  photo: string;
+  age: string;
+  prevEducation: string;
+  workExperience: string;
+}
 
 interface PreArrival1PageProps {
   onBack: () => void;
   onComplete: () => void;
   isCompleted: boolean;
+  profile: ProfileType; // Added profile prop
 }
 
-export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1PageProps) => {
-  // Simulate getting user profile for logic; in production use context or global store
-  const [profile, setProfile] = useProfileState({
-    age: '',
-    prevEducation: '',
-    workExperience: ''
-  });
+export const PreArrival1Page = ({ onBack, onComplete, isCompleted, profile }: PreArrival1PageProps) => {
+  // Removed useProfileState for local profile state
 
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [openSections, setOpenSections] = useState<string[]>([]);
@@ -383,3 +390,4 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted }: PreArrival1
     </div>
   );
 };
+
