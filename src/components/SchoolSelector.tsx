@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -41,6 +41,14 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
   const [selectedSchool, setSelectedSchool] = useState<School | null>(null);
   const [showInsights, setShowInsights] = useState(false);
   const [subjectFilter, setSubjectFilter] = useState('All');
+
+  // Auto-close insights dialog whenever changing city
+  useEffect(() => {
+    setShowInsights(false);
+    if (selectedCity) {
+      console.log('[DEBUG] Switched to city:', selectedCity);
+    }
+  }, [selectedCity]);
 
   const cities: Record<string, City> = {
     paris: {
@@ -899,7 +907,16 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
         </div>
 
         {/* Local Insights Modal */}
-        <Dialog open={showInsights} onOpenChange={setShowInsights} key={cityData.name}>
+        <Dialog
+          open={showInsights}
+          onOpenChange={(open) => {
+            if (open) {
+              console.log('[DEBUG] Opening Insights Dialog for city:', selectedCity, 'Local Insights:', cityData.localInsights);
+            }
+            setShowInsights(open);
+          }}
+          key={cityData.name}
+        >
           <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Local Insights for {cityData.name}</DialogTitle>
