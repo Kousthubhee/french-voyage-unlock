@@ -22,7 +22,7 @@ const checklistModules = [
   },
   {
     id: 'pre-arrival-2',
-    title: 'Pre-Arrival Checklist (Part 2)',
+    title: 'Packing Assistant',
     description: 'Food, clothes, and cultural preparation',
     icon: '🎒',
     color: 'from-orange-500 to-red-500',
@@ -67,3 +67,4 @@ const checklistModules = [
 ];
 
 export default checklistModules;
+
