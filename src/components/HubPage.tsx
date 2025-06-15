@@ -15,6 +15,10 @@ import { QuickHelpCard } from './hub/QuickHelpCard';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
+import { HubNoticeAlert } from './hub/HubNoticeAlert';
+import { HubTripPlanCard } from './hub/HubTripPlanCard';
+import { HubSearchFilterBar } from './hub/HubSearchFilterBar';
+import { HubTabNav } from './hub/HubTabNav';
 
 // Import shared types from hubTypes
 import { QAPost, QAComment, QAReply, Reel, Poll, Blog } from './hub/hubTypes';
@@ -392,7 +396,6 @@ export const HubPage = () => {
 
   return (
     <div className="max-w-6xl mx-auto">
-      {/* Remove the alert from the main area */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center">
           <Users className="h-8 w-8 mr-3 text-purple-600" />
@@ -402,52 +405,14 @@ export const HubPage = () => {
           Connect with fellow students, share experiences, and get support
         </p>
         {/* Search and Filter bar */}
-        <div className="mt-6 flex flex-col md:flex-row items-center gap-3 justify-center">
-          <div className="flex items-center gap-2 w-full md:w-96">
-            <Search className="h-5 w-5 text-gray-400" />
-            <Input
-              placeholder="Search community posts…"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full"
-            />
-          </div>
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-            className="border rounded px-2 py-2 text-sm md:w-48 w-full focus:outline-none"
-          >
-            {CATEGORIES.map(cat => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
-        </div>
-        <div className="mt-4 flex justify-center space-x-4">
-          <button
-            className={`px-4 py-2 rounded ${activeTab === 'qa' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-800'}`}
-            onClick={() => setActiveTab('qa')}
-          >
-            Q&A
-          </button>
-          <button
-            className={`px-4 py-2 rounded ${activeTab === 'blogs' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-800'}`}
-            onClick={() => setActiveTab('blogs')}
-          >
-            Blogs
-          </button>
-          <button
-            className={`px-4 py-2 rounded ${activeTab === 'reels' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-800'}`}
-            onClick={() => setActiveTab('reels')}
-          >
-            Reels
-          </button>
-          <button
-            className={`px-4 py-2 rounded ${activeTab === 'polls' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-800'}`}
-            onClick={() => setActiveTab('polls')}
-          >
-            Polls
-          </button>
-        </div>
+        <HubSearchFilterBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          categoryFilter={categoryFilter}
+          setCategoryFilter={setCategoryFilter}
+          categories={CATEGORIES}
+        />
+        <HubTabNav activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -515,40 +480,11 @@ export const HubPage = () => {
         </div>
 
         <div className="space-y-6">
-          {/* Only show the safety notice and a trip planning card */}
           <div>
-            <Alert variant="destructive" className="rounded-lg border p-6">
-              <div className="flex items-start">
-                <AlertTriangle className="h-6 w-6 mt-1 mr-3 text-destructive" />
-                <div>
-                  <AlertTitle className="text-lg font-semibold mb-1">Notice: Sharing Contact Details Is Not Allowed</AlertTitle>
-                  <AlertDescription>
-                    For your safety, sharing phone numbers or other personal contact information is not allowed in posts, comments, or replies.
-                    Please keep discussions public.
-                  </AlertDescription>
-                </div>
-              </div>
-            </Alert>
+            <HubNoticeAlert />
           </div>
           <div>
-            <Card>
-              <CardContent className="p-6 flex flex-col items-center text-center">
-                <div className="text-3xl mb-2">🧳✈️</div>
-                <h3 className="text-lg font-semibold mb-1">Plan a Trip Together!</h3>
-                <p className="text-gray-600 mb-3">
-                  Looking to explore France or Europe with friends?
-                  Start a conversation in the Q&amp;A or Reels tab and connect with fellow travelers!
-                </p>
-                <Button
-                  className="mt-2"
-                  onClick={() =>
-                    toast("This would start a chat group for trip planning. (Requires Supabase integration for real chat.)")
-                  }
-                >
-                  Start Trip Chat Group
-                </Button>
-              </CardContent>
-            </Card>
+            <HubTripPlanCard />
           </div>
         </div>
       </div>
