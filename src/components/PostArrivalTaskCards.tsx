@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ReminderButton } from "@/components/ReminderButton";
-import { Bell } from "lucide-react";
 
 interface Step {
   id: string;
@@ -58,7 +57,7 @@ function CollapsibleSection({
       <Button
         variant="ghost"
         size="sm"
-        className="mt-2 px-0 text-blue-700 font-medium underline decoration-dotted"
+        className="px-2 font-medium underline decoration-dotted"
         onClick={() => setOpen((v) => !v)}
       >
         {open ? "Hide Details ▲" : "Show Details ▼"}
@@ -80,64 +79,75 @@ export const PostArrivalTaskCards = ({
       setCompletedSteps([...completedSteps, taskId]);
     }
   };
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {tasks.map((task) => (
         <div
           key={task.id}
           className={`relative bg-white border ${
             task.priority === "urgent" ? "border-red-200" : "border-yellow-200"
-          } rounded-xl shadow-sm px-8 py-6 flex flex-col sm:flex-row sm:items-start`}
+          } rounded-xl shadow-sm px-8 py-6`}
         >
-          {/* Left: Icon and main info */}
-          <div className="flex-1 flex flex-col justify-between">
+          {/* Top Row: title, actions right */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
             <div className="flex items-center gap-2">
-              <span className={
-                task.priority === "urgent"
-                  ? "text-blue-600 text-2xl"
-                  : "text-yellow-700 text-2xl"
-              }>
+              <span
+                className={
+                  task.priority === "urgent"
+                    ? "text-blue-600 text-2xl"
+                    : "text-yellow-700 text-2xl"
+                }
+              >
                 {task.icon}
               </span>
-              <span className="text-lg font-semibold text-gray-900">{task.title}</span>
+              <span className="text-xl font-bold text-gray-900 mr-2">{task.title}</span>
               {task.priority === "urgent" && (
-                <span className="ml-2 px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full font-medium">
+                <span className="ml-1 px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full font-semibold">
                   urgent
                 </span>
               )}
               {task.priority === "high" && (
-                <span className="ml-2 px-3 py-1 bg-yellow-50 text-yellow-800 text-xs rounded-full font-medium">
+                <span className="ml-1 px-3 py-1 bg-yellow-50 text-yellow-800 text-xs rounded-full font-semibold">
                   high
                 </span>
               )}
             </div>
-            <div className="mt-2 text-gray-700 text-base font-normal">{task.description}</div>
-            <div className="mt-3 text-sm text-gray-500">
+            {/* Actions on right */}
+            <div className="flex gap-2 items-center mt-3 md:mt-0">
+              <ReminderButton
+                date={reminders[task.id]}
+                onSet={(dt) => setReminders({ ...reminders, [task.id]: dt })}
+              />
+              {!completedSteps.includes(task.id) ? (
+                <Button
+                  size="sm"
+                  className="bg-gray-900 text-white rounded-md px-4 py-1"
+                  onClick={() => handleStep(task.id)}
+                >
+                  Mark Complete
+                </Button>
+              ) : (
+                <span className="text-green-600 font-medium text-xs">Completed</span>
+              )}
+              <CollapsibleSection trigger="Show Details">
+                {/* Details rendered lower, see below */}
+              </CollapsibleSection>
+            </div>
+          </div>
+          {/* Description and timeline below title */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
+            <div className="text-gray-700 text-base font-normal flex-1">
+              {task.description}
+            </div>
+            <div className="text-sm text-gray-500">
               <span className="font-medium">Timeline:&nbsp;</span>
               {task.timeline}
             </div>
           </div>
-          {/* Right: Actions */}
-          <div className="flex flex-col items-end gap-2 ml-auto w-full sm:w-auto sm:ml-8 mt-4 sm:mt-0">
-            <ReminderButton
-              date={reminders[task.id]}
-              onSet={(dt) => setReminders({ ...reminders, [task.id]: dt })}
-            />
-            {!completedSteps.includes(task.id) ? (
-              <Button
-                size="sm"
-                className="bg-gray-900 text-white rounded-md px-4 py-1"
-                onClick={() => handleStep(task.id)}
-              >
-                Mark Complete
-              </Button>
-            ) : (
-              <span className="text-green-600 font-medium text-xs mt-1">Completed</span>
-            )}
-          </div>
-          {/* Show Details Collapsible */}
-          <div className="w-full col-span-full mt-2 sm:mt-0 sm:ml-0">
-            <CollapsibleSection trigger="Show Details">
+          {/* Collapsible Details BELOW */}
+          <div>
+            <CollapsibleSection trigger={null}>
               <div className="mb-3">
                 <span className="font-semibold">Step-by-step guide:</span>
                 <ol className="list-decimal ml-5 text-sm space-y-1 mt-1">
@@ -194,7 +204,7 @@ export const PostArrivalTaskCards = ({
                   <span className="font-semibold">FAQ:</span>
                   <ul className="mt-0.5 ml-3 list-disc text-xs">
                     {task.faqs.map((faq) => (
-                      <li key={faq.q}>
+                      <li key={faq.q} className="mb-2">
                         <span className="font-medium">{faq.q}</span>
                         <div>{faq.a}</div>
                       </li>
