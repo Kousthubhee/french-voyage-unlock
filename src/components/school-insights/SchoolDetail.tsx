@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, MapPin } from "lucide-react";
@@ -9,6 +10,11 @@ interface SchoolDetailProps {
 }
 
 export function SchoolDetail({ school, onBack }: SchoolDetailProps) {
+  // Add safe fallback for all props
+  const programs = school?.programs ?? [];
+  const location = school?.location || school?.city || "—";
+  const website = school?.website;
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-6">
@@ -20,11 +26,11 @@ export function SchoolDetail({ school, onBack }: SchoolDetailProps) {
           <p className="text-lg text-gray-600">{school.description}</p>
           <div className="flex items-center justify-center text-gray-600 mt-1">
             <MapPin className="h-4 w-4 mr-1" />
-            {school.location}
+            {location}
           </div>
-          {school.website && (
+          {website && (
             <a
-              href={school.website}
+              href={website}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center mt-2 text-blue-600 underline hover:text-blue-800"
@@ -45,11 +51,15 @@ export function SchoolDetail({ school, onBack }: SchoolDetailProps) {
           <CardContent className="p-6">
             <h2 className="font-semibold text-gray-800 text-lg mb-3">🎓 Programs Offered</h2>
             <div className="flex flex-wrap gap-1">
-              {school.programs.map((prog: string, idx: number) => (
-                <span key={idx} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                  {prog}
-                </span>
-              ))}
+              {programs.length > 0 ? (
+                programs.map((prog: string, idx: number) => (
+                  <span key={idx} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                    {prog}
+                  </span>
+                ))
+              ) : (
+                <span className="text-xs text-gray-500">No program data</span>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -110,11 +120,11 @@ export function SchoolDetail({ school, onBack }: SchoolDetailProps) {
                   </p>
                 </>
               )}
-              {school?.website && school?.id !== 'neoma-rouen' && (
+              {website && school?.id !== 'neoma-rouen' && (
                 <>
                   <p>
                     <span className="font-medium">📧</span>{' '}
-                    admissions@{school.website.replace(/https?:\/\/(www\.)?/, '').replace(/\/.*/, '')}
+                    admissions@{website.replace(/https?:\/\/(www\.)?/, '').replace(/\/.*/, '')}
                   </p>
                   <p>
                     <span className="font-medium">📱</span> +33 1 XX XX XX XX
@@ -122,12 +132,12 @@ export function SchoolDetail({ school, onBack }: SchoolDetailProps) {
                   <p>
                     <span className="font-medium">🌐</span>{' '}
                     <a
-                      href={school.website}
+                      href={website}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="underline text-blue-600"
                     >
-                      {school.website.replace(/https?:\/\//, '')}
+                      {website.replace(/https?:\/\//, '')}
                     </a>
                   </p>
                 </>
@@ -162,3 +172,4 @@ export function SchoolDetail({ school, onBack }: SchoolDetailProps) {
     </div>
   );
 }
+
