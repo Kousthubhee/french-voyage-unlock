@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
@@ -8,6 +7,8 @@ import { useLocalStorageProgress } from "@/hooks/useLocalStorageProgress";
 import { Button } from '@/components/ui/button';
 import { useToast } from "@/hooks/use-toast";
 import { ProfilePage } from "@/components/ProfilePage";
+
+console.log("[Index.tsx] Rendering Index Page");
 
 const defaultProfile = {
   name: "",
@@ -60,6 +61,15 @@ const Index = () => {
       variant: "destructive",
     });
   };
+
+  // DEBUG: Confirm at least Index renders before returning full JSX
+  if (!window["IndexDebugOnce"]) {
+    window["IndexDebugOnce"] = true;
+    console.log("[Index.tsx] Index component did mount");
+  }
+
+  // DEBUG: Toggle this line to just show a test message and see if app renders anything at all
+  // return <div style={{ color: "red", fontWeight: 600 }}>DEBUG: Index.tsx Rendered</div>; 
 
   return (
     <SidebarProvider>
@@ -141,4 +151,3 @@ const Index = () => {
 };
 
 export default Index;
-

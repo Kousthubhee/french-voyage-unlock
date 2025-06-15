@@ -52,6 +52,15 @@ export function MainRouter({
   handleProgressUpdate,
   profile,
 }: MainRouterProps) {
+  // DEBUG LOG
+  console.log("[MainRouter] Render props", {
+    currentPage,
+    userProfile,
+    userProgress,
+    selectedSchool,
+    profile,
+  });
+
   if (selectedSchool) {
     return (
       <SchoolDetails 
@@ -177,4 +186,3 @@ export function MainRouter({
       );
   }
 }
-
