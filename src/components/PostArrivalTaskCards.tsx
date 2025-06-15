@@ -44,11 +44,10 @@ const GlossaryPopover = ({
   </span>
 );
 
+// Card details collapsible section
 function CollapsibleSection({
-  trigger,
   children,
 }: {
-  trigger: React.ReactNode;
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -57,12 +56,12 @@ function CollapsibleSection({
       <Button
         variant="ghost"
         size="sm"
-        className="px-2 font-medium underline decoration-dotted"
+        className="px-2 font-medium underline decoration-dotted mt-1"
         onClick={() => setOpen((v) => !v)}
       >
         {open ? "Hide Details ▲" : "Show Details ▼"}
       </Button>
-      {open && <div className="mt-4">{children}</div>}
+      {open && <div className="mt-3">{children}</div>}
     </div>
   );
 }
@@ -85,36 +84,50 @@ export const PostArrivalTaskCards = ({
       {tasks.map((task) => (
         <div
           key={task.id}
-          className={`relative bg-white border ${
-            task.priority === "urgent" ? "border-red-200" : "border-yellow-200"
-          } rounded-xl shadow-sm px-8 py-6`}
+          className={
+            `relative flex flex-col bg-white rounded-2xl shadow-sm px-8 py-6 border
+            ${task.priority === "urgent"
+              ? "border-l-4 border-red-400 border-y border-r"
+              : "border-l-4 border-yellow-300 border-y border-r"}
+            `
+          }
         >
-          {/* Top Row: title, actions right */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-            <div className="flex items-center gap-2">
-              <span
-                className={
-                  task.priority === "urgent"
-                    ? "text-blue-600 text-2xl"
-                    : "text-yellow-700 text-2xl"
-                }
-              >
-                {task.icon}
-              </span>
-              <span className="text-xl font-bold text-gray-900 mr-2">{task.title}</span>
-              {task.priority === "urgent" && (
-                <span className="ml-1 px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full font-semibold">
-                  urgent
+          <div className="flex flex-row justify-between items-start w-full gap-6">
+            {/* Left: Title and meta */}
+            <div className="flex flex-col flex-1 min-w-0">
+              <div className="flex items-start gap-3">
+                <span
+                  className={
+                    task.priority === "urgent"
+                      ? "text-blue-600 text-2xl pt-0.5"
+                      : "text-yellow-700 text-2xl pt-0.5"
+                  }
+                >
+                  {task.icon}
                 </span>
-              )}
-              {task.priority === "high" && (
-                <span className="ml-1 px-3 py-1 bg-yellow-50 text-yellow-800 text-xs rounded-full font-semibold">
-                  high
-                </span>
-              )}
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-lg text-gray-900">{task.title}</span>
+                    <span className={
+                      `ml-1 px-3 py-0.5 rounded-full text-xs font-semibold
+                       ${task.priority === "urgent"
+                         ? "bg-red-50 text-red-700"
+                         : "bg-yellow-50 text-yellow-800"}`
+                    }>
+                      {task.priority}
+                    </span>
+                  </div>
+                  <div className="text-gray-600 text-base font-normal mt-0.5">{task.description}</div>
+                </div>
+              </div>
+              <div className="text-sm text-gray-500 mt-2 ml-[2.75rem]">
+                <span className="font-medium">Timeline:&nbsp;</span>
+                {task.timeline}
+              </div>
             </div>
-            {/* Actions on right */}
-            <div className="flex gap-2 items-center mt-3 md:mt-0">
+
+            {/* Right: Reminder & Complete */}
+            <div className="flex flex-col gap-2 items-end min-w-fit ml-4">
               <ReminderButton
                 date={reminders[task.id]}
                 onSet={(dt) => setReminders({ ...reminders, [task.id]: dt })}
@@ -128,26 +141,13 @@ export const PostArrivalTaskCards = ({
                   Mark Complete
                 </Button>
               ) : (
-                <span className="text-green-600 font-medium text-xs">Completed</span>
+                <span className="text-green-600 font-medium text-xs mt-1">Completed</span>
               )}
-              <CollapsibleSection trigger="Show Details">
-                {/* Details rendered lower, see below */}
-              </CollapsibleSection>
             </div>
           </div>
-          {/* Description and timeline below title */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
-            <div className="text-gray-700 text-base font-normal flex-1">
-              {task.description}
-            </div>
-            <div className="text-sm text-gray-500">
-              <span className="font-medium">Timeline:&nbsp;</span>
-              {task.timeline}
-            </div>
-          </div>
-          {/* Collapsible Details BELOW */}
-          <div>
-            <CollapsibleSection trigger={null}>
+          {/* Collapse Details below as separate section */}
+          <div className="mt-1">
+            <CollapsibleSection>
               <div className="mb-3">
                 <span className="font-semibold">Step-by-step guide:</span>
                 <ol className="list-decimal ml-5 text-sm space-y-1 mt-1">
