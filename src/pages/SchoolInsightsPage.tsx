@@ -20,6 +20,14 @@ interface School {
   levels: string[];
   subjects: string[];
   website: string;
+  admissionProcess: string[];
+  languageRequirements: string[];
+  supportAndFeatures: string[];
+  tuition: string;
+  ranking: string;
+  applicationDeadlines: { label: string, deadline: string }[];
+  keyHighlights: string[];
+  contacts: { type: string, value: string }[];
 }
 
 const schools: School[] = [
@@ -36,6 +44,37 @@ const schools: School[] = [
       "PhD: Structured doctoral programs (all fields)"
     ],
     website: "https://www.sorbonne-universite.fr/",
+    admissionProcess: [
+      "Application via Études en France (for most non-EU international students) or Parcoursup (for Bachelor/Licence programs in France).",
+      "French proficiency required: DELF/DALF B2+ (most fields), C1 (Medicine).",
+      "Application cycles: Parcoursup (Jan-Mar); international: mid-December.",
+      "Master & PhD: Direct university portal, research proposal for PhD.",
+    ],
+    languageRequirements: [
+      "French (B2+ required for most courses).",
+      "C1 required for Medicine.",
+      "Some Masters in English (proof required)."
+    ],
+    supportAndFeatures: [
+      "Free French courses for international students.",
+      "18 libraries with 600,000+ books.",
+      "Orientation sessions and buddy systems.",
+    ],
+    tuition: "€170 (Licence/year, EU); €2,770 (non-EU, Licence).",
+    ranking: "ARWU 35th (global)",
+    applicationDeadlines: [
+      { label: "Parcoursup", deadline: "January–March" },
+      { label: "International", deadline: "mid-December" }
+    ],
+    keyHighlights: [
+      "Numerous Nobel/Fields laureates among alumni.",
+      "Historic institution, merged in 2018.",
+      "Strong international community."
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.sorbonne-universite.fr/" },
+      { type: "General", value: "contact@sorbonne-universite.fr" },
+    ],
   },
   {
     id: "psl",

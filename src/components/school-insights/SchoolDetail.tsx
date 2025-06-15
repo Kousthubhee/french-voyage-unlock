@@ -15,6 +15,7 @@ export function SchoolDetail({ school, onBack }: SchoolDetailProps) {
   const location = school?.location || school?.city || "—";
   const website = school?.website;
 
+  // -------- ADDING ALL DETAILS SECTIONS --------
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-6">
@@ -44,8 +45,6 @@ export function SchoolDetail({ school, onBack }: SchoolDetailProps) {
         </div>
       </div>
 
-      {/* Removed city-level info cards (Transport, Landmarks, Sports, Student Life) */}
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <Card>
           <CardContent className="p-6">
@@ -64,112 +63,115 @@ export function SchoolDetail({ school, onBack }: SchoolDetailProps) {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-6">
-            <h2 className="font-semibold text-gray-800 text-lg mb-3">📅 Tuition & Fees</h2>
-            <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
-              <li>Application fee: €100–200</li>
-              <li>Living expenses: €800–1,200/month</li>
-              <li>Books & materials: €500–800/year</li>
-            </ul>
-          </CardContent>
-        </Card>
+        {school.tuition && (
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="font-semibold text-gray-800 text-lg mb-3">📅 Tuition & Fees</h2>
+              <div className="text-sm text-gray-700 mb-2">{school.tuition}</div>
+              <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
+                <li>Application fee: €100–200</li>
+                <li>Living expenses: €800–1,200/month</li>
+                <li>Books & materials: €500–800/year</li>
+              </ul>
+            </CardContent>
+          </Card>
+        )}
 
-        <Card>
-          <CardContent className="p-6">
-            <h2 className="font-semibold text-gray-800 text-lg mb-3">🌐 Admission Requirements</h2>
-            <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
-              <li>Bachelor's degree (any field)</li>
-              <li>GMAT/GRE scores</li>
-              <li>English proficiency (TOEFL/IELTS)</li>
-              <li>Personal statement</li>
-              <li>2–3 recommendation letters</li>
-              <li>Work experience (preferred)</li>
-            </ul>
-          </CardContent>
-        </Card>
+        {school.admissionProcess && (
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="font-semibold text-gray-800 text-lg mb-3">🌐 Admission Process</h2>
+              <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
+                {school.admissionProcess.map((line: string, idx: number) => (
+                  <li key={idx}>{line}</li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        )}
 
-        <Card>
-          <CardContent className="p-6">
-            <h2 className="font-semibold text-gray-800 text-lg mb-3">📞 Contact Information</h2>
-            <div className="text-sm text-gray-700 space-y-1">
-              {school?.id === 'neoma-rouen' && (
-                <>
-                  <p>
-                    <span className="font-medium">📧</span>{' '}
-                    <a href="mailto:international.admissions@neoma-bs.fr" className="underline text-blue-600">
-                      international.admissions@neoma-bs.fr
-                    </a>
-                  </p>
-                  <p>
-                    <span className="font-medium">📱</span>{' '}
-                    <a href="tel:+33344633300" className="underline text-blue-600">
-                      +33 3 44 63 33 00
-                    </a>
-                  </p>
-                  <p>
-                    <span className="font-medium">🌐</span>{' '}
-                    <a
-                      href="https://www.neoma-bs.com/en/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline text-blue-600"
-                    >
-                      www.neoma-bs.com/en/
-                    </a>
-                  </p>
-                </>
-              )}
-              {website && school?.id !== 'neoma-rouen' && (
-                <>
-                  <p>
-                    <span className="font-medium">📧</span>{' '}
-                    admissions@{website.replace(/https?:\/\/(www\.)?/, '').replace(/\/.*/, '')}
-                  </p>
-                  <p>
-                    <span className="font-medium">📱</span> +33 1 XX XX XX XX
-                  </p>
-                  <p>
-                    <span className="font-medium">🌐</span>{' '}
-                    <a
-                      href={website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline text-blue-600"
-                    >
-                      {website.replace(/https?:\/\//, '')}
-                    </a>
-                  </p>
-                </>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+        {school.languageRequirements && (
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="font-semibold text-gray-800 text-lg mb-3">🗣️ Language Requirements</h2>
+              <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
+                {school.languageRequirements.map((line: string, idx: number) => (
+                  <li key={idx}>{line}</li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        )}
+
+        {school.supportAndFeatures && (
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="font-semibold text-gray-800 text-lg mb-3">🤝 Support & Features</h2>
+              <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
+                {school.supportAndFeatures.map((feat: string, idx: number) => (
+                  <li key={idx}>{feat}</li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        )}
+
+        {school.keyHighlights && (
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="font-semibold text-gray-800 text-lg mb-3">✨ Key Highlights</h2>
+              <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
+                {school.keyHighlights.map((item: string, idx: number) => (
+                  <li key={idx}>{item}</li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        )}
+
+        {school.ranking && (
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="font-semibold text-gray-800 text-lg mb-3">🏅 Rankings & Metrics</h2>
+              <div className="text-sm text-gray-700">{school.ranking}</div>
+            </CardContent>
+          </Card>
+        )}
+
+        {school.contacts && (
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="font-semibold text-gray-800 text-lg mb-3">📞 Contacts</h2>
+              <ul className="text-sm text-gray-700 list-disc ml-4 space-y-1">
+                {school.contacts.map((contact: any, idx: number) => (
+                  <li key={idx}>
+                    <span className="font-medium">{contact.type}: </span>
+                    {contact.value}
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        )}
       </div>
 
-      <Card className="mt-6">
-        <CardContent className="p-6">
-          <h2 className="font-semibold text-gray-800 text-lg mb-3">📌 Application Deadlines</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-blue-50 p-3 rounded-lg">
-              <h3 className="font-semibold text-sm text-blue-800">Fall Intake</h3>
-              <p className="text-sm text-gray-700">September 2025</p>
-              <p className="text-xs text-gray-500">Deadline: March 15, 2025</p>
+      {(school.applicationDeadlines && school.applicationDeadlines.length > 0) && (
+        <Card className="mt-6">
+          <CardContent className="p-6">
+            <h2 className="font-semibold text-gray-800 text-lg mb-3">📌 Application Deadlines</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {school.applicationDeadlines.map(
+                (dl: { label: string; deadline: string }, idx: number) => (
+                  <div key={idx} className="bg-blue-50 p-3 rounded-lg">
+                    <h3 className="font-semibold text-sm text-blue-800">{dl.label}</h3>
+                    <p className="text-xs text-gray-500">Deadline: {dl.deadline}</p>
+                  </div>
+                )
+              )}
             </div>
-            <div className="bg-green-50 p-3 rounded-lg">
-              <h3 className="font-semibold text-sm text-green-800">Spring Intake</h3>
-              <p className="text-sm text-gray-700">January 2026</p>
-              <p className="text-xs text-gray-500">Deadline: October 15, 2025</p>
-            </div>
-            <div className="bg-purple-50 p-3 rounded-lg">
-              <h3 className="font-semibold text-sm text-purple-800">Summer Intake</h3>
-              <p className="text-sm text-gray-700">June 2025</p>
-              <p className="text-xs text-gray-500">Deadline: January 15, 2025</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
-
