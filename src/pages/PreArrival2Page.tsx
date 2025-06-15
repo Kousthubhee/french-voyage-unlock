@@ -1,10 +1,12 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, CheckCircle, ShoppingBag, Utensils, BookOpen, Filter, ChefHat, Cloud, Users } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PageTitle } from '@/components/PageTitle';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+import confetti from 'canvas-confetti';
+import { useToast } from '@/hooks/use-toast';
 
 interface PreArrival2PageProps {
   onBack: () => void;
@@ -15,6 +17,7 @@ interface PreArrival2PageProps {
 export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2PageProps) => {
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>('Paris');
+  const [justCompleted, setJustCompleted] = useState(false);
 
   const cities = ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Montpellier', 'Rouen', 'Reims', 'Lille', 'Bordeaux', 'Grenoble'];
 
@@ -242,6 +245,40 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
     }
   };
 
+  const faqs: Record<string, { q: string; a: string }[]> = {
+    'Paris': [
+      {
+        q: "What voltage adapters do I need?",
+        a: "France uses type C and E outlets (230V, 50Hz). Bring universal/plugs supporting these types."
+      },
+      {
+        q: "Where to buy affordable winter gear?",
+        a: "Try Decathlon, Monoprix, or second-hand shops like Guerrisol."
+      }
+    ],
+    'Lyon': [
+      {
+        q: "Are Indian groceries easy to find?",
+        a: "Bahadourian market offers a range of Indian groceries and spices."
+      },
+      {
+        q: "Do I need rain gear?",
+        a: "Yes, Lyon has occasional rain. Bring an umbrella and waterproof shoes."
+      }
+    ],
+    'Toulouse': [
+      {
+        q: "Is English widely understood?",
+        a: "Basic phrases are known in student areas, but learning French is recommended."
+      },
+      {
+        q: "Where can I get Indian spices?",
+        a: "Hypermarkets and Asian stores usually have essentials."
+      }
+    ],
+    // ... repeat for each city, or provide some generic ones as fallback
+  };
+
   const handleStepComplete = (stepId: string) => {
     if (!completedSteps.includes(stepId)) {
       setCompletedSteps([...completedSteps, stepId]);
@@ -415,10 +452,35 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
     );
   };
 
+  const { toast } = useToast();
+
+  // Celebrate with confetti and toast
   const allStepsCompleted = completedSteps.length >= 12; // Minimum steps to complete
 
+  // Celebrate when all steps are just now completed
+  useEffect(() => {
+    if (allStepsCompleted && !isCompleted && !justCompleted) {
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.5 },
+        zIndex: 10001,
+      });
+      toast({
+        title: 'Congratulations!',
+        description: 'You completed all packing steps. 🎉',
+        variant: 'default',
+      });
+      setJustCompleted(true);
+    }
+    if (!allStepsCompleted) {
+      setJustCompleted(false);
+    }
+  }, [allStepsCompleted, isCompleted, toast, justCompleted]);
+
+  // Make cards and checklists easier to scroll on mobile
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-2 sm:px-4">
       <div className="mb-6">
         <Button 
           variant="outline" 
@@ -465,7 +527,32 @@ export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2
         </div>
       </div>
 
-      {renderCityInfo()}
+      {/* Make this section horizontally scrollable for mobile */}
+      <div className="overflow-x-auto flex flex-col gap-6">
+        {renderCityInfo()}
+      </div>
+
+      {/* Optional Tips / FAQs Accordion */}
+      <div className="mt-8">
+        <h3 className="font-semibold text-lg text-gray-700 mb-3">Optional Tips & FAQs</h3>
+        <Accordion type="single" collapsible className="w-full max-w-2xl mx-auto">
+          {(faqs[selectedCity] || [
+            {
+              q: "What voltage adapters do I need?",
+              a: "France uses plug types C and E (230V). Bring a universal adapter."
+            },
+            {
+              q: "Where to buy affordable winter gear?",
+              a: "Check Decathlon, Monoprix, or second-hand stores."
+            }
+          ]).map(({ q, a }, idx) => (
+            <AccordionItem key={idx} value={`faq-${idx}`}>
+              <AccordionTrigger>{q}</AccordionTrigger>
+              <AccordionContent>{a}</AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
 
       {allStepsCompleted && !isCompleted && (
         <Card className="mt-8 bg-green-50 border-green-200">
