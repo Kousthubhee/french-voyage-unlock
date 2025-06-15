@@ -45,40 +45,95 @@ const citiesData: Record<string, City> = {
   paris: {
     name: "Paris",
     emoji: "🗼",
-    description: "Capital city of France. Global center for art, fashion, and culture.",
+    description: "Over 40 universities and Grandes Écoles, including top ones like Sorbonne, PSL, Sciences Po, Polytechnique, and more.",
     schools: [
       {
-        id: "hec-paris",
-        name: "HEC Paris",
-        description: "Top-ranked business school in France.",
-        location: "Jouy-en-Josas, Paris",
-        tuition: "€20,000/year",
-        programs: ["MBA", "MSc Marketing", "PhD Management"],
-        website: "https://www.hec.edu",
-        contact: { email: "admissions@hec.edu", phone: "+33 1 39 67 70 00" }
+        id: "psl",
+        name: "Université PSL",
+        description: "A top multi-institution university: physics, social science, arts, and more.",
+        location: "Paris",
+        tuition: "€200–€5,000/year",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://psl.eu",
+        contact: { email: "admissions@psl.eu", phone: "+33 1 85 76 08 70" }
+      },
+      {
+        id: "paris-sorbonne",
+        name: "Sorbonne University",
+        description: "World-leading institution for humanities, sciences, and medicine.",
+        location: "Paris",
+        tuition: "€277–€4,000/year",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://www.sorbonne-universite.fr",
+      },
+      {
+        id: "sciences-po-paris",
+        name: "Sciences Po Paris",
+        description: "Elite school of political science and international relations.",
+        location: "Paris",
+        tuition: "€0–€13,000/year",
+        programs: ["Bachelors", "Masters"],
+        website: "https://www.sciencespo.fr",
+      },
+      {
+        id: "polytechnique-paris",
+        name: "École Polytechnique",
+        description: "Top French engineering and science Grande École.",
+        location: "Palaiseau, Paris area",
+        tuition: "€13,000/year",
+        programs: ["Engineering", "Masters", "PhD"],
+        website: "https://www.polytechnique.edu",
+      },
+      {
+        id: "american-paris",
+        name: "American University of Paris",
+        description: "Private liberal arts university with US-style degrees.",
+        location: "Paris",
+        tuition: "$38,000/year",
+        programs: ["Bachelors", "Masters"],
+        website: "https://www.aup.edu",
       }
     ],
     localInsights: [
       {
-        title: "Living Costs",
-        description: "Paris is relatively expensive, especially housing.",
+        title: "Cost of Living",
+        description: "Paris is world-famous—but expensive!",
         tips: [
-          "Consider university residences for cheaper rent.",
-          "Public transport is efficient and widespread."
+          "Use Navigo pass for affordable transport.",
+          "Many museums are free for students under 26."
         ]
       }
     ]
   },
+
   lyon: {
     name: "Lyon",
     emoji: "🦁",
-    description: "Renowned for cuisine and historical sites.",
+    description: "Major public universities & Grandes Écoles; vibrant student city.",
     schools: [
+      {
+        id: "ens-lyon",
+        name: "ENS de Lyon",
+        description: "Prestigious teacher/research training school.",
+        location: "Lyon",
+        tuition: "€243–€601/year",
+        programs: ["Masters", "PhD"],
+        website: "https://www.ens-lyon.fr",
+      },
+      {
+        id: "insa-lyon",
+        name: "INSA Lyon",
+        description: "Top engineering and applied science Grande École.",
+        location: "Villeurbanne, Lyon",
+        tuition: "€601/year",
+        programs: ["Engineering", "Masters"],
+        website: "https://www.insa-lyon.fr",
+      },
       {
         id: "emlyon",
         name: "emlyon business school",
-        description: "Well-known for entrepreneurship programs.",
-        location: "Lyon, France",
+        description: "Famous business school focused on entrepreneurship.",
+        location: "Écully, Lyon",
         tuition: "€16,900/year",
         programs: ["MSc Management", "MBA"],
         website: "https://www.em-lyon.com",
@@ -86,50 +141,79 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
-        title: "Student-Friendly",
-        description: "Lyon is considered very student-friendly.",
+        title: "Food & Student Life",
+        description: "Lyon is renowned for its cuisine and vibrant student activity.",
         tips: [
-          "Affordable housing compared to Paris.",
-          "Great food markets and student discounts."
+          "Try a local 'bouchon' for authentic Lyonnaise food.",
+          "Student discounts galore: public bikes, opera, and cinema."
         ]
       }
     ]
   },
-  marseille: {
-    name: "Marseille",
-    emoji: "🌅",
-    description: "Mediterranean port city with a large academic presence.",
+
+  toulouse: {
+    name: "Toulouse",
+    emoji: "🚀",
+    description: "Major aerospace and tech hub, home to leading universities.",
     schools: [
       {
-        id: "amu",
-        name: "Aix-Marseille Université",
-        description: "One of France’s largest public universities.",
-        location: "Marseille",
-        tuition: undefined,
-        programs: ["Various"],
-        website: "https://www.univ-amu.fr",
+        id: "ut3",
+        name: "Toulouse III – Paul Sabatier University",
+        description: "Specialized in science, health, engineering, and sports.",
+        location: "Toulouse",
+        tuition: "€170–€601/year",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://www.univ-tlse3.fr",
+      },
+      {
+        id: "tse",
+        name: "Toulouse School of Economics",
+        description: "Renowned for economics research and teaching.",
+        location: "Toulouse",
+        tuition: "€243–€400/year",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://www.tse-fr.eu",
+      },
+      {
+        id: "isae-supaero",
+        name: "Institut Supérieur de l'Aéronautique et de l'Espace (ISAE‑Supaero)",
+        description: "Europe’s leading aerospace engineering school.",
+        location: "Toulouse",
+        tuition: "€14,000/year",
+        programs: ["Aerospace Engineering", "Masters", "PhD"],
+        website: "https://www.isae-supaero.fr",
       }
     ],
     localInsights: [
       {
-        title: "Cultural Diversity",
-        description: "Experience Marseille’s multicultural vibe and port life.",
+        title: "Aerospace City",
+        description: "Known for Airbus, Cité de l'Espace & student life.",
         tips: [
-          "Hang out at Cours Julien for bars and live music.",
-          "Public beaches and Calanques are must-visit spots."
+          "Save on rent by sharing a 'coloc' (shared flat) near Rangueil.",
+          "Check out the summer Toulouse Plages by the river!"
         ]
       }
     ]
   },
+
   rouen: {
     name: "Rouen",
     emoji: "🏰",
-    description: "Historic city with modern business and tech schools.",
+    description: "Historic city with modern universities and vibrant cultural scene.",
     schools: [
       {
+        id: "rouen-univ",
+        name: "Université de Rouen Normandie",
+        description: "Main public university in Normandy region.",
+        location: "Rouen",
+        tuition: "€170–€601/year",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://www.univ-rouen.fr",
+      },
+      {
         id: "neoma-rouen",
-        name: "NEOMA Business School (Main campus)",
-        description: "Business, Management & BBA programs.",
+        name: "NEOMA Business School (Rouen campus)",
+        description: "International BBA, business & management programs.",
         location: "Rouen",
         tuition: "€13,000/year",
         programs: ["PGE", "MSc", "BBA"],
@@ -138,24 +222,70 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
-        title: "Culture & Events",
-        description: "Experience Rouen's rich history and lively festivals.",
+        title: "Student Budgeting",
+        description: "Rouen is affordable for food and housing.",
         tips: [
-          "Visit the medieval old town and Jeanne d'Arc Festival.",
-          "Affordable local eateries in Rue du Gros-Horloge."
+          "Weekly markets offer fresh produce at great prices.",
+          "Historic center: lots of free and low-cost museums."
         ]
       }
     ]
   },
+
+  reims: {
+    name: "Reims",
+    emoji: "🍾",
+    description: "Champagne region’s capital with strong universities.",
+    schools: [
+      {
+        id: "urca",
+        name: "University of Reims Champagne-Ardenne (URCA)",
+        description: "Major regional public university.",
+        location: "Reims",
+        tuition: "€170–€601/year",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://www.univ-reims.fr",
+      },
+      {
+        id: "neoma-reims",
+        name: "NEOMA Business School (Reims campus)",
+        description: "Leading business school with international focus.",
+        location: "Reims",
+        tuition: "€13,000/year",
+        programs: ["BBA", "MSc"],
+        website: "https://www.neoma-bs.com",
+      }
+    ],
+    localInsights: [
+      {
+        title: "Champagne Life",
+        description: "City surrounded by world-famous vineyards.",
+        tips: [
+          "Visit champagne houses—many have student discounts.",
+          "The city is very bike-friendly."
+        ]
+      }
+    ]
+  },
+
   lille: {
     name: "Lille",
     emoji: "🌧️",
-    description: "Northern hub for business and engineering education.",
+    description: "Northern hub for business, engineering, and vibrant student life.",
     schools: [
+      {
+        id: "lille-univ",
+        name: "University of Lille",
+        description: "One of France’s largest multidisciplinary universities.",
+        location: "Lille",
+        tuition: "€170–€601/year",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://www.univ-lille.fr",
+      },
       {
         id: "edhec-lille",
         name: "EDHEC Business School",
-        description: "Top 5 French business school.",
+        description: "Top business school best known for finance.",
         location: "Lille",
         tuition: "€15,000/year",
         programs: ["MBA", "MSc", "Finance"],
@@ -164,50 +294,70 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
-        title: "Culture & Events",
-        description: "Lille is famous for its youthful vibe and festivals.",
+        title: "Flea Markets & Nightlife",
+        description: "Don’t miss the Braderie de Lille or busy student bars.",
         tips: [
-          "Don't miss the Braderie de Lille flea market.",
-          "Lively nightlife on Rue de Gand."
+          "‘Vieux Lille’ district full of lively cafés.",
+          "Public transport: TER cards for regional discounts."
         ]
       }
     ]
   },
-  toulouse: {
-    name: "Toulouse",
-    emoji: "🚀",
-    description: "Leading aerospace and tech education hub.",
+
+  strasbourg: {
+    name: "Strasbourg",
+    emoji: "🌉",
+    description: "Central European location; diverse and international universities.",
     schools: [
       {
-        id: "supaero",
-        name: "ISAE-SUPAERO",
-        description: "Top aerospace engineering school.",
-        location: "Toulouse",
-        tuition: "€14,000/year",
-        programs: ["Aerospace Engineering"],
-        website: "https://www.isae-supaero.fr",
+        id: "strasbourg-univ",
+        name: "University of Strasbourg",
+        description: "Historic university with top science and arts programs.",
+        location: "Strasbourg",
+        tuition: "€170–€601/year",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://www.unistra.fr",
+      },
+      {
+        id: "insa-strasbourg",
+        name: "INSA Strasbourg",
+        description: "Engineering, architecture and design programs.",
+        location: "Strasbourg",
+        tuition: "€601/year",
+        programs: ["Engineering", "Masters"],
+        website: "https://www.insa-strasbourg.fr",
       }
     ],
     localInsights: [
       {
-        title: "Aerospace Life",
-        description: "Toulouse is a hub for aerospace, with a sunny southern vibe.",
+        title: "Cross-Border Life",
+        description: "Trams cross the border to Germany! Experience EU culture.",
         tips: [
-          "Visit Cité de l’Espace and network with Airbus professionals.",
-          "Enjoy the river banks at Toulouse Plages in summer."
+          "Get the CTS youth card for travel savings.",
+          "Christmas Market is magical every winter."
         ]
       }
     ]
   },
+
   bordeaux: {
     name: "Bordeaux",
-    emoji: "🍷",
-    description: "Academic powerhouse in sciences and business in southwest France.",
+    emoji: "🍇",
+    description: "Wine capital with strong science and business universities.",
     schools: [
+      {
+        id: "bordeaux-univ",
+        name: "University of Bordeaux",
+        description: "Research-intensive public university.",
+        location: "Bordeaux",
+        tuition: "€170–€601/year",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://www.u-bordeaux.fr",
+      },
       {
         id: "kedge-bordeaux",
         name: "KEDGE Business School",
-        description: "Top-tier business school.",
+        description: "Top-tier business school, well-known internationally.",
         location: "Bordeaux",
         tuition: "€16,000/year",
         programs: ["MBA", "MSc"],
@@ -216,37 +366,83 @@ const citiesData: Record<string, City> = {
     ],
     localInsights: [
       {
-        title: "Wine Culture",
-        description: "Experience Bordeaux’s wine culture and beautiful cityscape.",
+        title: "Urban Beaches",
+        description: "Cycling & picnics along the Garonne River embankments.",
         tips: [
-          "Attend Fête du Vin for tastings.",
-          "Affordable food trucks at Darwin Ecosystem."
+          "Darwin hall has student-friendly coworking and cheap meals.",
+          "Vineyard visits accessible on public tram."
         ]
       }
     ]
   },
+
   nice: {
     name: "Nice",
-    emoji: "🌊",
-    description: "Côte d’Azur region with business and engineering strengths.",
+    emoji: "🌞",
+    description: "Mediterranean city, mild weather and cosmopolitan schools.",
     schools: [
       {
         id: "uca",
-        name: "Université Côte d'Azur",
-        description: "Alliance of local institutions under one label.",
+        name: "Université Côte d’Azur",
+        description: "Alliance of institutions: strong in science & innovation.",
         location: "Nice",
-        tuition: undefined,
+        tuition: "€170–€601/year",
         programs: ["Various"],
         website: "https://univ-cotedazur.eu",
+      },
+      {
+        id: "skema-nice",
+        name: "SKEMA Business School",
+        description: "Top international business school.",
+        location: "Sophia Antipolis/Nice",
+        tuition: "€16,000/year",
+        programs: ["BBA", "Masters", "MBA"],
+        website: "https://www.skema.edu",
       }
     ],
     localInsights: [
       {
-        title: "Mediterranean Lifestyle",
-        description: "Study on the Mediterranean with great weather and beaches.",
+        title: "Beach & Festivals",
+        description: "Study under the sun: from the Old Town to the Promenade des Anglais.",
         tips: [
-          "Enjoy Carnaval de Nice and Promenade des Anglais.",
-          "Many student bars in Vieux Nice."
+          "Carnaval de Nice is a must in February.",
+          "Public beach chairs are free for students before 10am."
+        ]
+      }
+    ]
+  },
+
+  marseille: {
+    name: "Marseille",
+    emoji: "⛵",
+    description: "Major port city; most universities under Aix‑Marseille University umbrella.",
+    schools: [
+      {
+        id: "amu",
+        name: "Aix-Marseille Université",
+        description: "France’s largest public university, spanning all major academic fields.",
+        location: "Marseille",
+        tuition: "€170–€601/year",
+        programs: ["Bachelors", "Masters", "PhD"],
+        website: "https://www.univ-amu.fr",
+      },
+      {
+        id: "kedge-marseille",
+        name: "KEDGE Business School (Marseille campus)",
+        description: "Business, Management and International Trade programs.",
+        location: "Marseille",
+        tuition: "€16,000/year",
+        programs: ["MBA", "MSc"],
+        website: "https://www.kedge.edu",
+      }
+    ],
+    localInsights: [
+      {
+        title: "Multicultural City",
+        description: "Enjoy Mediterranean food, local music, and world-class beaches.",
+        tips: [
+          "Vieux-Port is student nightlife central.",
+          "Take a ferry to Frioul Islands for 5€!"
         ]
       }
     ]
