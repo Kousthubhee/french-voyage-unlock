@@ -328,7 +328,7 @@ const schools: School[] = [
     ],
     keyHighlights: [
       "Compulsory year abroad",
-      "Historic campus; 13% int’l, 61% female",
+      "Historic campus; 13% int'l, 61% female",
       "480+ partner exchanges"
     ],
     contacts: [
@@ -428,7 +428,7 @@ const schools: School[] = [
     name: "ESSEC Business School",
     city: "Cergy",
     description:
-      "Triple-accredited, ~6,000 students, campuses in Cergy, Singapore, and Rabat. Global BBA (4-yr, 10–16 mo. abroad/internship). MiM Grande École, MBAs, MScs (Paris, Singapore), Exec. MBAs, PhD. Acceptance: BBA selective, MBA 15–25%. Scholarships & global partnerships. Ranked among world’s top management schools.",
+      "Triple-accredited, ~6,000 students, campuses in Cergy, Singapore, and Rabat. Global BBA (4-yr, 10–16 mo. abroad/internship). MiM Grande École, MBAs, MScs (Paris, Singapore), Exec. MBAs, PhD. Acceptance: BBA selective, MBA 15–25%. Scholarships & global partnerships. Ranked among world's top management schools.",
     levels: ["Undergraduate", "Graduate"],
     subjects: [
       "Global BBA: 4-year int’l track, extensive internships/abroad",
@@ -558,11 +558,11 @@ const schools: School[] = [
     name: "Université Lumière Lyon 2",
     city: "Lyon",
     description:
-      "Major public university: 27,000 students (~15% international). Licence (BA), Master (150+), Doctorat in humanities, law, social sciences, journalism. Parcoursup for Bachelor, direct application for Masters/PhD. B2/C1 French required for most Master’s. Strong research & humanities focus.",
+      "Major public university: 27,000 students (~15% international). Licence (BA), Master (150+), Doctorat in humanities, law, social sciences, journalism. Parcoursup for Bachelor, direct application for Masters/PhD. B2/C1 French required for most Master's. Strong research & humanities focus.",
     levels: ["Undergraduate", "Graduate"],
     subjects: [
       "Licence (Bachelor): Humanities, Law, Social Sciences, Journalism, Languages",
-      "Master (150+): Prof./research master’s",
+      "Master (150+): Prof./research master's",
       "Doctorat (PhD): with supervisor & research proposal",
       "Specialized (DUT, DU, Agrégation prep)"
     ],
@@ -642,7 +642,7 @@ const schools: School[] = [
     name: "Université Toulouse III – Paul Sabatier",
     city: "Toulouse",
     description:
-      "~35,000 students, 68 research labs, QS #580 (2025). Bachelor (Science, Health, IT), Master (Biomolecular, Environmental Health, etc.), Doctorat (multiple STEM schools). Tuition: ~€3–4k/yr EU, €6k+ for int’l/English. Mobility, double degrees & Erasmus supported.",
+      "~35,000 students, 68 research labs, QS #580 (2025). Bachelor (Science, Health, IT), Master (Biomolecular, Environmental Health, etc.), Doctorat (multiple STEM schools). Tuition: ~€3–4k/yr EU, €6k+ for int'l/English. Mobility, double degrees & Erasmus supported.",
     levels: ["Undergraduate", "Graduate"],
     subjects: [
       "Bachelor’s & Professional Licences: Science, Health, Sports, IT, Eco-Management",
@@ -651,7 +651,7 @@ const schools: School[] = [
     ],
     website: "https://www.univ-toulouse3.fr/",
     admissionProcess: [
-      "Bachelor: Parcoursup (for French/EU/EEA); Etudes en France or direct university portal for international.",
+      "Bachelor: Parcoursup (for French/EU/EEA); Etudes en France for international.",
       "Master/Doctorat: direct application with research proposal/research CV."
     ],
     languageRequirements: [
@@ -694,7 +694,7 @@ const schools: School[] = [
     ],
     website: "https://www.neoma-bs.com/",
     admissionProcess: [
-      "Global BBA: High school diploma equivalent. English: IELTS ≥ 6.0; bilingual: IELTS ≥ 5.5 + French B2. Dossier + interview, rolling admissions.",
+      "Global BBA: High school diploma equivalent. English: IELTS ≥ 6.0; bilingual: IELTS ≥ 5.5 & French B2. Dossier + interview, rolling admissions.",
       "MiM/MSc: Bachelor’s degree (180+ ECTS), transcripts, CV, statement of purpose, LORs, IELTS ≥ 6.0/TOEFL ≥ 83. GMAT/GRE optional/recommended.",
       "Executive/MBA/PhD: Professional experience (MBA); PhD requires research proposal & supervisor."
     ],
@@ -728,19 +728,19 @@ const schools: School[] = [
     name: "INSA Rouen Normandie",
     city: "Rouen",
     description:
-      "Public Grande École d’Ingénieurs, part of Groupe INSA. ~2,100 students (20–30% int’l), strong research labs and apprenticeship links.",
+      "Public Grande École d'Ingénieurs, part of Groupe INSA. ~2,100 students (20–30% int'l), strong research labs and apprenticeship links.",
     levels: ["Undergraduate", "Graduate"],
     subjects: [
-      "Diplôme d’Ingénieur: 5 years, 2-year integrated STPI + 3-year engineering specialization, 10 fields (CompSci, Energy, Chemical, etc.)",
+      "Diplôme d'Ingénieur: 5 years, 2-year integrated STPI + 3-year engineering specialization, 10 fields (CompSci, Energy, Chemical, etc.)",
       "International Bachelor & Masters (English & French)",
       "PhD Programs: Multiple engineering & science tracks"
     ],
     website: "https://www.insa-rouen.fr/",
     admissionProcess: [
-      "1st year Eng.: Parcoursup (French) / Études en France (Int’l), Bac S/STI/STL or equivalent, dossier + exams/interview.",
+      "1st year Eng.: Parcoursup (French) / Études en France (Int'l), Bac S/STI/STL or equivalent, dossier + exams/interview.",
       "Direct entry (L3/CPGE): File, exam, interview.",
-      "MSc/Appr.: Bachelor’s, transcripts, CV, SOP, language (TOEIC or equiv), deadlines in July.",
-      "PhD: Master’s, proposal, supervisor."
+      "MSc/Appr.: Bachelor's, transcripts, CV, SOP, language (TOEIC or equiv), deadlines in July.",
+      "PhD: Master's, proposal, supervisor."
     ],
     languageRequirements: [
       "French for most programs (B2 min)",
@@ -811,36 +811,40 @@ const schools: School[] = [
     id: "nantes-univ",
     name: "Université de Nantes",
     city: "Nantes",
-    description:
-      "Major public university — ~35,000 students (>10% int’l); wide range of bachelor’s, master’s, engineering, and PhD. Holds “Bienvenue en France” 3-star label.",
+    description: "Major public university (~35,000 students, 10%+ international), offering bachelor's, master's, PhD and engineering programs in humanities, sciences, law, business, journalism, and more. Recognized for student support and high international mobility.",
     levels: ["Undergraduate", "Graduate"],
     subjects: [
-      "Bachelor: Humanities, Law, Sciences, Engineering, Business, Journalism (English options at higher grades)",
-      "Master: CompSci, Data Mining, Project Mgmt, Optimization, Erasmus Mundus MSCs",
-      "Engineering (Polytech Nantes) — Diplôme d’Ingénieur",
-      "PhD programs: Sciences, Social Sciences"
+      "Licence (Bachelor, 180 ECTS): Humanities, Law, Social Sciences, Engineering (Polytech Nantes), Business, Journalism",
+      "Master (120 ECTS): Optimization, Data Science, Marine Technology, Earth & Planetary Sciences, Engineering, etc.",
+      "Engineering diplomas: via Polytech Nantes",
+      "PhD degrees across Sciences, Technology and Social Sciences",
+      "Exchange & Freemover: Semester-based English courses (OEM, ERASMUS+)"
     ],
     website: "https://english.univ-nantes.fr/",
     admissionProcess: [
-      "Licence 1: Intl: DAP (Nov 15–Dec 15); exchange via Erasmus/Partners.",
-      "Licence 2/3 & Master: VAEE (Feb–Jan 31), need bachelor’s, transcripts, proof of language (B1–B2).",
-      "MSc/PhD: Bachelor’s/Master’s, SOP, refs, lang. test (B1/B2 French or English)."
+      "Licence 1: DAP process (Nov 15–Dec 15) for non-EU; French/EU via Parcoursup",
+      "Licence 2/3 & Master: VAEE application Feb–Jan 31; requires transcripts, motivation letter, language test (French B1–B2 or English equivalent)",
+      "PhD: Based on Master's degree, research proposal, doctoral school",
     ],
     languageRequirements: [
-      "French B1–B2 for most; some English MScs"
+      "French B1–B2 (most degree tracks)",
+      "English proof for international/English programs",
     ],
     supportAndFeatures: [
-      "“Guichet Unique” visa/housing/health office",
-      "3-star inclusion label; CROUS meals €3.30, monthly transport pass €41",
-      "Large library & research facilities"
+      "“Guichet Unique” office for visa, housing, health services",
+      "Bienvenue en France national label; ~4,000 new international students per year",
+      "CROUS meals (€3.30), TAN student transport pass (€41/mo for under 26)",
     ],
-    tuition: "Bachelor (French): €170–250/year; MSc: variable",
-    ranking: "Regional leader; 397 partner univs",
+    tuition: "Licence: ~€170–250/yr; Master: ~€243–601/yr; Non-EU/International: check program",
+    ranking: "Regional leader; large Erasmus+ network",
     applicationDeadlines: [
-      { label: "Licence 1", deadline: "DAP Nov 15–Dec 15" }
+      { label: "Licence 1", deadline: "DAP Nov 15–Dec 15" },
+      { label: "Master", deadline: "Varies, VAEE Jan 31" }
     ],
     keyHighlights: [
-      "Affordability; 4,000 new international students yearly"
+      "397 partner universities; 1000+ students on exchange yearly",
+      "Active campus life and student associations",
+      "~10% international students"
     ],
     contacts: [
       { type: "Website", value: "https://english.univ-nantes.fr/" },
@@ -848,41 +852,42 @@ const schools: School[] = [
     ],
   },
   {
-    id: "audencia-nantes",
-    name: "Audencia Business School (Nantes Campus)",
+    id: "audencia-nantes-latest",
+    name: "Audencia Business School (Nantes)",
     city: "Nantes",
-    description:
-      "Triple-accredited (EQUIS, AACSB, AMBA) business school; ~7,800 students, 120+ nationalities, world-ranked for student satisfaction.",
+    description: "Triple-accredited business school (~7,800 students; 120+ nationalities, 37,000+ alumni), strong in management, data, AI, finance, sustainability and marketing. Known for extensive professional placements and international exposure.",
     levels: ["Undergraduate", "Graduate"],
     subjects: [
-      "Bachelor in Management & BBA: 3-year, internships, English/Fr tracks (Nantes, Paris, La Roche-sur-Yon)",
-      "Master in Management (Grande École / MiM): full-time, dual degrees, internships",
-      "MSc: Data, AI, Finance, Sustainable Mgmt, Digital Mgmt",
-      "MBA/Exec MBA/DBA: early to executive career, part/full time"
+      "Bachelor in Management: 3-year (English/French), 16 month mandatory internships, Nantes, Paris, La Roche-sur-Yon campuses",
+      "Master in Management (Grande École/MiM): 5-year program, dual degrees, professional internships",
+      "MSc: Data & AI, Finance, Sustainable Management, Digital Business (all in English)",
+      "MBA/IMBA/Exec MBA/DBA: for early to executive professionals",
+      "Summer/Winter schools, executive education"
     ],
     website: "https://www.audencia.com/",
     admissionProcess: [
-      "Bachelor: High school diploma, file + interview; IELTS ≥6.0 (Eng), DELF B2 (Fr); Jun 24 deadline (Paris); ~€38,100 total",
-      "MiM/MSc: Bachelor (240 ECTS), transcripts, CV, SOP, LORs; MiM Eng track IELTS ≥6.5/TOEFL 90, Fr track DELF B2 + TAGE MAGE, GMAT recommended; MiM fee ~€35,000",
-      "MBA/Exec MBA: Bachelor + ≥3yr experience; IELTS ≥6.5; interview"
+      "Bachelor: High school diploma, application, interview; IELTS ≥ 6.0 (Eng)/DELF B2 (Fr)",
+      "MiM & MSc: Bachelor's (240 ECTS); CV, SOP, LORs; IELTS ≥ 6.5 (Eng), DELF B2 (Fr) + TAGE MAGE; GMAT recommended",
+      "MBA/Exec MBA: Bachelor + 3 yrs work; IELTS/TOEFL, interview, GMAT optional"
     ],
     languageRequirements: [
-      "Bachelor: IELTS ≥ 6.0 (Eng), DELF B2 (Fr)",
-      "MiM/MSc: IELTS ≥ 6.5 or DELF B2 + TAGE MAGE"
+      "English or French based on track (IELTS 6.0–6.5+ or DELF B2)",
     ],
     supportAndFeatures: [
-      "Corporate & merit scholarships, career fair",
-      "Modern facilities (gyms, library, co-working)",
-      "Extracurriculars: clubs, arts, sports"
+      "Triple accreditation (EQUIS, AACSB, AMBA)",
+      "Corporate/merit scholarships and career support",
+      "Career fair, strong business partnerships",
+      "Modern campuses: co-working, gym, auditoriums"
     ],
-    tuition: "Bachelor: ~€38,100; MiM: €35,000; MSc/MBA vary",
-    ranking: "FT #27 global (2024), #1 France for happiness",
+    tuition: "Bachelor: ~€38,100; MiM: ~€35,000; MSc: varies; MBA: see site",
+    ranking: "Top 1% globally (triple crown)",
     applicationDeadlines: [
-      { label: "Bachelor", deadline: "June 24 (Paris entry)" }
+      { label: "Bachelor", deadline: "June 24 (Paris)" },
+      { label: "MiM", deadline: "Varies" }
     ],
     keyHighlights: [
-      "Triple-accredited; 7,800 students, 37,000+ alumni",
-      "Top-30 global business school; 66% int’l"
+      "Industry partnerships, active alumni, 120+ nationalities",
+      "Auditoriums, gym and student-run events"
     ],
     contacts: [
       { type: "Website", value: "https://www.audencia.com/" },
@@ -890,46 +895,218 @@ const schools: School[] = [
     ],
   },
   {
-    id: "ec-nantes",
+    id: "centrale-nantes",
     name: "École Centrale de Nantes",
     city: "Nantes",
-    description:
-      "Leading engineering grande école with accredited BSc, MSc, engineering, and PhD programs. Key research in robotics, marine, materials, and more.",
+    description: "Prestigious engineering grande école, top 200 global (THE), 43% international cohort. Wide range of BSc, Ingénieur, MSc, Erasmus Mundus Masters, and research degrees. Known for strong research, global mobility and bilingual options.",
     levels: ["Undergraduate", "Graduate"],
     subjects: [
-      "BSc in Engineering: Mechanical, Energy, Civil, Signal, Robotics",
-      "Diplôme d’Ingénieur (integrated, with Polytech Nantes)",
-      "Double-degree BBA Data, AI & Mgmt (with Audencia)",
-      "MSc: Marine, Robotics, Civil, Joint Erasmus Mundus",
-      "Integrated Master–PhD research track"
+      "BSc in Engineering: Mechanical, Energy, Civil, Signal, Robotics (English, internships required)",
+      "BBA Data, AI & Management (with Audencia, 4 yrs)",
+      "Diplôme d'Ingénieur: 5 years, major specialisations and mobility",
+      "MSc/Erasmus Mundus: Marine, Robotics, Civil, Energy, etc. (many English)",
+      "Integrated Master-PhD Track: 5 years (selective)"
     ],
     website: "https://www.ec-nantes.fr/",
     admissionProcess: [
-      "BSc: Apply via partner institutions; English taught options",
-      "MSc: Application, transcripts, proof of English/French",
-      "Double/Joint-degree: Requires home school nomination",
-      "Exchange: Erasmus+, partner nomination"
+      "BSc: High school diploma (science stream), ≤26y, TOEFL 78/IELTS 6.0, French not required",
+      "Diplôme d'Ingénieur: CPGE or partner recruitment, B1+ French, TOEIC ≥850, mobility mandatory",
+      "MSc/EMJMD: Bachelor's in relevant subject, IELTS ≥6.5, deadlines vary",
     ],
     languageRequirements: [
-      "BSc English track: No French required",
-      "MSc: English or French required"
+      "English for international BSc, MSc (IELTS 6.0–6.5+)",
+      "French for most Ingénieur/dual-degree tracks"
     ],
     supportAndFeatures: [
-      "Top engineering accreditations; modern campus",
-      "Research opportunities, international partnerships (Erasmus+, T.I.M.E.)",
-      "Vibrant student life, sports & research clubs"
+      "Mandatory mobility, 110+ student clubs, on-campus housing, CROUS canteen",
+      "Modern research labs, English & French support",
+      "No app fee for most programs"
     ],
-    tuition: "Public fees; varies by program/track",
-    ranking: "Member of int’l networks (Erasmus+ etc); accredited by Ministry",
+    tuition: "BSc: €2,770/yr; Ingénieur: €601–2,770/yr (EU), €2,770+ (int.); MSc/EMJMD: varies",
+    ranking: "Top 200 (THE Engineering)",
     applicationDeadlines: [
-      { label: "Main admission", deadline: "Check international office" }
+      { label: "BSc", deadline: "April (main intake)" },
+      { label: "MSc/EMJMD", deadline: "Varies, check website" }
     ],
     keyHighlights: [
-      "Strong engineering reputation; robust research output"
+      "43% international, 110+ clubs, internship-rich curriculum",
+      "10–20% int'l acceptance; avg. graduate salary ~€60k"
     ],
     contacts: [
       { type: "Website", value: "https://www.ec-nantes.fr/" },
       { type: "International", value: "international@ec-nantes.fr" }
+    ],
+  },
+  {
+    id: "polytech-nantes",
+    name: "Polytech Nantes",
+    city: "Nantes",
+    description: "Public engineering grande école; 10+ engineering specialties (electronics, IT, civil, process, bioprocess, etc.) spread across 3 campuses. Known for its CNRS research ties, hands-on internships, and strong international student support.",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "Diplôme d'Ingénieur (Master equivalent, 5 years): Electronics, IT, Civil, Energy, Bioprocess, Materials, more",
+      "International MSc (M2): Data Science, Energy, Visual Computing, Microalgae Production (English)",
+      "Exchange student & research internships",
+      "PhD: research labs, predoctoral tracks"
+    ],
+    website: "https://polytech.univ-nantes.fr/",
+    admissionProcess: [
+      "Engineering: PeiP prep, Geipi‑Polytech (Parcoursup), L3/M1 direct entry possible with file review/interview",
+      "International MSc: English B2+, French A1+, direct/Campus France by April 15",
+      "PhD: integrated, supervisor agreement"
+    ],
+    languageRequirements: [
+      "English B2+ (Intl MSc); French B1+ (degree tracks); both can be needed"
+    ],
+    supportAndFeatures: [
+      "CTI-accredited; 1,400 students, 350 graduates/yr, global mobility mandatory",
+      "CNRS research labs, 50+ partners, OMIST scholarship (€1,500–3,500)",
+      "Focus on incoming international mobility (orientation, housing help)"
+    ],
+    tuition: "Engineering: €601–2,770/yr (EU/EEA); MSc: ~€7,500/yr",
+    ranking: "CTI, Réseau Polytech",
+    applicationDeadlines: [
+      { label: "MSc application", deadline: "April 15" }
+    ],
+    keyHighlights: [
+      "10 specialties, strong industry links, on-campus labs",
+      "Partnered with local and national research networks"
+    ],
+    contacts: [
+      { type: "Website", value: "https://polytech.univ-nantes.fr/" },
+      { type: "International", value: "international.polytech@univ-nantes.fr" }
+    ],
+  },
+  {
+    id: "oniris",
+    name: "Oniris (Nantes)",
+    city: "Nantes",
+    description: "Specialist grand établissement combining veterinary sciences, food technology, and plant sciences, with strong research in bioprocess engineering and life sciences.",
+    levels: ["Graduate"],
+    subjects: [
+      "Process & Bioprocess Engineering MSc (2 yrs): life/food/bio production focus",
+      "Veterinary Sciences: accredited veterinary degrees",
+      "Plant Sciences: MSc and doctoral specialties"
+    ],
+    website: "https://www.oniris-nantes.fr/",
+    admissionProcess: [
+      "MSc: Bachelor (or L3), application via website, typical deadline summer prior to start",
+      "Language: English or French as relevant"
+    ],
+    languageRequirements: [
+      "Relevant to track; French or English proficiency depending on specialty"
+    ],
+    supportAndFeatures: [
+      "Top French institute for plant and animal sciences, strong research and placements",
+      "National/international research projects"
+    ],
+    tuition: "Public university fees (approx. €243–601/yr MSc)",
+    ranking: "National designation; Ministry of Higher Education",
+    applicationDeadlines: [
+      { label: "MSc", deadline: "June/July" }
+    ],
+    keyHighlights: [
+      "Unique life/food/veterinary integration; leading French plant biotech research"
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.oniris-nantes.fr/" }
+    ],
+  },
+  {
+    id: "excelia-group",
+    name: "Excelia Group (La Rochelle)",
+    city: "La Rochelle",
+    description: "Private group of state-accredited, triple-accredited schools (business, tourism, communication) focused on sustainability, hospitality, and innovation. ~5,000 students, 120+ nationalities, and 37,000+ alumni.",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "Excelia Business School: Bachelor (3 yrs), BBA International (4 yrs), MiM/MSc in business, tourism, hospitality",
+      "Excelia Communication School: Bachelor in Digital Communication & Strategy, MSc in Digital Influencing/Visual/Event",
+      "Excelia Tourism School: Bachelor in Hospitality/Tourism (3 yrs, TedQual cert.), MScs in Hotel Mgmt, Tourism, Event, F&B",
+      "Exchange/FreeMover: ERASMUS+, business/hospitality/digital, English/French"
+    ],
+    website: "https://www.excelia-group.com/",
+    admissionProcess: [
+      "Bachelor: High school diploma, interview, English track IELTS ≥ 6.0, French track DELF B2",
+      "MiM/MSc: Bachelor's (180–240 ECTS), CV, SOP, LORs, IELTS/DELF, GMAT if requested; MBA/DBA needs experience"
+    ],
+    languageRequirements: [
+      "English tracks: IELTS 6.0–6.5+; French tracks: DELF B2; some dual language"
+    ],
+    supportAndFeatures: [
+      "Triple accreditation (AACSB, EQUIS, AMBA), TedQual for tourism",
+      "Sustainability/humanitarian projects: Humacité, Climacité",
+      "Practical learning: internships, fieldwork, French Atlantic campus"
+    ],
+    tuition: "Bachelor: ~€9,150–11,150/yr; MiM/MSc: ~€14,000–19,000/yr; scholarships available",
+    ranking: "Triple-accredited, strong sustainability theme",
+    applicationDeadlines: [
+      { label: "Bachelor/Master", deadline: "Rolling" }
+    ],
+    keyHighlights: [
+      "Historic Atlantic port, rich student life, sustainability leadership"
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.excelia-group.com/" },
+      { type: "Admissions", value: "admissions@excelia-group.com" }
+    ],
+  },
+  {
+    id: "institut-ocean",
+    name: "Institut de l'Océan (Sorbonne/Paris)",
+    city: "Paris",
+    description: "National marine science and oceanography research institute (Sorbonne University), home to 30 labs, 1,500 staff. Focus: physical oceanography, climate, environmental law, and marine technology.",
+    levels: [],
+    subjects: [
+      "Research: PhD/postdoc; no direct teaching, but affiliated with Sorbonne, UPMC, partner MSc/Licence programs"
+    ],
+    website: "https://institut-ocean.sorbonne-universite.fr/",
+    admissionProcess: [
+      "PhD via Sorbonne/partner university; supervisor alignment required"
+    ],
+    languageRequirements: [
+      "Depends on home university/track"
+    ],
+    supportAndFeatures: [
+      "Access to top research labs, marine stations (Dinard, Roscoff, Banyuls, etc.), national outreach",
+      "Strong links to French Navy and national/international ocean networks"
+    ],
+    tuition: "See Sorbonne University/partner rates",
+    ranking: "National leader, networked with global marine science",
+    applicationDeadlines: [],
+    keyHighlights: [
+      "Major oceanography and climate science hub"
+    ],
+    contacts: [
+      { type: "Website", value: "https://institut-ocean.sorbonne-universite.fr/" }
+    ],
+  },
+  {
+    id: "locean",
+    name: "LOCEAN (Laboratoire d'Océanographie et du Climat)",
+    city: "Paris",
+    description: "Leading marine science and climate research laboratory (Sorbonne–CNRS–IRD–MNHN), recognized for elite earth/environmental sciences output and international projects.",
+    levels: [],
+    subjects: [
+      "Physical and biogeochemical oceanography, climate-ecology research, citizen science"
+    ],
+    website: "https://locean.ipsl.fr/",
+    admissionProcess: [
+      "Doctoral/research positions via Sorbonne/partner labs"
+    ],
+    languageRequirements: [
+      "Depends on appointment/home university"
+    ],
+    supportAndFeatures: [
+      "Nature Index, public outreach, multi-lab collaboration"
+    ],
+    tuition: "Not applicable (research lab; see host university)",
+    ranking: "Nature Index, IPSL network",
+    applicationDeadlines: [],
+    keyHighlights: [
+      "28 top publications (2024–25), national and public engagement"
+    ],
+    contacts: [
+      { type: "Website", value: "https://locean.ipsl.fr/" }
     ],
   },
 ];
@@ -967,13 +1144,13 @@ const cityData = [
   {
     name: "Lyon",
     emoji: "🦁",
-    description: "France’s culinary capital and student city.",
+    description: "France's culinary capital and student city.",
     localInsights: [
       {
         title: "Local Cuisine",
         description: "Try out the famous 'bouchons'.",
         tips: [
-          "Don’t miss quenelles and praline tarts.",
+          "Don't miss quenelles and praline tarts.",
           "Explore Croix-Rousse for hidden gems.",
         ],
       },
@@ -1111,7 +1288,7 @@ const cityData = [
     description: "Atlantic city with creative and green spirit.",
     localInsights: [],
     transport: "Tram, bus, ferry.",
-    famousPlaces: "Château des Ducs, Machines de l’Île.",
+    famousPlaces: "Château des Ducs, Machines de l'Île.",
     sportsFacilities: "Stade de la Beaujoire, riverside parks.",
     studentLife: "Festivals, clubs, local food.",
     schoolsCount: schools.filter(s => s.city === "Nantes").length,
