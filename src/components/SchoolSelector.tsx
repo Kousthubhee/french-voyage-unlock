@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ArrowLeft, MapPin, Building2, Users, Info } from 'lucide-react';
+import { InsightsDialog } from "./school-insights/InsightsDialog";
 
 interface School {
   id: string;
@@ -170,7 +171,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           tips: [
             "Tisséo metro, trams, and buses (€15/month student pass) via Tisséo Collectivités app",
             "VélôToulouse bikes through the VélôToulouse app—perfect for flat terrain",
-            "FlixBus to Bordeaux, Paris, etc. (from €9) via FlixBus app",
+            "FlixBus to Bordeaux, Paris, etc. (from €9) via FlixBus app from 33 Avenue Champlain",
             "SNCF TGV to Paris in 4 hours via SNCF Connect app"
           ]
         },
@@ -390,7 +391,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
       studentLife: 'Wine capital, UNESCO heritage, vibrant nightlife',
       schools: [
         { id: 'bordeaux-univ', name: 'Université de Bordeaux', description: 'Comprehensive research university', location: 'Bordeaux', programs: ['Science', 'Engineering'] },
-        { id: 'kedge-bordeaux', name: 'KEDGE Business School', description: 'Top-tier business school', location: 'Bordeaux', programs: ['MBA', 'MSc'] },
+        { id: 'kedge-bordeaux', name: 'KEDGE Business School', description: 'Major business school', location: 'Bordeaux', programs: ['MBA', 'MSc'] },
         { id: 'enseirb', name: 'ENSEIRB-MATMECA', description: 'Engineering in IT, electronics, math', location: 'Bordeaux', programs: ['Engineering'] },
         { id: 'sciencespo-bordeaux', name: 'Sciences Po Bordeaux', description: 'Political science and international studies', location: 'Bordeaux', programs: ['Politics'] },
         { id: 'inpbordeaux', name: 'INP Bordeaux', description: 'Engineering network incl. ENSEIRB-MATMECA, ENSCBP', location: 'Bordeaux', programs: ['Engineering'] }
@@ -907,46 +908,16 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
         </div>
 
         {/* Local Insights Modal */}
-        <Dialog
+        <InsightsDialog
           open={showInsights}
-          onOpenChange={(open) => {
-            if (open) {
-              console.log('[DEBUG] Opening Insights Dialog for city:', selectedCity, 'Local Insights:', cityData.localInsights);
-            }
-            setShowInsights(open);
-          }}
-          key={cityData.name}
-        >
-          <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>Local Insights for {cityData.name}</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-6">
-              {cityData.localInsights && cityData.localInsights.length > 0 ? (
-                cityData.localInsights.map((insight, index) => (
-                  <Card key={index}>
-                    <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{insight.title}</h3>
-                      <p className="text-gray-600 mb-4">{insight.description}</p>
-                      <ul className="space-y-2">
-                        {insight.tips.map((tip, tipIndex) => (
-                          <li key={tipIndex} className="flex items-start">
-                            <span className="text-blue-500 mr-2">•</span>
-                            <span className="text-sm text-gray-700">{tip}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                ))
-              ) : (
-                <div className="text-center text-gray-500 py-8">
-                  No local tips available for this city yet.
-                </div>
-              )}
-            </div>
-          </DialogContent>
-        </Dialog>
+          onOpenChange={setShowInsights}
+          cityName={cityData.name}
+          localInsights={cityData.localInsights}
+          transport={cityData.transport}
+          famousPlaces={cityData.famousPlaces}
+          sportsFacilities={cityData.sportsFacilities}
+          studentLife={cityData.studentLife}
+        />
       </div>
     );
   }
