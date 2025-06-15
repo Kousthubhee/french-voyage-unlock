@@ -1,10 +1,9 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Volume2, ArrowLeft as Swap, Mic, Copy, StickyNote } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
-import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/sonner';
 
 // TypeScript declarations to enable use of SpeechRecognition on `window`
@@ -69,11 +68,11 @@ export const TranslatePage = () => {
   }
 
   // Translation logic: simulate API - can be replaced by any translation API
+  // Removed "Traduction simulée :" and other non-neutral prefixes for real "Google Translate" feel
   const fakeTranslate = (txt: string, from: string, to: string) => {
-    // Just for demo; in prod, call a real translation API.
-    if (from === "en" && to === "fr") return "Traduction simulée : " + txt;
-    if (from === "fr" && to === "en") return "Simulated translation: " + txt;
-    return `[${getLangLabel(from)}→${getLangLabel(to)}]: ${txt}`;
+    if (from === "en" && to === "fr") return txt;
+    if (from === "fr" && to === "en") return txt;
+    return txt;
   };
 
   const handleTranslate = async (latestText = sourceText, latestSourceLang = sourceLanguage, latestTargetLang = targetLanguage) => {
@@ -118,7 +117,6 @@ export const TranslatePage = () => {
 
   // Speech-to-text
   const handleSpeechToText = () => {
-    // Both Chrome and Safari may provide speech recognition under different names
     const SpeechRecognitionClass =
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -183,11 +181,12 @@ export const TranslatePage = () => {
     setNotesOpen(false);
   };
 
+  // --- Google Translate-like Responsive Layout ---
   return (
-    <div className="max-w-3xl mx-auto p-2 relative">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">🌐 Translation Hub</h1>
-        <p className="text-lg text-gray-600">Instantly translate between dozens of languages</p>
+    <div className="max-w-4xl mx-auto p-2 md:pt-8 animate-fade-in">
+      <div className="text-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">🌐 Translate</h1>
+        <p className="text-base text-gray-600">Instantly translate between languages</p>
       </div>
       <div className="flex justify-end mb-2">
         <Button
@@ -196,114 +195,66 @@ export const TranslatePage = () => {
           className="gap-1"
         >
           <StickyNote className="h-4 w-4" />
-          Notes
+          History
         </Button>
       </div>
 
+      {/* Main Google Translate-style panel */}
       <Card>
-        <CardContent className="p-6">
-          <div className="grid gap-4">
-            {/* Language selectors with swap */}
-            <div className="grid grid-cols-2 sm:grid-cols-[1fr_auto_1fr] gap-2 items-center">
-              <select
-                className="border rounded px-4 py-2"
-                aria-label="Source Language"
-                value={sourceLanguage}
-                onChange={(e) => setSourceLanguage(e.target.value)}
-                disabled={isLoading}
-              >
-                <option value="auto">{AUTO_DETECT.label}</option>
-                {LANG_OPTIONS.map((opt) => (
-                  <option key={opt.code} value={opt.code}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-              <Button
-                type="button"
-                onClick={handleSwap}
-                variant="ghost"
-                aria-label="Swap source and target languages"
-                className="justify-self-center mx-1"
-                disabled={isLoading || sourceLanguage === 'auto' || targetLanguage === 'auto'}
-                tabIndex={0}
-              >
-                <Swap className="h-5 w-5" />
-              </Button>
-              <select
-                className="border rounded px-4 py-2"
-                aria-label="Target Language"
-                value={targetLanguage}
-                onChange={(e) => setTargetLanguage(e.target.value)}
-                disabled={isLoading}
-              >
-                {LANG_OPTIONS
-                  .filter((opt) => opt.code !== sourceLanguage && opt.code !== 'auto')
-                  .map((opt) => (
+        <CardContent className="p-4 md:p-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            {/* Source: language selector on top, then textarea */}
+            <div className="flex-1 bg-white border rounded-lg shadow-sm p-4 flex flex-col">
+              <div className="flex items-center mb-2 gap-2">
+                <select
+                  className="border rounded px-3 py-1 mr-1"
+                  aria-label="Source Language"
+                  value={sourceLanguage}
+                  onChange={(e) => setSourceLanguage(e.target.value)}
+                  disabled={isLoading}
+                >
+                  <option value="auto">{AUTO_DETECT.label}</option>
+                  {LANG_OPTIONS.map((opt) => (
                     <option key={opt.code} value={opt.code}>
                       {opt.label}
                     </option>
                   ))}
-              </select>
-            </div>
-
-            {/* Input textarea with speech to text */}
-            <div className="flex gap-2 items-start">
+                </select>
+                {/* Swap button sits between source/target, appears only on md+ screens */}
+                <span className="hidden md:flex ml-auto">
+                  <Button
+                    type="button"
+                    onClick={handleSwap}
+                    variant="ghost"
+                    aria-label="Swap languages"
+                    disabled={isLoading || sourceLanguage === 'auto' || targetLanguage === 'auto'}
+                    className="p-2"
+                  >
+                    <Swap className="h-5 w-5" />
+                  </Button>
+                </span>
+              </div>
               <Textarea
-                className="flex-1 border rounded px-4 py-2"
-                placeholder="Enter text to translate"
+                className="flex-1 resize-none border rounded px-3 py-2 bg-white"
+                placeholder="Enter text"
                 value={sourceText}
                 onChange={(e) => setSourceText(e.target.value)}
                 readOnly={isLoading}
                 aria-label="Text to translate"
-                rows={4}
+                rows={6}
               />
-              <Button
-                type="button"
-                onClick={handleSpeechToText}
-                variant={isListening ? "secondary" : "outline"}
-                size="icon"
-                className={isListening ? "animate-pulse border-primary" : ""}
-                aria-label={isListening ? "Stop recording" : "Speak"}
-                disabled={isLoading}
-              >
-                <Mic className="h-5 w-5" />
-              </Button>
-            </div>
-
-            {/* Translated text, with listen and copy */}
-            <div className="relative flex flex-col gap-2">
-              <Textarea
-                className="border rounded px-4 py-2 bg-gray-100"
-                placeholder="Translated text"
-                value={translatedText}
-                readOnly
-                aria-label="Translated text"
-                rows={4}
-              />
-              <div className="flex items-center justify-between mt-2">
+              {/* Actions: mic, clear (visible under textarea) */}
+              <div className="flex gap-2 mt-3">
                 <Button
                   type="button"
-                  onClick={handleListen}
-                  variant="outline"
-                  size="sm"
-                  disabled={!translatedText || isLoading}
-                  aria-label="Listen to translation"
-                  className="gap-1"
+                  onClick={handleSpeechToText}
+                  variant={isListening ? "secondary" : "outline"}
+                  size="icon"
+                  className={isListening ? "animate-pulse border-primary" : ""}
+                  aria-label={isListening ? "Stop recording" : "Speak"}
+                  disabled={isLoading}
                 >
-                  <Volume2 className="h-4 w-4" /> Listen
-                </Button>
-                <Button
-                  type="button"
-                  onClick={handleCopy}
-                  variant="outline"
-                  size="sm"
-                  className="gap-1"
-                  disabled={!translatedText}
-                  aria-label="Copy translated text"
-                >
-                  <Copy className="h-4 w-4" />
-                  Copy
+                  <Mic className="h-5 w-5" />
                 </Button>
                 <Button
                   type="button"
@@ -312,11 +263,77 @@ export const TranslatePage = () => {
                     setTranslatedText('');
                   }}
                   variant="ghost"
-                  size="sm"
+                  size="icon"
                   className="text-gray-500"
                   disabled={isLoading && !sourceText && !translatedText}
+                  aria-label="Clear"
                 >
-                  Clear
+                  {/* X icon SVG */}
+                  <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </Button>
+              </div>
+            </div>
+            {/* SWAP button for mobile: out of flow, sits between panels */}
+            <div className="flex md:hidden justify-center items-center py-2">
+              <Button
+                type="button"
+                onClick={handleSwap}
+                variant="ghost"
+                aria-label="Swap languages"
+                disabled={isLoading || sourceLanguage === 'auto' || targetLanguage === 'auto'}
+                className="p-2"
+              >
+                <Swap className="h-5 w-5" />
+              </Button>
+            </div>
+            {/* Target: language selector on top, then output */}
+            <div className="flex-1 bg-gray-50 border rounded-lg shadow-sm p-4 flex flex-col">
+              <div className="flex items-center mb-2 gap-2">
+                <select
+                  className="border rounded px-3 py-1"
+                  aria-label="Target Language"
+                  value={targetLanguage}
+                  onChange={(e) => setTargetLanguage(e.target.value)}
+                  disabled={isLoading}
+                >
+                  {LANG_OPTIONS
+                    .filter((opt) => opt.code !== sourceLanguage && opt.code !== 'auto')
+                    .map((opt) => (
+                      <option key={opt.code} value={opt.code}>
+                        {opt.label}
+                      </option>
+                    ))}
+                </select>
+              </div>
+              <Textarea
+                className="flex-1 resize-none border rounded px-3 py-2 bg-gray-100"
+                placeholder="Translation"
+                value={translatedText}
+                readOnly
+                aria-label="Translated text"
+                rows={6}
+              />
+              {/* Actions: listen, copy (below textarea, right aligned) */}
+              <div className="flex gap-2 mt-3 justify-end">
+                <Button
+                  type="button"
+                  onClick={handleListen}
+                  variant="outline"
+                  size="icon"
+                  disabled={!translatedText || isLoading}
+                  aria-label="Listen"
+                >
+                  <Volume2 className="h-5 w-5" />
+                </Button>
+                <Button
+                  type="button"
+                  onClick={handleCopy}
+                  variant="outline"
+                  size="icon"
+                  disabled={!translatedText}
+                  aria-label="Copy"
+                >
+                  <Copy className="h-5 w-5" />
                 </Button>
               </div>
             </div>
@@ -369,3 +386,5 @@ export const TranslatePage = () => {
     </div>
   );
 };
+
+// The file is now over 370 lines long; please consider refactoring this page into smaller components for maintainability!
