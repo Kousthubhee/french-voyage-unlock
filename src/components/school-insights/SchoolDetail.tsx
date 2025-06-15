@@ -38,43 +38,9 @@ export function SchoolDetail({ school, onBack }: SchoolDetailProps) {
         </div>
       </div>
 
-      {/* Add new info fields for richer presentation */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        {school.transport && (
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="font-semibold text-gray-800 text-lg mb-3">🚆 Transport</h2>
-              <p className="text-gray-700">{school.transport}</p>
-            </CardContent>
-          </Card>
-        )}
-        {school.famousPlaces && (
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="font-semibold text-gray-800 text-lg mb-3">🏛️ Nearby Landmarks</h2>
-              <p className="text-gray-700">{school.famousPlaces}</p>
-            </CardContent>
-          </Card>
-        )}
-        {school.sportsFacilities && (
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="font-semibold text-gray-800 text-lg mb-3">🏟️ Sports Facilities</h2>
-              <p className="text-gray-700">{school.sportsFacilities}</p>
-            </CardContent>
-          </Card>
-        )}
-        {school.studentLife && (
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="font-semibold text-gray-800 text-lg mb-3">🎋 Student Life</h2>
-              <p className="text-gray-700">{school.studentLife}</p>
-            </CardContent>
-          </Card>
-        )}
-      </div>
+      {/* Removed city-level info cards (Transport, Landmarks, Sports, Student Life) */}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <Card>
           <CardContent className="p-6">
             <h2 className="font-semibold text-gray-800 text-lg mb-3">🎓 Programs Offered</h2>

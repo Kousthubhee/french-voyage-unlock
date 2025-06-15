@@ -23,6 +23,10 @@ interface LocalInsight {
 interface City {
   name: string;
   description: string;
+  transport: string;
+  famousPlaces: string;
+  sportsFacilities: string;
+  studentLife: string;
   schools: School[];
   localInsights: LocalInsight[];
 }
@@ -41,6 +45,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     paris: {
       name: 'Paris',
       description: 'Capital city with top-tier schools in all domains',
+      transport: 'Navigo pass (metro, bus, RER, tram)',
+      famousPlaces: 'Eiffel Tower, Louvre, Montmartre, Notre-Dame',
+      sportsFacilities: 'CROUS gyms, Stade Charlety, Jean Bouin stadium',
+      studentLife: 'Vibrant culture, student discounts, international events',
       schools: [
         { id: 'sorbonne', name: 'Sorbonne University', description: 'Humanities, sciences, and medicine', location: 'Paris', programs: ['Humanities', 'Science', 'Medicine'] },
         { id: 'psl', name: 'PSL University', description: 'Includes ENS, Dauphine, Mines ParisTech', location: 'Paris', programs: ['Science', 'Economics', 'Engineering'] },
@@ -58,7 +66,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           description: "Navigate Paris efficiently with metro, buses, bikes, and intercity options",
           tips: [
             "Get a Navigo card (€350/year student pass) via the Île-de-France Mobilités app for unlimited Métro, bus, and tram travel",
-            "Use Vélib’ bikes through the Vélib’ Métropole app for short trips",
+            "Use Vélib' bikes through the Vélib' Métropole app for short trips",
             "FlixBus connects to Lyon, Toulouse, and more from Paris-Bercy Seine—book via the FlixBus app (from €5)",
             "SNCF TGV trains to other cities (e.g., Lyon in 2 hours) via SNCF Connect app"
           ]
@@ -88,6 +96,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     lyon: {
       name: 'Lyon',
       description: 'Hub of engineering, medicine, and business',
+      transport: 'TCL network (metro, tram, bus, funicular)',
+      famousPlaces: 'Vieux Lyon, Basilique Notre-Dame, Place Bellecour',
+      sportsFacilities: 'Gerland sports complex, Tony Garnier arena',
+      studentLife: 'Gastronomic capital, student bars, cultural events',
       schools: [
         { id: 'centrale-lyon', name: 'École Centrale de Lyon', description: 'Engineering and applied sciences', location: 'Lyon', programs: ['Engineering'] },
         { id: 'insa-lyon', name: 'INSA Lyon', description: 'Public engineering school', location: 'Lyon', programs: ['Engineering'] },
@@ -101,7 +113,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           description: "Efficient public transport system in Lyon",
           tips: [
             "TCL card (€35/month student pass) via TCL Compte Mobilité app covers metro, tram, and bus",
-            "Velo’v bike rentals through the Velo’v app—great for Presqu’île",
+            "Velo'v bike rentals through the Velo'v app—great for Presqu'île",
             "FlixBus from Lyon Perrache to Paris, Toulouse, etc. (from €15) via FlixBus app",
             "SNCF TGV to Paris in 2 hours—book via SNCF Connect app"
           ]
@@ -121,8 +133,8 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           description: "Explore parks and sports facilities in Lyon",
           tips: [
             "Book badminton courts at Gymnase Bellecombe via Anybuddy",
-            "Parc de la Tête d’Or for informal cricket with expat groups, or rugby",
-            "Relax at Parc de la Tête d’Or—enjoy fields, a lake, and a free zoo",
+            "Parc de la Tête d'Or for informal cricket with expat groups, or rugby",
+            "Relax at Parc de la Tête d'Or—enjoy fields, a lake, and a free zoo",
             "Must-visit: Vieux Lyon, Basilique Notre-Dame de Fourvière"
           ]
         }
@@ -131,6 +143,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     toulouse: {
       name: 'Toulouse',
       description: 'Leading aerospace and tech education hub',
+      transport: 'Tisséo network (metro, tram, bus)',
+      famousPlaces: 'Capitole, Basilique Saint-Sernin, Canal du Midi',
+      sportsFacilities: 'Stadium de Toulouse, CREPS sports center',
+      studentLife: 'La Ville Rose, aerospace industry, sunny climate',
       schools: [
         { id: 'supaero', name: 'ISAE-SUPAERO', description: 'Top aerospace engineering school', location: 'Toulouse', programs: ['Aerospace Engineering'] },
         { id: 'insa-toulouse', name: 'INSA Toulouse', description: 'Public engineering school', location: 'Toulouse', programs: ['Engineering'] },
@@ -153,7 +169,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           title: "Aerospace & Lifestyle",
           description: "Toulouse is a hub for aerospace with a sunny vibe",
           tips: [
-            "Visit Cité de l’Espace for aerospace inspiration",
+            "Visit Cité de l'Espace for aerospace inspiration",
             "Network with Airbus professionals for internships",
             "Enjoy Toulouse Plages (July-August) for free riverbank events",
             "Hang out at Place Saint-Pierre for €2 beers at Le Saint des Seins"
@@ -174,6 +190,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     rouen: {
       name: 'Rouen',
       description: 'Historic city with modern business and tech schools',
+      transport: 'Astuce network (TEOR, metro, bus)',
+      famousPlaces: 'Rouen Cathedral, Gros Horloge, Joan of Arc sites',
+      sportsFacilities: 'Kindarena sports hall, Robert Diochon stadium',
+      studentLife: 'Medieval architecture, Seine riverside, Norman cuisine',
       schools: [
         { id: 'neoma-rouen', name: 'NEOMA Business School (Main campus)', description: 'PGE, MSc, BBA programs', location: 'Rouen', programs: ['PGE', 'MSc', 'BBA'] },
         { id: 'insa-rouen', name: 'INSA Rouen Normandie', description: 'Engineering across multiple domains', location: 'Rouen', programs: ['Engineering'] },
@@ -216,6 +236,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     reims: {
       name: 'Reims',
       description: 'Business and international affairs education hub',
+      transport: 'Citura network (tram, bus)',
+      famousPlaces: 'Reims Cathedral, Champagne houses, Palais du Tau',
+      sportsFacilities: 'Stade Auguste-Delaune, René Tys sports complex',
+      studentLife: 'Champagne capital, historic center, student-friendly',
       schools: [
         { id: 'neoma-reims', name: 'NEOMA Business School (Reims)', description: 'Core business programs', location: 'Reims', programs: ['Business', 'MBA', 'MSc'] },
         { id: 'sciencespo-reims', name: 'Sciences Po Campus Reims', description: 'International program focus', location: 'Reims', programs: ['Politics', 'Global Affairs'] },
@@ -258,6 +282,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     lille: {
       name: 'Lille',
       description: 'Northern hub for business and engineering education',
+      transport: 'Transpole network (metro, tram, bus)',
+      famousPlaces: 'Grand Place, Vieux Lille, Palais des Beaux-Arts',
+      sportsFacilities: 'Stade Pierre-Mauroy, Lille Métropole sports complex',
+      studentLife: 'Flemish influence, student district, Braderie festival',
       schools: [
         { id: 'lille-univ', name: 'Université de Lille', description: 'Large multidisciplinary public university', location: 'Lille', programs: ['Various'] },
         { id: 'edhec-lille', name: 'EDHEC Business School', description: 'Top 5 French business school', location: 'Lille', programs: ['MBA', 'MSc', 'Finance'] },
@@ -271,14 +299,14 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           description: "Navigate Lille and beyond",
           tips: [
             "Transpole metro, trams, and buses (€35/month student pass) via Transpole app",
-            "V’Lille bikes through the V’Lille app",
+            "V'Lille bikes through the V'Lille app",
             "FlixBus to Paris, Lyon, etc. (from €7) via FlixBus app from Gare Lille Europe",
             "SNCF TGV to Paris in 1 hour via SNCF Connect app"
           ]
         },
         {
           title: "Culture & Events",
-          description: "Experience Lille’s youthful vibe",
+          description: "Experience Lille's youthful vibe",
           tips: [
             "Visit Braderie de Lille (first weekend of September) for flea markets and music",
             "Enjoy €5-7 kebabs on Rue de Gand",
@@ -301,6 +329,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     strasbourg: {
       name: 'Strasbourg',
       description: 'Prestigious academic and international region',
+      transport: 'CTS network (tram, bus)',
+      famousPlaces: 'Strasbourg Cathedral, Petite France, European Parliament',
+      sportsFacilities: 'Rhenus Sport arena, Stade de la Meinau',
+      studentLife: 'Franco-German culture, EU institutions, Christmas market',
       schools: [
         { id: 'strasbourg-univ', name: 'Université de Strasbourg', description: 'Prestigious university, strong in sciences and humanities', location: 'Strasbourg', programs: ['Science', 'Humanities'] },
         { id: 'insa-strasbourg', name: 'INSA Strasbourg', description: 'Part of the INSA engineering network', location: 'Strasbourg', programs: ['Engineering'] },
@@ -320,7 +352,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
         },
         {
           title: "Culture & Events",
-          description: "Experience Strasbourg’s French-German mix",
+          description: "Experience Strasbourg's French-German mix",
           tips: [
             "Visit Strasbourg Christmas Market (late November-December) for mulled wine",
             "Enjoy tarte flambée at Au Brasseur for €8-10",
@@ -333,8 +365,8 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           description: "Find spots for sports and relaxation",
           tips: [
             "Book badminton courts at Gymnase des Deux Rives via Anybuddy",
-            "Parc de l’Orangerie for informal cricket with expat groups",
-            "Relax at Parc de l’Orangerie with a lake and storks",
+            "Parc de l'Orangerie for informal cricket with expat groups",
+            "Relax at Parc de l'Orangerie with a lake and storks",
             "Visit European Parliament for a unique experience"
           ]
         }
@@ -343,6 +375,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     bordeaux: {
       name: 'Bordeaux',
       description: 'Southwest academic powerhouse in sciences and business',
+      transport: 'TBM network (tram, bus, ferry)',
+      famousPlaces: 'Place de la Bourse, Grand Théâtre, Cité du Vin',
+      sportsFacilities: 'Matmut Atlantique stadium, Mériadeck ice rink',
+      studentLife: 'Wine capital, UNESCO heritage, vibrant nightlife',
       schools: [
         { id: 'bordeaux-univ', name: 'Université de Bordeaux', description: 'Comprehensive research university', location: 'Bordeaux', programs: ['Science', 'Engineering'] },
         { id: 'kedge-bordeaux', name: 'KEDGE Business School', description: 'Top-tier business school', location: 'Bordeaux', programs: ['MBA', 'MSc'] },
@@ -363,7 +399,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
         },
         {
           title: "Wine Culture",
-          description: "Immerse in Bordeaux’s wine heritage",
+          description: "Immerse in Bordeaux's wine heritage",
           tips: [
             "Visit La Cité du Vin to learn about wine culture",
             "Attend Fête du Vin (June, next in 2026) for tastings",
@@ -385,7 +421,11 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     },
     nice: {
       name: 'Nice',
-      description: 'Côte d’Azur region with business and engineering strengths',
+      description: 'Côte d'Azur region with business and engineering strengths',
+      transport: 'Lignes d'Azur network (tram, bus)',
+      famousPlaces: 'Promenade des Anglais, Old Nice, Castle Hill',
+      sportsFacilities: 'Allianz Riviera stadium, Charles Ehrmann sports complex',
+      studentLife: 'Mediterranean beaches, international atmosphere, outdoor lifestyle',
       schools: [
         { id: 'uca', name: 'Université Côte d\'Azur', description: 'Alliance of local institutions under one label', location: 'Nice', programs: ['Various'] },
         { id: 'skema-nice', name: 'SKEMA Business School (Sophia)', description: 'Global business school with AI focus', location: 'Sophia Antipolis', programs: ['Business', 'AI'] },
@@ -398,7 +438,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           title: "Transportation",
           description: "Navigate Nice with ease",
           tips: [
-            "Lignes d’Azur trams and buses (€25/month student pass) via Lignes d’Azur app",
+            "Lignes d'Azur trams and buses (€25/month student pass) via Lignes d'Azur app",
             "Vélo Bleu bikes through the Vélo Bleu app",
             "FlixBus to Marseille, Paris, etc. (from €9) via FlixBus app",
             "SNCF trains to Marseille in 2.5 hours via SNCF Connect app"
@@ -419,7 +459,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           description: "Find spots for sports and relaxation",
           tips: [
             "Book badminton courts at Gymnase Pasteur via Anybuddy",
-            "Parc Estienne d’Orves for informal cricket with expat groups",
+            "Parc Estienne d'Orves for informal cricket with expat groups",
             "Relax at Promenade du Paillon with fountains",
             "Visit Vieux Nice for a cultural outing"
           ]
@@ -429,8 +469,12 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     marseille: {
       name: 'Marseille',
       description: 'Mediterranean port city with large academic presence',
+      transport: 'RTM network (metro, tram, bus, ferry)',
+      famousPlaces: 'Vieux-Port, Notre-Dame de la Garde, Calanques',
+      sportsFacilities: 'Orange Vélodrome stadium, Palais des Sports',
+      studentLife: 'Mediterranean culture, diverse cuisine, coastal activities',
       schools: [
-        { id: 'amu', name: 'Aix-Marseille Université', description: 'One of France’s largest public universities', location: 'Marseille', programs: ['Various'] },
+        { id: 'amu', name: 'Aix-Marseille Université', description: 'One of France's largest public universities', location: 'Marseille', programs: ['Various'] },
         { id: 'kedge-marseille', name: 'KEDGE Business School (Marseille)', description: 'Major business school', location: 'Marseille', programs: ['Business'] },
         { id: 'centrale-marseille', name: 'École Centrale de Marseille', description: 'Part of the Centrale engineering group', location: 'Marseille', programs: ['Engineering'] },
         { id: 'polytech-marseille', name: 'Polytech Marseille', description: 'Engineering programs under AMU', location: 'Marseille', programs: ['Engineering'] }
@@ -448,7 +492,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
         },
         {
           title: "Cultural Diversity",
-          description: "Experience Marseille’s multicultural vibe",
+          description: "Experience Marseille's multicultural vibe",
           tips: [
             "Enjoy Fête de la Saint-Jean (June 23-24) with bonfires",
             "Grab panisses in Le Panier for €3-5",
@@ -471,6 +515,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     grenoble: {
       name: 'Grenoble',
       description: 'Alpine hub for science, technology, and innovation',
+      transport: 'TAG network (tram, bus, cable car)',
+      famousPlaces: 'Bastille fortress, Grenoble-Bastille cable car, Alps views',
+      sportsFacilities: 'Palais des Sports, winter sports in nearby Alps',
+      studentLife: 'Tech innovation, mountain activities, research focus',
       schools: [
         { id: 'grenoble-univ', name: 'Université Grenoble Alpes', description: 'Leading research university in sciences and humanities', location: 'Grenoble', programs: ['Science', 'Humanities', 'Engineering'] },
         { id: 'grenoble-inp', name: 'Grenoble INP', description: 'Engineering institute with multiple schools', location: 'Grenoble', programs: ['Engineering', 'Technology'] },
@@ -491,11 +539,11 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
         },
         {
           title: "Alpine Lifestyle & Culture",
-          description: "Embrace Grenoble’s tech and mountain vibe",
+          description: "Embrace Grenoble's tech and mountain vibe",
           tips: [
             "Visit Musée de Grenoble for €5 with student discount",
             "Enjoy fondue at local restaurants like La Ferme à Dédé (€12-15)",
-            "Attend Festival de l’Innovation (October) for tech events",
+            "Attend Festival de l'Innovation (October) for tech events",
             "Hang out at Place Saint-André for €3-5 coffee spots"
           ]
         },
@@ -514,6 +562,10 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     nantes: {
       name: 'Nantes',
       description: 'Vibrant Atlantic city with engineering and creative industries',
+      transport: 'TAN network (tram, bus, ferry)',
+      famousPlaces: 'Château des Ducs de Bretagne, Les Machines de l'Île, Passage Pommeraye',
+      sportsFacilities: 'Stade de la Beaujoire, Petit Port sports complex',
+      studentLife: 'Creative arts scene, Atlantic coast, sustainable city',
       schools: [
         { id: 'nantes-univ', name: 'Université de Nantes', description: 'Comprehensive public university', location: 'Nantes', programs: ['Various'] },
         { id: 'audencia', name: 'Audencia Business School', description: 'Top-tier business school with international focus', location: 'Nantes', programs: ['MBA', 'MSc', 'Business'] },
@@ -534,9 +586,9 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
         },
         {
           title: "Creative Culture",
-          description: "Experience Nantes’ artistic and innovative scene",
+          description: "Experience Nantes' artistic and innovative scene",
           tips: [
-            "Visit Les Machines de l’Île for unique mechanical art (€8 student ticket)",
+            "Visit Les Machines de l'Île for unique mechanical art (€8 student ticket)",
             "Enjoy crêpes at La Crêperie du Bouffay for €6-10",
             "Attend Festival des 3 Continents (November) for global cinema",
             "Hang out at Hangar à Bananes for €3-5 drinks and nightlife"
@@ -557,11 +609,15 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     larochelle: {
       name: 'La Rochelle',
       description: 'Coastal city with focus on sustainability and business',
+      transport: 'Yélo network (bus, bike, ferry)',
+      famousPlaces: 'Old Port, Towers of La Rochelle, Aquarium La Rochelle',
+      sportsFacilities: 'Stade Marcel-Deflandre, nautical center',
+      studentLife: 'Coastal lifestyle, maritime heritage, student-friendly size',
       schools: [
         { id: 'larochelle-univ', name: 'Université de La Rochelle', description: 'Public university with environmental focus', location: 'La Rochelle', programs: ['Science', 'Environment', 'Humanities'] },
         { id: 'excelia', name: 'Excelia Business School', description: 'Business school with tourism and sustainability programs', location: 'La Rochelle', programs: ['Business', 'Tourism', 'MSc'] },
         { id: 'eigsi', name: 'EIGSI La Rochelle', description: 'General engineering with maritime focus', location: 'La Rochelle', programs: ['Engineering'] },
-        { id: 'institut-ocean', name: 'Institut de l’Océan', description: 'Marine and environmental research programs', location: 'La Rochelle', programs: ['Marine Science', 'Environment'] }
+        { id: 'institut-ocean', name: 'Institut de l'Océan', description: 'Marine and environmental research programs', location: 'La Rochelle', programs: ['Marine Science', 'Environment'] }
       ],
       localInsights: [
         {
@@ -576,7 +632,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
         },
         {
           title: "Coastal Culture",
-          description: "Embrace La Rochelle’s maritime heritage",
+          description: "Embrace La Rochelle's maritime heritage",
           tips: [
             "Visit Aquarium La Rochelle (€12 with student discount)",
             "Enjoy seafood at Les Flots near Vieux-Port for €10-15",
@@ -716,13 +772,31 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
               </Button>
             </div>
             <p className="text-gray-600 mb-4">Get insider knowledge about living and studying in {cityData.name}</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {cityData.localInsights.slice(0, 3).map((insight, index) => (
-                <div key={index} className="bg-white p-4 rounded-lg border">
-                  <h3 className="font-semibold text-gray-900 mb-2">{insight.title}</h3>
-                  <p className="text-sm text-gray-600">{insight.description}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <div className="flex items-center mb-2">
+                  <h3 className="font-semibold text-gray-900">🚆 Transport</h3>
                 </div>
-              ))}
+                <p className="text-sm text-gray-600">{cityData.transport}</p>
+              </div>
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <div className="flex items-center mb-2">
+                  <h3 className="font-semibold text-gray-900">🏛️ Nearby Landmarks</h3>
+                </div>
+                <p className="text-sm text-gray-600">{cityData.famousPlaces}</p>
+              </div>
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <div className="flex items-center mb-2">
+                  <h3 className="font-semibold text-gray-900">🏟️ Sports Facilities</h3>
+                </div>
+                <p className="text-sm text-gray-600">{cityData.sportsFacilities}</p>
+              </div>
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <div className="flex items-center mb-2">
+                  <h3 className="font-semibold text-gray-900">🎋 Student Life</h3>
+                </div>
+                <p className="text-sm text-gray-600">{cityData.studentLife}</p>
+              </div>
             </div>
           </CardContent>
         </Card>
