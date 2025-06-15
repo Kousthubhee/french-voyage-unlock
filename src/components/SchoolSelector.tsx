@@ -421,8 +421,8 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     },
     nice: {
       name: 'Nice',
-      description: 'Côte d'Azur region with business and engineering strengths',
-      transport: 'Lignes d'Azur network (tram, bus)',
+      description: 'Côte d\'Azur region with business and engineering strengths',
+      transport: 'Lignes d\'Azur network (tram, bus)',
       famousPlaces: 'Promenade des Anglais, Old Nice, Castle Hill',
       sportsFacilities: 'Allianz Riviera stadium, Charles Ehrmann sports complex',
       studentLife: 'Mediterranean beaches, international atmosphere, outdoor lifestyle',
@@ -474,7 +474,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
       sportsFacilities: 'Orange Vélodrome stadium, Palais des Sports',
       studentLife: 'Mediterranean culture, diverse cuisine, coastal activities',
       schools: [
-        { id: 'amu', name: 'Aix-Marseille Université', description: 'One of France's largest public universities', location: 'Marseille', programs: ['Various'] },
+        { id: 'amu', name: 'Aix-Marseille Université', description: 'One of France\'s largest public universities', location: 'Marseille', programs: ['Various'] },
         { id: 'kedge-marseille', name: 'KEDGE Business School (Marseille)', description: 'Major business school', location: 'Marseille', programs: ['Business'] },
         { id: 'centrale-marseille', name: 'École Centrale de Marseille', description: 'Part of the Centrale engineering group', location: 'Marseille', programs: ['Engineering'] },
         { id: 'polytech-marseille', name: 'Polytech Marseille', description: 'Engineering programs under AMU', location: 'Marseille', programs: ['Engineering'] }
@@ -563,7 +563,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
       name: 'Nantes',
       description: 'Vibrant Atlantic city with engineering and creative industries',
       transport: 'TAN network (tram, bus, ferry)',
-      famousPlaces: 'Château des Ducs de Bretagne, Les Machines de l'Île, Passage Pommeraye',
+      famousPlaces: 'Château des Ducs de Bretagne, Les Machines de l\'Île, Passage Pommeraye',
       sportsFacilities: 'Stade de la Beaujoire, Petit Port sports complex',
       studentLife: 'Creative arts scene, Atlantic coast, sustainable city',
       schools: [
@@ -617,7 +617,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
         { id: 'larochelle-univ', name: 'Université de La Rochelle', description: 'Public university with environmental focus', location: 'La Rochelle', programs: ['Science', 'Environment', 'Humanities'] },
         { id: 'excelia', name: 'Excelia Business School', description: 'Business school with tourism and sustainability programs', location: 'La Rochelle', programs: ['Business', 'Tourism', 'MSc'] },
         { id: 'eigsi', name: 'EIGSI La Rochelle', description: 'General engineering with maritime focus', location: 'La Rochelle', programs: ['Engineering'] },
-        { id: 'institut-ocean', name: 'Institut de l'Océan', description: 'Marine and environmental research programs', location: 'La Rochelle', programs: ['Marine Science', 'Environment'] }
+        { id: 'institut-ocean', name: 'Institut de l\'Océan', description: 'Marine and environmental research programs', location: 'La Rochelle', programs: ['Marine Science', 'Environment'] }
       ],
       localInsights: [
         {
