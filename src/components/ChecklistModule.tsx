@@ -32,6 +32,17 @@ export const ChecklistModule = ({
   onSchoolSelect,
   currentPage
 }: ChecklistModuleProps) => {
+  // <-- 🚩 MOVE PAGE MAPPING TO TOP SO IT'S ACCESSIBLE! 
+  const pageMapping: { [key: string]: string } = {
+    'school': 'school-insights',
+    'pre-arrival-1': 'pre-arrival-1',
+    'pre-arrival-2': 'pre-arrival-2',
+    'post-arrival': 'post-arrival',
+    'integration': 'integration',
+    'finance': 'finance-tracking',
+    'suggestions': 'suggestions',
+  };
+
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const { toast } = useToast();
 
@@ -66,7 +77,6 @@ export const ChecklistModule = ({
         return;
       }
 
-      // Use functional setUserProgress to ensure fresh state
       setUserProgress(prevProgress => {
         const alreadyUnlocked = prevProgress.unlockedModules.includes(module.id);
         if (alreadyUnlocked) return prevProgress; // prevent double unlock
@@ -91,16 +101,6 @@ export const ChecklistModule = ({
     }
 
     if (!isUnlocked && !module.keysRequired) return;
-
-    const pageMapping: { [key: string]: string } = {
-      'school': 'school-insights',
-      'pre-arrival-1': 'pre-arrival-1',
-      'pre-arrival-2': 'pre-arrival-2',
-      'post-arrival': 'post-arrival',
-      'integration': 'integration',
-      'finance': 'finance-tracking',
-      'suggestions': 'suggestions',
-    };
 
     if (pageMapping[module.id]) {
       setUserProgress({
