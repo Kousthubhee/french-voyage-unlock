@@ -66,23 +66,32 @@ export const ChecklistModule = ({
         return;
       }
 
-      // Unlock the module by spending keys
-      const newProgress = {
-        ...userProgress,
-        keys: userProgress.keys - module.keysRequired,
-        unlockedModules: [...userProgress.unlockedModules, module.id]
-      };
-      setUserProgress(newProgress);
+      // Use functional setUserProgress to ensure fresh state
+      setUserProgress(prevProgress => {
+        const alreadyUnlocked = prevProgress.unlockedModules.includes(module.id);
+        if (alreadyUnlocked) return prevProgress; // prevent double unlock
+
+        const updatedProgress = {
+          ...prevProgress,
+          keys: prevProgress.keys - module.keysRequired,
+          unlockedModules: [...prevProgress.unlockedModules, module.id],
+          currentPage: pageMapping[module.id] || prevProgress.currentPage,
+        };
+        return updatedProgress;
+      });
+
       toast({
         title: "New Module Unlocked",
         description: `You've unlocked "${module.title}" by spending ${module.keysRequired} key${module.keysRequired > 1 ? 's' : ''}!`,
         variant: "default",
       });
+
+      // No need to open here, useEffect in parent will update currentPage and main router will open module.
+      return;
     }
 
     if (!isUnlocked && !module.keysRequired) return;
 
-    // Handle navigation to specific pages
     const pageMapping: { [key: string]: string } = {
       'school': 'school-insights',
       'pre-arrival-1': 'pre-arrival-1',
@@ -90,7 +99,7 @@ export const ChecklistModule = ({
       'post-arrival': 'post-arrival',
       'integration': 'integration',
       'finance': 'finance-tracking',
-      'suggestions': 'suggestions', // <--- ADDED THIS LINE
+      'suggestions': 'suggestions',
     };
 
     if (pageMapping[module.id]) {
