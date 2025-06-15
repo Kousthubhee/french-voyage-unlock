@@ -975,7 +975,10 @@ export const SchoolInsightsPage = ({ onBack }: { onBack: () => void }) => {
         {/* Local Insights Section */}
         <CityInsightsCard
           cityName={cityData.name}
-          localInsights={cityData.localInsights}
+          transport={cityData.transport}
+          famousPlaces={cityData.famousPlaces}
+          sportsFacilities={cityData.sportsFacilities}
+          studentLife={cityData.studentLife}
           onShowAll={() => setShowInsights(true)}
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
