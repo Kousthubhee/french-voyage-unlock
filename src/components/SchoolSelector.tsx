@@ -831,14 +831,13 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
             className="cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 bg-slate-50"
             onClick={() => setSelectedCity(cityKey)}
           >
-            <CardContent className="p-6">
-              <div className="h-32 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg mb-4 flex items-center justify-center">
-                <span className="text-xl font-bold text-gray-800 text-center w-full">{city.name}</span>
+            <CardContent className="p-6 flex flex-col items-center justify-center">
+              <div className="h-28 w-full flex flex-col items-center justify-center mb-4">
+                {/* Centered City Name, no FR */}
+                <span className="text-2xl font-bold text-gray-800 text-center">{city.name}</span>
               </div>
-              {/* Removed 'FR' and centered city name visually */}
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center w-full">{city.name}</h3>
               <p className="text-sm text-gray-600 mb-4 text-center">{city.description}</p>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between w-full">
                 <div className="flex gap-2">
                   <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">{city.schools.length} Schools</span>
                   <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Local Tips</span>
