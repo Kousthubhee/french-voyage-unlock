@@ -819,7 +819,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           >
             <CardContent className="p-6 flex flex-col items-center justify-center">
               <div className="h-28 w-full flex flex-col items-center justify-center mb-4">
-                {/* Centered City Name, no FR */}
+                {/* Centered City Name, removed FR */}
                 <span className="text-2xl font-bold text-gray-800 text-center">
                   {city.name}
                 </span>
