@@ -1,8 +1,9 @@
+
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
-import { Video, Heart, MessageSquare, Share2 } from 'lucide-react';
+import { Video, Heart, MessageSquare } from 'lucide-react'; // Removed Share2
 import { Reel, QAComment, QAReply } from './hubTypes';
 
 interface ReelsTabProps {
@@ -53,8 +54,7 @@ export function ReelsTab({
             onChange={(e) => onChangeCaption(e.target.value)}
           />
           <Button size="sm" onClick={onPublish}>
-            <Share2 className="h-4 w-4 mr-2" />
-            Share Reel
+            Post
           </Button>
         </CardContent>
       </Card>

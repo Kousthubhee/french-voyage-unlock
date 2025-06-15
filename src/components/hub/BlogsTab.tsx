@@ -1,9 +1,8 @@
-
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
-import { Edit, Heart, MessageSquare, Share2 } from 'lucide-react';
+import { Edit, Heart, MessageSquare } from 'lucide-react';
 import { Blog, QAComment, QAReply } from './hubTypes';
 
 interface BlogsTabProps {
@@ -58,7 +57,6 @@ export function BlogsTab({
             className="mb-4 h-40"
           />
           <Button size="sm" onClick={onPublish}>
-            <Share2 className="h-4 w-4 mr-2" />
             Publish
           </Button>
         </CardContent>

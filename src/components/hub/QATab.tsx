@@ -1,7 +1,8 @@
+
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
-import { Heart, MessageSquare, Share2 } from 'lucide-react';
+// Removed Share2 import
 import { Input } from '../ui/input';
 import { QAPost, QAComment, QAReply } from './hubTypes';
 
@@ -44,8 +45,7 @@ export function QATab({
             onChange={(e) => onNewPostChange(e.target.value)}
           />
           <Button size="sm" onClick={onPublishPost}>
-            <Share2 className="h-4 w-4 mr-2" />
-            Share
+            Post
           </Button>
         </CardContent>
       </Card>
