@@ -14,6 +14,7 @@ interface School {
   description: string;
   levels: string[];
   subjects: string[];
+  website: string;
 }
 
 const schools: School[] = [
@@ -24,6 +25,7 @@ const schools: School[] = [
     description: "Humanities, sciences, and medicine",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Humanities", "Science", "Medicine"],
+    website: "https://www.sorbonne-universite.fr/",
   },
   {
     id: "psl",
@@ -32,6 +34,7 @@ const schools: School[] = [
     description: "Includes ENS, Dauphine, Mines ParisTech",
     levels: ["Graduate"],
     subjects: ["Science", "Economics", "Engineering"],
+    website: "https://psl.eu/",
   },
   {
     id: "polytechnique",
@@ -40,6 +43,7 @@ const schools: School[] = [
     description: "Elite engineering grande école.",
     levels: ["Graduate"],
     subjects: ["Engineering", "Science", "Economics"],
+    website: "https://www.polytechnique.edu/",
   },
   {
     id: "hec-paris",
@@ -48,6 +52,7 @@ const schools: School[] = [
     description: "Top global business school",
     levels: ["Graduate"],
     subjects: ["MBA", "Grande École"],
+    website: "https://www.hec.edu/",
   },
   {
     id: "escp",
@@ -56,6 +61,7 @@ const schools: School[] = [
     description: "Multi-campus, Paris is the flagship",
     levels: ["Graduate"],
     subjects: ["MIM", "MBA"],
+    website: "https://escp.eu/",
   },
   {
     id: "sciencespo-paris",
@@ -64,6 +70,7 @@ const schools: School[] = [
     description: "Political science, international affairs",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Politics", "International Affairs"],
+    website: "https://www.sciencespo.fr/",
   },
   {
     id: "neoma-paris",
@@ -72,6 +79,7 @@ const schools: School[] = [
     description: "Executive & MSc programs",
     levels: ["Graduate"],
     subjects: ["MSc", "Executive"],
+    website: "https://www.neoma-bs.com/en/",
   },
   {
     id: "telecom-paris",
@@ -80,6 +88,7 @@ const schools: School[] = [
     description: "Tech-focused grande école",
     levels: ["Graduate"],
     subjects: ["Engineering", "Telecom"],
+    website: "https://www.telecom-paris.fr/",
   },
   {
     id: "essec",
@@ -88,6 +97,7 @@ const schools: School[] = [
     description: "Cergy campus in Paris region",
     levels: ["Graduate"],
     subjects: ["MIM", "MBA", "MSc"],
+    website: "https://www.essec.edu/",
   },
   {
     id: "centrale-lyon",
@@ -96,6 +106,7 @@ const schools: School[] = [
     description: "Engineering and applied sciences",
     levels: ["Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.ec-lyon.fr/",
   },
   {
     id: "insa-lyon",
@@ -104,6 +115,7 @@ const schools: School[] = [
     description: "Public engineering school",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.insa-lyon.fr/",
   },
   {
     id: "claude-bernard",
@@ -112,6 +124,7 @@ const schools: School[] = [
     description: "Sciences and medicine",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Medicine", "Science"],
+    website: "https://www.univ-lyon1.fr/",
   },
   {
     id: "em-lyon",
@@ -120,6 +133,7 @@ const schools: School[] = [
     description: "Prestigious business Grande École",
     levels: ["Graduate"],
     subjects: ["MBA", "MSc"],
+    website: "https://www.em-lyon.fr/",
   },
   {
     id: "lumiere-lyon2",
@@ -128,6 +142,7 @@ const schools: School[] = [
     description: "Social sciences and arts",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Arts", "Social Sciences"],
+    website: "https://www.univ-lumiere.fr/",
   },
   {
     id: "supaero",
@@ -136,6 +151,7 @@ const schools: School[] = [
     description: "Top aerospace engineering school",
     levels: ["Graduate"],
     subjects: ["Aerospace Engineering"],
+    website: "https://www.isae-supaero.fr/",
   },
   {
     id: "insa-toulouse",
@@ -144,6 +160,7 @@ const schools: School[] = [
     description: "Public engineering school",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.insa-toulouse.fr/",
   },
   {
     id: "paul-sabatier",
@@ -152,6 +169,7 @@ const schools: School[] = [
     description: "Science, tech, health",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Science", "Technology", "Health"],
+    website: "https://www.univ-toulouse3.fr/",
   },
   {
     id: "tbs",
@@ -160,6 +178,7 @@ const schools: School[] = [
     description: "Grande École business program",
     levels: ["Graduate"],
     subjects: ["Business"],
+    website: "https://www.tbs-education.fr/",
   },
   {
     id: "capitole",
@@ -168,6 +187,7 @@ const schools: School[] = [
     description: "Law, economics, management",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Law", "Economics", "Management"],
+    website: "https://www.univ-toulouse1.fr/",
   },
   {
     id: "neoma-rouen",
@@ -176,6 +196,7 @@ const schools: School[] = [
     description: "PGE, MSc, BBA programs",
     levels: ["Graduate"],
     subjects: ["PGE", "MSc", "BBA"],
+    website: "https://www.neoma-bs.com/en/",
   },
   {
     id: "insa-rouen",
@@ -184,6 +205,7 @@ const schools: School[] = [
     description: "Engineering across multiple domains",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.insa-rouen.fr/",
   },
   {
     id: "rouen-univ",
@@ -192,6 +214,7 @@ const schools: School[] = [
     description: "Comprehensive university",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Various"],
+    website: "https://www.univ-rouen.fr/",
   },
   {
     id: "esigelec",
@@ -200,6 +223,7 @@ const schools: School[] = [
     description: "Electronics and digital tech",
     levels: ["Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.esigelec.fr/",
   },
   {
     id: "neoma-reims",
@@ -208,6 +232,7 @@ const schools: School[] = [
     description: "Core business programs",
     levels: ["Graduate"],
     subjects: ["Business", "MBA", "MSc"],
+    website: "https://www.neoma-bs.com/en/",
   },
   {
     id: "sciencespo-reims",
@@ -216,6 +241,7 @@ const schools: School[] = [
     description: "International program focus",
     levels: ["Undergraduate"],
     subjects: ["Politics", "Global Affairs"],
+    website: "https://www.sciencespo.fr/",
   },
   {
     id: "reims-univ",
@@ -224,6 +250,7 @@ const schools: School[] = [
     description: "Regional public university",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Various"],
+    website: "https://www.univ-reims.fr/",
   },
   {
     id: "esiec",
@@ -232,6 +259,7 @@ const schools: School[] = [
     description: "Packaging and digital engineering",
     levels: ["Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.esiec.fr/",
   },
   {
     id: "lille-univ",
@@ -240,6 +268,7 @@ const schools: School[] = [
     description: "Large multidisciplinary public university",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Various"],
+    website: "https://www.univ-lille.fr/",
   },
   {
     id: "edhec-lille",
@@ -248,6 +277,7 @@ const schools: School[] = [
     description: "Top 5 French business school",
     levels: ["Graduate"],
     subjects: ["MBA", "MSc", "Finance"],
+    website: "https://www.edhec.fr/",
   },
   {
     id: "centrale-lille",
@@ -256,6 +286,7 @@ const schools: School[] = [
     description: "Elite engineering school",
     levels: ["Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.ec-lille.fr/",
   },
   {
     id: "ieseg",
@@ -264,6 +295,7 @@ const schools: School[] = [
     description: "AACSB-accredited Grande École",
     levels: ["Graduate"],
     subjects: ["Management", "MSc"],
+    website: "https://www.ieseg.fr/",
   },
   {
     id: "hei",
@@ -272,6 +304,7 @@ const schools: School[] = [
     description: "Private engineering school",
     levels: ["Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.hei.fr/",
   },
   {
     id: "strasbourg-univ",
@@ -280,6 +313,7 @@ const schools: School[] = [
     description: "Prestigious university, strong in sciences and humanities",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Science", "Humanities"],
+    website: "https://www.univ-strasbourg.fr/",
   },
   {
     id: "insa-strasbourg",
@@ -288,6 +322,7 @@ const schools: School[] = [
     description: "Part of the INSA engineering network",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.insa-strasbourg.fr/",
   },
   {
     id: "em-strasbourg",
@@ -296,6 +331,7 @@ const schools: School[] = [
     description: "Business school within the university",
     levels: ["Graduate"],
     subjects: ["Business"],
+    website: "https://www.em-strasbourg.fr/",
   },
   {
     id: "sciencespo-strasbourg",
@@ -304,6 +340,7 @@ const schools: School[] = [
     description: "Regional campus of Sciences Po",
     levels: ["Undergraduate"],
     subjects: ["Politics"],
+    website: "https://www.sciencespo.fr/",
   },
   {
     id: "bordeaux-univ",
@@ -312,6 +349,7 @@ const schools: School[] = [
     description: "Comprehensive research university",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Science", "Engineering"],
+    website: "https://www.univ-bordeaux.fr/",
   },
   {
     id: "kedge-bordeaux",
@@ -320,6 +358,7 @@ const schools: School[] = [
     description: "Top-tier business school",
     levels: ["Graduate"],
     subjects: ["MBA", "MSc"],
+    website: "https://www.kedge-business-school.fr/",
   },
   {
     id: "enseirb",
@@ -328,6 +367,7 @@ const schools: School[] = [
     description: "Engineering in IT, electronics, math",
     levels: ["Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.enseirb-matmeca.fr/",
   },
   {
     id: "sciencespo-bordeaux",
@@ -336,6 +376,7 @@ const schools: School[] = [
     description: "Political science and international studies",
     levels: ["Undergraduate"],
     subjects: ["Politics"],
+    website: "https://www.sciencespo.fr/",
   },
   {
     id: "inpbordeaux",
@@ -344,6 +385,7 @@ const schools: School[] = [
     description: "Engineering network incl. ENSEIRB-MATMECA, ENSCBP",
     levels: ["Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.inp-bordeaux.fr/",
   },
   {
     id: "uca",
@@ -352,6 +394,7 @@ const schools: School[] = [
     description: "Alliance of local institutions under one label",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Various"],
+    website: "https://www.univ-cotedazur.fr/",
   },
   {
     id: "skema-nice",
@@ -360,6 +403,7 @@ const schools: School[] = [
     description: "Global business school with AI focus",
     levels: ["Graduate"],
     subjects: ["Business", "AI"],
+    website: "https://www.skema.fr/",
   },
   {
     id: "polytech-nice",
@@ -368,6 +412,7 @@ const schools: School[] = [
     description: "Engineering school within UCA",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.polytech-nice.fr/",
   },
   {
     id: "edhec-nice",
@@ -376,6 +421,7 @@ const schools: School[] = [
     description: "Specializes in Finance MSc and Global MBA",
     levels: ["Graduate"],
     subjects: ["Finance", "MBA"],
+    website: "https://www.edhec.fr/",
   },
   {
     id: "mines-sophia",
@@ -384,6 +430,7 @@ const schools: School[] = [
     description: "AI and systems engineering research campus",
     levels: ["Graduate"],
     subjects: ["Engineering", "AI"],
+    website: "https://www.mines-paris-sophia.fr/",
   },
   {
     id: "amu",
@@ -392,6 +439,7 @@ const schools: School[] = [
     description: "One of France's largest public universities",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Various"],
+    website: "https://www.univ-amu.fr/",
   },
   {
     id: "kedge-marseille",
@@ -400,6 +448,7 @@ const schools: School[] = [
     description: "Major business school",
     levels: ["Graduate"],
     subjects: ["Business"],
+    website: "https://www.kedge-business-school.fr/",
   },
   {
     id: "centrale-marseille",
@@ -408,6 +457,7 @@ const schools: School[] = [
     description: "Part of the Centrale engineering group",
     levels: ["Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.ec-marseille.fr/",
   },
   {
     id: "polytech-marseille",
@@ -416,6 +466,7 @@ const schools: School[] = [
     description: "Engineering programs under AMU",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.polytech-marseille.fr/",
   },
   {
     id: "grenoble-univ",
@@ -424,6 +475,7 @@ const schools: School[] = [
     description: "Leading research university in sciences and humanities",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Science", "Humanities", "Engineering"],
+    website: "https://www.univ-grenoble-alpes.fr/",
   },
   {
     id: "grenoble-inp",
@@ -432,6 +484,7 @@ const schools: School[] = [
     description: "Engineering institute with multiple schools",
     levels: ["Graduate"],
     subjects: ["Engineering", "Technology"],
+    website: "https://www.grenoble-inp.fr/",
   },
   {
     id: "gem",
@@ -440,6 +493,7 @@ const schools: School[] = [
     description: "Top business school with tech focus",
     levels: ["Graduate"],
     subjects: ["MBA", "MSc", "Business"],
+    website: "https://www.grenoble-em.fr/",
   },
   {
     id: "ensimag",
@@ -448,6 +502,7 @@ const schools: School[] = [
     description: "Engineering school specializing in IT and applied math",
     levels: ["Graduate"],
     subjects: ["Engineering", "IT"],
+    website: "https://www.ensimag.fr/",
   },
   {
     id: "sciencespo-grenoble",
@@ -456,6 +511,7 @@ const schools: School[] = [
     description: "Political science and governance programs",
     levels: ["Undergraduate"],
     subjects: ["Politics", "Governance"],
+    website: "https://www.sciencespo.fr/",
   },
   {
     id: "nantes-univ",
@@ -464,6 +520,7 @@ const schools: School[] = [
     description: "Comprehensive public university",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Various"],
+    website: "https://www.univ-nantes.fr/",
   },
   {
     id: "audencia",
@@ -472,6 +529,7 @@ const schools: School[] = [
     description: "Top-tier business school with international focus",
     levels: ["Graduate"],
     subjects: ["MBA", "MSc", "Business"],
+    website: "https://www.audencia.fr/",
   },
   {
     id: "centrale-nantes",
@@ -480,6 +538,7 @@ const schools: School[] = [
     description: "Elite engineering grande école",
     levels: ["Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.ec-nantes.fr/",
   },
   {
     id: "polytech-nantes",
@@ -488,6 +547,7 @@ const schools: School[] = [
     description: "Engineering school under Université de Nantes",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.polytech-nantes.fr/",
   },
   {
     id: "oniris",
@@ -496,6 +556,7 @@ const schools: School[] = [
     description: "Engineering in food science and veterinary medicine",
     levels: ["Graduate"],
     subjects: ["Engineering", "Veterinary"],
+    website: "https://www.oniris.fr/",
   },
   {
     id: "larochelle-univ",
@@ -504,6 +565,7 @@ const schools: School[] = [
     description: "Public university with environmental focus",
     levels: ["Undergraduate", "Graduate"],
     subjects: ["Science", "Environment", "Humanities"],
+    website: "https://www.univ-larochelle.fr/",
   },
   {
     id: "excelia",
@@ -512,6 +574,7 @@ const schools: School[] = [
     description: "Business school with tourism and sustainability programs",
     levels: ["Graduate"],
     subjects: ["Business", "Tourism", "MSc"],
+    website: "https://www.excelia.fr/",
   },
   {
     id: "eigsi",
@@ -520,6 +583,7 @@ const schools: School[] = [
     description: "General engineering with maritime focus",
     levels: ["Graduate"],
     subjects: ["Engineering"],
+    website: "https://www.eigsi.fr/",
   },
   {
     id: "institut-ocean",
@@ -528,6 +592,7 @@ const schools: School[] = [
     description: "Marine and environmental research programs",
     levels: ["Graduate"],
     subjects: ["Marine Science", "Environment"],
+    website: "https://www.institut-ocean.fr/",
   },
 ];
 
@@ -747,18 +812,6 @@ function getCityDetails(cityName: string) {
   );
 }
 
-// Helper to generate website URL from school name (simple guess if none defined)
-function guessWebsite(school: any) {
-  if (school.website) return school.website;
-  // Try to build just an example if nothing present (optional, can be omitted)
-  const nameSlug = school.name
-    .replace(/(Université|University|School|Campus)/gi, "")
-    .replace(/[^a-zA-Z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .toLowerCase();
-  return `https://www.${nameSlug}.fr/`;
-}
-
 export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [subjectFilter, setSubjectFilter] = useState<string>("All");
@@ -794,14 +847,13 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
 
   // School details view: show only detail, with a back button to city
   if (selectedSchool) {
-    // Pass derived programs and website if missing
     return (
       <SchoolDetail
         school={{
           ...selectedSchool,
           programs: selectedSchool.subjects || [],
-          website: guessWebsite(selectedSchool),
-          location: selectedSchool.city || "", // supply city as location fallback
+          website: selectedSchool.website || "",
+          location: selectedSchool.city || "",
         }}
         onBack={() => setSelectedSchool(null)}
       />
@@ -915,7 +967,7 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
                     setSelectedSchool({
                       ...school,
                       programs: school.subjects || [],
-                      website: guessWebsite(school),
+                      website: school.website || "",
                       location: school.city || "",
                     })
                   }
