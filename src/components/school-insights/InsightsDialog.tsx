@@ -32,25 +32,30 @@ export function InsightsDialog({
         </DialogHeader>
         {/* --- Only show Local Insights tips section in Dialog --- */}
         <div className="space-y-6">
-          {localInsights.map((insight, index) => (
-            <Card key={index}>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{insight.title}</h3>
-                <p className="text-gray-600 mb-4">{insight.description}</p>
-                <ul className="space-y-2">
-                  {insight.tips.map((tip, tipIndex) => (
-                    <li key={tipIndex} className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span className="text-sm text-gray-700">{tip}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          ))}
+          {localInsights && localInsights.length > 0 ? (
+            localInsights.map((insight, index) => (
+              <Card key={index}>
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{insight.title}</h3>
+                  <p className="text-gray-600 mb-4">{insight.description}</p>
+                  <ul className="space-y-2">
+                    {insight.tips.map((tip, tipIndex) => (
+                      <li key={tipIndex} className="flex items-start">
+                        <span className="text-blue-500 mr-2">•</span>
+                        <span className="text-sm text-gray-700">{tip}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <div className="text-center text-gray-500 py-8">
+              No local tips available for this city yet.
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>
   );
 }
-
