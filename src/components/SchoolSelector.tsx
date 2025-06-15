@@ -40,6 +40,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [selectedSchool, setSelectedSchool] = useState<School | null>(null);
   const [showInsights, setShowInsights] = useState(false);
+  const [subjectFilter, setSubjectFilter] = useState("All");
 
   const cities: Record<string, City> = {
     paris: {
@@ -654,6 +655,17 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     }
   };
 
+  // 1. Gather all unique subjects from all cities/schools
+  const allSubjectsSet = new Set<string>();
+  Object.values(cities).forEach(city => {
+    city.schools.forEach(school => {
+      if (Array.isArray(school.programs)) {
+        school.programs.forEach(subject => allSubjectsSet.add(subject));
+      }
+    });
+  });
+  const allSubjects = Array.from(allSubjectsSet).sort();
+
   if (selectedSchool) {
     return (
       <div className="max-w-6xl mx-auto">
@@ -751,6 +763,14 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
   if (selectedCity && cities[selectedCity]) {
     const cityData = cities[selectedCity];
 
+    // 2. Filter schools according to selected subject
+    const filteredSchools =
+      subjectFilter === "All"
+        ? cityData.schools
+        : cityData.schools.filter((school) =>
+            school.programs.some((prog) => prog === subjectFilter)
+          );
+
     return (
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center mb-6">
@@ -758,6 +778,22 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
             <ArrowLeft className="h-4 w-4 mr-2" /> Back to Cities
           </Button>
           <h1 className="text-2xl font-bold text-gray-900">{cityData.name} - Schools & Local Insights</h1>
+        </div>
+
+        {/* NEW: Filter by Subject */}
+        <div className="mb-6 flex flex-col md:flex-row items-center gap-4">
+          <label htmlFor="subject-filter" className="font-medium text-gray-700">Filter by Subject:</label>
+          <select
+            id="subject-filter"
+            className="border rounded px-2 py-2 text-sm md:w-64 w-full focus:outline-none"
+            value={subjectFilter}
+            onChange={(e) => setSubjectFilter(e.target.value)}
+          >
+            <option value="All">All Subjects</option>
+            {allSubjects.map(subject => (
+              <option key={subject} value={subject}>{subject}</option>
+            ))}
+          </select>
         </div>
 
         {/* Local Insights Section */}
@@ -807,8 +843,8 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
           Schools in {cityData.name}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.isArray(cityData.schools) && cityData.schools.length > 0 ? (
-            cityData.schools.map((school) => (
+          {Array.isArray(filteredSchools) && filteredSchools.length > 0 ? (
+            filteredSchools.map((school) => (
               <Card
                 key={school.id}
                 className="cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105"
@@ -856,7 +892,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
               </Card>
             ))
           ) : (
-            <div className="col-span-full text-gray-500 text-center">No schools found for this city.</div>
+            <div className="col-span-full text-gray-500 text-center">No schools found for this subject in {cityData.name}.</div>
           )}
         </div>
 
