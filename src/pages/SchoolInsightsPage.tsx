@@ -94,6 +94,162 @@ const citiesData: Record<string, City> = {
         ]
       }
     ]
+  },
+  marseille: {
+    name: "Marseille",
+    emoji: "🌅",
+    description: "Mediterranean port city with a large academic presence.",
+    schools: [
+      {
+        id: "amu",
+        name: "Aix-Marseille Université",
+        description: "One of France’s largest public universities.",
+        location: "Marseille",
+        tuition: undefined,
+        programs: ["Various"],
+        website: "https://www.univ-amu.fr",
+      }
+    ],
+    localInsights: [
+      {
+        title: "Cultural Diversity",
+        description: "Experience Marseille’s multicultural vibe and port life.",
+        tips: [
+          "Hang out at Cours Julien for bars and live music.",
+          "Public beaches and Calanques are must-visit spots."
+        ]
+      }
+    ]
+  },
+  rouen: {
+    name: "Rouen",
+    emoji: "🏰",
+    description: "Historic city with modern business and tech schools.",
+    schools: [
+      {
+        id: "neoma-rouen",
+        name: "NEOMA Business School (Main campus)",
+        description: "Business, Management & BBA programs.",
+        location: "Rouen",
+        tuition: "€13,000/year",
+        programs: ["PGE", "MSc", "BBA"],
+        website: "https://www.neoma-bs.com",
+      }
+    ],
+    localInsights: [
+      {
+        title: "Culture & Events",
+        description: "Experience Rouen's rich history and lively festivals.",
+        tips: [
+          "Visit the medieval old town and Jeanne d'Arc Festival.",
+          "Affordable local eateries in Rue du Gros-Horloge."
+        ]
+      }
+    ]
+  },
+  lille: {
+    name: "Lille",
+    emoji: "🌧️",
+    description: "Northern hub for business and engineering education.",
+    schools: [
+      {
+        id: "edhec-lille",
+        name: "EDHEC Business School",
+        description: "Top 5 French business school.",
+        location: "Lille",
+        tuition: "€15,000/year",
+        programs: ["MBA", "MSc", "Finance"],
+        website: "https://www.edhec.edu",
+      }
+    ],
+    localInsights: [
+      {
+        title: "Culture & Events",
+        description: "Lille is famous for its youthful vibe and festivals.",
+        tips: [
+          "Don't miss the Braderie de Lille flea market.",
+          "Lively nightlife on Rue de Gand."
+        ]
+      }
+    ]
+  },
+  toulouse: {
+    name: "Toulouse",
+    emoji: "🚀",
+    description: "Leading aerospace and tech education hub.",
+    schools: [
+      {
+        id: "supaero",
+        name: "ISAE-SUPAERO",
+        description: "Top aerospace engineering school.",
+        location: "Toulouse",
+        tuition: "€14,000/year",
+        programs: ["Aerospace Engineering"],
+        website: "https://www.isae-supaero.fr",
+      }
+    ],
+    localInsights: [
+      {
+        title: "Aerospace Life",
+        description: "Toulouse is a hub for aerospace, with a sunny southern vibe.",
+        tips: [
+          "Visit Cité de l’Espace and network with Airbus professionals.",
+          "Enjoy the river banks at Toulouse Plages in summer."
+        ]
+      }
+    ]
+  },
+  bordeaux: {
+    name: "Bordeaux",
+    emoji: "🍷",
+    description: "Academic powerhouse in sciences and business in southwest France.",
+    schools: [
+      {
+        id: "kedge-bordeaux",
+        name: "KEDGE Business School",
+        description: "Top-tier business school.",
+        location: "Bordeaux",
+        tuition: "€16,000/year",
+        programs: ["MBA", "MSc"],
+        website: "https://www.kedge.edu",
+      }
+    ],
+    localInsights: [
+      {
+        title: "Wine Culture",
+        description: "Experience Bordeaux’s wine culture and beautiful cityscape.",
+        tips: [
+          "Attend Fête du Vin for tastings.",
+          "Affordable food trucks at Darwin Ecosystem."
+        ]
+      }
+    ]
+  },
+  nice: {
+    name: "Nice",
+    emoji: "🌊",
+    description: "Côte d’Azur region with business and engineering strengths.",
+    schools: [
+      {
+        id: "uca",
+        name: "Université Côte d'Azur",
+        description: "Alliance of local institutions under one label.",
+        location: "Nice",
+        tuition: undefined,
+        programs: ["Various"],
+        website: "https://univ-cotedazur.eu",
+      }
+    ],
+    localInsights: [
+      {
+        title: "Mediterranean Lifestyle",
+        description: "Study on the Mediterranean with great weather and beaches.",
+        tips: [
+          "Enjoy Carnaval de Nice and Promenade des Anglais.",
+          "Many student bars in Vieux Nice."
+        ]
+      }
+    ]
   }
 };
 
