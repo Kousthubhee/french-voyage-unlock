@@ -789,7 +789,7 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
       {!selectedCity && (
         <div>
           <h2 className="text-lg font-semibold mb-3 text-gray-800">Explore by City</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-6">
             {cityList.map((city) => {
               const cityDef = getCityDetails(city);
               return (
