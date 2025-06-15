@@ -199,7 +199,7 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     toulouse: {
       name: 'Toulouse',
       description: '“La Ville Rose”—France’s #1 student city for student life, tech, and aerospace.',
-      transport: "Tisséo network (metro, tram, buses) and Pastel card (~€10/mo for under‑26).",
+      transport: "Tisséo network (metro, tram, buses) plus Pastel card (~€10/mo for under‑26). VélôToulouse bike-sharing and good bike lanes (e.g., to INSA and campus).",
       famousPlaces: "Canal du Midi, Capitole, Toulouse FC, Stade Toulousain.",
       sportsFacilities: "Rugby capital with stadiums, cartoucherie food halls, vibrant cycling infrastructure.",
       studentLife: "Vibrant nightlife, 130k+ students, affordable housing, food halls.",
@@ -212,28 +212,37 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
       ],
       localInsights: [
         {
-          title: "Transport & Cycling",
-          description: "Easy, affordable city movement.",
+          title: "Transport",
+          description: "Affordable city movement with Tisséo network.",
           tips: [
-            "Tisséo network: metro, trams, buses + Pastel card (~€10/mo for under‑26).",
-            "VélôToulouse bike-sharing works great with expanding bike lanes to major campuses.",
+            "Tisséo network covers metro, tram, buses (Pastel card ~€10/mo for under‑26).",
+            "VélôToulouse bike-sharing is great, and bike lanes expand to INSA and major campuses."
+          ]
+        },
+        {
+          title: "Cycling & Connectivity",
+          description: "Easy city cycling options.",
+          tips: [
+            "Bike lanes improve every year—try cycling to campus.",
+            "Combine VélôToulouse rental bikes with tram for flexible commutes!"
           ]
         },
         {
           title: "Student Life",
-          description: "Why students love Toulouse.",
+          description: "France’s #1 student city and social scene.",
           tips: [
-            "Ranked France’s #1 student city.",
-            "Vibrant nightlife, 130k+ students, affordable housing.",
-            "Great food halls like Cartoucherie nourish student budgets."
+            "Ranked France’s #1 student city for student life.",
+            "Vibrant nightlife, 130k+ students, and affordable housing.",
+            "Try Cartoucherie food halls for budget-friendly eats with friends."
           ]
         },
         {
           title: "Sports & Heritage",
-          description: "Popular sports and sightseeing.",
+          description: "City is rugby capital, rich history & nature.",
           tips: [
-            "City is rugby capital—Stade Toulousain, Toulouse FC (football), Stade Municipal.",
-            "Rich heritage along Canal du Midi, with Romanesque basilica and beautiful riverside walks."
+            "Rich heritage along Canal du Midi, with Romanesque basilica and beautiful riverside walks.",
+            "Stade Toulousain (rugby) and local football teams offer discounted student tickets.",
+            "Don’t miss matches at Stade Municipal and exploring the city’s riverside parks."
           ]
         }
       ]
