@@ -166,6 +166,178 @@ const schools: School[] = [
     ],
   },
   {
+    id: "tbs-toulouse",
+    name: "TBS Education",
+    city: "Toulouse",
+    description:
+      "Triple-accredited (AACSB, AMBA, EQUIS). Campuses in Toulouse, Paris, Barcelona, Casablanca. Strong aerospace specialization & ties to industry. 6,000 students in undergrad/masters, 2,000 in exec ed.",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "Bachelor in Management: 3-yr, English/French, Toulouse & Paris",
+      "Master in Management (MiM): 5-yr Grande École, dual degrees, internships",
+      "MSc: Finance, AI & Business Analytics, Luxury Marketing, Aerospace MBA",
+      "MBA, Executive MBA, DBA, PhD: Professional/research tracks"
+    ],
+    website: "https://www.tbs-education.com/",
+    admissionProcess: [
+      "Bachelor: Non-French diploma holders or Parcoursup for French. IELTS ≥6.0 (English) or DELF B2 (French). File + interview. €120 app fee; tuition ~€38,100 total.",
+      "MiM: Bachelor's degree, transcripts, CV, SOP, LORs. French Track: TAGE MAGE + DELF B2. English Track: IELTS≥6.0, TOEFL≥78. GMAT/GRE recommended. Age ≤28.",
+      "MSc/MBA: Relevant degree, GMAT/GRE often ≥500–690, interview, €100 app fee.",
+      "PhD: Master M1; supervisor alignment required."
+    ],
+    languageRequirements: [
+      "English: IELTS≥6.0, TOEFL≥78 (most programs in English).",
+      "French: DELF B2 required for French track."
+    ],
+    supportAndFeatures: [
+      "Mobility, double degrees, strong international exchange (incl. industry links: Airbus etc)",
+      "Campuses: Toulouse, Paris, Barcelona, Casablanca"
+    ],
+    tuition: "Bachelor: ~€38,100 total. MSc/MBA: tuition varies by track.",
+    ranking: "Triple-accredited, aerospace focus.",
+    applicationDeadlines: [
+      { label: "Bachelor", deadline: "See website; varies" },
+      { label: "MSc/MBA", deadline: "See program page" }
+    ],
+    keyHighlights: [
+      "Triple-accredited (AACSB, AMBA, EQUIS)",
+      "Strong aerospace specialization at Toulouse",
+      "Full range of international exchange and internships"
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.tbs-education.com/" },
+      { type: "General", value: "contact@tbs-education.com" },
+      { type: "Admissions", value: "apply@tbs-education.com" },
+    ],
+  },
+  {
+    id: "neoma-reims",
+    name: "NEOMA Business School – Reims Campus",
+    city: "Reims",
+    description:
+      "Triple-accredited. Campuses in Reims, Rouen, Paris. ~9,000 students (25% international). Ranked among top European business schools (FT, Economist).",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "Global BBA: 4-yr English-taught, Year 1 or Year 3 entry",
+      "Master in Management (MiM): 2-yr, English/French, dual degrees",
+      "MSc: Finance, Luxury, Data Analytics, International Business, etc.",
+      "Executive MBA, Doctorate programs"
+    ],
+    website: "https://www.neoma-bs.com/",
+    admissionProcess: [
+      "Global BBA: High school diploma; IELTS ≥ 6.0 (English); IELTS ≥ 5.5 + DELF B2 (bilingual); file + interview; €80 app fee.",
+      "MiM & MSc: Bachelor’s degree, transcripts, CV, SOP, LORs, English proficiency, GMAT recommended, €100 app fee.",
+      "Doctorate: Master's + professional or research track; tailored online process."
+    ],
+    languageRequirements: [
+      "English: IELTS ≥ 6.0 for English tracks.",
+      "French/English: Some tracks bilingual, DELF B2 for French, as required."
+    ],
+    supportAndFeatures: [
+      "International student support.",
+      "Double degrees, exchange programs.",
+      "Executive training, career mentoring."
+    ],
+    tuition: "BBA: €12,000–28,100/year; MSc: varies by programme.",
+    ranking: "Top European business school (FT/Economist)",
+    applicationDeadlines: [
+      { label: "BBA", deadline: "Check program page" },
+      { label: "MiM/MSc", deadline: "Rolling" }
+    ],
+    keyHighlights: [
+      "25% international students",
+      "Ranked among Europe's top business schools"
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.neoma-bs.com/" },
+      { type: "Admissions", value: "admissions@neoma-bs.com" }
+    ],
+  },
+  {
+    id: "esigelec-rouen",
+    name: "ESIGELEC",
+    city: "Rouen",
+    description:
+      "Grande École of Engineering (acc. by CTI); strong in Embedded Systems/Electronics/IT/Energy; new campus in Poitiers. 23% international. Active student life, scholarship opportunities.",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "Ingénieur Program: 5-yr - 2 prep + 3 specialization (Embedded, Electronics, IT, etc.)",
+      "International Master & MSc: 18/24mo in Software, Embedded, Digital Transformation (EN/FR)",
+      "Doctoral: PhD research via IRSEEM labs"
+    ],
+    website: "https://www.esigelec.fr/",
+    admissionProcess: [
+      "Bac entry cycle: After Bac, Bac+2/3/4. Online portal, admission tests/interview.",
+      "Masters: Bachelor's in engineering; transcripts, CV, language test (TOEFL/IELTS). Deadline July for September.",
+      "PhD: Master’s + proposal + supervisor + language proof (B1+/FR/EN)."
+    ],
+    languageRequirements: [
+      "French: B1+/B2 for most; some MSc/Master in English available."
+    ],
+    supportAndFeatures: [
+      "Active student unions (4L Trophy, Aero clubs, etc.)",
+      "Scholarships (Young Achiever, Merit, FEMALE, GRE etc. up to €5,000)",
+      "Strong international community"
+    ],
+    tuition: "€8,100–15,600/year (Masters); varies by track.",
+    ranking: "Founded 1901, fully accredited.",
+    applicationDeadlines: [
+      { label: "Master", deadline: "July (for September)" }
+    ],
+    keyHighlights: [
+      "23% international students",
+      "New campus in Poitiers",
+      "Semi-private, CCI‑affiliated"
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.esigelec.fr/" },
+      { type: "Admissions", value: "admissions@esigelec.fr" }
+    ],
+  },
+  {
+    id: "sciencespo-toulouse",
+    name: "Sciences Po Toulouse",
+    city: "Toulouse",
+    description:
+      "Top Grande École for political/social sciences. 5-yr program: 2 generalist + 3 advanced (politics, law, econ, public admin). 1,600 students (13% international). Historic campus.",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "5-Year Grand École Programme: 2 years general + 3 years advanced",
+      "Master's: Political Science, International Affairs, Urban Studies etc.",
+      "University Diploma: International & Comparative Studies (exchange/free-mover)",
+      "Postgrad diplomas"
+    ],
+    website: "https://www.sciencespo-toulouse.fr/",
+    admissionProcess: [
+      "Grande École: High school diploma + IEP entrance exam (7-IEP joint); ~1,200 spots.",
+      "Master's/DU: Relevant undergrad degree, application, transcripts, C1 FR/EN.",
+      "Exchange/DU: Partner nomination; ~€1,164/semester; universities France/SYNC rules."
+    ],
+    languageRequirements: [
+      "French: C1 for most programs.",
+      "English: For some international/exchange courses."
+    ],
+    supportAndFeatures: [
+      "20+ student associations (eco, lgbt+, music, etc)",
+      "Career Centre, mock network events",
+      "Compulsory year abroad, 1,500+ exchanges"
+    ],
+    tuition: "~€1,164/semester (exchange/DU); see program.",
+    ranking: "Major French political science institution.",
+    applicationDeadlines: [
+      { label: "Grande École", deadline: "See 7-IEP exam cycle" }
+    ],
+    keyHighlights: [
+      "Compulsory year abroad",
+      "Historic campus; 13% int’l, 61% female",
+      "480+ partner exchanges"
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.sciencespo-toulouse.fr/" },
+      { type: "International Relations", value: "international@sciencespo-toulouse.fr" }
+    ],
+  },
+  {
     id: "telecom-paris",
     name: "Télécom Paris",
     city: "Paris",
