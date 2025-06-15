@@ -46,6 +46,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) setNotifications(JSON.parse(stored));
   }, []);
+  
   // Save any changes
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(notifications));
@@ -76,7 +77,6 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
 
   // Sync reminders: Check if new reminders fall "within window", add as needed
   const syncReminders = (reminders: { [id: string]: string }) => {
-    // Remove old auto-added reminders
     setNotifications(prev => [
       // keep all non-reminder notifications
       ...prev.filter(n => n.type !== "reminder"),
