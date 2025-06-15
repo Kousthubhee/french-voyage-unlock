@@ -7,11 +7,6 @@ import { CityInsightsCard } from "@/components/school-insights/CityInsightsCard"
 import { InsightsDialog } from "@/components/school-insights/InsightsDialog";
 import { SchoolDetail } from "@/components/school-insights/SchoolDetail";
 
-// FIX: Add missing props interface
-interface SchoolInsightsPageProps {
-  onBack: () => void;
-}
-
 interface School {
   id: string;
   name: string;
@@ -20,14 +15,6 @@ interface School {
   levels: string[];
   subjects: string[];
   website: string;
-  admissionProcess: string[];
-  languageRequirements: string[];
-  supportAndFeatures: string[];
-  tuition: string;
-  ranking: string;
-  applicationDeadlines: { label: string, deadline: string }[];
-  keyHighlights: string[];
-  contacts: { type: string, value: string }[];
 }
 
 const schools: School[] = [
@@ -35,1081 +22,595 @@ const schools: School[] = [
     id: "sorbonne",
     name: "Sorbonne University",
     city: "Paris",
-    description:
-      "Founded in 1257 (merged 2018). Ranked 35th globally (ARWU); alumni include numerous Nobel/Fields laureates. Free French courses for international students; 18 campus libraries with 600,000+ books. Application via Études en France or Parcoursup. French proficiency (DELF/DALF B2+ for most fields, C1 for medicine) required. Application cycles: Parcoursup (Jan–Mar), international: mid-Dec deadline.",
+    description: "Humanities, sciences, and medicine",
     levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Bachelor’s (Licence): Humanities, Sciences, Engineering, Medicine",
-      "Master’s (Master): Physics, Biology, Comp. Sci., History, etc. (some English-taught available)",
-      "PhD: Structured doctoral programs (all fields)"
-    ],
+    subjects: ["Humanities", "Science", "Medicine"],
     website: "https://www.sorbonne-universite.fr/",
-    admissionProcess: [
-      "Application via Études en France (for most non-EU international students) or Parcoursup (for Bachelor/Licence programs in France).",
-      "French proficiency required: DELF/DALF B2+ (most fields), C1 (Medicine).",
-      "Application cycles: Parcoursup (Jan-Mar); international: mid-December.",
-      "Master & PhD: Direct university portal, research proposal for PhD.",
-    ],
-    languageRequirements: [
-      "French (B2+ required for most courses).",
-      "C1 required for Medicine.",
-      "Some Masters in English (proof required)."
-    ],
-    supportAndFeatures: [
-      "Free French courses for international students.",
-      "18 libraries with 600,000+ books.",
-      "Orientation sessions and buddy systems.",
-    ],
-    tuition: "€170 (Licence/year, EU); €2,770 (non-EU, Licence).",
-    ranking: "ARWU 35th (global)",
-    applicationDeadlines: [
-      { label: "Parcoursup", deadline: "January–March" },
-      { label: "International", deadline: "mid-December" }
-    ],
-    keyHighlights: [
-      "Numerous Nobel/Fields laureates among alumni.",
-      "Historic institution, merged in 2018.",
-      "Strong international community."
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.sorbonne-universite.fr/" },
-      { type: "General", value: "contact@sorbonne-universite.fr" },
-    ],
   },
   {
     id: "psl",
     name: "PSL University",
     city: "Paris",
-    description:
-      "Paris Sciences & Lettres (PSL): #1 French university (THE/Shanghai), top‑50 globally. Bachelor's (CPES) fully in English, 40+ Master's taught in English/French, PhD research via constituent schools (ENS, Mines, Dauphine, etc). Highly competitive: 69–82% acceptance. Major global exchange network (Cambridge, UCL, Berkeley).",
-    levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Bachelor: CPES multidisciplinary (English, 3 yrs, selective)",
-      "Master: ~40 programs (Science, Management, Humanities, Sustainability)",
-      "PhD: Research doctorates via constituent schools"
-    ],
+    description: "Includes ENS, Dauphine, Mines ParisTech",
+    levels: ["Graduate"],
+    subjects: ["Science", "Economics", "Engineering"],
     website: "https://psl.eu/",
-    admissionProcess: [
-      "Apply via university or school portal (depending on program).",
-      "Highly selective entry especially for CPES Bachelor.",
-      "English or French language required (program-dependent).",
-      "Deadlines vary by program."
-    ],
-    languageRequirements: [
-      "English for CPES Bachelor.",
-      "French or English for Masters, depending on program.",
-      "Language certificate (TOEFL/IELTS/TCF/DELF) as requested."
-    ],
-    supportAndFeatures: [
-      "Global exchange network (Cambridge, UCL, Berkeley)",
-      "Student housing, cultural activities, research opportunities"
-    ],
-    tuition: "€170–€601 (bachelor/master, mostly public rate). Private programs vary.",
-    ranking: "THE/Shanghai #1 France, top-50 global",
-    applicationDeadlines: [
-      { label: "CPES Bachelor", deadline: "January" },
-      { label: "Masters/PhD", deadline: "Check program; varies Oct–Mar" }
-    ],
-    keyHighlights: [
-      "Top ranked French university; strong research.",
-      "Many English-taught masters.",
-      "Constituent elite schools (ENS, Dauphine, Mines etc)."
-    ],
-    contacts: [
-      { type: "Website", value: "https://psl.eu/" },
-      { type: "Contact", value: "contact@psl.eu" },
-    ],
   },
   {
-    id: "neoma-paris",
-    name: "NEOMA Business School (Paris)",
+    id: "polytechnique",
+    name: "École Polytechnique",
     city: "Paris",
-    description:
-      "Triple-accredited (EQUIS, AACSB, AMBA); part of Conférence des Grandes Écoles. Campuses: Paris, Rouen, Reims. 9000+ students (~25% international), 100+ startups/year incubated. Visa, scholarships & orientation support ('HUB' office). Ranked among Europe's top business schools (FT, The Economist).",
-    levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Global BBA: 4-year, General/CESEM (double-degree) tracks",
-      "Bachelor in Services Management: 3-year professional degree",
-      "Master in Management (MiM): Flagship, taught in French & English, €17,500/yr",
-      "MSc: Finance, Marketing, Business Analytics, AI, Project Mgmt, etc.",
-      "Global Executive MBA, Part-Time MSc, Doctoral",
-    ],
-    website: "https://www.neoma-bs.com/en/",
-    admissionProcess: [
-      "Online application through NEOMA portal.",
-      "CV, personal statement, and interview required.",
-      "Specific requirements depend on program."
-    ],
-    languageRequirements: [
-      "English or French depending on program.",
-      "TOEFL/IELTS for English; TCF/DELF/DALF for French programs."
-    ],
-    supportAndFeatures: [
-      "HUB (international student support).",
-      "Startup incubator.",
-      "Visa support, scholarships."
-    ],
-    tuition: "€12,000–€17,500/year (MiM), varies by program.",
-    ranking: "FT, The Economist: Top European business schools.",
-    applicationDeadlines: [
-      { label: "MiM", deadline: "Rolling (until filled)" },
-      { label: "Other", deadline: "See program page" }
-    ],
-    keyHighlights: [
-      "Triple-accredited business school.",
-      "100+ startups/year from incubator.",
-      "Strong international community."
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.neoma-bs.com/en/" },
-      { type: "International Office", value: "hub@neoma-bs.fr" }
-    ],
+    description: "Elite engineering grande école.",
+    levels: ["Graduate"],
+    subjects: ["Engineering", "Science", "Economics"],
+    website: "https://www.polytechnique.edu/",
   },
   {
-    id: "tbs-toulouse",
-    name: "TBS Education",
-    city: "Toulouse",
-    description:
-      "Triple-accredited (AACSB, AMBA, EQUIS). Campuses in Toulouse, Paris, Barcelona, Casablanca. Strong aerospace specialization & ties to industry. 6,000 students in undergrad/masters, 2,000 in exec ed.",
-    levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Bachelor in Management: 3-yr, English/French, Toulouse & Paris",
-      "Master in Management (MiM): 5-yr Grande École, dual degrees, internships",
-      "MSc: Finance, AI & Business Analytics, Luxury Marketing, Aerospace MBA",
-      "MBA, Executive MBA, DBA, PhD: Professional/research tracks"
-    ],
-    website: "https://www.tbs-education.com/",
-    admissionProcess: [
-      "Bachelor: Non-French diploma holders or Parcoursup for French. IELTS ≥6.0 (English) or DELF B2 (French). File + interview. €120 app fee; tuition ~€38,100 total.",
-      "MiM: Bachelor's degree, transcripts, CV, SOP, LORs. French Track: TAGE MAGE + DELF B2. English Track: IELTS≥6.0, TOEFL≥78. GMAT/GRE recommended. Age ≤28.",
-      "MSc/MBA: Relevant degree, GMAT/GRE often ≥500–690, interview, €100 app fee.",
-      "PhD: Master M1; supervisor alignment required."
-    ],
-    languageRequirements: [
-      "English: IELTS≥6.0, TOEFL≥78 (most programs in English).",
-      "French: DELF B2 required for French track."
-    ],
-    supportAndFeatures: [
-      "Mobility, double degrees, strong international exchange (incl. industry links: Airbus etc)",
-      "Campuses: Toulouse, Paris, Barcelona, Casablanca"
-    ],
-    tuition: "Bachelor: ~€38,100 total. MSc/MBA: tuition varies by track.",
-    ranking: "Triple-accredited, aerospace focus.",
-    applicationDeadlines: [
-      { label: "Bachelor", deadline: "See website; varies" },
-      { label: "MSc/MBA", deadline: "See program page" }
-    ],
-    keyHighlights: [
-      "Triple-accredited (AACSB, AMBA, EQUIS)",
-      "Strong aerospace specialization at Toulouse",
-      "Full range of international exchange and internships"
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.tbs-education.com/" },
-      { type: "General", value: "contact@tbs-education.com" },
-    ],
-  },
-  {
-    id: "neoma-reims",
-    name: "NEOMA Business School – Reims Campus",
-    city: "Reims",
-    description:
-      "Triple-accredited. Campuses in Reims, Rouen, Paris. ~9,000 students (25% international). Ranked among top European business schools (FT, Economist).",
-    levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Global BBA: 4-yr English-taught, Year 1 or Year 3 entry",
-      "Master in Management (MiM): 2-yr, English/French, dual degrees",
-      "MSc: Finance, Luxury, Data Analytics, International Business, etc.",
-      "Executive MBA, Doctorate programs"
-    ],
-    website: "https://www.neoma-bs.com/",
-    admissionProcess: [
-      "Global BBA: High school diploma; IELTS ≥ 6.0 (English); IELTS ≥ 5.5 + DELF B2 (bilingual); file + interview; €80 app fee.",
-      "MiM & MSc: Bachelor’s degree, transcripts, CV, SOP, LORs, English proficiency, GMAT recommended, €100 app fee.",
-      "Doctorate: Master's + professional or research track; tailored online process."
-    ],
-    languageRequirements: [
-      "English: IELTS ≥ 6.0 for English tracks.",
-      "French/English: Some tracks bilingual, DELF B2 for French, as required."
-    ],
-    supportAndFeatures: [
-      "International student support.",
-      "Double degrees, exchange programs.",
-      "Executive training, career mentoring."
-    ],
-    tuition: "BBA: €12,000–28,100/year; MSc: varies by programme.",
-    ranking: "Top European business school (FT/Economist)",
-    applicationDeadlines: [
-      { label: "BBA", deadline: "Check program page" },
-      { label: "MiM/MSc", deadline: "Rolling" }
-    ],
-    keyHighlights: [
-      "25% international students",
-      "Ranked among Europe's top business schools"
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.neoma-bs.com/" },
-      { type: "Admissions", value: "admissions@neoma-bs.com" }
-    ],
-  },
-  {
-    id: "esigelec-rouen",
-    name: "ESIGELEC",
-    city: "Rouen",
-    description:
-      "Grande École of Engineering (acc. by CTI); strong in Embedded Systems/Electronics/IT/Energy; new campus in Poitiers. 23% international. Active student life, scholarship opportunities.",
-    levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Ingénieur Program: 5-yr - 2 prep + 3 specialization (Embedded, Electronics, IT, etc.)",
-      "International Master & MSc: 18/24mo in Software, Embedded, Digital Transformation (EN/FR)",
-      "Doctoral: PhD research via IRSEEM labs"
-    ],
-    website: "https://www.esigelec.fr/",
-    admissionProcess: [
-      "Bac entry cycle: After Bac, Bac+2/3/4. Online portal, admission tests/interview.",
-      "Masters: Bachelor's in engineering; transcripts, CV, language test (TOEFL/IELTS). Deadline July for September.",
-      "PhD: Master’s + proposal + supervisor + language proof (B1+/FR/EN)."
-    ],
-    languageRequirements: [
-      "French: B1+/B2 for most; some MSc/Master in English available."
-    ],
-    supportAndFeatures: [
-      "Active student unions (4L Trophy, Aero clubs, etc.)",
-      "Scholarships (Young Achiever, Merit, FEMALE, GRE etc. up to €5,000)",
-      "Strong international community"
-    ],
-    tuition: "€8,100–15,600/year (Masters); varies by track.",
-    ranking: "Founded 1901, fully accredited.",
-    applicationDeadlines: [
-      { label: "Master", deadline: "July (for September)" }
-    ],
-    keyHighlights: [
-      "23% international students",
-      "New campus in Poitiers",
-      "Semi-private, CCI‑affiliated"
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.esigelec.fr/" },
-      { type: "Admissions", value: "admissions@esigelec.fr" }
-    ],
-  },
-  {
-    id: "sciencespo-toulouse",
-    name: "Sciences Po Toulouse",
-    city: "Toulouse",
-    description:
-      "Top Grande École for political/social sciences. 5-yr program: 2 generalist + 3 advanced (politics, law, econ, public admin). 1,600 students (13% international). Historic campus.",
-    levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "5-Year Grand École Programme: 2 years general + 3 years advanced",
-      "Master's: Political Science, International Affairs, Urban Studies etc.",
-      "University Diploma: International & Comparative Studies (exchange/free-mover)",
-      "Postgrad diplomas"
-    ],
-    website: "https://www.sciencespo-toulouse.fr/",
-    admissionProcess: [
-      "Grande École: High school diploma + IEP entrance exam (7-IEP joint); ~1,200 spots.",
-      "Master's/DU: Relevant undergrad degree, application, transcripts, C1 FR/EN.",
-      "Exchange/DU: Partner nomination; ~€1,164/semester; universities France/SYNC rules."
-    ],
-    languageRequirements: [
-      "French: C1 for most programs.",
-      "English: For some international/exchange courses."
-    ],
-    supportAndFeatures: [
-      "20+ student associations (eco, lgbt+, music, etc)",
-      "Career Centre, mock network events",
-      "Compulsory year abroad, 1,500+ exchanges"
-    ],
-    tuition: "~€1,164/semester (exchange/DU); see program.",
-    ranking: "Major French political science institution.",
-    applicationDeadlines: [
-      { label: "Grande École", deadline: "See 7-IEP exam cycle" }
-    ],
-    keyHighlights: [
-      "Compulsory year abroad",
-      "Historic campus; 13% int'l, 61% female",
-      "480+ partner exchanges"
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.sciencespo-toulouse.fr/" },
-      { type: "International Relations", value: "international@sciencespo-toulouse.fr" }
-    ],
-  },
-  {
-    id: "telecom-paris",
-    name: "Télécom Paris",
+    id: "hec-paris",
+    name: "HEC Paris",
     city: "Paris",
-    description:
-      "Formerly Télécom ParisTech. 3-year Ingénieur & 2-year MSc programs in AI, Cybersecurity, Data Science, Networks. Double degree options (Polytechnique, Mines). ~40% international students. Strong exchange, dual-degree and scholarship support (Eiffel, IMT, Erasmus+).",
+    description: "Top global business school. Triple-accredited: EQUIS, AACSB, AMBA. Global Rankings: FT European Business School top 2–3; FT MiM #1 Europe; MSc Finance #1 worldwide.",
     levels: ["Graduate"],
     subjects: [
-      "Diplôme d’Ingénieur: Computer Science, Networks & Telecoms (via CPGE, L3/M1, or DUT routes)",
-      "MSc in Engineering: AI, Cybersecurity, IoT, Smart Mobility",
-      "Post-Master’s degrees: Specialized (Smart Mobility, etc.)",
-      "PhD: Doctoral research in engineering fields",
+      "Grande École – MiM",
+      "MBA",
+      "Executive MBA",
+      "Trium EMBA",
+      "MSc (various)",
+      "PhD",
     ],
-    website: "https://www.telecom-paris.fr/",
-    admissionProcess: [
-      "Online application or through Campus France.",
-      "Competitive selection (file, interview).",
-      "Engineering track admissions (CPGE, equivalent qualification)."
-    ],
-    languageRequirements: [
-      "French B2 for most programs.",
-      "Some MSc taught in English (proof required, usually IELTS/TOEFL)."
-    ],
-    supportAndFeatures: [
-      "Strong scholarship opportunities (Eiffel, IMT, Erasmus+ etc).",
-      "International student office.",
-      "Dual degree & research mobility."
-    ],
-    tuition: "€2,770–€3,770/year (non-EU), lower for EU.",
-    ranking: "Top French engineering school (various rankings).",
-    applicationDeadlines: [
-      { label: "Most programs", deadline: "January–March" }
-    ],
-    keyHighlights: [
-      "~40% international students.",
-      "Renowned in digital, AI, telecoms.",
-      "Strong industry links."
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.telecom-paris.fr/" },
-      { type: "International Office", value: "internationalrelations@telecom-paris.fr" }
-    ],
+    website: "https://www.hec.edu/",
   },
   {
     id: "escp",
     name: "ESCP Business School",
     city: "Paris",
-    description:
-      "Internationally renowned, 6 campuses across Europe. Bachelor (BSc) in Management with tracks in Paris, Berlin, London, Madrid, Turin. MiM (2–3 yrs, 70+ specializations, 9+ months placements), 98% BSc placement. MBA, Executive MBAs, MSc (Finance, Strategy, etc). Global accreditations, strong career outcomes.",
+    description: "Multi-campus, Paris is the flagship",
+    levels: ["Graduate"],
+    subjects: ["MIM", "MBA"],
+    website: "https://escp.eu/",
+  },
+  {
+    id: "sciencespo-paris",
+    name: "Sciences Po Paris",
+    city: "Paris",
+    description: "Political science, international affairs. Top 50 global, Top EU political science. Highly selective Bachelor’s & Master’s programs; Paris and international campuses.",
     levels: ["Undergraduate", "Graduate"],
     subjects: [
-      "Bachelor in Management (BSc): 3 yrs, English, multi-country tracks",
-      "Master in Management (MiM): Multi-campus, 2–3 yrs, 70+ specializations",
-      "MSc & Specialized Masters: Finance, Innovation, Management etc.",
-      "MBA in International Management, Executive MBA, PhD"
+      "Bachelor’s (College Universitaire)",
+      "Master’s (multiple schools)",
+      "One-Year Master’s",
+      "PhD"
     ],
-    website: "https://escp.eu/",
-    admissionProcess: [
-      "Apply online to ESCP.",
-      "Motivation letter, CV, transcripts, and interview.",
-      "Language test (English or French depending on program)."
-    ],
-    languageRequirements: [
-      "English or French depending on program.",
-      "IELTS/TOEFL or TCF/DELF/DALF."
-    ],
-    supportAndFeatures: [
-      "Careers office, global alumni network.",
-      "Exchange programs.",
-      "International orientation."
-    ],
-    tuition: "€13,000–€22,350/year depending on program.",
-    ranking: "Global top business school (various rankings).",
-    applicationDeadlines: [
-      { label: "Bachelor", deadline: "Mid-January (main)" },
-      { label: "Master", deadline: "Various, check program" }
-    ],
-    keyHighlights: [
-      "6 campuses, multi-country tracks.",
-      "Excellent career outcomes.",
-      "98% placement after BSc."
-    ],
-    contacts: [
-      { type: "Website", value: "https://escp.eu/" },
-      { type: "Admissions", value: "admissions@escp.eu" }
-    ],
+    website: "https://www.sciencespo.fr/",
+  },
+  {
+    id: "neoma-paris",
+    name: "NEOMA Business School (Paris)",
+    city: "Paris",
+    description: "Executive & MSc programs",
+    levels: ["Graduate"],
+    subjects: ["MSc", "Executive"],
+    website: "https://www.neoma-bs.com/en/",
+  },
+  {
+    id: "telecom-paris",
+    name: "Télécom Paris",
+    city: "Paris",
+    description: "Tech-focused grande école",
+    levels: ["Graduate"],
+    subjects: ["Engineering", "Telecom"],
+    website: "https://www.telecom-paris.fr/",
   },
   {
     id: "essec",
     name: "ESSEC Business School",
     city: "Cergy",
-    description:
-      "Triple-accredited, ~6,000 students, campuses in Cergy, Singapore, and Rabat. Global BBA (4-yr, 10–16 mo. abroad/internship). MiM Grande École, MBAs, MScs (Paris, Singapore), Exec. MBAs, PhD. Acceptance: BBA selective, MBA 15–25%. Scholarships & global partnerships. Ranked among world's top management schools.",
-    levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Global BBA: 4-year int’l track, extensive internships/abroad",
-      "Master in Management (MiM): Grande École specializations",
-      "MSc: Data Science, Finance, Marketing and more",
-      "MBA & Executive programs: FT/PT, hybrid/weekend",
-      "PhD in management"
-    ],
+    description: "Cergy campus in Paris region",
+    levels: ["Graduate"],
+    subjects: ["MIM", "MBA", "MSc"],
     website: "https://www.essec.edu/",
-    admissionProcess: [
-      "Online application (BBA, MiM, Master, MBA programs).",
-      "Test scores required (GMAT/GRE/TAGE MAGE for some).",
-      "Motivation letter & interview."
-    ],
-    languageRequirements: [
-      "English for BBA (TOEFL/IELTS), French for some tracks.",
-      "Proof of language for MBA/Master."
-    ],
-    supportAndFeatures: [
-      "Global mobility programs, exchange partnerships.",
-      "Scholarships and housing support.",
-      "Career mentorship."
-    ],
-    tuition: "BBA: €14,000/year; Masters/MBA: €18,000–€24,000/year.",
-    ranking: "FT, QS, Economist: top management school.",
-    applicationDeadlines: [
-      { label: "BBA", deadline: "Mid-January" },
-      { label: "Other", deadline: "Varies (see program page)" }
-    ],
-    keyHighlights: [
-      "Strong international and internship focus.",
-      "Triple accredited business school.",
-      "Global alumni network."
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.essec.edu/" },
-      { type: "Admissions", value: "admissions@essec.edu" }
-    ],
   },
   {
     id: "centrale-lyon",
     name: "École Centrale de Lyon",
     city: "Lyon",
-    description:
-      "Prestigious grand établissement for general engineering (Ingénieur, 5 years), plus M1/M2 Masters (aerospace, data science, etc.) & PhD. Admissions by CapECL, concours, or dual-degree (French/English). B1–B2 French, some programs in English. 20+ sports, large research output.",
-    levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "General Engineering (Ingénieur): 5-year integrated, CPGE/university entry",
-      "Master’s Degrees: M1/M2 in engineering, physics, data science, aerospace, etc.",
-      "PhD & Research tracks in engineering"
-    ],
+    description: "Engineering and applied sciences",
+    levels: ["Graduate"],
+    subjects: ["Engineering"],
     website: "https://www.ec-lyon.fr/",
-    admissionProcess: [
-      "Admission via CapECL, concours, or direct entry for international students.",
-      "Engineer program: After 2 years CPGE or equivalent.",
-      "Masters: Direct application (after BSc/engineering degree)."
-    ],
-    languageRequirements: [
-      "French B1–B2 for most programs.",
-      "Some masters in English (IELTS/TOEFL for proof)."
-    ],
-    supportAndFeatures: [
-      "20+ sports clubs and facilities.",
-      "Research funding and mobility opportunities.",
-      "Buddy/integration programs."
-    ],
-    tuition: "€601–€2,770/year for EU/EEA; higher for non-EU.",
-    ranking: "Leading French engineering grande école.",
-    applicationDeadlines: [
-      { label: "Engineer/Master", deadline: "Check website, varies" }
-    ],
-    keyHighlights: [
-      "Strong research output.",
-      "Integration and sports activities.",
-      "Dual-degree options."
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.ec-lyon.fr/" },
-      { type: "Admissions", value: "admissions@ec-lyon.fr" }
-    ],
   },
   {
     id: "insa-lyon",
     name: "INSA Lyon",
     city: "Lyon",
-    description:
-      "France’s top public engineering school. 5-year Ingénieur/Grande École (2-year prep, 3-year majors in Civil, CompSci, Biotech, etc.), MSc in English, IBMMAE (International Bachelor). 30% int’l, 36 double-degrees, international sections (EURINSA, ASINSA…). Exchanges worldwide.",
+    description: "Public engineering school",
     levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Diplôme d’Ingénieur (5-year): Civil, Computer Science, Telecom, Biotech, Energy, etc.",
-      "International Bachelor (IBMMAE): Taught in English, applied science/business",
-      "Master of Science, Advanced Masters, Continuing Education",
-      "PhD: via INSA/CTI-accredited doctoral schools"
-    ],
+    subjects: ["Engineering"],
     website: "https://www.insa-lyon.fr/",
-    admissionProcess: [
-      "Campus France Etudes en France or direct portal.",
-      "Selection based on academic criteria.",
-      "Interview for some tracks."
-    ],
-    languageRequirements: [
-      "French for most programs (B1/B2).",
-      "IBMMAE/Some MSc in English—TOEFL/IELTS required."
-    ],
-    supportAndFeatures: [
-      "International support office.",
-      "Double degrees, exchange programs.",
-      "Student associations and integration."
-    ],
-    tuition: "€601–€2,770/year (EU/EEA); international programs may be higher.",
-    ranking: "France's #1 public engineering school.",
-    applicationDeadlines: [
-      { label: "All programs", deadline: "Check website; varies (Spring most common)" }
-    ],
-    keyHighlights: [
-      "36 double degrees, wide exchange network.",
-      "30% international students.",
-      "Research and sports facilities."
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.insa-lyon.fr/" },
-      { type: "International Relations", value: "relint@insa-lyon.fr" }
-    ],
+  },
+  {
+    id: "claude-bernard",
+    name: "Université Claude Bernard Lyon 1",
+    city: "Lyon",
+    description: "Sciences and medicine",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Medicine", "Science"],
+    website: "https://www.univ-lyon1.fr/",
+  },
+  {
+    id: "em-lyon",
+    name: "EM Lyon Business School",
+    city: "Lyon",
+    description: "Prestigious business Grande École",
+    levels: ["Graduate"],
+    subjects: ["MBA", "MSc"],
+    website: "https://www.em-lyon.fr/",
   },
   {
     id: "lumiere-lyon2",
     name: "Université Lumière Lyon 2",
     city: "Lyon",
-    description:
-      "Major public university: 27,000 students (~15% international). Licence (BA), Master (150+), Doctorat in humanities, law, social sciences, journalism. Parcoursup for Bachelor, direct application for Masters/PhD. B2/C1 French required for most Master's. Strong research & humanities focus.",
+    description: "Social sciences and arts",
     levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Licence (Bachelor): Humanities, Law, Social Sciences, Journalism, Languages",
-      "Master (150+): Prof./research master's",
-      "Doctorat (PhD): with supervisor & research proposal",
-      "Specialized (DUT, DU, Agrégation prep)"
-    ],
+    subjects: ["Arts", "Social Sciences"],
     website: "https://www.univ-lumiere.fr/",
-    admissionProcess: [
-      "Bachelor: Parcoursup (French national portal).",
-      "Master/PhD: direct application on university website.",
-      "Research proposal for Doctorat required."
-    ],
-    languageRequirements: [
-      "French B2 (Bachelor); C1 (most Master's or research)."
-    ],
-    supportAndFeatures: [
-      "International student office.",
-      "Orientation weeks at start of semester.",
-      "Research and library resources."
-    ],
-    tuition: "€170–€270/year (EU/EEA), higher for non-EU.",
-    ranking: "Major French university (not globally ranked).",
-    applicationDeadlines: [
-      { label: "Bachelor", deadline: "Parcoursup Jan–Mar" },
-      { label: "Master/PhD", deadline: "Varies (see website)" }
-    ],
-    keyHighlights: [
-      "Strong in law, humanities & social science.",
-      "Large international community.",
-      "Accessible public tuition."
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.univ-lumiere.fr/" },
-      { type: "International", value: "incoming.mobility@univ-lyon2.fr" }
-    ],
+  },
+  {
+    id: "supaero",
+    name: "ISAE-SUPAERO",
+    city: "Toulouse",
+    description: "Top aerospace engineering school",
+    levels: ["Graduate"],
+    subjects: ["Aerospace Engineering"],
+    website: "https://www.isae-supaero.fr/",
   },
   {
     id: "insa-toulouse",
     name: "INSA Toulouse",
     city: "Toulouse",
-    description:
-      "Leading public grande école for engineering. Diplôme d’Ingénieur (5 years, 8 majors), MSc, MRes (Sustainable Engineering, Nano…), Doctorat. 23% international, part of INSA Group, Toulouse Tech & Erasmus. Highly selective; major exchange/double degree opportunities.",
+    description: "Public engineering school",
     levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Diplôme d’Ingénieur (5 years): 8 specializations (Aerospace, etc.)",
-      "Master of Science, MRes, Advanced Masters (Sustainable Engineering, etc.)",
-      "PhD in engineering and science fields"
-    ],
+    subjects: ["Engineering"],
     website: "https://www.insa-toulouse.fr/",
-    admissionProcess: [
-      "Online application (Etudes en France or INSA portal).",
-      "Academic record, motivation, and interview required for most tracks."
-    ],
-    languageRequirements: [
-      "French B1/B2 for most undergraduate programs.",
-      "Some MSc in English—proof of English required."
-    ],
-    supportAndFeatures: [
-      "International support; double degrees.",
-      "Erasmus exchange.",
-      "Campus housing, sports and cultural programs."
-    ],
-    tuition: "€601–€2,770/year (EU/EEA); higher for non-EU masters.",
-    ranking: "Nationally top-ranked engineering grande école.",
-    applicationDeadlines: [
-      { label: "All programs", deadline: "Spring (see website)" }
-    ],
-    keyHighlights: [
-      "23% international students.",
-      "Leading research and industry collaboration.",
-      "Vibrant student life."
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.insa-toulouse.fr/" },
-      { type: "International", value: "international@insa-toulouse.fr" }
-    ],
   },
   {
     id: "paul-sabatier",
     name: "Université Toulouse III – Paul Sabatier",
     city: "Toulouse",
-    description:
-      "~35,000 students, 68 research labs, QS #580 (2025). Bachelor (Science, Health, IT), Master (Biomolecular, Environmental Health, etc.), Doctorat (multiple STEM schools). Tuition: ~€3–4k/yr EU, €6k+ for int'l/English. Mobility, double degrees & Erasmus supported.",
+    description: "Science, tech, health",
     levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Bachelor’s & Professional Licences: Science, Health, Sports, IT, Eco-Management",
-      "Master’s: Biomolecular Sciences, Environmental Health, STEM",
-      "Doctorat: STEM & interdisciplinary research"
-    ],
+    subjects: ["Science", "Technology", "Health"],
     website: "https://www.univ-toulouse3.fr/",
-    admissionProcess: [
-      "Bachelor: Parcoursup (for French/EU/EEA); Etudes en France for international.",
-      "Master/Doctorat: direct application with research proposal/research CV."
-    ],
-    languageRequirements: [
-      "French B2 (most programs).",
-      "Some Master/PhD tracks in English—proof required."
-    ],
-    supportAndFeatures: [
-      "Scholarships for mobility.",
-      "Double degree/Erasmus partnerships.",
-      "Campus life: sports, societies, housing."
-    ],
-    tuition: "€3,000–€4,000/year (EU); €6,000+/yr for international/English.",
-    ranking: "QS #580 (2025), strong STEM reputation.",
-    applicationDeadlines: [
-      { label: "Bachelor", deadline: "Parcoursup (Jan–Mar)" },
-      { label: "Master/PhD", deadline: "Varies (see program)" }
-    ],
-    keyHighlights: [
-      "68 research labs.",
-      "STEM & interdisciplinary focus.",
-      "Major double degree options."
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.univ-toulouse3.fr/" },
-      { type: "International", value: "international@adm.ups-tlse.fr" }
-    ],
+  },
+  {
+    id: "tbs",
+    name: "TBS Education",
+    city: "Toulouse",
+    description: "Grande École business program",
+    levels: ["Graduate"],
+    subjects: ["Business"],
+    website: "https://www.tbs-education.fr/",
+  },
+  {
+    id: "capitole",
+    name: "Université Toulouse 1 Capitole",
+    city: "Toulouse",
+    description: "Law, economics, management",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Law", "Economics", "Management"],
+    website: "https://www.univ-toulouse1.fr/",
   },
   {
     id: "neoma-rouen",
-    name: "NEOMA Business School — Rouen Campus",
+    name: "NEOMA Business School (Main campus)",
     city: "Rouen",
-    description:
-      "Triple-accredited (AACSB, AMBA, EQUIS) grande école business school. Campuses in Rouen, Reims, and Paris. About 9,000 students (25% international), robust alumni network ~72,000.",
-    levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Global BBA: 4-year, General & CESEM double-degree tracks (ranked 3rd in France)",
-      "Master in Management (MiM): 2–3 years, English or French, €17,500–16,000/year",
-      "MSc: Finance, AI, Analytics, Luxury, International Pre-Master",
-      "Executive MBA, Doctoral, Specialist Masters"
-    ],
-    website: "https://www.neoma-bs.com/",
-    admissionProcess: [
-      "Global BBA: High school diploma equivalent. English: IELTS ≥ 6.0; bilingual: IELTS ≥ 5.5 & French B2. Dossier + interview, rolling admissions.",
-      "MiM/MSc: Bachelor’s degree (180+ ECTS), transcripts, CV, statement of purpose, LORs, IELTS ≥ 6.0/TOEFL ≥ 83. GMAT/GRE optional/recommended.",
-      "Executive/MBA/PhD: Professional experience (MBA); PhD requires research proposal & supervisor."
-    ],
-    languageRequirements: [
-      "English track: IELTS ≥ 6.0",
-      "Bilingual track: IELTS ≥ 5.5 & French B2",
-      "French for domestic/French-taught programs"
-    ],
-    supportAndFeatures: [
-      "Rolling admissions; strong career services",
-      "Robust alumni network",
-      "Double degrees, international partnerships"
-    ],
-    tuition: "Global BBA: See site; MiM: €16,000–€17,500/year; MSc varies",
-    ranking: "Top business institution in continental Europe",
-    applicationDeadlines: [
-      { label: "Global BBA", deadline: "Rolling (Sept intake)" },
-      { label: "Master/MSc", deadline: "Rolling/Spring" }
-    ],
-    keyHighlights: [
-      "Triple-accredited; part of Conférence des Grandes Écoles",
-      "Ranked among top business schools in continental Europe"
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.neoma-bs.com/" },
-      { type: "Admissions", value: "admissions@neoma-bs.com" }
-    ],
+    description: "PGE, MSc, BBA programs",
+    levels: ["Graduate"],
+    subjects: ["PGE", "MSc", "BBA"],
+    website: "https://www.neoma-bs.com/en/",
   },
   {
     id: "insa-rouen",
     name: "INSA Rouen Normandie",
     city: "Rouen",
-    description:
-      "Public Grande École d'Ingénieurs, part of Groupe INSA. ~2,100 students (20–30% int'l), strong research labs and apprenticeship links.",
+    description: "Engineering across multiple domains",
     levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Diplôme d'Ingénieur: 5 years, 2-year integrated STPI + 3-year engineering specialization, 10 fields (CompSci, Energy, Chemical, etc.)",
-      "International Bachelor & Masters (English & French)",
-      "PhD Programs: Multiple engineering & science tracks"
-    ],
+    subjects: ["Engineering"],
     website: "https://www.insa-rouen.fr/",
-    admissionProcess: [
-      "1st year Eng.: Parcoursup (French) / Études en France (Int'l), Bac S/STI/STL or equivalent, dossier + exams/interview.",
-      "Direct entry (L3/CPGE): File, exam, interview.",
-      "MSc/Appr.: Bachelor's, transcripts, CV, SOP, language (TOEIC or equiv), deadlines in July.",
-      "PhD: Master's, proposal, supervisor."
-    ],
-    languageRequirements: [
-      "French for most programs (B2 min)",
-      "Some programs in English (proof required)"
-    ],
-    supportAndFeatures: [
-      "Apprenticeship contracts in final year",
-      "Dual-degree & international partnerships",
-      "Student housing & support office"
-    ],
-    tuition: "Engineering: ~€618 EU, €2,850–3,879 non-EU; MSc: ~€250; PhD: €391",
-    ranking: "Accredited by CTI; strong regional reputation",
-    applicationDeadlines: [
-      { label: "Bachelor/Master", deadline: "Check website, typically July" }
-    ],
-    keyHighlights: [
-      "International student integration & housing help",
-      "Strong research; vibrant clubs & societies"
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.insa-rouen.fr/" },
-      { type: "International Office", value: "international@insa-rouen.fr" }
-    ],
   },
   {
-    id: "ut-capitole",
-    name: "Université Toulouse 1 Capitole",
-    city: "Toulouse",
-    description:
-      "Founded 1229. Top French university for law, economics, management, and social sciences; ~22,400 students (15% international).",
+    id: "rouen-univ",
+    name: "Université de Rouen Normandie",
+    city: "Rouen",
+    description: "Comprehensive university",
     levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Bachelor (Licence): Law, Economics, Management, Public Admin, IT, Pol Sci",
-      "BSc in Global Management (English, TSM)",
-      "Master: Econometrics, HR, Law, Aviation Law (LL.M.), Data Sci for SocSci, etc.",
-      "PhD Doctorates (Econ, Law, Management, Science)"
-    ],
-    website: "https://www.ut-capitole.fr/",
-    admissionProcess: [
-      "Bachelor (L1): Parcoursup (French); Campus France for international.",
-      "Bachelor transfer (L2/L3) & Master: File with relevant diploma, transcripts, proof of language.",
-      "PhD: Master, research proposal, supervisor acceptance."
-    ],
-    languageRequirements: [
-      "French (DELF/DALF) for most; English proof for English tracks.",
-      "No French required for all-English BSc/TSM"
-    ],
-    supportAndFeatures: [
-      "Full-library, 320K+ ebooks, research labs",
-      "Bienvenue en France 3-star label",
-      "90+ student associations"
-    ],
-    tuition: "Bachelor: ~€170–250/year (French); BSc/TSM: ~€2,770/year; Master: ~€2,770–5,500/year",
-    ranking: "Shanghai #1 France, #16 global in Economics (TSE); Nobel laureates",
-    applicationDeadlines: [
-      { label: "Bachelor", deadline: "Parcoursup (French); Campus France (Intl)" }
-    ],
-    keyHighlights: [
-      "Leading in economics and law; Nobel laureates",
-      "Global engagement—double degrees, Engage.eu"
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.ut-capitole.fr/" },
-      { type: "General", value: "accueil@ut-capitole.fr" }
-    ],
+    subjects: ["Various"],
+    website: "https://www.univ-rouen.fr/",
+  },
+  {
+    id: "esigelec",
+    name: "ESIGELEC Rouen",
+    city: "Rouen",
+    description: "Electronics and digital tech",
+    levels: ["Graduate"],
+    subjects: ["Engineering"],
+    website: "https://www.esigelec.fr/",
+  },
+  {
+    id: "neoma-reims",
+    name: "NEOMA Business School (Reims)",
+    city: "Reims",
+    description: "Core business programs",
+    levels: ["Graduate"],
+    subjects: ["Business", "MBA", "MSc"],
+    website: "https://www.neoma-bs.com/en/",
+  },
+  {
+    id: "sciencespo-reims",
+    name: "Sciences Po Campus Reims",
+    city: "Reims",
+    description: "International program focus",
+    levels: ["Undergraduate"],
+    subjects: ["Politics", "Global Affairs"],
+    website: "https://www.sciencespo.fr/",
+  },
+  {
+    id: "reims-univ",
+    name: "Université de Reims Champagne-Ardenne",
+    city: "Reims",
+    description: "Regional public university",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Various"],
+    website: "https://www.univ-reims.fr/",
+  },
+  {
+    id: "esiec",
+    name: "ESIEC Reims",
+    city: "Reims",
+    description: "Packaging and digital engineering",
+    levels: ["Graduate"],
+    subjects: ["Engineering"],
+    website: "https://www.esiec.fr/",
+  },
+  {
+    id: "lille-univ",
+    name: "Université de Lille",
+    city: "Lille",
+    description: "Large multidisciplinary public university",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Various"],
+    website: "https://www.univ-lille.fr/",
+  },
+  {
+    id: "edhec-lille",
+    name: "EDHEC Business School",
+    city: "Lille",
+    description: "Top 5 French business school",
+    levels: ["Graduate"],
+    subjects: ["MBA", "MSc", "Finance"],
+    website: "https://www.edhec.fr/",
+  },
+  {
+    id: "centrale-lille",
+    name: "École Centrale de Lille",
+    city: "Lille",
+    description: "Elite engineering school",
+    levels: ["Graduate"],
+    subjects: ["Engineering"],
+    website: "https://www.ec-lille.fr/",
+  },
+  {
+    id: "ieseg",
+    name: "IESEG School of Management",
+    city: "Lille",
+    description: "AACSB-accredited Grande École",
+    levels: ["Graduate"],
+    subjects: ["Management", "MSc"],
+    website: "https://www.ieseg.fr/",
+  },
+  {
+    id: "hei",
+    name: "HEI – Hautes Études d'Ingénieur",
+    city: "Lille",
+    description: "Private engineering school",
+    levels: ["Graduate"],
+    subjects: ["Engineering"],
+    website: "https://www.hei.fr/",
+  },
+  {
+    id: "strasbourg-univ",
+    name: "Université de Strasbourg",
+    city: "Strasbourg",
+    description: "Prestigious university, strong in sciences and humanities",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Science", "Humanities"],
+    website: "https://www.univ-strasbourg.fr/",
+  },
+  {
+    id: "insa-strasbourg",
+    name: "INSA Strasbourg",
+    city: "Strasbourg",
+    description: "Part of the INSA engineering network",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Engineering"],
+    website: "https://www.insa-strasbourg.fr/",
+  },
+  {
+    id: "em-strasbourg",
+    name: "EM Strasbourg Business School",
+    city: "Strasbourg",
+    description: "Business school within the university",
+    levels: ["Graduate"],
+    subjects: ["Business"],
+    website: "https://www.em-strasbourg.fr/",
+  },
+  {
+    id: "sciencespo-strasbourg",
+    name: "Sciences Po Strasbourg",
+    city: "Strasbourg",
+    description: "Regional campus of Sciences Po",
+    levels: ["Undergraduate"],
+    subjects: ["Politics"],
+    website: "https://www.sciencespo.fr/",
+  },
+  {
+    id: "bordeaux-univ",
+    name: "Université de Bordeaux",
+    city: "Bordeaux",
+    description: "Comprehensive research university",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Science", "Engineering"],
+    website: "https://www.univ-bordeaux.fr/",
+  },
+  {
+    id: "kedge-bordeaux",
+    name: "KEDGE Business School",
+    city: "Bordeaux",
+    description: "Top-tier business school",
+    levels: ["Graduate"],
+    subjects: ["MBA", "MSc"],
+    website: "https://www.kedge-business-school.fr/",
+  },
+  {
+    id: "enseirb",
+    name: "ENSEIRB-MATMECA",
+    city: "Bordeaux",
+    description: "Engineering in IT, electronics, math",
+    levels: ["Graduate"],
+    subjects: ["Engineering"],
+    website: "https://www.enseirb-matmeca.fr/",
+  },
+  {
+    id: "sciencespo-bordeaux",
+    name: "Sciences Po Bordeaux",
+    city: "Bordeaux",
+    description: "Political science and international studies",
+    levels: ["Undergraduate"],
+    subjects: ["Politics"],
+    website: "https://www.sciencespo.fr/",
+  },
+  {
+    id: "inpbordeaux",
+    name: "INP Bordeaux",
+    city: "Bordeaux",
+    description: "Engineering network incl. ENSEIRB-MATMECA, ENSCBP",
+    levels: ["Graduate"],
+    subjects: ["Engineering"],
+    website: "https://www.inp-bordeaux.fr/",
+  },
+  {
+    id: "uca",
+    name: "Université Côte d'Azur",
+    city: "Nice",
+    description: "Alliance of local institutions under one label",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Various"],
+    website: "https://www.univ-cotedazur.fr/",
+  },
+  {
+    id: "skema-nice",
+    name: "SKEMA Business School (Sophia)",
+    city: "Nice",
+    description: "Global business school with AI focus",
+    levels: ["Graduate"],
+    subjects: ["Business", "AI"],
+    website: "https://www.skema.fr/",
+  },
+  {
+    id: "polytech-nice",
+    name: "Polytech Nice Sophia",
+    city: "Nice",
+    description: "Engineering school within UCA",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Engineering"],
+    website: "https://www.polytech-nice.fr/",
+  },
+  {
+    id: "edhec-nice",
+    name: "EDHEC Business School (Nice)",
+    city: "Nice",
+    description: "Specializes in Finance MSc and Global MBA",
+    levels: ["Graduate"],
+    subjects: ["Finance", "MBA"],
+    website: "https://www.edhec.fr/",
+  },
+  {
+    id: "mines-sophia",
+    name: "Mines Paris – Sophia",
+    city: "Sophia Antipolis",
+    description: "AI and systems engineering research campus",
+    levels: ["Graduate"],
+    subjects: ["Engineering", "AI"],
+    website: "https://www.mines-paris-sophia.fr/",
+  },
+  {
+    id: "amu",
+    name: "Aix-Marseille Université",
+    city: "Marseille",
+    description: "One of France's largest public universities",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Various"],
+    website: "https://www.univ-amu.fr/",
+  },
+  {
+    id: "kedge-marseille",
+    name: "KEDGE Business School (Marseille)",
+    city: "Marseille",
+    description: "Major business school",
+    levels: ["Graduate"],
+    subjects: ["Business"],
+    website: "https://www.kedge-business-school.fr/",
+  },
+  {
+    id: "centrale-marseille",
+    name: "École Centrale de Marseille",
+    city: "Marseille",
+    description: "Part of the Centrale engineering group",
+    levels: ["Graduate"],
+    subjects: ["Engineering"],
+    website: "https://www.ec-marseille.fr/",
+  },
+  {
+    id: "polytech-marseille",
+    name: "Polytech Marseille",
+    city: "Marseille",
+    description: "Engineering programs under AMU",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Engineering"],
+    website: "https://www.polytech-marseille.fr/",
+  },
+  {
+    id: "grenoble-univ",
+    name: "Université Grenoble Alpes",
+    city: "Grenoble",
+    description: "Leading research university in sciences and humanities",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: ["Science", "Humanities", "Engineering"],
+    website: "https://www.univ-grenoble-alpes.fr/",
+  },
+  {
+    id: "grenoble-inp",
+    name: "Grenoble INP",
+    city: "Grenoble",
+    description: "Engineering institute with multiple schools",
+    levels: ["Graduate"],
+    subjects: ["Engineering", "Technology"],
+    website: "https://www.grenoble-inp.fr/",
+  },
+  {
+    id: "gem",
+    name: "Grenoble Ecole de Management",
+    city: "Grenoble",
+    description: "Top business school with tech focus",
+    levels: ["Graduate"],
+    subjects: ["MBA", "MSc", "Business"],
+    website: "https://www.grenoble-em.fr/",
+  },
+  {
+    id: "ensimag",
+    name: "Ensimag",
+    city: "Grenoble",
+    description: "Engineering school specializing in IT and applied math",
+    levels: ["Graduate"],
+    subjects: ["Engineering", "IT"],
+    website: "https://www.ensimag.fr/",
+  },
+  {
+    id: "sciencespo-grenoble",
+    name: "Sciences Po Grenoble",
+    city: "Grenoble",
+    description: "Political science and governance programs",
+    levels: ["Undergraduate"],
+    subjects: ["Politics", "Governance"],
+    website: "https://www.sciencespo.fr/",
   },
   {
     id: "nantes-univ",
     name: "Université de Nantes",
     city: "Nantes",
-    description: "Major public university (~35,000 students, 10%+ international), offering bachelor's, master's, PhD and engineering programs in humanities, sciences, law, business, journalism, and more. Recognized for student support and high international mobility.",
+    description: "Comprehensive public university",
     levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Licence (Bachelor, 180 ECTS): Humanities, Law, Social Sciences, Engineering (Polytech Nantes), Business, Journalism",
-      "Master (120 ECTS): Optimization, Data Science, Marine Technology, Earth & Planetary Sciences, Engineering, etc.",
-      "Engineering diplomas: via Polytech Nantes",
-      "PhD degrees across Sciences, Technology and Social Sciences",
-      "Exchange & Freemover: Semester-based English courses (OEM, ERASMUS+)"
-    ],
-    website: "https://english.univ-nantes.fr/",
-    admissionProcess: [
-      "Licence 1: DAP process (Nov 15–Dec 15) for non-EU; French/EU via Parcoursup",
-      "Licence 2/3 & Master: VAEE application Feb–Jan 31; requires transcripts, motivation letter, language test (French B1–B2 or English equivalent)",
-      "PhD: Based on Master's degree, research proposal, doctoral school",
-    ],
-    languageRequirements: [
-      "French B1–B2 (most degree tracks)",
-      "English proof for international/English programs",
-    ],
-    supportAndFeatures: [
-      "“Guichet Unique” office for visa, housing, health services",
-      "Bienvenue en France national label; ~4,000 new international students per year",
-      "CROUS meals (€3.30), TAN student transport pass (€41/mo for under 26)",
-    ],
-    tuition: "Licence: ~€170–250/yr; Master: ~€243–601/yr; Non-EU/International: check program",
-    ranking: "Regional leader; large Erasmus+ network",
-    applicationDeadlines: [
-      { label: "Licence 1", deadline: "DAP Nov 15–Dec 15" },
-      { label: "Master", deadline: "Varies, VAEE Jan 31" }
-    ],
-    keyHighlights: [
-      "397 partner universities; 1000+ students on exchange yearly",
-      "Active campus life and student associations",
-      "~10% international students"
-    ],
-    contacts: [
-      { type: "Website", value: "https://english.univ-nantes.fr/" },
-      { type: "International", value: "international@univ-nantes.fr" }
-    ],
+    subjects: ["Various"],
+    website: "https://www.univ-nantes.fr/",
   },
   {
-    id: "audencia-nantes-latest",
-    name: "Audencia Business School (Nantes)",
+    id: "audencia",
+    name: "Audencia Business School",
     city: "Nantes",
-    description: "Triple-accredited business school (~7,800 students; 120+ nationalities, 37,000+ alumni), strong in management, data, AI, finance, sustainability and marketing. Known for extensive professional placements and international exposure.",
-    levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Bachelor in Management: 3-year (English/French), 16 month mandatory internships, Nantes, Paris, La Roche-sur-Yon campuses",
-      "Master in Management (Grande École/MiM): 5-year program, dual degrees, professional internships",
-      "MSc: Data & AI, Finance, Sustainable Management, Digital Business (all in English)",
-      "MBA/IMBA/Exec MBA/DBA: for early to executive professionals",
-      "Summer/Winter schools, executive education"
-    ],
-    website: "https://www.audencia.com/",
-    admissionProcess: [
-      "Bachelor: High school diploma, application, interview; IELTS ≥ 6.0 (Eng)/DELF B2 (Fr)",
-      "MiM & MSc: Bachelor's (240 ECTS); CV, SOP, LORs; IELTS ≥ 6.5 (Eng), DELF B2 (Fr) + TAGE MAGE; GMAT recommended",
-      "MBA/Exec MBA: Bachelor + 3 yrs work; IELTS/TOEFL, interview, GMAT optional"
-    ],
-    languageRequirements: [
-      "English or French based on track (IELTS 6.0–6.5+ or DELF B2)",
-    ],
-    supportAndFeatures: [
-      "Triple accreditation (EQUIS, AACSB, AMBA)",
-      "Corporate/merit scholarships and career support",
-      "Career fair, strong business partnerships",
-      "Modern campuses: co-working, gym, auditoriums"
-    ],
-    tuition: "Bachelor: ~€38,100; MiM: ~€35,000; MSc: varies; MBA: see site",
-    ranking: "Top 1% globally (triple crown)",
-    applicationDeadlines: [
-      { label: "Bachelor", deadline: "June 24 (Paris)" },
-      { label: "MiM", deadline: "Varies" }
-    ],
-    keyHighlights: [
-      "Industry partnerships, active alumni, 120+ nationalities",
-      "Auditoriums, gym and student-run events"
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.audencia.com/" },
-      { type: "Admissions", value: "admissions@audencia.com" }
-    ],
+    description: "Top-tier business school with international focus",
+    levels: ["Graduate"],
+    subjects: ["MBA", "MSc", "Business"],
+    website: "https://www.audencia.fr/",
   },
   {
     id: "centrale-nantes",
     name: "École Centrale de Nantes",
     city: "Nantes",
-    description: "Prestigious engineering grande école, top 200 global (THE), 43% international cohort. Wide range of BSc, Ingénieur, MSc, Erasmus Mundus Masters, and research degrees. Known for strong research, global mobility and bilingual options.",
-    levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "BSc in Engineering: Mechanical, Energy, Civil, Signal, Robotics (English, internships required)",
-      "BBA Data, AI & Management (with Audencia, 4 yrs)",
-      "Diplôme d'Ingénieur: 5 years, major specialisations and mobility",
-      "MSc/Erasmus Mundus: Marine, Robotics, Civil, Energy, etc. (many English)",
-      "Integrated Master-PhD Track: 5 years (selective)"
-    ],
+    description: "Elite engineering grande école",
+    levels: ["Graduate"],
+    subjects: ["Engineering"],
     website: "https://www.ec-nantes.fr/",
-    admissionProcess: [
-      "BSc: High school diploma (science stream), ≤26y, TOEFL 78/IELTS 6.0, French not required",
-      "Diplôme d'Ingénieur: CPGE or partner recruitment, B1+ French, TOEIC ≥850, mobility mandatory",
-      "MSc/EMJMD: Bachelor's in relevant subject, IELTS ≥6.5, deadlines vary",
-    ],
-    languageRequirements: [
-      "English for international BSc, MSc (IELTS 6.0–6.5+)",
-      "French for most Ingénieur/dual-degree tracks"
-    ],
-    supportAndFeatures: [
-      "Mandatory mobility, 110+ student clubs, on-campus housing, CROUS canteen",
-      "Modern research labs, English & French support",
-      "No app fee for most programs"
-    ],
-    tuition: "BSc: €2,770/yr; Ingénieur: €601–2,770/yr (EU), €2,770+ (int.); MSc/EMJMD: varies",
-    ranking: "Top 200 (THE Engineering)",
-    applicationDeadlines: [
-      { label: "BSc", deadline: "April (main intake)" },
-      { label: "MSc/EMJMD", deadline: "Varies, check website" }
-    ],
-    keyHighlights: [
-      "43% international, 110+ clubs, internship-rich curriculum",
-      "10–20% int'l acceptance; avg. graduate salary ~€60k"
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.ec-nantes.fr/" },
-      { type: "International", value: "international@ec-nantes.fr" }
-    ],
   },
   {
     id: "polytech-nantes",
     name: "Polytech Nantes",
     city: "Nantes",
-    description: "Public engineering grande école; 10+ engineering specialties (electronics, IT, civil, process, bioprocess, etc.) spread across 3 campuses. Known for its CNRS research ties, hands-on internships, and strong international student support.",
+    description: "Engineering school under Université de Nantes",
     levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Diplôme d'Ingénieur (Master equivalent, 5 years): Electronics, IT, Civil, Energy, Bioprocess, Materials, more",
-      "International MSc (M2): Data Science, Energy, Visual Computing, Microalgae Production (English)",
-      "Exchange student & research internships",
-      "PhD: research labs, predoctoral tracks"
-    ],
-    website: "https://polytech.univ-nantes.fr/",
-    admissionProcess: [
-      "Engineering: PeiP prep, Geipi‑Polytech (Parcoursup), L3/M1 direct entry possible with file review/interview",
-      "International MSc: English B2+, French A1+, direct/Campus France by April 15",
-      "PhD: integrated, supervisor agreement"
-    ],
-    languageRequirements: [
-      "English B2+ (Intl MSc); French B1+ (degree tracks); both can be needed"
-    ],
-    supportAndFeatures: [
-      "CTI-accredited; 1,400 students, 350 graduates/yr, global mobility mandatory",
-      "CNRS research labs, 50+ partners, OMIST scholarship (€1,500–3,500)",
-      "Focus on incoming international mobility (orientation, housing help)"
-    ],
-    tuition: "Engineering: €601–2,770/yr (EU/EEA); MSc: ~€7,500/yr",
-    ranking: "CTI, Réseau Polytech",
-    applicationDeadlines: [
-      { label: "MSc application", deadline: "April 15" }
-    ],
-    keyHighlights: [
-      "10 specialties, strong industry links, on-campus labs",
-      "Partnered with local and national research networks"
-    ],
-    contacts: [
-      { type: "Website", value: "https://polytech.univ-nantes.fr/" },
-      { type: "International", value: "international.polytech@univ-nantes.fr" }
-    ],
+    subjects: ["Engineering"],
+    website: "https://www.polytech-nantes.fr/",
   },
   {
     id: "oniris",
-    name: "Oniris (Nantes)",
+    name: "Oniris",
     city: "Nantes",
-    description: "Specialist grand établissement combining veterinary sciences, food technology, and plant sciences, with strong research in bioprocess engineering and life sciences.",
+    description: "Engineering in food science and veterinary medicine",
     levels: ["Graduate"],
-    subjects: [
-      "Process & Bioprocess Engineering MSc (2 yrs): life/food/bio production focus",
-      "Veterinary Sciences: accredited veterinary degrees",
-      "Plant Sciences: MSc and doctoral specialties"
-    ],
-    website: "https://www.oniris-nantes.fr/",
-    admissionProcess: [
-      "MSc: Bachelor (or L3), application via website, typical deadline summer prior to start",
-      "Language: English or French as relevant"
-    ],
-    languageRequirements: [
-      "Relevant to track; French or English proficiency depending on specialty"
-    ],
-    supportAndFeatures: [
-      "Top French institute for plant and animal sciences, strong research and placements",
-      "National/international research projects"
-    ],
-    tuition: "Public university fees (approx. €243–601/yr MSc)",
-    ranking: "National designation; Ministry of Higher Education",
-    applicationDeadlines: [
-      { label: "MSc", deadline: "June/July" }
-    ],
-    keyHighlights: [
-      "Unique life/food/veterinary integration; leading French plant biotech research"
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.oniris-nantes.fr/" }
-    ],
+    subjects: ["Engineering", "Veterinary"],
+    website: "https://www.oniris.fr/",
   },
   {
-    id: "excelia-group",
-    name: "Excelia Group (La Rochelle)",
+    id: "larochelle-univ",
+    name: "Université de La Rochelle",
     city: "La Rochelle",
-    description: "Private group of state-accredited, triple-accredited schools (business, tourism, communication) focused on sustainability, hospitality, and innovation. ~5,000 students, 120+ nationalities, and 37,000+ alumni.",
+    description: "Public university with environmental focus",
     levels: ["Undergraduate", "Graduate"],
-    subjects: [
-      "Excelia Business School: Bachelor (3 yrs), BBA International (4 yrs), MiM/MSc in business, tourism, hospitality",
-      "Excelia Communication School: Bachelor in Digital Communication & Strategy, MSc in Digital Influencing/Visual/Event",
-      "Excelia Tourism School: Bachelor in Hospitality/Tourism (3 yrs, TedQual cert.), MScs in Hotel Mgmt, Tourism, Event, F&B",
-      "Exchange/FreeMover: ERASMUS+, business/hospitality/digital, English/French"
-    ],
-    website: "https://www.excelia-group.com/",
-    admissionProcess: [
-      "Bachelor: High school diploma, interview, English track IELTS ≥ 6.0, French track DELF B2",
-      "MiM/MSc: Bachelor's (180–240 ECTS), CV, SOP, LORs, IELTS/DELF, GMAT if requested; MBA/DBA needs experience"
-    ],
-    languageRequirements: [
-      "English tracks: IELTS 6.0–6.5+; French tracks: DELF B2; some dual language"
-    ],
-    supportAndFeatures: [
-      "Triple accreditation (AACSB, EQUIS, AMBA), TedQual for tourism",
-      "Sustainability/humanitarian projects: Humacité, Climacité",
-      "Practical learning: internships, fieldwork, French Atlantic campus"
-    ],
-    tuition: "Bachelor: ~€9,150–11,150/yr; MiM/MSc: ~€14,000–19,000/yr; scholarships available",
-    ranking: "Triple-accredited, strong sustainability theme",
-    applicationDeadlines: [
-      { label: "Bachelor/Master", deadline: "Rolling" }
-    ],
-    keyHighlights: [
-      "Historic Atlantic port, rich student life, sustainability leadership"
-    ],
-    contacts: [
-      { type: "Website", value: "https://www.excelia-group.com/" },
-      { type: "Admissions", value: "admissions@excelia-group.com" }
-    ],
+    subjects: ["Science", "Environment", "Humanities"],
+    website: "https://www.univ-larochelle.fr/",
+  },
+  {
+    id: "excelia",
+    name: "Excelia Business School",
+    city: "La Rochelle",
+    description: "Business school with tourism and sustainability programs",
+    levels: ["Graduate"],
+    subjects: ["Business", "Tourism", "MSc"],
+    website: "https://www.excelia.fr/",
+  },
+  {
+    id: "eigsi",
+    name: "EIGSI La Rochelle",
+    city: "La Rochelle",
+    description: "General engineering with maritime focus",
+    levels: ["Graduate"],
+    subjects: ["Engineering"],
+    website: "https://www.eigsi.fr/",
   },
   {
     id: "institut-ocean",
-    name: "Institut de l'Océan (Sorbonne/Paris)",
-    city: "Paris",
-    description: "National marine science and oceanography research institute (Sorbonne University), home to 30 labs, 1,500 staff. Focus: physical oceanography, climate, environmental law, and marine technology.",
-    levels: [],
-    subjects: [
-      "Research: PhD/postdoc; no direct teaching, but affiliated with Sorbonne, UPMC, partner MSc/Licence programs"
-    ],
-    website: "https://institut-ocean.sorbonne-universite.fr/",
-    admissionProcess: [
-      "PhD via Sorbonne/partner university; supervisor alignment required"
-    ],
-    languageRequirements: [
-      "Depends on home university/track"
-    ],
-    supportAndFeatures: [
-      "Access to top research labs, marine stations (Dinard, Roscoff, Banyuls, etc.), national outreach",
-      "Strong links to French Navy and national/international ocean networks"
-    ],
-    tuition: "See Sorbonne University/partner rates",
-    ranking: "National leader, networked with global marine science",
-    applicationDeadlines: [],
-    keyHighlights: [
-      "Major oceanography and climate science hub"
-    ],
-    contacts: [
-      { type: "Website", value: "https://institut-ocean.sorbonne-universite.fr/" }
-    ],
-  },
-  {
-    id: "locean",
-    name: "LOCEAN (Laboratoire d'Océanographie et du Climat)",
-    city: "Paris",
-    description: "Leading marine science and climate research laboratory (Sorbonne–CNRS–IRD–MNHN), recognized for elite earth/environmental sciences output and international projects.",
-    levels: [],
-    subjects: [
-      "Physical and biogeochemical oceanography, climate-ecology research, citizen science"
-    ],
-    website: "https://locean.ipsl.fr/",
-    admissionProcess: [
-      "Doctoral/research positions via Sorbonne/partner labs"
-    ],
-    languageRequirements: [
-      "Depends on appointment/home university"
-    ],
-    supportAndFeatures: [
-      "Nature Index, public outreach, multi-lab collaboration"
-    ],
-    tuition: "Not applicable (research lab; see host university)",
-    ranking: "Nature Index, IPSL network",
-    applicationDeadlines: [],
-    keyHighlights: [
-      "28 top publications (2024–25), national and public engagement"
-    ],
-    contacts: [
-      { type: "Website", value: "https://locean.ipsl.fr/" }
-    ],
+    name: "Institut de l'Océan",
+    city: "La Rochelle",
+    description: "Marine and environmental research programs",
+    levels: ["Graduate"],
+    subjects: ["Marine Science", "Environment"],
+    website: "https://www.institut-ocean.fr/",
   },
 ];
+
+interface SchoolInsightsPageProps {
+  onBack: () => void;
+}
 
 const cityData = [
   {
@@ -1144,13 +645,13 @@ const cityData = [
   {
     name: "Lyon",
     emoji: "🦁",
-    description: "France's culinary capital and student city.",
+    description: "France’s culinary capital and student city.",
     localInsights: [
       {
         title: "Local Cuisine",
         description: "Try out the famous 'bouchons'.",
         tips: [
-          "Don't miss quenelles and praline tarts.",
+          "Don’t miss quenelles and praline tarts.",
           "Explore Croix-Rousse for hidden gems.",
         ],
       },
@@ -1288,7 +789,7 @@ const cityData = [
     description: "Atlantic city with creative and green spirit.",
     localInsights: [],
     transport: "Tram, bus, ferry.",
-    famousPlaces: "Château des Ducs, Machines de l'Île.",
+    famousPlaces: "Château des Ducs, Machines de l’Île.",
     sportsFacilities: "Stade de la Beaujoire, riverside parks.",
     studentLife: "Festivals, clubs, local food.",
     schoolsCount: schools.filter(s => s.city === "Nantes").length,
