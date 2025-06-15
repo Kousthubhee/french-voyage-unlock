@@ -56,9 +56,19 @@ interface PreArrival2PageProps {
   onBack: () => void;
   onComplete: () => void;
   isCompleted: boolean;
+  profile: {
+    name: string;
+    email: string;
+    about: string;
+    memberSince: string;
+    photo: string;
+    age: string;
+    prevEducation: string;
+    workExperience: string;
+  };
 }
 
-export const PreArrival2Page = ({ onBack, onComplete, isCompleted }: PreArrival2PageProps) => {
+export const PreArrival2Page = ({ onBack, onComplete, isCompleted, profile }: PreArrival2PageProps) => {
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>('Paris');
   const [justCompleted, setJustCompleted] = useState(false);
