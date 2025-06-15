@@ -747,12 +747,24 @@ function getCityDetails(cityName: string) {
   );
 }
 
+// Helper to generate website URL from school name (simple guess if none defined)
+function guessWebsite(school: any) {
+  if (school.website) return school.website;
+  // Try to build just an example if nothing present (optional, can be omitted)
+  const nameSlug = school.name
+    .replace(/(Université|University|School|Campus)/gi, "")
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
+  return `https://www.${nameSlug}.fr/`;
+}
+
 export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [subjectFilter, setSubjectFilter] = useState<string>("All");
   const [showCityInsights, setShowCityInsights] = useState(false);
 
-  // NEW: Track selected school for detail modal/page
+  // Track selected school for detail modal/page
   const [selectedSchool, setSelectedSchool] = useState<any | null>(null);
 
   // All unique cities from the data
@@ -782,9 +794,15 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
 
   // School details view: show only detail, with a back button to city
   if (selectedSchool) {
+    // Pass derived programs and website if missing
     return (
       <SchoolDetail
-        school={selectedSchool}
+        school={{
+          ...selectedSchool,
+          programs: selectedSchool.subjects || [],
+          website: guessWebsite(selectedSchool),
+          location: selectedSchool.city || "", // supply city as location fallback
+        }}
         onBack={() => setSelectedSchool(null)}
       />
     );
@@ -893,7 +911,14 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
                 <Card
                   key={school.id}
                   className="cursor-pointer hover:shadow-lg transition-shadow"
-                  onClick={() => setSelectedSchool(school)}
+                  onClick={() =>
+                    setSelectedSchool({
+                      ...school,
+                      programs: school.subjects || [],
+                      website: guessWebsite(school),
+                      location: school.city || "",
+                    })
+                  }
                 >
                   <CardContent className="p-6">
                     <h3 className="text-lg font-semibold text-gray-900">
