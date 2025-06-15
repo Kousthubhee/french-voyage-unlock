@@ -23,7 +23,6 @@ interface LocalInsight {
 interface City {
   name: string;
   description: string;
-  emoji: string;
   schools: School[];
   localInsights: LocalInsight[];
 }
@@ -42,7 +41,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     paris: {
       name: 'Paris',
       description: 'Capital city with top-tier schools in all domains',
-      emoji: '🇫🇷',
       schools: [
         { id: 'sorbonne', name: 'Sorbonne University', description: 'Humanities, sciences, and medicine', location: 'Paris', programs: ['Humanities', 'Science', 'Medicine'] },
         { id: 'psl', name: 'PSL University', description: 'Includes ENS, Dauphine, Mines ParisTech', location: 'Paris', programs: ['Science', 'Economics', 'Engineering'] },
@@ -90,7 +88,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     lyon: {
       name: 'Lyon',
       description: 'Hub of engineering, medicine, and business',
-      emoji: '🇫🇷',
       schools: [
         { id: 'centrale-lyon', name: 'École Centrale de Lyon', description: 'Engineering and applied sciences', location: 'Lyon', programs: ['Engineering'] },
         { id: 'insa-lyon', name: 'INSA Lyon', description: 'Public engineering school', location: 'Lyon', programs: ['Engineering'] },
@@ -134,7 +131,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     toulouse: {
       name: 'Toulouse',
       description: 'Leading aerospace and tech education hub',
-      emoji: '🇫🇷',
       schools: [
         { id: 'supaero', name: 'ISAE-SUPAERO', description: 'Top aerospace engineering school', location: 'Toulouse', programs: ['Aerospace Engineering'] },
         { id: 'insa-toulouse', name: 'INSA Toulouse', description: 'Public engineering school', location: 'Toulouse', programs: ['Engineering'] },
@@ -178,7 +174,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     rouen: {
       name: 'Rouen',
       description: 'Historic city with modern business and tech schools',
-      emoji: '🇫🇷',
       schools: [
         { id: 'neoma-rouen', name: 'NEOMA Business School (Main campus)', description: 'PGE, MSc, BBA programs', location: 'Rouen', programs: ['PGE', 'MSc', 'BBA'] },
         { id: 'insa-rouen', name: 'INSA Rouen Normandie', description: 'Engineering across multiple domains', location: 'Rouen', programs: ['Engineering'] },
@@ -221,7 +216,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     reims: {
       name: 'Reims',
       description: 'Business and international affairs education hub',
-      emoji: '🇫🇷',
       schools: [
         { id: 'neoma-reims', name: 'NEOMA Business School (Reims)', description: 'Core business programs', location: 'Reims', programs: ['Business', 'MBA', 'MSc'] },
         { id: 'sciencespo-reims', name: 'Sciences Po Campus Reims', description: 'International program focus', location: 'Reims', programs: ['Politics', 'Global Affairs'] },
@@ -264,7 +258,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     lille: {
       name: 'Lille',
       description: 'Northern hub for business and engineering education',
-      emoji: '🇫🇷',
       schools: [
         { id: 'lille-univ', name: 'Université de Lille', description: 'Large multidisciplinary public university', location: 'Lille', programs: ['Various'] },
         { id: 'edhec-lille', name: 'EDHEC Business School', description: 'Top 5 French business school', location: 'Lille', programs: ['MBA', 'MSc', 'Finance'] },
@@ -308,7 +301,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     strasbourg: {
       name: 'Strasbourg',
       description: 'Prestigious academic and international region',
-      emoji: '🇫🇷',
       schools: [
         { id: 'strasbourg-univ', name: 'Université de Strasbourg', description: 'Prestigious university, strong in sciences and humanities', location: 'Strasbourg', programs: ['Science', 'Humanities'] },
         { id: 'insa-strasbourg', name: 'INSA Strasbourg', description: 'Part of the INSA engineering network', location: 'Strasbourg', programs: ['Engineering'] },
@@ -351,7 +343,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     bordeaux: {
       name: 'Bordeaux',
       description: 'Southwest academic powerhouse in sciences and business',
-      emoji: '🇫🇷',
       schools: [
         { id: 'bordeaux-univ', name: 'Université de Bordeaux', description: 'Comprehensive research university', location: 'Bordeaux', programs: ['Science', 'Engineering'] },
         { id: 'kedge-bordeaux', name: 'KEDGE Business School', description: 'Top-tier business school', location: 'Bordeaux', programs: ['MBA', 'MSc'] },
@@ -395,7 +386,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     nice: {
       name: 'Nice',
       description: 'Côte d’Azur region with business and engineering strengths',
-      emoji: '🇫🇷',
       schools: [
         { id: 'uca', name: 'Université Côte d\'Azur', description: 'Alliance of local institutions under one label', location: 'Nice', programs: ['Various'] },
         { id: 'skema-nice', name: 'SKEMA Business School (Sophia)', description: 'Global business school with AI focus', location: 'Sophia Antipolis', programs: ['Business', 'AI'] },
@@ -439,7 +429,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     marseille: {
       name: 'Marseille',
       description: 'Mediterranean port city with large academic presence',
-      emoji: '🇫🇷',
       schools: [
         { id: 'amu', name: 'Aix-Marseille Université', description: 'One of France’s largest public universities', location: 'Marseille', programs: ['Various'] },
         { id: 'kedge-marseille', name: 'KEDGE Business School (Marseille)', description: 'Major business school', location: 'Marseille', programs: ['Business'] },
@@ -482,7 +471,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     grenoble: {
       name: 'Grenoble',
       description: 'Alpine hub for science, technology, and innovation',
-      emoji: '🇫🇷',
       schools: [
         { id: 'grenoble-univ', name: 'Université Grenoble Alpes', description: 'Leading research university in sciences and humanities', location: 'Grenoble', programs: ['Science', 'Humanities', 'Engineering'] },
         { id: 'grenoble-inp', name: 'Grenoble INP', description: 'Engineering institute with multiple schools', location: 'Grenoble', programs: ['Engineering', 'Technology'] },
@@ -526,7 +514,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     nantes: {
       name: 'Nantes',
       description: 'Vibrant Atlantic city with engineering and creative industries',
-      emoji: '🇫🇷',
       schools: [
         { id: 'nantes-univ', name: 'Université de Nantes', description: 'Comprehensive public university', location: 'Nantes', programs: ['Various'] },
         { id: 'audencia', name: 'Audencia Business School', description: 'Top-tier business school with international focus', location: 'Nantes', programs: ['MBA', 'MSc', 'Business'] },
@@ -570,7 +557,6 @@ export const SchoolSelector = ({ onBack, onSchoolSelect }: SchoolSelectorProps) 
     larochelle: {
       name: 'La Rochelle',
       description: 'Coastal city with focus on sustainability and business',
-      emoji: '🇫🇷',
       schools: [
         { id: 'larochelle-univ', name: 'Université de La Rochelle', description: 'Public university with environmental focus', location: 'La Rochelle', programs: ['Science', 'Environment', 'Humanities'] },
         { id: 'excelia', name: 'Excelia Business School', description: 'Business school with tourism and sustainability programs', location: 'La Rochelle', programs: ['Business', 'Tourism', 'MSc'] },
