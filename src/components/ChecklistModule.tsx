@@ -67,9 +67,7 @@ export const ChecklistModule = ({
         return;
       }
 
-      // Use functional state update to always get freshest progress
       setUserProgress((prevProgress: typeof userProgress) => {
-        // If module already unlocked (could happen with stale state), don't double-deduct
         if (prevProgress.unlockedModules.includes(module.id)) {
           return prevProgress;
         }
@@ -85,6 +83,30 @@ export const ChecklistModule = ({
         description: `You've unlocked "${module.title}" by spending ${module.keysRequired} key${module.keysRequired > 1 ? 's' : ''}!`,
         variant: "default",
       });
+
+      // After unlocking, immediately open this module/page!
+      // Delay slightly to ensure state is updated before navigation
+      setTimeout(() => {
+        // mapping for module to page route
+        const pageMapping: { [key: string]: string } = {
+          'school': 'school-insights',
+          'pre-arrival-1': 'pre-arrival-1',
+          'pre-arrival-2': 'pre-arrival-2',
+          'post-arrival': 'post-arrival',
+          'integration': 'integration',
+          'finance': 'finance-tracking',
+          'suggestions': 'suggestions',
+        };
+        if (pageMapping[module.id]) {
+          setUserProgress((prevProgress: typeof userProgress) => ({
+            ...prevProgress,
+            currentPage: pageMapping[module.id]
+          }));
+        } else {
+          setSelectedModule(module);
+        }
+      }, 100); // small delay so keys are deducted before navigation
+      return;
     }
 
     if (!isUnlocked && !module.keysRequired) return;
