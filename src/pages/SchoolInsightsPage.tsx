@@ -207,7 +207,6 @@ const schools: School[] = [
     contacts: [
       { type: "Website", value: "https://www.tbs-education.com/" },
       { type: "General", value: "contact@tbs-education.com" },
-      { type: "Admissions", value: "apply@tbs-education.com" },
     ],
   },
   {
@@ -678,6 +677,259 @@ const schools: School[] = [
     contacts: [
       { type: "Website", value: "https://www.univ-toulouse3.fr/" },
       { type: "International", value: "international@adm.ups-tlse.fr" }
+    ],
+  },
+  {
+    id: "neoma-rouen",
+    name: "NEOMA Business School — Rouen Campus",
+    city: "Rouen",
+    description:
+      "Triple-accredited (AACSB, AMBA, EQUIS) grande école business school. Campuses in Rouen, Reims, and Paris. About 9,000 students (25% international), robust alumni network ~72,000.",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "Global BBA: 4-year, General & CESEM double-degree tracks (ranked 3rd in France)",
+      "Master in Management (MiM): 2–3 years, English or French, €17,500–16,000/year",
+      "MSc: Finance, AI, Analytics, Luxury, International Pre-Master",
+      "Executive MBA, Doctoral, Specialist Masters"
+    ],
+    website: "https://www.neoma-bs.com/",
+    admissionProcess: [
+      "Global BBA: High school diploma equivalent. English: IELTS ≥ 6.0; bilingual: IELTS ≥ 5.5 + French B2. Dossier + interview, rolling admissions.",
+      "MiM/MSc: Bachelor’s degree (180+ ECTS), transcripts, CV, statement of purpose, LORs, IELTS ≥ 6.0/TOEFL ≥ 83. GMAT/GRE optional/recommended.",
+      "Executive/MBA/PhD: Professional experience (MBA); PhD requires research proposal & supervisor."
+    ],
+    languageRequirements: [
+      "English track: IELTS ≥ 6.0",
+      "Bilingual track: IELTS ≥ 5.5 & French B2",
+      "French for domestic/French-taught programs"
+    ],
+    supportAndFeatures: [
+      "Rolling admissions; strong career services",
+      "Robust alumni network",
+      "Double degrees, international partnerships"
+    ],
+    tuition: "Global BBA: See site; MiM: €16,000–€17,500/year; MSc varies",
+    ranking: "Top business institution in continental Europe",
+    applicationDeadlines: [
+      { label: "Global BBA", deadline: "Rolling (Sept intake)" },
+      { label: "Master/MSc", deadline: "Rolling/Spring" }
+    ],
+    keyHighlights: [
+      "Triple-accredited; part of Conférence des Grandes Écoles",
+      "Ranked among top business schools in continental Europe"
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.neoma-bs.com/" },
+      { type: "Admissions", value: "admissions@neoma-bs.com" }
+    ],
+  },
+  {
+    id: "insa-rouen",
+    name: "INSA Rouen Normandie",
+    city: "Rouen",
+    description:
+      "Public Grande École d’Ingénieurs, part of Groupe INSA. ~2,100 students (20–30% int’l), strong research labs and apprenticeship links.",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "Diplôme d’Ingénieur: 5 years, 2-year integrated STPI + 3-year engineering specialization, 10 fields (CompSci, Energy, Chemical, etc.)",
+      "International Bachelor & Masters (English & French)",
+      "PhD Programs: Multiple engineering & science tracks"
+    ],
+    website: "https://www.insa-rouen.fr/",
+    admissionProcess: [
+      "1st year Eng.: Parcoursup (French) / Études en France (Int’l), Bac S/STI/STL or equivalent, dossier + exams/interview.",
+      "Direct entry (L3/CPGE): File, exam, interview.",
+      "MSc/Appr.: Bachelor’s, transcripts, CV, SOP, language (TOEIC or equiv), deadlines in July.",
+      "PhD: Master’s, proposal, supervisor."
+    ],
+    languageRequirements: [
+      "French for most programs (B2 min)",
+      "Some programs in English (proof required)"
+    ],
+    supportAndFeatures: [
+      "Apprenticeship contracts in final year",
+      "Dual-degree & international partnerships",
+      "Student housing & support office"
+    ],
+    tuition: "Engineering: ~€618 EU, €2,850–3,879 non-EU; MSc: ~€250; PhD: €391",
+    ranking: "Accredited by CTI; strong regional reputation",
+    applicationDeadlines: [
+      { label: "Bachelor/Master", deadline: "Check website, typically July" }
+    ],
+    keyHighlights: [
+      "International student integration & housing help",
+      "Strong research; vibrant clubs & societies"
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.insa-rouen.fr/" },
+      { type: "International Office", value: "international@insa-rouen.fr" }
+    ],
+  },
+  {
+    id: "ut-capitole",
+    name: "Université Toulouse 1 Capitole",
+    city: "Toulouse",
+    description:
+      "Founded 1229. Top French university for law, economics, management, and social sciences; ~22,400 students (15% international).",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "Bachelor (Licence): Law, Economics, Management, Public Admin, IT, Pol Sci",
+      "BSc in Global Management (English, TSM)",
+      "Master: Econometrics, HR, Law, Aviation Law (LL.M.), Data Sci for SocSci, etc.",
+      "PhD Doctorates (Econ, Law, Management, Science)"
+    ],
+    website: "https://www.ut-capitole.fr/",
+    admissionProcess: [
+      "Bachelor (L1): Parcoursup (French); Campus France for international.",
+      "Bachelor transfer (L2/L3) & Master: File with relevant diploma, transcripts, proof of language.",
+      "PhD: Master, research proposal, supervisor acceptance."
+    ],
+    languageRequirements: [
+      "French (DELF/DALF) for most; English proof for English tracks.",
+      "No French required for all-English BSc/TSM"
+    ],
+    supportAndFeatures: [
+      "Full-library, 320K+ ebooks, research labs",
+      "Bienvenue en France 3-star label",
+      "90+ student associations"
+    ],
+    tuition: "Bachelor: ~€170–250/year (French); BSc/TSM: ~€2,770/year; Master: ~€2,770–5,500/year",
+    ranking: "Shanghai #1 France, #16 global in Economics (TSE); Nobel laureates",
+    applicationDeadlines: [
+      { label: "Bachelor", deadline: "Parcoursup (French); Campus France (Intl)" }
+    ],
+    keyHighlights: [
+      "Leading in economics and law; Nobel laureates",
+      "Global engagement—double degrees, Engage.eu"
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.ut-capitole.fr/" },
+      { type: "General", value: "accueil@ut-capitole.fr" }
+    ],
+  },
+  {
+    id: "nantes-univ",
+    name: "Université de Nantes",
+    city: "Nantes",
+    description:
+      "Major public university — ~35,000 students (>10% int’l); wide range of bachelor’s, master’s, engineering, and PhD. Holds “Bienvenue en France” 3-star label.",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "Bachelor: Humanities, Law, Sciences, Engineering, Business, Journalism (English options at higher grades)",
+      "Master: CompSci, Data Mining, Project Mgmt, Optimization, Erasmus Mundus MSCs",
+      "Engineering (Polytech Nantes) — Diplôme d’Ingénieur",
+      "PhD programs: Sciences, Social Sciences"
+    ],
+    website: "https://english.univ-nantes.fr/",
+    admissionProcess: [
+      "Licence 1: Intl: DAP (Nov 15–Dec 15); exchange via Erasmus/Partners.",
+      "Licence 2/3 & Master: VAEE (Feb–Jan 31), need bachelor’s, transcripts, proof of language (B1–B2).",
+      "MSc/PhD: Bachelor’s/Master’s, SOP, refs, lang. test (B1/B2 French or English)."
+    ],
+    languageRequirements: [
+      "French B1–B2 for most; some English MScs"
+    ],
+    supportAndFeatures: [
+      "“Guichet Unique” visa/housing/health office",
+      "3-star inclusion label; CROUS meals €3.30, monthly transport pass €41",
+      "Large library & research facilities"
+    ],
+    tuition: "Bachelor (French): €170–250/year; MSc: variable",
+    ranking: "Regional leader; 397 partner univs",
+    applicationDeadlines: [
+      { label: "Licence 1", deadline: "DAP Nov 15–Dec 15" }
+    ],
+    keyHighlights: [
+      "Affordability; 4,000 new international students yearly"
+    ],
+    contacts: [
+      { type: "Website", value: "https://english.univ-nantes.fr/" },
+      { type: "International", value: "international@univ-nantes.fr" }
+    ],
+  },
+  {
+    id: "audencia-nantes",
+    name: "Audencia Business School (Nantes Campus)",
+    city: "Nantes",
+    description:
+      "Triple-accredited (EQUIS, AACSB, AMBA) business school; ~7,800 students, 120+ nationalities, world-ranked for student satisfaction.",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "Bachelor in Management & BBA: 3-year, internships, English/Fr tracks (Nantes, Paris, La Roche-sur-Yon)",
+      "Master in Management (Grande École / MiM): full-time, dual degrees, internships",
+      "MSc: Data, AI, Finance, Sustainable Mgmt, Digital Mgmt",
+      "MBA/Exec MBA/DBA: early to executive career, part/full time"
+    ],
+    website: "https://www.audencia.com/",
+    admissionProcess: [
+      "Bachelor: High school diploma, file + interview; IELTS ≥6.0 (Eng), DELF B2 (Fr); Jun 24 deadline (Paris); ~€38,100 total",
+      "MiM/MSc: Bachelor (240 ECTS), transcripts, CV, SOP, LORs; MiM Eng track IELTS ≥6.5/TOEFL 90, Fr track DELF B2 + TAGE MAGE, GMAT recommended; MiM fee ~€35,000",
+      "MBA/Exec MBA: Bachelor + ≥3yr experience; IELTS ≥6.5; interview"
+    ],
+    languageRequirements: [
+      "Bachelor: IELTS ≥ 6.0 (Eng), DELF B2 (Fr)",
+      "MiM/MSc: IELTS ≥ 6.5 or DELF B2 + TAGE MAGE"
+    ],
+    supportAndFeatures: [
+      "Corporate & merit scholarships, career fair",
+      "Modern facilities (gyms, library, co-working)",
+      "Extracurriculars: clubs, arts, sports"
+    ],
+    tuition: "Bachelor: ~€38,100; MiM: €35,000; MSc/MBA vary",
+    ranking: "FT #27 global (2024), #1 France for happiness",
+    applicationDeadlines: [
+      { label: "Bachelor", deadline: "June 24 (Paris entry)" }
+    ],
+    keyHighlights: [
+      "Triple-accredited; 7,800 students, 37,000+ alumni",
+      "Top-30 global business school; 66% int’l"
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.audencia.com/" },
+      { type: "Admissions", value: "admissions@audencia.com" }
+    ],
+  },
+  {
+    id: "ec-nantes",
+    name: "École Centrale de Nantes",
+    city: "Nantes",
+    description:
+      "Leading engineering grande école with accredited BSc, MSc, engineering, and PhD programs. Key research in robotics, marine, materials, and more.",
+    levels: ["Undergraduate", "Graduate"],
+    subjects: [
+      "BSc in Engineering: Mechanical, Energy, Civil, Signal, Robotics",
+      "Diplôme d’Ingénieur (integrated, with Polytech Nantes)",
+      "Double-degree BBA Data, AI & Mgmt (with Audencia)",
+      "MSc: Marine, Robotics, Civil, Joint Erasmus Mundus",
+      "Integrated Master–PhD research track"
+    ],
+    website: "https://www.ec-nantes.fr/",
+    admissionProcess: [
+      "BSc: Apply via partner institutions; English taught options",
+      "MSc: Application, transcripts, proof of English/French",
+      "Double/Joint-degree: Requires home school nomination",
+      "Exchange: Erasmus+, partner nomination"
+    ],
+    languageRequirements: [
+      "BSc English track: No French required",
+      "MSc: English or French required"
+    ],
+    supportAndFeatures: [
+      "Top engineering accreditations; modern campus",
+      "Research opportunities, international partnerships (Erasmus+, T.I.M.E.)",
+      "Vibrant student life, sports & research clubs"
+    ],
+    tuition: "Public fees; varies by program/track",
+    ranking: "Member of int’l networks (Erasmus+ etc); accredited by Ministry",
+    applicationDeadlines: [
+      { label: "Main admission", deadline: "Check international office" }
+    ],
+    keyHighlights: [
+      "Strong engineering reputation; robust research output"
+    ],
+    contacts: [
+      { type: "Website", value: "https://www.ec-nantes.fr/" },
+      { type: "International", value: "international@ec-nantes.fr" }
     ],
   },
 ];
