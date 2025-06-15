@@ -66,36 +66,18 @@ export const ChecklistModule = ({
         return;
       }
 
-      setUserProgress((prevProgress: typeof userProgress) => {
-        if (prevProgress.unlockedModules.includes(module.id)) {
-          return prevProgress;
-        }
-        // By default, also set currentPage so routing happens immediately
-        const pageMapping: { [key: string]: string } = {
-          'school': 'school-insights',
-          'pre-arrival-1': 'pre-arrival-1',
-          'pre-arrival-2': 'pre-arrival-2',
-          'post-arrival': 'post-arrival',
-          'integration': 'integration',
-          'finance': 'finance-tracking',
-          'suggestions': 'suggestions',
-        };
-        return {
-          ...prevProgress,
-          keys: prevProgress.keys - module.keysRequired,
-          unlockedModules: [...prevProgress.unlockedModules, module.id],
-          currentPage: pageMapping[module.id] || prevProgress.currentPage,
-        };
-      });
-
+      // Unlock the module by spending keys
+      const newProgress = {
+        ...userProgress,
+        keys: userProgress.keys - module.keysRequired,
+        unlockedModules: [...userProgress.unlockedModules, module.id]
+      };
+      setUserProgress(newProgress);
       toast({
         title: "New Module Unlocked",
         description: `You've unlocked "${module.title}" by spending ${module.keysRequired} key${module.keysRequired > 1 ? 's' : ''}!`,
         variant: "default",
       });
-
-      // Don't do any "open module" here—let parent re-routing take effect
-      return;
     }
 
     if (!isUnlocked && !module.keysRequired) return;
@@ -108,14 +90,14 @@ export const ChecklistModule = ({
       'post-arrival': 'post-arrival',
       'integration': 'integration',
       'finance': 'finance-tracking',
-      'suggestions': 'suggestions',
+      'suggestions': 'suggestions', // <--- ADDED THIS LINE
     };
 
     if (pageMapping[module.id]) {
-      setUserProgress((prevProgress: typeof userProgress) => ({
-        ...prevProgress,
+      setUserProgress({
+        ...userProgress,
         currentPage: pageMapping[module.id]
-      }));
+      });
       return;
     }
 
