@@ -10,7 +10,92 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
-import { citiesData, School, City } from '@/data/schoolsData';
+
+// --- Define types and seed data directly in this file ---
+
+type School = {
+  id: string;
+  name: string;
+  description: string;
+  location: string;
+  tuition?: string;
+  programs: string[];
+  website?: string;
+  contact?: {
+    email?: string;
+    phone?: string;
+  };
+};
+
+type LocalInsight = {
+  title: string;
+  description: string;
+  tips: string[];
+};
+
+type City = {
+  name: string;
+  emoji?: string;
+  description: string;
+  schools: School[];
+  localInsights: LocalInsight[];
+};
+
+const citiesData: Record<string, City> = {
+  paris: {
+    name: "Paris",
+    emoji: "🗼",
+    description: "Capital city of France. Global center for art, fashion, and culture.",
+    schools: [
+      {
+        id: "hec-paris",
+        name: "HEC Paris",
+        description: "Top-ranked business school in France.",
+        location: "Jouy-en-Josas, Paris",
+        tuition: "€20,000/year",
+        programs: ["MBA", "MSc Marketing", "PhD Management"],
+        website: "https://www.hec.edu",
+        contact: { email: "admissions@hec.edu", phone: "+33 1 39 67 70 00" }
+      }
+    ],
+    localInsights: [
+      {
+        title: "Living Costs",
+        description: "Paris is relatively expensive, especially housing.",
+        tips: [
+          "Consider university residences for cheaper rent.",
+          "Public transport is efficient and widespread."
+        ]
+      }
+    ]
+  },
+  lyon: {
+    name: "Lyon",
+    emoji: "🦁",
+    description: "Renowned for cuisine and historical sites.",
+    schools: [
+      {
+        id: "emlyon",
+        name: "emlyon business school",
+        description: "Well-known for entrepreneurship programs.",
+        location: "Lyon, France",
+        tuition: "€16,900/year",
+        programs: ["MSc Management", "MBA"],
+        website: "https://www.em-lyon.com",
+      }
+    ],
+    localInsights: [
+      {
+        title: "Student-Friendly",
+        description: "Lyon is considered very student-friendly.",
+        tips: [
+          "Affordable housing compared to Paris.",
+          "Great food markets and student discounts."
+        ]
+      }
+    ]
+  }
+};
 
 // Helper to extract level from program name
 function extractCourseLevel(program: string): string {
