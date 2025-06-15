@@ -81,7 +81,12 @@ export const FrenchIntegrationPage = () => {
               <div className="rounded-t-2xl bg-gradient-to-br from-[#e3f0fe] to-[#f6faff] px-7 pt-8 pb-6 border-b border-[#e6ecf4]">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-2xl text-gray-700">
-                    {modulesMeta.find(m => m.key === expandedModuleKey)?.icon}
+                    {
+                      (() => {
+                        const Icon = modulesMeta.find(m => m.key === expandedModuleKey)?.icon;
+                        return Icon ? <Icon className="h-8 w-8 text-gray-700" /> : null;
+                      })()
+                    }
                   </span>
                   <span className="font-bold text-xl text-gray-800">{modulesMeta.find(m => m.key === expandedModuleKey)?.title}</span>
                   <span className="ml-auto bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded-full border">
