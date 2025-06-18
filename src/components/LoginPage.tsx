@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,7 +11,7 @@ import { User, Mail, Calendar, MapPin, GraduationCap, Briefcase } from 'lucide-r
 interface UserProfile {
   name: string;
   email: string;
-  age: number;
+  age: string;
   nationality: string;
   educationLevel: string;
   hasWorkExperience: boolean;
@@ -21,6 +22,11 @@ interface UserProfile {
   hasHealthIssues: boolean;
   isMarried: boolean;
   hasChildren: boolean;
+  about: string;
+  memberSince: string;
+  photo: string;
+  prevEducation: string;
+  workExperience: string;
 }
 
 interface LoginPageProps {
@@ -32,7 +38,7 @@ export const LoginPage = ({ onLogin }: LoginPageProps) => {
   const [profile, setProfile] = useState<UserProfile>({
     name: '',
     email: '',
-    age: 18,
+    age: '18',
     nationality: '',
     educationLevel: '',
     hasWorkExperience: false,
@@ -42,7 +48,12 @@ export const LoginPage = ({ onLogin }: LoginPageProps) => {
     targetProgram: '',
     hasHealthIssues: false,
     isMarried: false,
-    hasChildren: false
+    hasChildren: false,
+    about: '',
+    memberSince: '',
+    photo: '',
+    prevEducation: '',
+    workExperience: ''
   });
 
   const handleLogin = () => {
@@ -50,7 +61,7 @@ export const LoginPage = ({ onLogin }: LoginPageProps) => {
     const defaultProfile: UserProfile = {
       name: 'Student User',
       email: 'student@example.com',
-      age: 22,
+      age: '22',
       nationality: 'Indian',
       educationLevel: 'Bachelor',
       hasWorkExperience: false,
@@ -60,7 +71,12 @@ export const LoginPage = ({ onLogin }: LoginPageProps) => {
       targetProgram: 'Masters',
       hasHealthIssues: false,
       isMarried: false,
-      hasChildren: false
+      hasChildren: false,
+      about: '',
+      memberSince: new Date().toISOString().split('T')[0],
+      photo: '',
+      prevEducation: 'Bachelor',
+      workExperience: 'No'
     };
     onLogin(defaultProfile);
   };
@@ -70,7 +86,17 @@ export const LoginPage = ({ onLogin }: LoginPageProps) => {
       alert('Please fill in all required fields');
       return;
     }
-    onLogin(profile);
+    
+    const completeProfile: UserProfile = {
+      ...profile,
+      about: profile.about || '',
+      memberSince: new Date().toISOString().split('T')[0],
+      photo: profile.photo || '',
+      prevEducation: profile.prevEducation || profile.educationLevel,
+      workExperience: profile.hasWorkExperience ? 'Yes' : 'No'
+    };
+    
+    onLogin(completeProfile);
   };
 
   const updateProfile = (field: keyof UserProfile, value: any) => {
@@ -167,7 +193,7 @@ export const LoginPage = ({ onLogin }: LoginPageProps) => {
                       id="age"
                       type="number"
                       value={profile.age}
-                      onChange={(e) => updateProfile('age', parseInt(e.target.value))}
+                      onChange={(e) => updateProfile('age', e.target.value)}
                       min="16"
                       max="50"
                       className="mt-1"
