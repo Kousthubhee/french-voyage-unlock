@@ -1,4 +1,3 @@
-
 import { Bell, User, LogIn, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SidebarTrigger } from '@/components/ui/sidebar';
@@ -20,7 +19,7 @@ interface HeaderProps {
 interface UserProfile {
   name: string;
   email: string;
-  age: number;
+  age: string;
   nationality: string;
   educationLevel: string;
   hasWorkExperience: boolean;

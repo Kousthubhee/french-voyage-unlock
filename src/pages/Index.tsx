@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
@@ -14,7 +13,7 @@ console.log("[Index.tsx] Rendering Index Page");
 interface UserProfile {
   name: string;
   email: string;
-  age: number;
+  age: string;
   nationality: string;
   educationLevel: string;
   hasWorkExperience: boolean;

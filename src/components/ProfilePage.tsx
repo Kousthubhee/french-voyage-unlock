@@ -11,7 +11,7 @@ const defaultProfilePhoto = "https://images.unsplash.com/photo-1649972904349-6e4
 interface UserProfile {
   name: string;
   email: string;
-  age: number;
+  age: string;
   nationality: string;
   educationLevel: string;
   hasWorkExperience: boolean;
