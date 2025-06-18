@@ -22,6 +22,11 @@ interface UserProfile {
   hasHealthIssues: boolean;
   isMarried: boolean;
   hasChildren: boolean;
+  about: string;
+  memberSince: string;
+  photo: string;
+  prevEducation: string;
+  workExperience: string;
 }
 
 interface ProfilePageProps {
@@ -65,7 +70,7 @@ export const ProfilePage = ({ userProfile, setUserProfile }: ProfilePageProps) =
       <Card className="w-full shadow-lg rounded-xl animate-fade-in">
         <CardContent className="p-8 flex flex-col items-center">
           <img
-            src={defaultProfilePhoto}
+            src={userProfile.photo || defaultProfilePhoto}
             className="w-28 h-28 rounded-full object-cover border-2 border-blue-400 mb-6 shadow-md"
             alt="Profile"
           />
