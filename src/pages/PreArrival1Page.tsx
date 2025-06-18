@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,12 +22,10 @@ interface PreArrival1PageProps {
   onBack: () => void;
   onComplete: () => void;
   isCompleted: boolean;
-  profile: ProfileType; // Added profile prop
+  profile: ProfileType | null; // Made profile nullable
 }
 
 export const PreArrival1Page = ({ onBack, onComplete, isCompleted, profile }: PreArrival1PageProps) => {
-  // Removed useProfileState for local profile state
-
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [openSections, setOpenSections] = useState<string[]>([]);
   const [reminders, setReminders] = useState<{ [id: string]: string }>({});
@@ -42,14 +39,16 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted, profile }: Pr
     );
   };
 
-  // Personalized guidance detection:
-  const personalizedDocs = (profile: any) => {
+  // Personalized guidance detection with null checks:
+  const personalizedDocs = (userProfile: ProfileType | null) => {
     const alerts: string[] = [];
-    if ((profile.age && Number(profile.age) >= 23)) {
-      alerts.push("You are 23 or older, so extra experience and/or gap year documentation may be required.");
-    }
-    if (profile.workExperience && profile.workExperience.trim() && profile.workExperience.trim().toLowerCase() !== 'n/a') {
-      alerts.push("You reported work experience, so supporting documents are required for some steps.");
+    if (userProfile) {
+      if (userProfile.age && Number(userProfile.age) >= 23) {
+        alerts.push("You are 23 or older, so extra experience and/or gap year documentation may be required.");
+      }
+      if (userProfile.workExperience && userProfile.workExperience.trim() && userProfile.workExperience.trim().toLowerCase() !== 'n/a' && userProfile.workExperience.trim().toLowerCase() !== 'no') {
+        alerts.push("You reported work experience, so supporting documents are required for some steps.");
+      }
     }
     return alerts;
   };
@@ -75,10 +74,10 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted, profile }: Pr
           "Campus France fee payment receipt"
         ];
         // Only require Experience Letter & Gap justification if age > 23 or gap-year/experience data
-        if ((profile.age && Number(profile.age) >= 23) || (profile.workExperience && profile.workExperience.trim() && profile.workExperience.trim().toLowerCase() !== 'n/a')) {
+        if (profile && ((profile.age && Number(profile.age) >= 23) || (profile.workExperience && profile.workExperience.trim() && profile.workExperience.trim().toLowerCase() !== 'n/a' && profile.workExperience.trim().toLowerCase() !== 'no'))) {
           docs.splice(3,0,"Experience letter (if applicable)");
         }
-        if (profile.age && Number(profile.age) >= 23) {
+        if (profile && profile.age && Number(profile.age) >= 23) {
           docs.push("Gap year justification (if any)");
         }
         return docs;
@@ -112,10 +111,10 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted, profile }: Pr
           "SOP, expense sheet, CA statement (optional)"
         ];
         // Require extra docs for older or gap/experience applicants
-        if ((profile.age && Number(profile.age) >= 23) || (profile.workExperience && profile.workExperience.trim() && profile.workExperience.trim().toLowerCase() !== 'n/a')) {
+        if (profile && ((profile.age && Number(profile.age) >= 23) || (profile.workExperience && profile.workExperience.trim() && profile.workExperience.trim().toLowerCase() !== 'n/a' && profile.workExperience.trim().toLowerCase() !== 'no'))) {
           docs.splice(3, 0, "Experience letter (if applicable)");
         }
-        if (profile.age && Number(profile.age) >= 23) {
+        if (profile && profile.age && Number(profile.age) >= 23) {
           docs.push("Gap year justification (if any)");
         }
         return docs;
@@ -234,15 +233,15 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted, profile }: Pr
 
           // Identify if extra documents were shown due to age/experience
           let extraDocs: string[] = [];
-          if (item.documents.some((d: string) => d.toLowerCase().includes("experience letter"))) {
+          if (profile && item.documents.some((d: string) => d.toLowerCase().includes("experience letter"))) {
             if (
               (profile.age && Number(profile.age) >= 23) ||
-              (profile.workExperience && profile.workExperience.trim() && profile.workExperience.trim().toLowerCase() !== 'n/a')
+              (profile.workExperience && profile.workExperience.trim() && profile.workExperience.trim().toLowerCase() !== 'n/a' && profile.workExperience.trim().toLowerCase() !== 'no')
             ) {
               extraDocs.push("Experience Letter");
             }
           }
-          if (item.documents.some((d: string) => d.toLowerCase().includes("gap year justification"))) {
+          if (profile && item.documents.some((d: string) => d.toLowerCase().includes("gap year justification"))) {
             if (profile.age && Number(profile.age) >= 23) {
               extraDocs.push("Gap year justification");
             }
@@ -390,4 +389,3 @@ export const PreArrival1Page = ({ onBack, onComplete, isCompleted, profile }: Pr
     </div>
   );
 };
-
