@@ -11,20 +11,24 @@ import { ProfilePage } from "@/components/ProfilePage";
 
 console.log("[Index.tsx] Rendering Index Page");
 
-const defaultProfile = {
-  name: "",
-  email: "",
-  about: "",
-  memberSince: "",
-  photo: "",
-  age: '',
-  prevEducation: '',
-  workExperience: '',
-};
+interface UserProfile {
+  name: string;
+  email: string;
+  age: number;
+  nationality: string;
+  educationLevel: string;
+  hasWorkExperience: boolean;
+  hasGapYear: boolean;
+  gapYearDuration: number;
+  targetCity: string;
+  targetProgram: string;
+  hasHealthIssues: boolean;
+  isMarried: boolean;
+  hasChildren: boolean;
+}
 
 const Index = () => {
-  const [userProfile, setUserProfile] = useState(null);
-  const [profile, setProfile] = useState(defaultProfile);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [currentPage, setCurrentPage] = useState('checklist');
   const [userProgress, setUserProgress, resetProgress] = useLocalStorageProgress();
   const [selectedSchool, setSelectedSchool] = useState(null);
@@ -78,19 +82,21 @@ const Index = () => {
         <AppSidebar
           currentPage={currentPage}
           setCurrentPage={handlePageNavigation}
-          userName={profile.name}
-          userAvatarUrl={profile.photo}
+          userName={userProfile?.name || ''}
+          userAvatarUrl=""
         />
         <div className="flex-1 flex flex-col">
           <Header 
             currentPage={currentPage} 
             setCurrentPage={handlePageNavigation}
             userProgress={userProgress}
+            userProfile={userProfile}
+            setUserProfile={setUserProfile}
           />
           <main className="flex-1 p-4 md:p-8 main-area overflow-auto">
             <div className="max-w-5xl mx-auto animate-fade-in section-padding">
               {currentPage === "profile" ? (
-                <ProfilePage profile={profile} setProfile={setProfile} />
+                <ProfilePage userProfile={userProfile} setUserProfile={setUserProfile} />
               ) : (
                 <MainRouter
                   currentPage={currentPage}
@@ -101,7 +107,7 @@ const Index = () => {
                   selectedSchool={selectedSchool}
                   setSelectedSchool={setSelectedSchool}
                   handleProgressUpdate={handleProgressUpdate}
-                  profile={profile}
+                  profile={userProfile}
                 />
               )}
             </div>

@@ -13,6 +13,8 @@ interface HeaderProps {
     completedModules: string[];
     unlockedModules: string[];
   };
+  userProfile: UserProfile | null;
+  setUserProfile: (profile: UserProfile | null) => void;
 }
 
 interface UserProfile {
@@ -31,21 +33,19 @@ interface UserProfile {
   hasChildren: boolean;
 }
 
-export const Header = ({ currentPage, setCurrentPage, userProgress }: HeaderProps) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+export const Header = ({ currentPage, setCurrentPage, userProgress, userProfile, setUserProfile }: HeaderProps) => {
   const [showLogin, setShowLogin] = useState(false);
 
   const handleLogin = (profile: UserProfile) => {
     setUserProfile(profile);
-    setIsLoggedIn(true);
     setShowLogin(false);
   };
 
   const handleLogout = () => {
     setUserProfile(null);
-    setIsLoggedIn(false);
   };
+
+  const isLoggedIn = userProfile !== null;
 
   return (
     <>
