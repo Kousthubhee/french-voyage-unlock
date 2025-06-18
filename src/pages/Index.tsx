@@ -25,6 +25,11 @@ interface UserProfile {
   hasHealthIssues: boolean;
   isMarried: boolean;
   hasChildren: boolean;
+  about: string;
+  memberSince: string;
+  photo: string;
+  prevEducation: string;
+  workExperience: string;
 }
 
 const Index = () => {

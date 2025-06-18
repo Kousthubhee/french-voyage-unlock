@@ -31,13 +31,27 @@ interface UserProfile {
   hasHealthIssues: boolean;
   isMarried: boolean;
   hasChildren: boolean;
+  about: string;
+  memberSince: string;
+  photo: string;
+  prevEducation: string;
+  workExperience: string;
 }
 
 export const Header = ({ currentPage, setCurrentPage, userProgress, userProfile, setUserProfile }: HeaderProps) => {
   const [showLogin, setShowLogin] = useState(false);
 
   const handleLogin = (profile: UserProfile) => {
-    setUserProfile(profile);
+    // Add the missing properties with default values
+    const completeProfile = {
+      ...profile,
+      about: profile.about || '',
+      memberSince: profile.memberSince || new Date().toISOString().split('T')[0],
+      photo: profile.photo || '',
+      prevEducation: profile.prevEducation || profile.educationLevel || '',
+      workExperience: profile.workExperience || (profile.hasWorkExperience ? 'Yes' : 'No')
+    };
+    setUserProfile(completeProfile);
     setShowLogin(false);
   };
 
