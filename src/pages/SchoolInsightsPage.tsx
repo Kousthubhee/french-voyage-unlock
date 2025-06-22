@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { CityCard } from "@/components/school-insights/CityCard";
 import { CityInsightsCard } from "@/components/school-insights/CityInsightsCard";
 import { InsightsDialog } from "@/components/school-insights/InsightsDialog";
-import { SchoolDetail } from "@/components/school-insights/SchoolDetail";
+import { SchoolDetailRouter } from "@/components/school-insights/SchoolDetailRouter";
 import { schools, School } from "@/data/schoolData";
 import { cityData, getCityDetails, City } from "@/data/cityData";
 import { CitySelection } from "./school-insights/CitySelection";
@@ -39,13 +39,8 @@ export function SchoolInsightsPage({ onBack }: SchoolInsightsPageProps) {
 
   if (selectedSchool) {
     return (
-      <SchoolDetail
-        school={{
-          ...selectedSchool,
-          programs: selectedSchool.subjects || [],
-          website: selectedSchool.website || "",
-          location: selectedSchool.city || "",
-        }}
+      <SchoolDetailRouter
+        school={selectedSchool}
         onBack={() => setSelectedSchool(null)}
       />
     );
